@@ -12,7 +12,7 @@ import {
 import Header from "../../header.container";
 
 ///// MAIN Content /////
-import Offer from "./offer.container";
+import OfferCardList from "./offer-card-list.container";
 
 ///// UI elements /////
 import ButtonRound from "../../../components/UI/button-round";
@@ -55,7 +55,7 @@ class Proposal extends Component {
               <Switch>
                 <Route path="/propunere/despre-noi" />
                 <Route path="/propunere/imagini" />
-                <Route path="/propunere/oferta" component={Offer} />
+                <Route path="/propunere/oferta" component={OfferCardList} />
               </Switch>
             </StyledUL>
           </MainContent>

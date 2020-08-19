@@ -16,12 +16,18 @@ import {
 class OfferCard extends Component {
   state = {
     textCard: {
-      id: 1.0,
+      id: 0,
       title: "",
       secondaryTitle: "",
       text: "",
     },
     savedCard: {
+      content: {},
+      plan: {},
+    },
+    defaultCard: {},
+
+    deletedCard: {
       content: {},
       plan: {},
     },
@@ -60,7 +66,6 @@ class OfferCard extends Component {
     updatedPressedPlan[0] = text;
 
     this.setState({
-      ...this.state,
       offerPlan: updatedOfferPlan,
 
       pressedPlan: updatedPressedPlan,
@@ -91,21 +96,25 @@ class OfferCard extends Component {
       textCard: updateContent,
     });
   };
+  onDeleteHandler = () => {
+    this.props.onDelete(this.props.idx);
+  };
   onSaveHandler = () => {
-    const newCard = this.state.savedCard;
+    const newCard = { ...this.state.savedCard };
     newCard.content = { ...this.state.textCard };
-    newCard.content.id = this.props.id;
+    newCard.content.id = (1.0 + this.props.id / 10).toFixed(1);
+    newCard.idx = this.props.id;
 
     newCard.plan = { ...this.state.offerPlan };
 
     this.setState({
       savedCard: newCard,
     });
-    this.props.onSave(this.state.savedCard);
+    this.props.onSave(newCard, this.props.id);
   };
 
   getText = (text) => {
-    const updateCardText = this.state.textCard;
+    const updateCardText = { ...this.state.textCard };
     updateCardText.text = text;
     this.setState({
       textCard: updateCardText,
@@ -113,13 +122,12 @@ class OfferCard extends Component {
   };
 
   render() {
-    const { id, title, secondaryTitle } = this.state.textCard;
-    const displayID = 1.0;
+    const { title, secondaryTitle } = this.state.textCard;
 
     return (
       <TextContainer>
         <TextRegular bold style={{ fontSize: "18px", lineHeight: "22px" }}>
-          {!id.toFixed(1) ? +displayID.toFixed(1) : this.props.id}
+          {(1.0 + this.props.id / 10).toFixed(1)}
         </TextRegular>
         <div
           style={{
@@ -130,7 +138,7 @@ class OfferCard extends Component {
             height: "auto",
           }}
         >
-          {this.props.id <= 1.0 ? (
+          {this.props.id === 0 ? (
             <TextInput
               titleStyle
               black
@@ -142,6 +150,7 @@ class OfferCard extends Component {
           ) : (
             ""
           )}
+
           <TextInput
             secondaryTitle
             black
@@ -159,9 +168,18 @@ class OfferCard extends Component {
               textAlign: "right",
             }}
           >
-            <TextSmall hovered red style={{ marginLeft: "34px" }}>
-              sterge
-            </TextSmall>
+            {this.state.savedCard.content.id >= 0 ? (
+              <TextSmall
+                onClick={this.props.onDelete}
+                hovered
+                red
+                style={{ marginLeft: "34px" }}
+              >
+                sterge
+              </TextSmall>
+            ) : (
+              ""
+            )}
 
             <TextSmall
               hovered

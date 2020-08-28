@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 ///// PAGES /////
-import Proposal from "./containers/pages/proposal/proposal.page";
+import ProposalShow from "./containers/pages/proposal/proposal-show.page";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Switch>
         <Route exact path="/" />
         <Route path="/profil" />
-        <Route path="/propunere" component={Proposal} />
+        <Route path="/propunere" component={ProposalShow} />
       </Switch>
     </React.Fragment>
   );

@@ -4,7 +4,7 @@ import styled from "styled-components";
 ///// UI elements /////
 import { TextRegular } from "../../../components/UI/ui-elements";
 
-class CardContent extends Component {
+class TextArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,4 +71,4 @@ const TextAreaStyled = styled.textarea`
   color: inherit;
 `;
 
-export default CardContent;
+export default TextArea;

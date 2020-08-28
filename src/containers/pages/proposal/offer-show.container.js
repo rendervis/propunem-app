@@ -3,11 +3,11 @@ import React, { Component } from "react";
 import _ from "lodash";
 
 ///// COMPONENTS /////
-import OfferCard from "./offer-card.container";
+import OfferCard from "./offer-form.container";
 
-class OfferCardList extends Component {
+class OfferShow extends Component {
   state = {
-    cardsList: [],
+    proposal: {},
     card: {},
     showCards: false,
     isEditable: false,
@@ -15,24 +15,36 @@ class OfferCardList extends Component {
   };
 
   onSaveHandler = (savedCard, cardIndex) => {
+    console.log("[onSaveHandler]", cardIndex);
+
     savedCard.isSaved = true;
     savedCard.isDeleted = false;
-    let updatedCardsList = [...this.state.cardsList];
 
-    const index = updatedCardsList.findIndex((e) => e.idx === savedCard.idx);
+    let updatedProposal = {
+      ...this.state.proposal,
+      [cardIndex]: _.assign(savedCard),
+    };
 
-    if (index !== cardIndex) {
-      updatedCardsList.push(savedCard);
-    } else {
-      updatedCardsList[cardIndex] = savedCard;
-    }
+    // const index = updatedCardsList.findIndex((e) => e.idx === cardIndex);
+    // console.log(index);
 
-    if (this.state.card) {
-      this.setState({ showCards: true });
-    }
+    // if (index !== cardIndex && cardIndex === 0) {
+    //   updatedCardsList.push(savedCard, defaultCard);
+    // } else if (index !== cardIndex) {
+    //   updatedCardsList.push(savedCard);
+    // }
+
+    // if (index === cardIndex) {
+    //   updatedCardsList[index] = savedCard;
+    // }
+
+    // if (this.state.card) {
+    //   this.setState({ showCards: true });
+    // }
     this.setState({
       card: savedCard,
-      cardsList: updatedCardsList,
+      proposal: updatedProposal,
+      showCards: true,
     });
   };
 
@@ -48,10 +60,11 @@ class OfferCardList extends Component {
   };
 
   renderList = () => {
-    console.log("[renderList]", this.state.cardsList);
-    return _.map(this.state.cardsList, (card, index) => {
-      console.log(index);
-      console.log(card.isSaved);
+    console.log("[renderList]", this.state.proposal);
+    const cardsList = Object.values(this.state.proposal);
+    return _.map(cardsList, (card, index) => {
+      // console.log(index);
+      // console.log(card.isSaved);
       return (
         <OfferCard
           key={card.secondaryTitle}
@@ -85,20 +98,26 @@ class OfferCardList extends Component {
   // };
 
   render() {
-    console.log("[showCards]", this.state.showCards);
+    console.log("[showCards]", this.state.proposal);
     let defaultCard = <OfferCard id={0.0} onSave={this.onSaveHandler} />;
     let cards = null;
 
     if (this.state.showCards) {
-      cards = this.renderList();
+      cards = <React.Fragment>{this.renderList()}</React.Fragment>;
     } else {
       cards = defaultCard;
     }
 
-    return <ul>{cards}</ul>;
+    return (
+      <React.Fragment>
+        <ul>{cards}</ul>
+      </React.Fragment>
+    );
   }
 }
 
-export default OfferCardList;
+export default OfferShow;
 
 // id={(1.1 + index / 10).toFixed(1)}
+
+//updated offer-card-list.container

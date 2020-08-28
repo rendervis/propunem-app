@@ -12,14 +12,14 @@ import {
 import Header from "../../header.container";
 
 ///// MAIN Content /////
-import OfferCardList from "./offer-card-list.container";
+import OfferShow from "./offer-show.container";
 
 ///// UI elements /////
 import ButtonRound from "../../../components/UI/button-round";
 
 import { TitleText } from "../../../components/UI/ui-elements";
 
-class Proposal extends Component {
+class ProposalShow extends Component {
   //TODO: change {serviceName} from choose service options when
   // clicking the AddProposalButton
 
@@ -55,7 +55,7 @@ class Proposal extends Component {
               <Switch>
                 <Route path="/propunere/despre-noi" />
                 <Route path="/propunere/imagini" />
-                <Route path="/propunere/oferta" component={OfferCardList} />
+                <Route path="/propunere/oferta" component={OfferShow} />
               </Switch>
             </StyledUL>
           </MainContent>
@@ -123,4 +123,4 @@ const StyledUL = styled.ul`
   /* position: relative; */
 `;
 
-export default Proposal;
+export default ProposalShow;

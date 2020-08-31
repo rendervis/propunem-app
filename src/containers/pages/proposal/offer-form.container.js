@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 
+import SavedOfferCard from "../../../models/savedOfferCard";
+
 import styled from "styled-components";
 
 ///// COMPONENTS /////
 
-import CardContent from "./text-area.";
+import TextArea from "./text-area.";
 ///// UI elements /////
 import {
   TextRegular,
@@ -16,42 +18,25 @@ import {
 class OfferForm extends Component {
   state = {
     textCard: {
-      id: 0,
       title: "",
       secondaryTitle: "",
       text: "",
     },
-    savedCard: {
-      content: {},
-      plan: {},
-    },
-    defaultCard: {},
-
-    deletedCard: {
-      content: {},
-      plan: {},
-    },
-
     offerPlan: {
       standard: false,
       recomandat: false,
       premium: false,
     },
-
     smallText: ["standard", "recomandat", "premium"],
-
-    pressedPlan: [],
   };
 
-  renderTitle = ({ input, title }) => {
-    console.log("[renderTitle]", input);
+  renderTitle = ({ input, title, meta: { visited, touched } }) => {
     return (
       <React.Fragment>
         <TextInput
           {...input}
           titleStyle
           black
-          type="text"
           placeholder="Adauga titlu"
           value={title}
           onChange={this.onInputChangeTitle}
@@ -65,7 +50,6 @@ class OfferForm extends Component {
         {...input}
         secondaryTitle
         black
-        type="text"
         placeholder="Mica descriere (durata in ore)"
         value={secondaryTitle}
         onChange={this.onInputChangeSecondaryTitle}
@@ -73,20 +57,19 @@ class OfferForm extends Component {
     );
   };
 
-  renderTextArea = ({ input, text }) => {
-    return <CardContent {...input} text={text} />;
+  renderTextArea = ({
+    input,
+    textArea,
+    meta: { touched, error, disabled },
+  }) => {
+    return (
+      <TextArea
+        {...input}
+        onChange={this.onInputChangeTextArea}
+        value={textArea}
+      />
+    );
   };
-
-  // postDataHandler = () => {
-  //   const post = {
-  //     content: this.state.textCard.content,
-  //   };
-  //   const toJson = JSON.stringify(post);
-
-  //   axios.post("/compose", toJson).then((response) => {
-  //     console.log(response);
-  //   });
-  // };
 
   handleOfferPlan = (event) => {
     let text = event.target.textContent;
@@ -95,14 +78,8 @@ class OfferForm extends Component {
       ...this.state.offerPlan,
     };
     updatedOfferPlan[text] = !this.state.offerPlan[text];
-
-    let updatedPressedPlan = this.state.pressedPlan;
-    updatedPressedPlan[0] = text;
-
     this.setState({
       offerPlan: updatedOfferPlan,
-
-      pressedPlan: updatedPressedPlan,
     });
   };
 
@@ -122,41 +99,37 @@ class OfferForm extends Component {
       textCard: updateSecondaryTitle,
     });
   };
-  onInputChangeContent = (event) => {
-    const newContent = event.target.value;
-    const updateContent = this.state.textCard;
-    updateContent.content = newContent;
+
+  onInputChangeTextArea = (text) => {
+    const newText = text;
+    const updateCardText = this.state.textCard;
+    updateCardText.text = newText;
     this.setState({
-      textCard: updateContent,
+      textCard: updateCardText,
     });
   };
-  onDeleteHandler = () => {
-    this.props.onDelete(this.props.idx);
-  };
+
   onSaveHandler = () => {
-    const newCard = { ...this.state.savedCard };
-    newCard.content = { ...this.state.textCard };
-    newCard.content.id = (1.0 + this.props.id / 10).toFixed(1);
+    const newCard = new SavedOfferCard();
+    newCard.textCard = { ...this.state.textCard };
+    newCard.textCard.id = (1.0 + this.props.id / 10).toFixed(1);
     newCard.idx = this.props.id;
 
-    newCard.plan = { ...this.state.offerPlan };
+    newCard.offerPlan = { ...this.state.offerPlan };
 
     this.setState({
       savedCard: newCard,
     });
     this.props.onSave(newCard, this.props.id);
   };
-
-  getText = (text) => {
-    const updateCardText = { ...this.state.textCard };
-    updateCardText.text = text;
-    this.setState({
-      textCard: updateCardText,
-    });
+  onDeleteHandler = (props) => {
+    console.log("[onDeleteHandler]", props);
+    this.props.onDelete();
   };
 
   render() {
-    const { title, secondaryTitle } = this.state.textCard;
+    const { title, secondaryTitle, text } = this.state.textCard;
+    // console.log("[onSaveHandler]", this.props);
 
     return (
       <React.Fragment>
@@ -176,6 +149,7 @@ class OfferForm extends Component {
             >
               {this.props.id === 0 ? (
                 <Field
+                  type="text"
                   name="title"
                   title={title}
                   component={this.renderTitle}
@@ -185,14 +159,16 @@ class OfferForm extends Component {
               )}
 
               <Field
+                type="text"
                 name="secondaryTitle"
                 secondaryTitle={secondaryTitle}
                 component={this.renderSecondaryTitle}
               />
 
               <Field
+                type="text"
                 name="textArea"
-                text={this.getText}
+                textArea={text}
                 component={this.renderTextArea}
               />
               <div
@@ -202,9 +178,9 @@ class OfferForm extends Component {
                   textAlign: "right",
                 }}
               >
-                {this.state.savedCard.content.id >= 0 ? (
+                {this.props.idx ? (
                   <TextSmall
-                    onClick={this.props.onDelete}
+                    onClick={this.onDeleteHandler}
                     hovered
                     red
                     style={{ marginLeft: "34px" }}
@@ -251,5 +227,5 @@ const TextContainer = styled.div`
 `;
 
 export default reduxForm({
-  form: "offerForm",
+  form: "offerCard",
 })(OfferForm);

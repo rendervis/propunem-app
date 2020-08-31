@@ -20,7 +20,7 @@ class TextArea extends Component {
     this.setState({
       text: updateText,
     });
-    this.props.text(event.target.value);
+    this.props.onChange(event.target.value);
   };
   autoGrow = () => {
     const { scrollHeight, clientHeight, style } = this.textareaRef.current;
@@ -36,18 +36,15 @@ class TextArea extends Component {
     return (
       <TextRegular>
         <TextAreaStyled
+          {...this.props}
           ref={this.textareaRef}
           onKeyUp={this.autoGrow}
           placeholder={this.state.defaultValue}
-          value={this.state.text}
-          text={this.state.text}
           onChange={this.onInputChangeContent}
           rows="1"
           minLength="10"
           maxLength="200"
-        >
-          {this.props.children}
-        </TextAreaStyled>
+        />
       </TextRegular>
     );
   }

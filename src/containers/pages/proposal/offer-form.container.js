@@ -122,10 +122,6 @@ class OfferForm extends Component {
     });
     this.props.onSave(newCard, this.props.id);
   };
-  onDeleteHandler = (props) => {
-    console.log("[onDeleteHandler]", props);
-    this.props.onDelete();
-  };
 
   render() {
     const { title, secondaryTitle, text } = this.state.textCard;
@@ -180,7 +176,7 @@ class OfferForm extends Component {
               >
                 {this.props.idx ? (
                   <TextSmall
-                    onClick={this.onDeleteHandler}
+                    onClick={this.props.onDelete}
                     hovered
                     red
                     style={{ marginLeft: "34px" }}

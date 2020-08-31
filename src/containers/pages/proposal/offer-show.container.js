@@ -13,6 +13,35 @@ import _ from "lodash";
 import OfferCard from "./offer-form.container";
 
 class OfferShow extends Component {
+  state = {
+    keyList: [],
+  };
+  componentDidMount() {
+    this.props.showCards(this.props.cards);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("[componentDidUpdate  :]");
+    if (prevProps.cards !== this.props.cards) {
+      console.log("[componentDidUpdate - if:]", "CHANGE");
+      this.renderList();
+    }
+  }
+  getRndInteger = () => {
+    return Math.round(Math.random().toFixed(5) * 1000);
+  };
+
+  handleKeyList = () => {
+    let newKeyList = this.state.keyList;
+
+    let newKey = Math.round(Math.random().toFixed(5) * 1000);
+
+    while (newKeyList.includes(newKey)) {
+      newKey = Math.round(Math.random().toFixed(5) * 1000);
+    }
+    newKeyList.push(newKey, newKey * 7);
+    this.setState({ keyList: newKeyList });
+  };
+
   onSaveHandler = (savedCard, cardIndex) => {
     let defaultCard = {
       textCard: {
@@ -27,31 +56,43 @@ class OfferShow extends Component {
         premium: false,
       },
     };
-
+    this.handleKeyList();
+    savedCard.key = this.state.keyList[cardIndex];
     this.props.createCard(savedCard, cardIndex);
-    let lastIndex = cardIndex + 1;
-    this.props.showDefault(defaultCard, lastIndex);
+
+    let defaultCardIndex = cardIndex + 1;
+    defaultCard.key = this.state.keyList[cardIndex + 1];
+    this.props.showDefault(defaultCard, defaultCardIndex);
   };
 
-  onDeleteHandler = (id) => {
-    console.log("[onDeleteHandler]", id);
-
+  onDeleteHandler = (key, id) => {
+    // const id = this.props.cards.indexOf(key);
+    console.log("[onDeleteHandler]", key);
     this.props.deleteCard(id);
+    let newKeyList = this.state.keyList;
+
+    // console.log("[onDeleteHandler - BEFORE]", newKeyList);
+    const index = newKeyList.indexOf(key);
+    if (index > -1) {
+      newKeyList.splice(index, 1);
+    }
+    // console.log("[onDeleteHandler - AFTER]", newKeyList);
+
+    this.setState({
+      keyList: newKeyList,
+    });
   };
 
   renderList = () => {
-    return this.props.cards.map((card, index) => {
-      console.log("[renderList]", card.textCard.secondaryTitle + index);
-
-      return (
-        <OfferCard
-          id={index}
-          idx={index}
-          onSave={this.onSaveHandler}
-          onDelete={() => this.props.deleteCard(index)}
-        />
-      );
-    });
+    return this.props.cards.map((card, index) => (
+      <OfferCard
+        key={card.index}
+        id={index}
+        idx={index}
+        onSave={this.onSaveHandler}
+        onDelete={() => this.onDeleteHandler(card.key, index)}
+      />
+    ));
   };
 
   render() {
@@ -69,11 +110,7 @@ class OfferShow extends Component {
       cards = this.renderList();
     }
 
-    return (
-      <React.Fragment>
-        <div>{cards}</div>
-      </React.Fragment>
-    );
+    return <ul>{cards}</ul>;
   }
 }
 

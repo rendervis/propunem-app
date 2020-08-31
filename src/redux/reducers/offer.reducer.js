@@ -14,7 +14,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("[offer.reducer]", state);
+  console.log("[offer.reducer]", action.type, state.cards);
   switch (action.type) {
     case SHOW_CARDS:
       return {
@@ -41,9 +41,11 @@ export default (state = initialState, action) => {
         cards: { ...state.cards, [action.idx]: action.payload },
       };
     case DELETE_CARD:
+      console.log(action.payload.toString());
+
       return {
         ...state,
-        cards: _.omit(state.cards, action.payload),
+        cards: _.omit(state.cards, action.payload.toString()),
       };
 
     default:

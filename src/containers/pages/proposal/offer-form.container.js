@@ -28,6 +28,7 @@ class OfferForm extends Component {
       premium: false,
     },
     smallText: ["standard", "recomandat", "premium"],
+    isSaved: false,
   };
 
   renderTitle = ({ input, title, meta: { visited, touched } }) => {
@@ -113,105 +114,108 @@ class OfferForm extends Component {
     const newCard = new SavedOfferCard();
     newCard.textCard = { ...this.state.textCard };
     newCard.textCard.id = (1.0 + this.props.id / 10).toFixed(1);
-    newCard.idx = this.props.id;
+    // console.log("[onSaveHandler]", typeof newCard.textCard.id);
+    newCard.idx = this.props.id + 1;
+    newCard.isSaved = true;
 
     newCard.offerPlan = { ...this.state.offerPlan };
 
     this.setState({
       savedCard: newCard,
+      isSaved: true,
     });
-    this.props.onSave(newCard, this.props.id);
+    this.props.onSave(newCard, this.props.id + 1);
   };
 
   render() {
+    // console.log("[OfferForm]", this.props);
     const { title, secondaryTitle, text } = this.state.textCard;
-    // console.log("[onSaveHandler]", this.props);
+    // console.log("[onSubmit formValues: ]", this.props);
 
     return (
-      <React.Fragment>
-        <form>
-          <TextContainer>
-            <TextRegular bold style={{ fontSize: "18px", lineHeight: "22px" }}>
-              {(1.0 + this.props.id / 10).toFixed(1)}
-            </TextRegular>
+      <form>
+        <TextContainer>
+          <TextRegular bold style={{ fontSize: "18px", lineHeight: "22px" }}>
+            {(1.0 + this.props.id / 10).toFixed(1)}
+          </TextRegular>
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "column",
+              marginLeft: "36px",
+              width: "836px",
+              height: "auto",
+            }}
+          >
+            {this.props.id === 0 ? (
+              <Field
+                type="text"
+                name="title"
+                title={title}
+                component={this.renderTitle}
+              />
+            ) : (
+              ""
+            )}
+
+            <Field
+              type="text"
+              name="secondaryTitle"
+              secondaryTitle={secondaryTitle}
+              component={this.renderSecondaryTitle}
+            />
+
+            <Field
+              type="text"
+              name="textArea"
+              textArea={text}
+              component={this.renderTextArea}
+            />
+
             <div
               style={{
                 display: "flex",
-                flexFlow: "column",
-                marginLeft: "36px",
-                width: "836px",
-                height: "auto",
+                flexFlow: "row-reverse ",
+                textAlign: "right",
               }}
             >
-              {this.props.id === 0 ? (
-                <Field
-                  type="text"
-                  name="title"
-                  title={title}
-                  component={this.renderTitle}
-                />
+              {this.props.isSaved ? (
+                <TextSmall
+                  onClick={this.props.onDelete}
+                  hovered
+                  red
+                  style={{ marginLeft: "34px" }}
+                >
+                  sterge
+                </TextSmall>
               ) : (
                 ""
               )}
 
-              <Field
-                type="text"
-                name="secondaryTitle"
-                secondaryTitle={secondaryTitle}
-                component={this.renderSecondaryTitle}
-              />
-
-              <Field
-                type="text"
-                name="textArea"
-                textArea={text}
-                component={this.renderTextArea}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexFlow: "row-reverse ",
-                  textAlign: "right",
-                }}
+              <TextSmall
+                hovered
+                red
+                style={{ marginLeft: "34px" }}
+                onClick={this.onSaveHandler}
               >
-                {this.props.idx ? (
-                  <TextSmall
-                    onClick={this.props.onDelete}
-                    hovered
-                    red
-                    style={{ marginLeft: "34px" }}
-                  >
-                    sterge
-                  </TextSmall>
-                ) : (
-                  ""
-                )}
+                salveaza
+              </TextSmall>
 
+              {this.state.smallText.map((text, index) => (
                 <TextSmall
+                  key={index}
                   hovered
-                  red
-                  style={{ marginLeft: "34px" }}
-                  onClick={this.onSaveHandler}
+                  style={{ marginLeft: "24px" }}
+                  onClick={this.handleOfferPlan}
+                  blue={this.state.offerPlan[text]}
                 >
-                  salveaza
+                  {text}
                 </TextSmall>
-
-                {this.state.smallText.map((text, index) => (
-                  <TextSmall
-                    key={index}
-                    hovered
-                    style={{ marginLeft: "24px" }}
-                    onClick={this.handleOfferPlan}
-                    blue={this.state.offerPlan[text]}
-                  >
-                    {text}
-                  </TextSmall>
-                ))}
-              </div>
+              ))}
             </div>
-          </TextContainer>
-        </form>
-      </React.Fragment>
+          </div>
+        </TextContainer>
+      </form>
     );
   }
 }

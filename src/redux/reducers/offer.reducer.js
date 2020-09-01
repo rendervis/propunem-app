@@ -14,11 +14,10 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("[offer.reducer]", action.type, state.cards);
+  // console.log("[offer.reducer]", action.type);
   switch (action.type) {
     case SHOW_CARDS:
       return {
-        ...state,
         cards: {
           ...state.cards,
 
@@ -26,26 +25,30 @@ export default (state = initialState, action) => {
         },
       };
     case SHOW_DEFAULT:
+      // console.log("[ SHOW_DEFAULT:]", action);
+      // console.log("[ SHOW_DEFAULT:]", state.cards);
       return {
         ...state,
-        cards: { ...state.cards, [action.idx]: action.payload },
+        cards: { ...state.cards, [action.payload.idx]: action.payload },
       };
     case CREATE_CARD:
+      // console.log("[CREATE_CARD]", action);
       return {
         ...state,
-        cards: { ...state.cards, [action.idx]: action.payload },
+        cards: { ...state.cards, [action.payload.idx]: action.payload },
       };
     case UPDATE_CARD:
       return {
         ...state,
-        cards: { ...state.cards, [action.idx]: action.payload },
+        cards: { ...state.cards, [action.payload.idx]: action.payload },
       };
     case DELETE_CARD:
-      console.log(action.payload.toString());
+      // console.log("[DELETE_CARD:]", action.payload);
+      // _.omit(state.cards, action.payload),
 
       return {
         ...state,
-        cards: _.omit(state.cards, action.payload.toString()),
+        cards: _.omit(state.cards, action.payload),
       };
 
     default:

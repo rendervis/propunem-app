@@ -44,7 +44,7 @@ class ProposalShow extends Component {
             </MenuContainer>
           </LeftSide>
           <MainContent>
-            <StyledUL
+            <div
               style={{
                 marginTop: "175px",
                 marginLeft: "80px",
@@ -57,7 +57,7 @@ class ProposalShow extends Component {
                 <Route path="/propunere/imagini" />
                 <Route path="/propunere/oferta" component={OfferShow} />
               </Switch>
-            </StyledUL>
+            </div>
           </MainContent>
         </ProposalPageLayout>
       </React.Fragment>

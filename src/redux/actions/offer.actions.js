@@ -1,19 +1,15 @@
 import * as type from "./offer.types";
 
-export const createCard = (savedCard, cardIndex) => {
+export const createCard = (savedCard) => {
   return {
     type: type.CREATE_CARD,
     payload: savedCard,
-    idx: cardIndex,
   };
 };
 export const showDefault = (defaultCard, lastIndex) => {
-  return (dispatch) => {
-    dispatch({
-      type: type.SHOW_DEFAULT,
-      payload: defaultCard,
-      idx: lastIndex,
-    });
+  return {
+    type: type.SHOW_DEFAULT,
+    payload: defaultCard,
   };
 };
 
@@ -36,10 +32,8 @@ export const updateCard = (id, formValues) => {
 };
 
 export const deleteCard = (id) => {
-  return (dispatch) => {
-    dispatch({
-      type: type.DELETE_CARD,
-      payload: id,
-    });
+  return {
+    type: type.DELETE_CARD,
+    payload: id,
   };
 };

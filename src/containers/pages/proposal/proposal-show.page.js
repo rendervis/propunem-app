@@ -13,6 +13,7 @@ import Header from "../../header.container";
 
 ///// MAIN Content /////
 import OfferShow from "./offer-show.container";
+import AboutUs from "./about-us.container";
 
 ///// UI elements /////
 import ButtonRound from "../../../components/UI/button-round";
@@ -53,7 +54,7 @@ class ProposalShow extends Component {
               }}
             >
               <Switch>
-                <Route path="/propunere/despre-noi" />
+                <Route path="/propunere/despre-noi" component={AboutUs} />
                 <Route path="/propunere/imagini" />
                 <Route path="/propunere/oferta" component={OfferShow} />
               </Switch>

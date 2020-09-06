@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 ///// COMPONENTS /////
 
-import TextArea from "./text-area.";
+import TextArea from "./text-area";
 ///// UI elements /////
 import {
   TextRegular,
@@ -126,9 +126,13 @@ class OfferForm extends Component {
     });
     this.props.onSave(newCard, this.props.id + 1);
   };
+  onUpdateHandler = () => {
+    // console.log("[onUpdateHandler]", this.props);
+    this.props.onUpdate(this.props.id + 1);
+  };
 
   render() {
-    // console.log("[OfferForm]", this.props);
+    // console.log("[OfferForm]");
     const { title, secondaryTitle, text } = this.state.textCard;
     // console.log("[onSubmit formValues: ]", this.props);
 
@@ -192,14 +196,25 @@ class OfferForm extends Component {
                 ""
               )}
 
-              <TextSmall
-                hovered
-                red
-                style={{ marginLeft: "34px" }}
-                onClick={this.onSaveHandler}
-              >
-                salveaza
-              </TextSmall>
+              {this.props.isSaved ? (
+                <TextSmall
+                  hovered
+                  style={{ marginLeft: "34px" }}
+                  onClick={this.onUpdateHandler}
+                  red={this.props.touch}
+                >
+                  modifica
+                </TextSmall>
+              ) : (
+                <TextSmall
+                  hovered
+                  red
+                  style={{ marginLeft: "34px" }}
+                  onClick={this.onSaveHandler}
+                >
+                  salveaza
+                </TextSmall>
+              )}
 
               {this.state.smallText.map((text, index) => (
                 <TextSmall
@@ -228,4 +243,5 @@ const TextContainer = styled.div`
 
 export default reduxForm({
   form: "offerCard",
+  touchOnChange: true,
 })(OfferForm);

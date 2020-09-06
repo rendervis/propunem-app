@@ -31,11 +31,16 @@ export const TextSmall = styled.p`
   letter-spacing: normal;
   text-align: left;
   color: #777777;
-  
+
   ${(props) =>
     props.black &&
     css`
       color: #000000;
+    `}
+  ${(props) =>
+    props.display &&
+    css`
+      display: none;
     `}
   ${(props) =>
     props.blue &&
@@ -70,7 +75,7 @@ export const TextRegular = styled.p`
   line-height: 22px;
   letter-spacing: 1px;
   text-align: left;
-  color: #6F6F6F;
+  color: #6f6f6f;
   margin-bottom: 24px;
 
   ${(props) =>
@@ -135,7 +140,7 @@ export const TextInput = styled.input`
   line-height: 22px;
   letter-spacing: 1px;
   text-align: left;
-  color: #6F6F6F;
+  color: #6f6f6f;
   margin-bottom: 24px;
 
   ${(props) =>

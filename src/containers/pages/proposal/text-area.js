@@ -33,6 +33,7 @@ class TextArea extends Component {
   };
 
   render() {
+    // console.log("[TextArea extends ->]", this.props);
     return (
       <TextRegular>
         <TextAreaStyled

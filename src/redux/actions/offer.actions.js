@@ -6,7 +6,7 @@ export const createCard = (savedCard) => {
     payload: savedCard,
   };
 };
-export const showDefault = (defaultCard, lastIndex) => {
+export const showDefault = (defaultCard) => {
   return {
     type: type.SHOW_DEFAULT,
     payload: defaultCard,
@@ -20,14 +20,10 @@ export const showCards = (cards) => {
   };
 };
 
-export const updateCard = (id, formValues) => {
-  return (dispatch) => {
-    // const response = await streams.patch(`/streams/${id}`, formValues);
-
-    dispatch({
-      type: type.UPDATE_CARD,
-      payload: formValues,
-    });
+export const updateCard = (updatedCard) => {
+  return {
+    type: type.UPDATE_CARD,
+    payload: updatedCard,
   };
 };
 

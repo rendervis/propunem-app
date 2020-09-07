@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import TextArea from "./text-area";
-import { TextSmall } from "../../../components/UI/ui-elements";
-
 import {
   showText,
   createText,
   deleteText,
   showDefault,
-} from "../../../redux/actions/about-us.actions";
+} from "../../../redux/actions/our-approach.actions";
+
+import TextArea from "./text-area";
+import { TextSmall } from "../../../components/UI/ui-elements";
 
 let random = [
   0x10,
@@ -30,9 +29,10 @@ let random = [
   0x36,
 ];
 
-const textAreaPlaceHolder = "Care este povestea ta? Cum ai inceput?";
+const textAreaPlaceHolder =
+  "Ce te face să ieși în evidență? De ce esti cea mai buna alegere?";
 
-const AboutUs = (props) => {
+const OurApproach = () => {
   const [newValue, setNewValue] = useState("");
   const [textCard, setTextCard] = useState({
     textId: `${1}`,
@@ -166,4 +166,4 @@ const AboutUs = (props) => {
   return <div>{renderText()}</div>;
 };
 
-export default AboutUs;
+export default OurApproach;

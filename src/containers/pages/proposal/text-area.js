@@ -40,7 +40,7 @@ class TextArea extends Component {
           {...this.props}
           ref={this.textareaRef}
           onKeyUp={this.autoGrow}
-          placeholder={this.state.defaultValue}
+          placeholder={this.props.placeholder}
           onChange={this.onInputChangeContent}
           rows="1"
           minLength="10"

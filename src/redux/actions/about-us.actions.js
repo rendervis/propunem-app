@@ -1,4 +1,4 @@
-import * as type from "./aboutUs.types";
+import * as type from "./about-us.types";
 
 export const showText = (text) => {
   return {

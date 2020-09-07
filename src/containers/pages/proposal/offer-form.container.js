@@ -15,6 +15,8 @@ import {
   TextInput,
 } from "../../../components/UI/ui-elements";
 
+const textAreaPlaceHolder =
+  "Descrierea momentului cu pasii care trebuiesc urmati si responsabilitati.";
 class OfferForm extends Component {
   state = {
     textCard: {
@@ -68,6 +70,7 @@ class OfferForm extends Component {
         {...input}
         onChange={this.onInputChangeTextArea}
         value={textArea}
+        placeholder={textAreaPlaceHolder}
       />
     );
   };

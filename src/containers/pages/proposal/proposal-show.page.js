@@ -14,6 +14,8 @@ import Header from "../../header.container";
 ///// MAIN Content /////
 import OfferShow from "./offer-show.container";
 import AboutUs from "./about-us.container";
+import OurApproach from "./our-approach.container";
+import ProposalOptions from "./proposal-options.container";
 
 ///// UI elements /////
 import ButtonRound from "../../../components/UI/button-round";
@@ -36,7 +38,7 @@ class ProposalShow extends Component {
               </MenuTitleContainer>
               <StyledUL>
                 <ButtonRound>DESPRE NOI</ButtonRound>
-                <ButtonRound>IMAGINI</ButtonRound>
+
                 <ButtonRound>SERVICII</ButtonRound>
                 <ButtonRound>ABORDARE</ButtonRound>
                 <ButtonRound>OFERTA</ButtonRound>
@@ -55,8 +57,9 @@ class ProposalShow extends Component {
             >
               <Switch>
                 <Route path="/propunere/despre-noi" component={AboutUs} />
-                <Route path="/propunere/imagini" />
+                <Route path="/propunere/abordare" component={OurApproach} />
                 <Route path="/propunere/oferta" component={OfferShow} />
+                <Route path="/propunere/optiuni" component={ProposalOptions} />
               </Switch>
             </div>
           </MainContent>

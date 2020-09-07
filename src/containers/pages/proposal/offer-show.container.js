@@ -77,7 +77,7 @@ class OfferShow extends Component {
       return card.idx === idx;
     });
     this.props.updateCard(toUpdate);
-    console.log(toUpdate);
+    // console.log(toUpdate);
   };
 
   onDeleteHandler = (key, id) => {
@@ -111,20 +111,21 @@ class OfferShow extends Component {
   renderList = () => {
     if (!this.props.cards) {
       return null;
+    } else {
+      return this.props.cards.map((card, index) => {
+        return (
+          <div key={card.key.toString()}>
+            <OfferCard
+              isSaved={card.isSaved}
+              id={index}
+              onSave={this.onSaveHandler}
+              onUpdate={this.onUpdateHandler}
+              onDelete={() => this.onDeleteHandler(card.key, card.idx)}
+            />
+          </div>
+        );
+      });
     }
-    return this.props.cards.map((card, index) => {
-      return (
-        <div key={card.key.toString()}>
-          <OfferCard
-            isSaved={card.isSaved}
-            id={index}
-            onSave={this.onSaveHandler}
-            onUpdate={this.onUpdateHandler}
-            onDelete={() => this.onDeleteHandler(card.key, card.idx)}
-          />
-        </div>
-      );
-    });
   };
 
   render() {

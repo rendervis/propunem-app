@@ -7,6 +7,7 @@ body {
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Arimo", "Helvetica Neue",
     "Lora", sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,6 +20,7 @@ body {
   border: none;
   border-style: none;
   outline: 0;
+  list-style-type: none;
 }
 
 a {

@@ -9,17 +9,17 @@ import {
 } from "../actions/about-us.types";
 
 const INITIAL_STATE = {
-  aboutUs: {},
+  ourApproach: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SHOW_TEXT:
-      // console.log("[case SHOW_TEXT:]", state.aboutUs);
+      // console.log("[case SHOW_TEXT:]", state.ourApproach);
       return {
         ...state,
-        aboutUs: {
-          ...state.aboutUs,
+        ourApproach: {
+          ...state.ourApproach,
           ..._.mapKeys(action.payload, "textId"),
         },
       };
@@ -27,16 +27,16 @@ export default (state = INITIAL_STATE, action) => {
       // console.log("[case CREATE_TEXT:]", action);
       return {
         ...state,
-        aboutUs: {
-          ...state.aboutUs,
+        ourApproach: {
+          ...state.ourApproach,
           [action.payload.textId]: action.payload,
         },
       };
     case UPDATE_TOUCHED:
       return {
         ...state,
-        aboutUs: {
-          ...state.aboutUs,
+        ourApproach: {
+          ...state.ourApproach,
           [action.payload.textId]: action.payload,
         },
       };
@@ -44,8 +44,8 @@ export default (state = INITIAL_STATE, action) => {
       // console.log("[case CREATE_TEXT:]", action);
       return {
         ...state,
-        aboutUs: {
-          ...state.aboutUs,
+        ourApproach: {
+          ...state.ourApproach,
           [action.payload.textId]: action.payload,
         },
       };
@@ -53,7 +53,7 @@ export default (state = INITIAL_STATE, action) => {
       // console.log("[case DELETE_TEXT:]", action);
       return {
         ...state,
-        aboutUs: _.omit(state.aboutUs, action.payload),
+        ourApproach: _.omit(state.ourApproach, action.payload),
       };
     default:
       return state;

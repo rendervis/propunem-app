@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
 
@@ -7,17 +8,66 @@ import { styled as styledMaterial } from "@material-ui/core/styles";
 import CheckIcon from "@material-ui/icons/Check";
 
 const EditableTextLine = (props) => {
-  const textareaRef = React.createRef();
+  const dispatch = useDispatch();
+
+  const textLineRef = React.createRef();
+  const [newValue, setNewValue] = useState("");
+  const [textLine, setTextLine] = useState({
+    id: `${0}`,
+    text: newValue,
+    clicked: false,
+    saved: false,
+  });
+  // console.log("[EditableTextLine = (props) =>]", textLine);
+  useEffect(() => {
+    props.onClickOutside(textLine);
+  }, [textLine, props]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (textLineRef && !textLineRef.current.contains(event.target)) {
+        // alert("You clicked outside of me!");
+        setTextLine({
+          ...textLine,
+          text: newValue,
+          clicked: false,
+        });
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
+  const onClickHandler = () => {
+    setTextLine({
+      ...textLine,
+      clicked: true,
+      saved: false,
+    });
+
+    // console.log("[onClickHandler = () =>]", textLine);
+  };
+
+  const onInputChangeContent = (event) => {
+    setNewValue(event.target.value);
+    // this.props.onChange(event.target.value);
+  };
+
   return (
-    <React.Fragment>
+    <div onClick={onClickHandler} style={{ cursor: "pointer" }}>
       <li
+        ref={textLineRef}
         style={{
           display: "flex",
           textAlign: "start",
           alignItems: "start",
         }}
       >
-        <MyCheckIcon />
+        {textLine.clicked ? "" : <MyCheckIcon />}
         <span
           style={{
             padding: "6px 0 6px 12px",
@@ -29,16 +79,14 @@ const EditableTextLine = (props) => {
             {...props}
             wrap="off"
             placeholder="Spațiu de stocare: 15 GB"
-            ref={textareaRef}
             rows="1"
             minLength="5"
             maxLength="26"
-          >
-            {props.children}
-          </TextAreaStyled>
+            onChange={onInputChangeContent}
+          />
         </span>
       </li>
-    </React.Fragment>
+    </div>
   );
 };
 

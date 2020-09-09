@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import EditableTextLine from "./editable-text-line";
 
@@ -6,9 +7,141 @@ import styled from "styled-components";
 
 import { styled as styledMaterial } from "@material-ui/core/styles";
 import EuroIcon from "@material-ui/icons/Euro";
+import AddBoxIcon from "@material-ui/icons/AddBox";
+
+import {
+  showText,
+  createText,
+  deleteText,
+  showDefault,
+} from "../../../redux/actions/proposal-options.actions";
+
+let random = [
+  0x10,
+  0x91,
+  0x56,
+  0xbe,
+  0xc4,
+  0xfb,
+  0xc1,
+  0xea,
+  0x71,
+  0xb4,
+  0xef,
+  0xe1,
+  0x67,
+  0x1c,
+  0x58,
+  0x36,
+];
 
 const ProposalOptions = (props) => {
   const textareaRef = React.createRef();
+  const dispatch = useDispatch();
+  const [newTextLine, setNewTextLine] = useState({
+    id: `${1}`,
+    text: "",
+    clicked: false,
+    saved: false,
+  });
+  const [createTextLine, setCreateTextLine] = useState(newTextLine);
+
+  const proposalOptions = useSelector((state) => state.proposalOptions);
+  const standard = Object.values(proposalOptions.standard);
+  const recomandat = Object.values(proposalOptions.recomandat);
+  const premium = Object.values(proposalOptions.premium);
+
+  // console.log("[ ProposalOptions => standard :]", props);
+
+  useEffect(() => {
+    dispatch(showText(standard, "standard"));
+    dispatch(showText(recomandat, "recomandat"));
+    dispatch(showText(premium, "premium"));
+  }, []);
+  useEffect(() => {
+    dispatch(createText(createTextLine, "standard"));
+  }, [createTextLine]);
+
+  const clickOutsideHandler = (textLine) => {
+    // dispatch(createText(textLine, "standard"));
+    setNewTextLine(textLine);
+    // console.log("[clickOutsideHandler = (textLine) => ]", textLine);
+  };
+
+  const addDefaultHandler = (index) => {
+    dispatch(
+      showDefault(
+        {
+          id: (2 + index).toString(),
+          text: "",
+          clicked: false,
+          saved: false,
+        },
+        "standard"
+      )
+    );
+  };
+  const saveHandler = (index) => {
+    // dispatch(createText({ ...newTextLine, saved: true }, "standard"));
+    setCreateTextLine({
+      ...newTextLine,
+      id: (1 + index).toString(),
+      saved: true,
+    });
+  };
+  const onDeleteHandler = (id) => {
+    dispatch(deleteText(id, "standard"));
+  };
+
+  const actions = (index, id) => {
+    return (
+      <div>
+        {!standard[index].text || !newTextLine.text || standard.length > id ? (
+          ""
+        ) : (
+          <div
+            onClick={() => addDefaultHandler(index)}
+            style={{ display: "flex", alignItems: "flexEnd" }}
+          >
+            <MyAddBoxIcon style={{}} />
+          </div>
+        )}
+
+        {!newTextLine.text ? (
+          ""
+        ) : (
+          <p style={{ cursor: "pointer" }} onClick={() => saveHandler(index)}>
+            SAVE
+          </p>
+        )}
+        {!standard[index].text || !newTextLine.text || standard.length === 1 ? (
+          ""
+        ) : (
+          <p style={{ cursor: "pointer" }} onClick={() => onDeleteHandler(id)}>
+            DELETE
+          </p>
+        )}
+      </div>
+    );
+  };
+  const renderTextLineStandard = () => {
+    if (!standard[0]) {
+      return null;
+    } else {
+      return standard.map((item, index) => {
+        // console.log("[renderTextLineStandard = () =>]", item);
+        return (
+          <div key={random[item.id].toString()}>
+            <EditableTextLine
+              id={index}
+              onClickOutside={(textLine) => clickOutsideHandler(textLine)}
+            />
+            {actions(index, item.id)}
+          </div>
+        );
+      });
+    }
+  };
   return (
     <div style={{ display: "flex" }}>
       <OptionContainer>
@@ -44,6 +177,9 @@ const ProposalOptions = (props) => {
             marginTop: "34px",
             padding: "20px 6px 24px 14px",
             borderTop: "1px solid rgba(0, 0, 0, 0.12",
+
+            overflowY: "auto",
+            overflowX: "hidden",
           }}
         >
           <div
@@ -56,9 +192,7 @@ const ProposalOptions = (props) => {
           >
             Include
           </div>
-          <ul style={{ padding: "0 0 0 8px" }}>
-            <EditableTextLine />
-          </ul>
+          <ul style={{ padding: "0 0 0 8px" }}>{renderTextLineStandard()}</ul>
         </div>
       </OptionContainer>
       <OptionContainer>ProposalOptions</OptionContainer>
@@ -79,6 +213,7 @@ const OptionContainer = styled.div`
   margin-right: 30px;
   padding-top: 32px;
   padding: 20px 20px;
+
   /* background-color: red; */
 `;
 
@@ -93,6 +228,12 @@ const MyEuroIcon = styledMaterial(EuroIcon)({
   height: 14,
   width: 14,
   fontStyle: "bold",
+});
+const MyAddBoxIcon = styledMaterial(AddBoxIcon)({
+  color: "#0277BD",
+  cursor: "pointer",
+  marginLeft: "auto",
+  marginRight: 0,
 });
 
 const OptionPriceTag = styled.div`

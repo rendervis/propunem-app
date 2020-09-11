@@ -60,7 +60,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case DELETE_TEXT:
-      console.log("[case DELETE_TEXT:]", action);
+      // console.log("[case DELETE_TEXT:]", action);
       let nameDelete = action.proposalOptionName;
       return {
         ...state,

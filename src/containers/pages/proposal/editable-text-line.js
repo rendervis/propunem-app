@@ -1,73 +1,80 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
-
 import { styled as styledMaterial } from "@material-ui/core/styles";
 
 import CheckIcon from "@material-ui/icons/Check";
 
 const EditableTextLine = (props) => {
-  const dispatch = useDispatch();
-
-  const textLineRef = React.createRef();
-  const [newValue, setNewValue] = useState("");
+  // const [newValue, setNewValue] = useState("");
   const [textLine, setTextLine] = useState({
     id: `${0}`,
-    text: newValue,
+    text: "",
     clicked: false,
     saved: false,
   });
-  // console.log("[EditableTextLine = (props) =>]", textLine);
   useEffect(() => {
-    props.onClickOutside(textLine);
+    props.onChange(textLine);
   }, [textLine, props]);
+  // console.log("[EditableTextLine = (props) =>]", textLine);
+  // useEffect(() => {
+  //   props.onClickOutside(textLine);
+  // }, [textLine, props]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (textLineRef && !textLineRef.current.contains(event.target)) {
-        // alert("You clicked outside of me!");
-        setTextLine({
-          ...textLine,
-          text: newValue,
-          clicked: false,
-        });
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     console.log(textInput.current.contains(event.target));
+  //     // console.log(textLineRef.current.contains(event.target));
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
+  //     if (!textInput.current.contains(event.target) || false) {
+  //       // alert("You clicked outside of me!");
+  //       setTextLine({
+  //         ...textLine,
+  //         text: newValue,
+  //         clicked: false,
+  //       });
+  //     }
+  //   };
 
-  const onClickHandler = () => {
-    setTextLine({
-      ...textLine,
-      clicked: true,
-      saved: false,
-    });
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     // Unbind the event listener on clean up
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // });
 
-    // console.log("[onClickHandler = () =>]", textLine);
-  };
+  // const onClickHandler = () => {
+  //   setTextLine({
+  //     ...textLine,
+  //     clicked: true,
+  //     saved: false,
+  //   });
+
+  //   console.log("[onClickHandler = (CLICKED) =>]", textInput.current);
+  // };
 
   const onInputChangeContent = (event) => {
-    setNewValue(event.target.value);
-    // this.props.onChange(event.target.value);
+    // setNewValue(event.target.value);
+    setTextLine({
+      ...textLine,
+      text: event.target.value,
+      clicked: true,
+    });
+
+    // props.refHandler(textInput);
   };
 
   return (
-    <div onClick={onClickHandler} style={{ cursor: "pointer" }}>
+    <div style={{ cursor: "pointer" }}>
       <li
-        ref={textLineRef}
+        // onClick={(e) => e.stopPropagation()}
         style={{
           display: "flex",
           textAlign: "start",
           alignItems: "start",
         }}
       >
-        {textLine.clicked ? "" : <MyCheckIcon />}
+        {!props.saved ? "" : <MyCheckIcon />}
         <span
           style={{
             padding: "6px 0 6px 12px",

@@ -1,18 +1,18 @@
 import * as type from "./about-us.types";
 
-export const showText = (textArray, proposalOptionName) => {
+export const showText = (option, title) => {
   return {
     type: type.SHOW_TEXT,
-    payload: textArray,
-    proposalOptionName: proposalOptionName,
+    payload: option,
+    proposalOptionName: title,
   };
 };
 
-export const createText = (textLine, proposalOptionName) => {
+export const createText = (option, title) => {
   return {
     type: type.CREATE_TEXT,
-    payload: textLine,
-    proposalOptionName: proposalOptionName,
+    payload: option,
+    proposalOptionName: title,
   };
 };
 

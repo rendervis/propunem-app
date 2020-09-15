@@ -56,10 +56,18 @@ class ProposalShow extends Component {
               }}
             >
               <Switch>
-                <Route path="/propunere/despre-noi" component={AboutUs} />
-                <Route path="/propunere/abordare" component={OurApproach} />
-                <Route path="/propunere/oferta" component={OfferShow} />
-                <Route path="/propunere/optiuni" component={ProposalOptions} />
+                <Route exact path="/propunere/despre-noi" component={AboutUs} />
+                <Route
+                  exact
+                  path="/propunere/abordare"
+                  component={OurApproach}
+                />
+                <Route exact path="/propunere/oferta" component={OfferShow} />
+                <Route
+                  exact
+                  path="/propunere/optiuni"
+                  component={ProposalOptions}
+                />
               </Switch>
             </div>
           </MainContent>

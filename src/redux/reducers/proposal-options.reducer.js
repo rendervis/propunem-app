@@ -29,11 +29,11 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("[INITIAL_STATE:]", state);
+  // console.log("[INITIAL_STATE:]", state);
 
   switch (action.type) {
     case SHOW_TEXT:
-      console.log("[case SHOW_TEXT:]", state.options);
+      // console.log("[case SHOW_TEXT:]", state.options);
       let name = action.proposalOptionName;
       // console.log("[case SHOW_TEXT:]", state.aboutUs);
       return {
@@ -51,7 +51,7 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case CREATE_TEXT:
-      console.log("[case CREATE_TEXT:]", state.options);
+      // console.log("[case CREATE_TEXT:]", state.options);
       let nameOption = action.proposalOptionName;
 
       return {

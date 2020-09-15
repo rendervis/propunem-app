@@ -15,8 +15,6 @@ import {
   deleteText,
   showDefault,
 } from "../../../redux/actions/proposal-options.actions";
-import { red } from "@material-ui/core/colors";
-import proposalOptionsReducer from "../../../redux/reducers/proposal-options.reducer";
 
 let random = [
   0x10,

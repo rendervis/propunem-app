@@ -41,7 +41,7 @@ const OurApproach = () => {
   });
   const dispatch = useDispatch();
 
-  const aboutUsText = useSelector((state, ownProps) =>
+  const aboutUsText = useSelector((state) =>
     Object.values(state.aboutUsText.aboutUs)
   );
 

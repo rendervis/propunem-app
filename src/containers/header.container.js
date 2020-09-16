@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 import MenuIcon from "@material-ui/icons/Menu";
 
-// import "./header.styles.scss";
+///
+import HeaderDropdown from "../components/header-dropdown/header-dropdown";
 
 class Header extends Component {
   render() {
@@ -25,6 +26,7 @@ class Header extends Component {
           </MenuCircle>
         </HeaderMenuContainer>
         <Switch></Switch>
+        <HeaderDropdown />
       </HeaderContainer>
     );
   }

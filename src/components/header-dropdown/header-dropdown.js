@@ -59,7 +59,7 @@ const DropdownStyle = styled.div`
   border: 1px solid #d8d8d8;
   border-radius: 0 0 4px 4px;
   box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.1);
-  z-index: 5;
+  z-index: 101;
 `;
 
 const Divider = styled.div`

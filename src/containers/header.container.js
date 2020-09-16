@@ -2,35 +2,50 @@ import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import styled from "styled-components";
 
+import { useSelector, useDispatch } from "react-redux";
+import { toggleHidden } from "../components/header-dropdown/redux/dropdown.actions";
+
+import OverlayBackground from "../components/UX/overlay-background";
+import HeaderDropdown from "../components/header-dropdown/header-dropdown";
 import MenuIcon from "@material-ui/icons/Menu";
 
-///
-import HeaderDropdown from "../components/header-dropdown/header-dropdown";
+const Header = () => {
+  const dispatch = useDispatch();
+  const hidden = useSelector((state) => state.headerDropdown.hidden);
+  console.log(hidden);
 
-class Header extends Component {
-  render() {
-    return (
-      <HeaderContainer>
-        <LogoText> PROPUNEM</LogoText>
-        <HeaderMenuContainer>
-          <HeaderText>DESPRE NOI</HeaderText>
-          <HeaderText>PRET</HeaderText>
-          <HeaderText>CONTACT</HeaderText>
-          <Link to="/inregistrare">
-            <RegistrationButton>
-              <RegistrationButtonText>INREGISTRARE</RegistrationButtonText>
-            </RegistrationButton>
-          </Link>
-          <MenuCircle>
-            <MenuIcon />
-          </MenuCircle>
-        </HeaderMenuContainer>
-        <Switch></Switch>
-        <HeaderDropdown />
-      </HeaderContainer>
-    );
-  }
-}
+  const onClickHandler = () => {
+    dispatch(toggleHidden());
+  };
+
+  return (
+    <HeaderContainer>
+      <LogoText>PROPUNEM</LogoText>
+
+      <HeaderMenuContainer>
+        <HeaderText>DESPRE NOI</HeaderText>
+        <HeaderText>PRET</HeaderText>
+        <HeaderText>CONTACT</HeaderText>
+        <Link to="/inregistrare">
+          <RegistrationButton>
+            <RegistrationButtonText>INREGISTRARE</RegistrationButtonText>
+          </RegistrationButton>
+        </Link>
+        <MenuCircle onClick={() => onClickHandler()}>
+          <MenuIcon />
+        </MenuCircle>
+      </HeaderMenuContainer>
+      <Switch></Switch>
+      {hidden ? (
+        ""
+      ) : (
+        <OverlayBackground onClick={() => onClickHandler()}>
+          <HeaderDropdown />
+        </OverlayBackground>
+      )}
+    </HeaderContainer>
+  );
+};
 
 const HeaderContainer = styled.header`
   width: 100vw;
@@ -55,6 +70,7 @@ const LogoText = styled.div`
   letter-spacing: 2px;
   text-align: left;
   color: #000000;
+  cursor: pointer;
 `;
 const HeaderMenuContainer = styled.div`
   margin-right: 0;
@@ -118,6 +134,7 @@ const MenuCircle = styled.div`
   justify-content: center;
 
   margin-left: 2rem;
+  cursor: pointer;
 `;
 
 export default Header;

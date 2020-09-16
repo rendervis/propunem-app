@@ -5,6 +5,7 @@ import offerReducer from "./offer.reducer";
 import aboutUsReducer from "./about-us.reducer";
 import ourApproachReducer from "./our-approach.reducer";
 import proposalOptionsReducer from "./proposal-options.reducer";
+import dropdownReducer from "../../components/header-dropdown/redux/dropdown.reducer";
 
 export default combineReducers({
   form: formReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   aboutUsText: aboutUsReducer,
   ourApproachText: ourApproachReducer,
   proposalOptions: proposalOptionsReducer,
+  headerDropdown: dropdownReducer,
 });

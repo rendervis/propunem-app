@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
 import { toggleHidden } from "../components/header-dropdown/redux/dropdown.actions";
@@ -20,21 +20,26 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <LogoText>PROPUNEM</LogoText>
-
-      <HeaderMenuContainer>
-        <HeaderText>DESPRE NOI</HeaderText>
-        <HeaderText>PRET</HeaderText>
-        <HeaderText>CONTACT</HeaderText>
-        <Link to="/inregistrare">
-          <RegistrationButton>
-            <RegistrationButtonText>INREGISTRARE</RegistrationButtonText>
-          </RegistrationButton>
+      <BodyColumn2 col2>
+        <Link to="/">
+          <LogoText>PROPUNEM</LogoText>
         </Link>
-        <MenuCircle onClick={() => onClickHandler()}>
-          <MenuIcon />
-        </MenuCircle>
-      </HeaderMenuContainer>
+      </BodyColumn2>
+      <BodyColumn3 col3>
+        <HeaderMenuContainer c>
+          <HeaderText style={{ paddingLeft: "0" }}>DESPRE NOI</HeaderText>
+          <HeaderText>PRET</HeaderText>
+          <HeaderText>CONTACT</HeaderText>
+          <Link to="/inregistrare">
+            <RegistrationButton>
+              <RegistrationButtonText>INREGISTRARE</RegistrationButtonText>
+            </RegistrationButton>
+          </Link>
+          <MenuCircle onClick={() => onClickHandler()}>
+            <MenuIcon />
+          </MenuCircle>
+        </HeaderMenuContainer>
+      </BodyColumn3>
       <Switch></Switch>
       {hidden ? (
         ""
@@ -49,17 +54,41 @@ const Header = () => {
 
 const HeaderContainer = styled.header`
   width: 100vw;
-  height: 4.375rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  height: 70px;
   border-bottom: 2px solid rgba(242, 242, 242, 1);
+  /* display: flex; */
+  /* flex-direction: row; */
+  display: grid;
+  grid-template-columns: 222px 1052px 646px;
+
+  align-items: center;
+`;
+const BodyColumn1 = styled.div`
+  ${(props) =>
+    props.col1 &&
+    css`
+      grid-column-start: 1;
+    `}
+`;
+const BodyColumn2 = styled.div`
+  ${(props) =>
+    props.col2 &&
+    css`
+      grid-column-start: 2;
+    `}
+`;
+const BodyColumn3 = styled.div`
+  ${(props) =>
+    props.col3 &&
+    css`
+      grid-column-start: 3;
+    `}
 `;
 
 const LogoText = styled.div`
   margin-right: auto;
   font-size: 1rem;
-  padding: 0 14rem;
+  /* padding: 0 224px; */
 
   font-family: "Lora";
   font-size: 16px;
@@ -73,14 +102,12 @@ const LogoText = styled.div`
   cursor: pointer;
 `;
 const HeaderMenuContainer = styled.div`
-  margin-right: 0;
-  float: right;
+  /* margin: 0 262px 0 auto; */
+  /* float: left; */
   display: flex;
   flex-direction: row;
-
   align-items: center;
-  justify-content: center;
-  margin: 0 16.375rem;
+  justify-content: left;
 `;
 
 const HeaderText = styled.div`

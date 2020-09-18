@@ -76,7 +76,6 @@ export const TextRegular = styled.p`
   letter-spacing: 1px;
   text-align: left;
   color: #6f6f6f;
-  margin-bottom: 24px;
 
   ${(props) =>
     props.black &&
@@ -116,12 +115,17 @@ export const TextRegular = styled.p`
   ${(props) =>
     props.withPadding &&
     css`
-      padding: 0 1.25rem;
+      padding: 0 24px;
     `}
   ${(props) =>
     props.paddingBottom &&
     css`
-      padding-bottom: 0.75rem;
+      padding-bottom: 12px;
+    `}
+  ${(props) =>
+    props.marginBottom &&
+    css`
+      margin-bottom: 24px;
     `}
 
   ${(props) =>

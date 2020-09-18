@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 const HeaderDropdown = (props) => (
   <DropdownStyle>
     <div
@@ -28,7 +30,9 @@ const HeaderDropdown = (props) => (
         width: "100%",
       }}
     >
-      <ListText>Profil</ListText>
+      <Link to="/profil">
+        <ListText>Profil</ListText>
+      </Link>
       <ListText>Oferte Trimise</ListText>
       <ListText>Situatie</ListText>
       <Divider />

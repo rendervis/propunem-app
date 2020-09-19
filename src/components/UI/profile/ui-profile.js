@@ -57,3 +57,16 @@ export const ArrowOptions = styled.div`
   display: flex;
   flex-direction: row;
 `;
+export const TextTopBar = styled.p`
+  padding: 0 1.81rem;
+
+  font-family: "Arimo";
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #000000;
+  text-align: center;
+`;

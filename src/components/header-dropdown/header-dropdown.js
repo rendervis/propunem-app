@@ -30,7 +30,7 @@ const HeaderDropdown = (props) => (
         width: "100%",
       }}
     >
-      <Link to="/profil">
+      <Link to="/userId/profil">
         <ListText>Profil</ListText>
       </Link>
       <ListText>Oferte Trimise</ListText>

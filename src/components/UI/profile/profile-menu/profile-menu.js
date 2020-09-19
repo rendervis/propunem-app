@@ -1,6 +1,7 @@
 import React from "react";
 
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 ///// UI elements /////
 import { TextSmall, TextRegular } from "../../ui-elements";
@@ -25,7 +26,9 @@ const ProfileMenu = () => {
         <ul style={{ marginTop: "1rem", height: "100%" }}>
           <TextRegular paddingBottom>Propuneri</TextRegular>
           <TextRegular paddingBottom>Servicii</TextRegular>
-          <TextRegular paddingBottom>Oferte trimise</TextRegular>
+          <Link to="/userId/oferte-trimise">
+            <TextRegular paddingBottom>Oferte trimise</TextRegular>
+          </Link>
           <TextRegular paddingBottom>Situatie</TextRegular>
           <TextRegular paddingBottom>Calendar</TextRegular>
         </ul>

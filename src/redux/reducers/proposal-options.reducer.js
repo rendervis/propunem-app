@@ -1,12 +1,12 @@
 import _ from "lodash";
 
 import {
-  SHOW_TEXT,
-  CREATE_TEXT,
-  UPDATE_TOUCHED,
-  DELETE_TEXT,
-  SHOW_DEFAULT,
-} from "../actions/about-us.types";
+  SHOW_OPTION,
+  CREATE_OPTION,
+  UPDATE_OPTION,
+  DELETE_OPTION,
+  SHOW_DEFAULT_OPTION,
+} from "../actions/proposal-options.types";
 
 const INITIAL_STATE = {
   options: {
@@ -32,10 +32,10 @@ export default (state = INITIAL_STATE, action) => {
   // console.log("[INITIAL_STATE:]", state);
 
   switch (action.type) {
-    case SHOW_TEXT:
+    case SHOW_OPTION:
       // console.log("[case SHOW_TEXT:]", state.options);
       let name = action.proposalOptionName;
-      // console.log("[case SHOW_TEXT:]", state.aboutUs);
+      // console.log("[case SHOW_OPTION:]", action);
       return {
         ...state,
         options: {
@@ -50,8 +50,8 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
 
-    case CREATE_TEXT:
-      // console.log("[case CREATE_TEXT:]", state.options);
+    case CREATE_OPTION:
+      // console.log("[case CREATE_OPTION:]", action);
       let nameOption = action.proposalOptionName;
 
       return {
@@ -71,7 +71,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
 
-    case UPDATE_TOUCHED:
+    case UPDATE_OPTION:
       let nameUpdate = action.proposalOptionName;
 
       return {
@@ -81,7 +81,7 @@ export default (state = INITIAL_STATE, action) => {
           [action.payload.id]: action.payload,
         },
       };
-    case SHOW_DEFAULT:
+    case SHOW_DEFAULT_OPTION:
       let nameDefault = action.proposalOptionName;
       // console.log("[case SHOW_DEFAULT:]", state[nameDefault]);
 
@@ -100,7 +100,7 @@ export default (state = INITIAL_STATE, action) => {
           },
         },
       };
-    case DELETE_TEXT:
+    case DELETE_OPTION:
       // console.log("[case DELETE_TEXT:]", action);
       let nameDelete = action.proposalOptionName;
       return {

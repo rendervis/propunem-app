@@ -10,10 +10,10 @@ import EuroIcon from "@material-ui/icons/Euro";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
 import {
-  showText,
-  createText,
-  deleteText,
-  showDefault,
+  showOption,
+  createOption,
+  deleteOption,
+  showDefaultOption,
 } from "../../../redux/actions/proposal-options.actions";
 
 let random = [
@@ -35,7 +35,7 @@ let random = [
   0x36,
 ];
 
-export default (props) => {
+const OptionContainer = (props) => {
   const dispatch = useDispatch();
   const { title } = props;
   const [newTitle, setNewTitle] = useState("");
@@ -46,7 +46,7 @@ export default (props) => {
     clicked: false,
     saved: false,
   });
-  const [createOption, setCreateOption] = useState({
+  const [createOptionData, setCreateOptionData] = useState({
     title: newTitle,
     priceTag: newPriceTag,
     content: newTextLine,
@@ -56,40 +56,30 @@ export default (props) => {
     (state) => state.proposalOptions.options[title]
   );
   const contentArray = Object.values(proposalOption.content);
-  console.log("[optionContainer (props) =>]", contentArray);
 
   useEffect(() => {
     if (title) {
       setNewTitle(title);
     }
-    dispatch(showText(proposalOption, title));
+    dispatch(showOption(proposalOption, title));
   }, []);
 
-  // const textLine = useRef(null);
-  // const textareaRef = React.createRef();
-
-  //   const content = proposalOptions[title];
-  //   const optionContent = Object.values(content.content);
-
-  // console.log("[ ProposalOptions => standard :]", props);
-
   useEffect(() => {
-    dispatch(createText(createOption, title));
-  }, [createOption, newTextLine]);
+    dispatch(createOption(createOptionData, title));
+  }, [createOptionData, newTextLine]);
 
   const onChangeHandler = (textLine) => {
-    // dispatch(createText(textLine, "standard"));
     setNewTextLine(textLine);
 
-    console.log(
-      "[onChangeHandler = (textLine) => ]",
-      newTextLine,
-      createOption.content
-    );
+    // console.log(
+    //   "[onChangeHandler = (textLine) => ]",
+    //   newTextLine,
+    //   createOption.content
+    // );
   };
 
   const onClickHandler = (index) => {
-    setCreateOption({
+    setCreateOptionData({
       title: newTitle,
       priceTag: newPriceTag,
       content: {
@@ -103,9 +93,9 @@ export default (props) => {
 
   const addDefaultHandler = (index) => {
     dispatch(
-      showDefault(
+      showDefaultOption(
         {
-          ...createOption,
+          ...createOptionData,
 
           content: {
             id: (2 + index).toString(),
@@ -119,8 +109,7 @@ export default (props) => {
     );
   };
   const saveHandler = (index) => {
-    // dispatch(createText({ ...newTextLine, saved: true }, "standard"));
-    setCreateOption({
+    setCreateOptionData({
       title: newTitle,
       priceTag: newPriceTag,
       content: {
@@ -132,7 +121,7 @@ export default (props) => {
     });
   };
   const onDeleteHandler = (id) => {
-    dispatch(deleteText(id, title));
+    dispatch(deleteOption(id, title));
   };
 
   const actions = (index, id) => {
@@ -185,8 +174,9 @@ export default (props) => {
       return null;
     } else {
       return contentArray.map((item, index) => {
+        // console.log("[const renderTextLineStandard = () =>]", item);
         return (
-          <div key={random[item.id].toString()}>
+          <div key={random[item.id.toString()]}>
             <EditableTextLine
               clicked={item.clicked}
               id={index}
@@ -200,7 +190,7 @@ export default (props) => {
     }
   };
   return (
-    <OptionContainer>
+    <OptionContainerStyled>
       <OptionTitle>{props.title}</OptionTitle>
       <div
         style={{
@@ -216,7 +206,9 @@ export default (props) => {
               {...props}
               placeholder="1199"
               onChange={(e) => setNewPriceTag(e.target.value)}
-              onClick={() => setCreateOption({ ...createOption, priceTag: "" })}
+              onClick={() =>
+                setCreateOptionData({ ...createOptionData, priceTag: "" })
+              }
               rows="1"
               wrap="off"
               minLength="2"
@@ -249,11 +241,11 @@ export default (props) => {
         </div>
         <ul style={{ padding: "0 0 0 8px" }}>{renderTextLineStandard()}</ul>
       </div>
-    </OptionContainer>
+    </OptionContainerStyled>
   );
 };
 
-const OptionContainer = styled.div`
+const OptionContainerStyled = styled.div`
   width: 264px;
   min-height: 467px;
   height: auto;
@@ -267,8 +259,6 @@ const OptionContainer = styled.div`
   margin-right: 30px;
   padding-top: 32px;
   padding: 20px 20px;
-
-  /* background-color: red; */
 `;
 
 const OptionTitle = styled.h1`
@@ -304,6 +294,7 @@ const OptionPriceTag = styled.div`
   font-size: 36px;
   letter-spacing: 1.25px;
 `;
+
 const TextAreaStyled = styled.textarea`
   width: 90px;
   height: auto;
@@ -311,7 +302,6 @@ const TextAreaStyled = styled.textarea`
   text-overflow: clip;
   overflow: visible;
   background-color: rgba(242, 242, 242, 0.15);
-
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -322,3 +312,5 @@ const TextAreaStyled = styled.textarea`
   text-align: inherit;
   color: inherit;
 `;
+
+export default OptionContainer;

@@ -41,7 +41,7 @@ const AboutUs = (props) => {
   });
   const dispatch = useDispatch();
 
-  const aboutUsText = useSelector((state, ownProps) =>
+  const aboutUsText = useSelector((state) =>
     Object.values(state.aboutUsText.aboutUs)
   );
 
@@ -145,7 +145,7 @@ const AboutUs = (props) => {
 
   const renderText = () => {
     if (!aboutUsText[0]) {
-      return null;
+      return <div>no list</div>;
     } else {
       return aboutUsText.map((about, index) => {
         // console.log("[renderText = () =>]", about.textId);

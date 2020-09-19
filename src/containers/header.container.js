@@ -12,7 +12,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 const Header = () => {
   const dispatch = useDispatch();
   const hidden = useSelector((state) => state.headerDropdown.hidden);
-  console.log(hidden);
 
   const onClickHandler = () => {
     dispatch(toggleHidden());

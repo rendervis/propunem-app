@@ -16,52 +16,13 @@ const EditableTextLine = (props) => {
   useEffect(() => {
     props.onChange(textLine);
   }, [textLine, props]);
-  // console.log("[EditableTextLine = (props) =>]", textLine);
-  // useEffect(() => {
-  //   props.onClickOutside(textLine);
-  // }, [textLine, props]);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     console.log(textInput.current.contains(event.target));
-  //     // console.log(textLineRef.current.contains(event.target));
-
-  //     if (!textInput.current.contains(event.target) || false) {
-  //       // alert("You clicked outside of me!");
-  //       setTextLine({
-  //         ...textLine,
-  //         text: newValue,
-  //         clicked: false,
-  //       });
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     // Unbind the event listener on clean up
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // });
-
-  // const onClickHandler = () => {
-  //   setTextLine({
-  //     ...textLine,
-  //     clicked: true,
-  //     saved: false,
-  //   });
-
-  //   console.log("[onClickHandler = (CLICKED) =>]", textInput.current);
-  // };
 
   const onInputChangeContent = (event) => {
-    // setNewValue(event.target.value);
     setTextLine({
       ...textLine,
       text: event.target.value,
       clicked: true,
     });
-
-    // props.refHandler(textInput);
   };
 
   return (

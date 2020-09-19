@@ -1,40 +1,40 @@
-import * as type from "./about-us.types";
+import * as type from "./proposal-options.types";
 
-export const showText = (option, title) => {
+export const showOption = (option, proposalOptionName) => {
   return {
-    type: type.SHOW_TEXT,
+    type: type.SHOW_OPTION,
     payload: option,
-    proposalOptionName: title,
-  };
-};
-
-export const createText = (option, title) => {
-  return {
-    type: type.CREATE_TEXT,
-    payload: option,
-    proposalOptionName: title,
-  };
-};
-
-export const updateTouched = (textCard, proposalOptionName) => {
-  return {
-    type: type.UPDATE_TOUCHED,
-    payload: textCard,
     proposalOptionName: proposalOptionName,
   };
 };
 
-export const showDefault = (defaultLine, proposalOptionName) => {
+export const createOption = (option, proposalOptionName) => {
   return {
-    type: type.SHOW_DEFAULT,
-    payload: defaultLine,
+    type: type.CREATE_OPTION,
+    payload: option,
     proposalOptionName: proposalOptionName,
   };
 };
 
-export const deleteText = (id, proposalOptionName) => {
+export const updateOption = (option, proposalOptionName) => {
   return {
-    type: type.DELETE_TEXT,
+    type: type.UPDATE_OPTION,
+    payload: option,
+    proposalOptionName: proposalOptionName,
+  };
+};
+
+export const showDefaultOption = (option, proposalOptionName) => {
+  return {
+    type: type.SHOW_DEFAULT_OPTION,
+    payload: option,
+    proposalOptionName: proposalOptionName,
+  };
+};
+
+export const deleteOption = (id, proposalOptionName) => {
+  return {
+    type: type.DELETE_OPTION,
     payload: id,
     proposalOptionName: proposalOptionName,
   };

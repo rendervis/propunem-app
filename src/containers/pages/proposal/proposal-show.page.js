@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import {
-  Switch,
-  Route,
-  Link,
-  withRouter,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 ///// COMPONENTS /////
 import Header from "../../header.container";
@@ -56,18 +50,10 @@ class ProposalShow extends Component {
               }}
             >
               <Switch>
-                <Route exact path="/propunere/despre-noi" component={AboutUs} />
-                <Route
-                  exact
-                  path="/propunere/abordare"
-                  component={OurApproach}
-                />
-                <Route exact path="/propunere/oferta" component={OfferShow} />
-                <Route
-                  exact
-                  path="/propunere/optiuni"
-                  component={ProposalOptions}
-                />
+                <Route path="/propunere/despre-noi" component={AboutUs} />
+                <Route path="/propunere/abordare" component={OurApproach} />
+                <Route path="/propunere/oferta" component={OfferShow} />
+                <Route path="/propunere/optiuni" component={ProposalOptions} />
               </Switch>
             </div>
           </MainContent>

@@ -11,8 +11,8 @@ function App() {
     <React.Fragment>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/userId/:title" component={ProfilePage} />
-        <Route exact path="/propunere" component={ProposalShow} />
+        <Route exact path="/userId/:titlu" component={ProfilePage} />
+        <Route path="/propunere" component={ProposalShow} />
       </Switch>
     </React.Fragment>
   );

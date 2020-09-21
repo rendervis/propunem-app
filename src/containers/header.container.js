@@ -25,10 +25,16 @@ const Header = () => {
         </Link>
       </BodyColumn2>
       <BodyColumn3 col3>
-        <HeaderMenuContainer c>
-          <HeaderText style={{ paddingLeft: "0" }}>DESPRE NOI</HeaderText>
-          <HeaderText>PRET</HeaderText>
-          <HeaderText>CONTACT</HeaderText>
+        <HeaderMenuContainer>
+          <Link to="/despre-noi">
+            <HeaderText style={{ paddingLeft: "0" }}>DESPRE NOI</HeaderText>
+          </Link>
+          <Link to="/pret">
+            <HeaderText>PRET</HeaderText>
+          </Link>
+          <Link to="/contact">
+            <HeaderText>CONTACT</HeaderText>
+          </Link>
           <Link to="/inregistrare">
             <RegistrationButton>
               <RegistrationButtonText>INREGISTRARE</RegistrationButtonText>

@@ -30,11 +30,15 @@ const HeaderDropdown = (props) => (
         width: "100%",
       }}
     >
-      <Link to="/userId/profil">
+      <Link to="/cont/profil">
         <ListText>Profil</ListText>
       </Link>
-      <ListText>Oferte Trimise</ListText>
-      <ListText>Situatie</ListText>
+      <Link to="/cont/oferte-trimise">
+        <ListText>Oferte Trimise</ListText>
+      </Link>
+      <Link to="/cont/situatie">
+        <ListText>Situatie</ListText>
+      </Link>
       <Divider />
       <ListText
         style={{

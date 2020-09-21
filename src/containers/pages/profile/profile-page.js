@@ -15,6 +15,7 @@ import ProfileMenu from "../../../components/UI/profile/profile-menu/profile-men
 
 import Profile from "./profile";
 import OfferSend from "./offer-send";
+import Situation from "./situation";
 
 ///ui-elements
 import {
@@ -27,13 +28,14 @@ import {
 export default (props) => {
   //   let propsRed = red;
   return (
-    <div>
+    <React.Fragment>
       <Header />
       <ProfileBody>
         <BodyColumn2 col2>
           <Switch>
-            <Route path="/userId/oferte-trimise" component={OfferSend} />
-            <Route path="/userId/profil" component={Profile} />
+            <Route path="/cont/oferte-trimise" component={OfferSend} />
+            <Route path="/cont/profil" component={Profile} />
+            <Route path="/cont/situatie" component={Situation} />
           </Switch>
         </BodyColumn2>
 
@@ -41,7 +43,7 @@ export default (props) => {
           <ProfileMenu />
         </BodyColumn3>
       </ProfileBody>
-    </div>
+    </React.Fragment>
   );
 };
 

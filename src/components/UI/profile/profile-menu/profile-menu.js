@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 
 ///// UI elements /////
 import { TextSmall, TextRegular } from "../../ui-elements";
@@ -14,23 +14,32 @@ const ProfileMenu = () => {
         <TextRegular black paddingBottom>
           Nume Prenume
         </TextRegular>
-        <TextSmall blue marginLeft>
-          edit
-        </TextSmall>
+        <Link to="/cont/date-personale">
+          <TextSmall blue marginLeft>
+            edit
+          </TextSmall>
+        </Link>
       </EditNameStyled>
       <TextRegular blue paddingBottom>
         Click pentru editare status
       </TextRegular>
 
       <MenuContentStyled>
-        <ul style={{ marginTop: "1rem", height: "100%" }}>
-          <TextRegular paddingBottom>Propuneri</TextRegular>
-          <TextRegular paddingBottom>Servicii</TextRegular>
-          <Link to="/userId/oferte-trimise">
-            <TextRegular paddingBottom>Oferte trimise</TextRegular>
-          </Link>
-          <TextRegular paddingBottom>Situatie</TextRegular>
-          <TextRegular paddingBottom>Calendar</TextRegular>
+        <ul
+          style={{
+            marginTop: "1rem",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <StyledNavLink to="/cont/profil">Propuneri</StyledNavLink>
+          <StyledNavLink to="/cont/servicii">Servicii</StyledNavLink>
+          <StyledNavLink to="/cont/oferte-trimise">
+            Oferte trimise
+          </StyledNavLink>
+          <StyledNavLink to="/cont/situatie">Situatie</StyledNavLink>
+          <StyledNavLink to="/cont/calendar">Calendar</StyledNavLink>
         </ul>
       </MenuContentStyled>
     </ProfileMenuStyled>
@@ -68,6 +77,26 @@ const MenuContentStyled = styled.div`
 
   border-top: solid 1px #bbbbbb;
   border-bottom: solid 1px #bbbbbb;
+`;
+
+const StyledNavLink = styled(NavLink)`
+  font-family: Arimo;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #6f6f6f;
+  padding-bottom: 12px;
+
+  &.active {
+    color: #000000;
+  }
+  :hover {
+    color: #000000;
+  }
 `;
 
 export default ProfileMenu;

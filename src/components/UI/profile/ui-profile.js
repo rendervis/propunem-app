@@ -50,7 +50,6 @@ export const SecondaryMenu = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  text-align: ;
 `;
 
 export const ArrowOptions = styled.div`

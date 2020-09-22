@@ -22,7 +22,7 @@ const AccountMenu = () => {
             Date personale
           </StyledNavLink>
           <StyledNavLink to="/cont/parola">Parola</StyledNavLink>
-          <StyledNavLink to="/cont/e-mail">E-mail</StyledNavLink>
+          <StyledNavLink to="/cont/email">E-mail</StyledNavLink>
           <StyledNavLink to="/cont/notificari">Notificari</StyledNavLink>
           <StyledNavLink to="/cont/export-date">Export date</StyledNavLink>
         </ul>

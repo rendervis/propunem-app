@@ -14,6 +14,8 @@ import Header from "../../header.container";
 import AccountMenu from "./account-menu";
 
 import PersonalInformation from "./personal-information";
+import SetPassword from "./set-password";
+import Email from "./email";
 
 ///////UI
 import {
@@ -31,9 +33,12 @@ export default (props) => {
         <BodyColumn2>
           <Switch>
             <Route
+              exact
               path="/cont/date-personale"
               component={PersonalInformation}
             />
+            <Route exact path="/cont/parola" component={SetPassword} />
+            <Route exact path="/cont/email" component={Email} />
           </Switch>
         </BodyColumn2>
 

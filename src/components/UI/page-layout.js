@@ -3,28 +3,19 @@ import styled, { css } from "styled-components";
 export const PageLayout = styled.div`
   width: 100vw;
   height: 100vh;
-  border-bottom: 2px solid rgba(242, 242, 242, 1);
+  background-color: #f2f2f2;
   display: grid;
   grid-template-columns: 222px 1052px 646px;
 `;
 export const BodyColumn1 = styled.div`
-  ${(props) =>
-    props.col1 &&
-    css`
-      grid-column-start: 1;
-    `}
+  grid-column-start: 1;
+  padding: 79px 0;
 `;
 export const BodyColumn2 = styled.div`
-  ${(props) =>
-    props.col2 &&
-    css`
-      grid-column-start: 2;
-    `}
+  grid-column-start: 2;
+  padding: 79px 0;
 `;
 export const BodyColumn3 = styled.div`
-  ${(props) =>
-    props.col3 &&
-    css`
-      grid-column-start: 3;
-    `}
+  grid-column-start: 3;
+  padding: 79px 0;
 `;

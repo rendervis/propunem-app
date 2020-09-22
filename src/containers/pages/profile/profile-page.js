@@ -33,9 +33,9 @@ export default (props) => {
       <ProfileBody>
         <BodyColumn2 col2>
           <Switch>
-            <Route path="/cont/oferte-trimise" component={OfferSend} />
-            <Route path="/cont/profil" component={Profile} />
-            <Route path="/cont/situatie" component={Situation} />
+            <Route path="/profil/oferte-trimise" component={OfferSend} />
+            <Route path="/profil/profil" component={Profile} />
+            <Route path="/profil/situatie" component={Situation} />
           </Switch>
         </BodyColumn2>
 

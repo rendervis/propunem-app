@@ -33,13 +33,13 @@ const ProfileMenu = () => {
             flexDirection: "column",
           }}
         >
-          <StyledNavLink to="/cont/profil">Propuneri</StyledNavLink>
-          <StyledNavLink to="/cont/servicii">Servicii</StyledNavLink>
-          <StyledNavLink to="/cont/oferte-trimise">
+          <StyledNavLink to="/profil/profil">Propuneri</StyledNavLink>
+          <StyledNavLink to="/profil/servicii">Servicii</StyledNavLink>
+          <StyledNavLink to="/profil/oferte-trimise">
             Oferte trimise
           </StyledNavLink>
-          <StyledNavLink to="/cont/situatie">Situatie</StyledNavLink>
-          <StyledNavLink to="/cont/calendar">Calendar</StyledNavLink>
+          <StyledNavLink to="/profil/situatie">Situatie</StyledNavLink>
+          <StyledNavLink to="/profil/calendar">Calendar</StyledNavLink>
         </ul>
       </MenuContentStyled>
     </ProfileMenuStyled>

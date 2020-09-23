@@ -1,0 +1,8 @@
+export const SHOW_OPTION = "SHOW_OPTION";
+export const SHOW_DEFAULT_OPTION = "SHOW_DEFAULT_OPTION";
+
+export const CREATE_OPTION = "CREATE_OPTION";
+
+export const UPDATE_OPTION = "UPDATE_OPTION";
+
+export const DELETE_OPTION = "DELETE_OPTION";

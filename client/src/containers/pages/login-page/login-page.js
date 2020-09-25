@@ -5,8 +5,7 @@ import styled, { css } from "styled-components";
 ///////components
 import Header from "../../header.container";
 import Login from "./login";
-
-import OverlayBackground from "../../../components/UX/overlay-background";
+import Register from "./register";
 
 // import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
@@ -73,6 +72,7 @@ class LoginPage extends React.Component {
             <LoginBoxContentStyled>
               <Switch>
                 <Route path="/inregistrare/login" component={Login} />
+                <Route path="/inregistrare/register" component={Register} />
               </Switch>
 
               <RegisterStyled></RegisterStyled>

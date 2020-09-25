@@ -43,17 +43,20 @@ const Login = () => {
           height: "17%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "space-between",
+          alignItems: "flex-start",
+          // justifyContent: "",
           paddingTop: "20px",
         }}
       >
-        <p style={{ display: "flex", color: "#007791" }}>Ai uitat parola?</p>
-        <p style={{ display: "flex" }}>
-          Nu ai cont?
-          <span style={{ paddingLeft: "5px", color: "#007791" }}>
-            Inregistreaza-te
-          </span>
+        <p
+          style={{
+            textDecoration: "underline",
+            cursor: "pointer",
+            display: "flex",
+            color: "#002f34",
+          }}
+        >
+          Ai uitat parola?
         </p>
       </div>
     </LoginStyled>

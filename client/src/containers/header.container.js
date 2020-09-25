@@ -35,9 +35,9 @@ const Header = () => {
           <Link to="/contact">
             <HeaderText>CONTACT</HeaderText>
           </Link>
-          <Link to="/inregistrare">
+          <Link to="/inregistrare/login">
             <RegistrationButton>
-              <RegistrationButtonText>INREGISTRARE</RegistrationButtonText>
+              <RegistrationButtonText>Contul meu</RegistrationButtonText>
             </RegistrationButton>
           </Link>
           <MenuCircle onClick={() => onClickHandler()}>
@@ -45,7 +45,7 @@ const Header = () => {
           </MenuCircle>
         </HeaderMenuContainer>
       </BodyColumn3>
-      <Switch></Switch>
+
       {hidden ? (
         ""
       ) : (

@@ -22,7 +22,11 @@ class AccountField extends React.Component {
       <FieldContainer {...this.props} className={className}>
         <LabelStyled>{formProps.label}</LabelStyled>
         <div>
-          <InputStyled {...formProps.input} autoComplete="off" />
+          <InputStyled
+            {...formProps.input}
+            type={this.props.type}
+            autoComplete="off"
+          />
         </div>
         {this.renderError(formProps.meta)}
       </FieldContainer>

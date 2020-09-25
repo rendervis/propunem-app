@@ -18,5 +18,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/cont", accountRouter);
+app.use("/profil", accountRouter);
 
 module.exports = app;

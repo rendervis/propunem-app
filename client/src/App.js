@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 ///// PAGES /////
+import LoginPage from "./containers/pages/login-page/login-page";
 import HomePage from "./containers/pages/home-page/home-page";
 import ProposalShow from "./containers/pages/proposal/proposal-show.page";
 import ProfilePage from "./containers/pages/profile/profile-page";
@@ -15,6 +16,7 @@ function App() {
     <React.Fragment>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/inregistrare/:tab" component={LoginPage} />
         <Route exact path="/despre-noi" component={About} />
         <Route exact path="/pret" component={Price} />
         <Route exact path="/contact" component={Contact} />

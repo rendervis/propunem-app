@@ -1,20 +1,25 @@
 import React from "react";
+import styled from "styled-components";
 
-export default (props) => {
+const OverlayBackground = ({ children, ...props }) => {
   return (
-    <div
-      onClick={props.onClick}
-      style={{
-        backgroundColor: "rgba(0,0,0,0)",
-        zIndex: "100",
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-        left: "0",
-        top: "0",
-      }}
-    >
-      <div onClick={(e) => e.stopPropagation()}>{props.children}</div>
-    </div>
+    <ModalStyled onClick={props.onClick} {...props}>
+      <div onClick={(e) => e.stopPropagation()}>{children}</div>
+    </ModalStyled>
   );
 };
+
+const ModalStyled = styled.div`
+  background-color: ${(props) => props.backgroundColor || "rgba(0,0,0,0)"};
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export default OverlayBackground;

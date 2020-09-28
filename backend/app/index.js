@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.send("this is working");
 });
 
-app.use("/cont", accountRouter);
+app.use("/inregistrare", accountRouter);
 app.use("/profil", accountRouter);
 
 module.exports = app;

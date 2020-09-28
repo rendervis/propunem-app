@@ -2,10 +2,10 @@ import React from "react";
 
 import styled from "styled-components";
 
-const FormInput = ({ handleChange, label, ...props }) => {
+const FormInput = ({ onChange, label, ...props }) => {
   return (
     <Group>
-      <InputStyled onChange={handleChange} {...props} />
+      <InputStyled onChange={onChange} {...props} />
 
       {label ? (
         <LabelStyled

@@ -14,8 +14,9 @@ const database = {
   ],
 };
 
-router.post("/conectativa", (req, res, next) => {
+router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
+  console.log("/login", req.body);
   if (
     email === database.users[0].email &&
     password === database.users[0].password
@@ -26,11 +27,10 @@ router.post("/conectativa", (req, res, next) => {
   }
 });
 
-router.post("/inregistrare", (req, res, next) => {
-  const { name, email, password } = req.body;
+router.post("/register", (req, res, next) => {
+  const { email, password } = req.body;
+  console.log("/register", req.body);
   database.users.push({
-    userId: "12",
-    name: name,
     email: email,
     password: password,
     joinDate: new Date(),

@@ -10,34 +10,6 @@ import Register from "./register";
 // import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 class LoginPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      show: false,
-      email: "",
-      password: "",
-    };
-  }
-
-  handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const { email, password } = this.state;
-
-    //     try {
-    //       await auth.signInWithEmailAndPassword(email, password);
-    //       this.setState({ email: "", password: "" });
-    //     } catch (error) {
-    //       console.log(error.message);
-    //     }
-  };
-
-  handleChange = (event) => {
-    const { value, name } = event.target;
-    this.setState({ [name]: value });
-  };
-
   render() {
     return (
       <React.Fragment>

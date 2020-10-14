@@ -1,23 +1,81 @@
+//Dependencies
 const express = require("express");
+const session = require("express-session");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const bcrypt = require("bcrypt-nodejs");
+// const cookieParser = require("cookie-parser");
+// const cookieSession = require("cookie-session");
+const passport = require("passport");
 const cors = require("cors");
+require("./services/passport");
 
-///////api
+const { APP_SECRET } = require("../secrets/index");
+///////routes
 const accountRouter = require("./api/account");
+const authGoogleRouter = require("./api/authGoogle");
 
+//Init
 const app = express();
-
-app.use(cors());
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(cookieParser(APP_SECRET));
+
+// app.use(
+//   cookieSession({
+//     name: "googleSession",
+//     keys: [APP_SECRET],
+//     maxAge: 30 * 24 * 60 * 60 * 1000,
+//     // secureProxy: true,
+//   })
+// );
+
+//Session config
+app.use(
+  session({
+    name: "googleSession",
+    secret: APP_SECRET,
+    // proxy: true,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use(cors());
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   optionsSuccessStatus: 200,
+//   credentials: true,
+// };
+// app.use(
+//   cors({
+//     methods: ["GET", "POST"],
+//     origin: "http://localhost:3000",
+//     optionsSuccessStatus: 200,
+//     credentials: true,
+//   })
+// );
 
 app.get("/", (req, res) => {
   res.send("this is working");
+  // console.log(req);
+  console.log("Cookies: ", req.cookies);
+  console.log("Signed Cookies: ", req.signedCookies);
 });
+//Routes
+app.use("/account", accountRouter);
+app.use("/auth", authGoogleRouter);
 
-app.use("/inregistrare", accountRouter);
-app.use("/profil", accountRouter);
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  res.status(statusCode).json({
+    type: "error",
+    message: err.message,
+  });
+});
 
 module.exports = app;

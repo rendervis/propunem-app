@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+//////actions
+import { fetchGoogleUser } from "./redux/actions/account";
 
 ///// PAGES /////
 import LoginPage from "./containers/pages/login-page/login-page";
@@ -12,11 +16,15 @@ import Price from "./containers/pages/price/price";
 import Contact from "./containers/pages/contact/contact";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchGoogleUser());
+  });
   return (
     <React.Fragment>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/inregistrare/:tab" component={LoginPage} />
+        <Route exact path="/account/:tab" component={LoginPage} />
         <Route exact path="/despre-noi" component={About} />
         <Route exact path="/pret" component={Price} />
         <Route exact path="/contact" component={Contact} />

@@ -25,7 +25,7 @@ import {
   col3,
 } from "../../../components/UI/profile/ui-profile";
 
-export default (props) => {
+const ProfilePage = (props) => {
   //   let propsRed = red;
   return (
     <React.Fragment>
@@ -56,3 +56,5 @@ const BodyColumn2 = styled.div`
 const BodyColumn3 = styled.div`
   ${col3}
 `;
+
+export default ProfilePage;

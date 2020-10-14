@@ -1,55 +1,79 @@
 const { Router } = require("express");
+const AccountTable = require("../account/table");
+
+const { hash } = require("../helper");
+
+const Session = require("../account/session");
+const { setSession, authenticatedAccount } = require("./helper");
 
 const router = new Router();
 
-const database = {
-  users: [
-    {
-      userId: "1",
-      name: "John",
-      email: "j@j.com",
-      password: "1234",
-      joinDate: new Date(),
-    },
-  ],
-};
+router.post("/signup", (req, res, next) => {
+  const { email, password } = req.body;
+  // const userNameHash = hash(userName);
+  const passwordHash = hash(password);
+
+  ///check if the Account exists
+  AccountTable.getAccount({ email })
+    .then(({ account }) => {
+      if (!account) {
+        ///////add Account
+        return AccountTable.storeAccount({ email, passwordHash });
+      } else {
+        const error = new Error(`Adresa de e-mail a fost deja folosita.`);
+        error.statusCode = 409;
+        throw error;
+      }
+    })
+    .then(() => {
+      ///////start Session
+      return setSession({ email, res });
+    })
+    .then(({ message }) => {
+      ///////respond to client
+      console.log({ message });
+      res.json({ message });
+    })
+    .catch((error) => next(error));
+});
 
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
-  console.log("/login", req.body);
-  if (
-    email === database.users[0].email &&
-    password === database.users[0].password
-  ) {
-    res.json("success");
-  } else {
-    res.status(400).json("error login in!");
-  }
+  AccountTable.getAccount({ email })
+    .then(({ account }) => {
+      console.log("account", account);
+      if (account && account.passwordHash === hash(password)) {
+        const { sessionId } = account;
+        return setSession({ email, res, sessionId });
+      } else {
+        const error = new Error("Date incorecte.");
+        error.statusCode = 409;
+        throw error;
+      }
+    })
+    .then(({ message }) => res.json({ message }))
+    .catch((error) => next(error));
 });
 
-router.post("/register", (req, res, next) => {
-  const { email, password } = req.body;
-  console.log("/register", req.body);
-  database.users.push({
-    email: email,
-    password: password,
-    joinDate: new Date(),
-  });
-  res.json(database.users[database.users.length - 1]);
+router.get("/logout", (req, res, next) => {
+  const { email } = Session.parse(req.cookies.sessionString);
+  AccountTable.updateSessionId({
+    sessionId: null,
+    email,
+  })
+    .then(() => {
+      res.clearCookie("sessionString");
+      res.json({ message: "Successful logout" });
+    })
+    .catch((error) => next(error));
 });
 
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  let found = false;
-  database.users.forEach((user) => {
-    if (user.userId === id) {
-      found = true;
-      return res.json(user);
-    }
-    if (!found) {
-      res.status(400).json("Utilizatorul nu exista!");
-    }
-  });
+router.get("/authenticated", (req, res, next) => {
+  const { sessionString } = req.cookies;
+
+  authenticatedAccount({ sessionString })
+    .then(({ authenticated }) => res.json({ authenticated }))
+    .catch((error) => next(error));
 });
 
 module.exports = router;

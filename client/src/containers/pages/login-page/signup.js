@@ -1,29 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import styled, { css } from "styled-components";
 
 ///////components
 import FormInput from "../../../components/form-input/form-input";
 import CustomButton from "../../../components/custom-button/custom-button";
+///////actions
+import { signup } from "../../../redux/actions/account";
 
-const Register = () => {
+const Signup = ({ history }) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+  const signupHandler = () => {
+    const { email, password } = data;
+    history.push("/profil/profil");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+    dispatch(signup({ email, password }));
+
     setData({ email: "", password: "" });
-
-    fetch("http://localhost:8080/inregistrare/register", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    }).then((response) => response.json());
   };
+
+  // const handleSubmit = (event) => {
+  // event.preventDefault();
+  // setData({ email: "", password: "" });
+
+  // fetch("http://localhost:8080/account/signup", {
+  //   method: "post",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({
+  //     email: data.email,
+  //     password: data.password,
+  //   }),
+  // }).then((response) => response.json());
+  // };
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -35,7 +49,7 @@ const Register = () => {
 
   return (
     <LoginStyled>
-      <form onSubmit={handleSubmit}>
+      <div>
         <FormInput
           placeholder="Adresa e-mail"
           name="email"
@@ -54,7 +68,9 @@ const Register = () => {
           required
         />
 
-        <CustomButton type="submit">Inregistreaza-te</CustomButton>
+        <CustomButton type="button" onClick={signupHandler}>
+          Inregistreaza-te
+        </CustomButton>
 
         <div
           style={{
@@ -67,7 +83,7 @@ const Register = () => {
             paddingTop: "20px",
           }}
         ></div>
-      </form>
+      </div>
     </LoginStyled>
   );
 };
@@ -82,4 +98,4 @@ const Line = styled.div`
 
 const LoginStyled = styled.li``;
 
-export default Register;
+export default withRouter(Signup);

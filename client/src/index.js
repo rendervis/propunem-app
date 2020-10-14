@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Router } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -8,6 +8,7 @@ import reduxThunk from "redux-thunk";
 import reducer from "./redux/reducers";
 
 import App from "./App";
+import history from "./history";
 import * as serviceWorker from "./serviceWorker";
 
 import "./index.css";

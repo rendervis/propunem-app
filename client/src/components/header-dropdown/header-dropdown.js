@@ -1,57 +1,77 @@
 import React from "react";
+import { Link, withRouter } from "react-router-dom";
+import { useDispatch, connect } from "react-redux";
+
+///////actions
+import { logout } from "../../redux/actions/account";
+
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
+let HeaderDropdown = ({ props, dispatch, history }) => {
+  const logoutHandler = () => {
+    //  dispatch(logout());
+    history.push("/");
+    dispatch(logout());
+  };
 
-const HeaderDropdown = (props) => (
-  <DropdownStyle>
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingBottom: "8px",
-      }}
-    >
-      <p>Notificari</p>
-      <p>Toate</p>
-    </div>
-    <Divider />
-    <ShotNotificationStyle>
-      <li>Nu exista notificari</li>
-    </ShotNotificationStyle>
-    <Divider />
-    <ul
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "264px",
-        width: "100%",
-      }}
-    >
-      <Link to="/profil/profil">
-        <ListText>Profil</ListText>
-      </Link>
-      <Link to="/profil/oferte-trimise">
-        <ListText>Oferte Trimise</ListText>
-      </Link>
-      <Link to="/profil/situatie">
-        <ListText>Situatie</ListText>
-      </Link>
-      <Divider />
-      <ListText
+  return (
+    <DropdownStyle>
+      <div
         style={{
-          marginTop: "auto",
-          marginBottom: "0",
-          //   alignSelf: "end",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingBottom: "8px",
         }}
       >
-        Deconectati-va
-      </ListText>
-    </ul>
-  </DropdownStyle>
-);
+        <p>Notificari</p>
+        <p>Toate</p>
+      </div>
+      <Divider />
+      <ShotNotificationStyle>
+        <li>Nu exista notificari</li>
+      </ShotNotificationStyle>
+      <Divider />
+      <ul
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "264px",
+          width: "100%",
+        }}
+      >
+        <Link to="/profil/profil">
+          <ListText>Profil</ListText>
+        </Link>
+        <Link to="/profil/oferte-trimise">
+          <ListText>Oferte Trimise</ListText>
+        </Link>
+        <Link to="/profil/situatie">
+          <ListText>Situatie</ListText>
+        </Link>
+        <Divider />
+        <ListText
+          style={{
+            marginTop: "auto",
+            marginBottom: "0",
+            //   alignSelf: "end",
+          }}
+        >
+          <button
+            type="button"
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={logoutHandler}
+          >
+            Deconectati-va
+          </button>
+        </ListText>
+      </ul>
+    </DropdownStyle>
+  );
+};
 
 const DropdownStyle = styled.div`
   position: absolute;
@@ -112,5 +132,5 @@ const ListText = styled.li`
   cursor: pointer;
   letter-spacing: 1.05px;
 `;
-
-export default HeaderDropdown;
+HeaderDropdown = connect()(HeaderDropdown);
+export default withRouter(HeaderDropdown);

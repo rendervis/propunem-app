@@ -5,7 +5,8 @@ import styled, { css } from "styled-components";
 ///////components
 import Header from "../../header.container";
 import Login from "./login";
-import Register from "./register";
+import Signup from "./signup";
+import GoogleAuth from "../../../components/GoogleAuth";
 
 // import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
@@ -29,12 +30,12 @@ class LoginPage extends React.Component {
           <LoginBoxStyled>
             <LoginBoxHeader>
               <LiStyled>
-                <NavLinkStyled left to="/inregistrare/login">
+                <NavLinkStyled left to="/account/login">
                   Intra in cont
                 </NavLinkStyled>
               </LiStyled>
               <LiStyled>
-                <NavLinkStyled right to="/inregistrare/register">
+                <NavLinkStyled right to="/account/signup">
                   <p>Creeaza un cont</p>
                 </NavLinkStyled>
               </LiStyled>
@@ -42,9 +43,10 @@ class LoginPage extends React.Component {
             <div style={{ height: "22px" }}></div>
 
             <LoginBoxContentStyled>
+              <GoogleAuth />
               <Switch>
-                <Route path="/inregistrare/login" component={Login} />
-                <Route path="/inregistrare/register" component={Register} />
+                <Route path="/account/login" component={Login} />
+                <Route path="/account/signup" component={Signup} />
               </Switch>
 
               <RegisterStyled></RegisterStyled>

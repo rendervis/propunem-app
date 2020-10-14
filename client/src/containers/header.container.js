@@ -3,7 +3,9 @@ import { Route, Link, Switch } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
+///////actions
 import { toggleHidden } from "../components/header-dropdown/redux/dropdown.actions";
+import { logout } from "../redux/actions/account";
 
 import OverlayBackground from "../components/UX/overlay-background";
 import HeaderDropdown from "../components/header-dropdown/header-dropdown";
@@ -12,9 +14,13 @@ import MenuIcon from "@material-ui/icons/Menu";
 const Header = () => {
   const dispatch = useDispatch();
   const hidden = useSelector((state) => state.headerDropdown.hidden);
+  const isSignedIn = useSelector((state) => state.account.isSignedIn);
 
   const onClickHandler = () => {
     dispatch(toggleHidden());
+  };
+  const logoutHandler = () => {
+    dispatch(logout());
   };
 
   return (
@@ -35,14 +41,17 @@ const Header = () => {
           <Link to="/contact">
             <HeaderText>CONTACT</HeaderText>
           </Link>
-          <Link to="/inregistrare/login">
-            <RegistrationButton>
-              <RegistrationButtonText>Contul meu</RegistrationButtonText>
-            </RegistrationButton>
-          </Link>
-          <MenuCircle onClick={() => onClickHandler()}>
-            <MenuIcon />
-          </MenuCircle>
+          {!isSignedIn ? (
+            <Link to="/account/login">
+              <RegistrationButton>
+                <RegistrationButtonText>Contul meu</RegistrationButtonText>
+              </RegistrationButton>
+            </Link>
+          ) : (
+            <MenuCircle onClick={() => onClickHandler()}>
+              <MenuIcon />
+            </MenuCircle>
+          )}
         </HeaderMenuContainer>
       </BodyColumn3>
 

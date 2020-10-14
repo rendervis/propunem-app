@@ -7,8 +7,10 @@
 /backend/node_modules
 /client/build
 /backend/build
-/client/secrets
+/client/src/secrets
 /backend/secrets
+/backend/config/keys.js
+
 =======
 
 # dependencies

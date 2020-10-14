@@ -1,15 +1,29 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
 import styled, { css } from "styled-components";
+// import history from "../../../history";
 
 ///////components
 import FormInput from "../../../components/form-input/form-input";
 import CustomButton from "../../../components/custom-button/custom-button";
+///////actions
+import { login } from "../../../redux/actions/account";
 
-const Login = () => {
+const Login = ({ history }) => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+  const loginHandler = () => {
+    const { email, password } = data;
+    history.push("/profil/profil");
+
+    dispatch(login({ email, password }));
+    setData({ email: "", password: "" });
+  };
+
   const handleChange = (event) => {
     const { value, name } = event.target;
     setData({
@@ -18,23 +32,27 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setData({ email: "", password: "" });
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   setData({ email: "", password: "" });
 
-    fetch("http://localhost:8080/inregistrare/login", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    }).then((response) => response.json());
-  };
+  //   fetch("http://localhost:8080/account/login", {
+  //     method: "post",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       email: data.email,
+  //       password: data.password,
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((json) => console.log("message", json.message));
+  // };
 
   return (
     <LoginStyled>
-      <form onSubmit={handleSubmit}>
+      <div>
         <FormInput
           placeholder="Adresa e-mail"
           name="email"
@@ -53,7 +71,7 @@ const Login = () => {
           required
         />
 
-        <CustomButton type="submit">Intra in cont</CustomButton>
+        <CustomButton onClick={loginHandler}>Intra in cont</CustomButton>
 
         <div
           style={{
@@ -77,7 +95,7 @@ const Login = () => {
             Ai uitat parola?
           </p>
         </div>
-      </form>
+      </div>
     </LoginStyled>
   );
 };
@@ -92,4 +110,4 @@ const Line = styled.div`
 
 const LoginStyled = styled.li``;
 
-export default Login;
+export default withRouter(Login);

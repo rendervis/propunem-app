@@ -11,6 +11,7 @@ const HomePage = () => {
     <HomePageStyled>
       <Header />
       <HeroSection />
+
       <ServicesSection />
     </HomePageStyled>
   );

@@ -2,7 +2,7 @@
 const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-// const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 // const cookieSession = require("cookie-session");
 const passport = require("passport");
 const cors = require("cors");
@@ -17,7 +17,7 @@ const authGoogleRouter = require("./api/authGoogle");
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser(APP_SECRET));
+app.use(cookieParser(APP_SECRET));
 
 // app.use(
 //   cookieSession({
@@ -27,6 +27,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //     // secureProxy: true,
 //   })
 // );
+
+// app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+// app.use(
+//   cors({
+//     methods: ["GET", "POST"],
+//     origin: "http://localhost:3000",
+//     optionsSuccessStatus: 200,
+//     credentials: true,
+//   })
+// );
+
+//Routes with sessionString
+app.use("/account", cors(corsOptions), accountRouter);
 
 //Session config
 app.use(
@@ -45,29 +63,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(cors());
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   optionsSuccessStatus: 200,
-//   credentials: true,
-// };
-// app.use(
-//   cors({
-//     methods: ["GET", "POST"],
-//     origin: "http://localhost:3000",
-//     optionsSuccessStatus: 200,
-//     credentials: true,
-//   })
-// );
-
 app.get("/", (req, res) => {
   res.send("this is working");
   // console.log(req);
   console.log("Cookies: ", req.cookies);
   console.log("Signed Cookies: ", req.signedCookies);
 });
-//Routes
-app.use("/account", accountRouter);
+
+//Routes with oauth
 app.use("/auth", authGoogleRouter);
 
 app.use((err, req, res, next) => {

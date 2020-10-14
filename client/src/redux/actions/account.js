@@ -48,7 +48,6 @@ export const logout = () => (dispatch) => {
     type: ACCOUNT.FETCH,
   });
   return fetch("http://localhost:5000/account/logout", {
-    method: "get",
     credentials: "include",
   })
     .then((response) => {
@@ -103,16 +102,13 @@ export const fetchGoogleUser = () => (dispatch) => {
     credentials: "include",
     headers: { "Content-Type": "application/json" },
   })
-    .then((response) => {
-      // console.log("response:", response);
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((json) => {
-      console.log("json:", json);
-      if (json.type === "error") {
+      console.log("json:", { ...json });
+      if (json.type === "error" || json.authenticated === false) {
         dispatch({ type: ACCOUNT.FETCH_ERROR, message: json.message });
       } else {
-        dispatch({ type: ACCOUNT.FETCH_GOOGLE_USER, ...json });
+        dispatch({ type: ACCOUNT.FETCH_GOOGLE_USER_SUCCESS, ...json });
       }
     })
     .catch((error) => {

@@ -7,4 +7,10 @@ module.exports = function (app) {
       target: "http://localhost:5000",
     })
   );
+  app.use(
+    "/auth/current_user",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
 };

@@ -41,7 +41,7 @@ router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
   AccountTable.getAccount({ email })
     .then(({ account }) => {
-      console.log("account", account);
+      // console.log("account", account);
       if (account && account.passwordHash === hash(password)) {
         const { sessionId } = account;
         return setSession({ email, res, sessionId });
@@ -56,6 +56,7 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/logout", (req, res, next) => {
+  console.log(" router.get/logout req.cookies", JSON.stringify(req.cookies));
   const { email } = Session.parse(req.cookies.sessionString);
   AccountTable.updateSessionId({
     sessionId: null,

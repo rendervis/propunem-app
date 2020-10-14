@@ -33,16 +33,33 @@ router.get("/current_user", (req, res, next) => {
   console.log("Authenticated?: " + req.isAuthenticated());
   // console.log("\n\nReq session: " + req.session.passport);
 
-  // console.dir("Req user: " + JSON.stringify(req.user));
-  // res.send(req.user);
+  // res.send(
+  //   JSON.stringify({
+  //     user: req.user,
+  //     authenticated: req.isAuthenticated(),
+  //   })
+  // );
   if (req.isAuthenticated()) {
     res.send(
-      JSON.stringify({ user: req.user, authenticated: req.isAuthenticated() })
+      JSON.stringify({
+        user: req.user,
+        authenticated: req.isAuthenticated(),
+        message: "Conectare reusita!",
+      })
     );
     return next();
+  } else {
+    const error = new Error(`Nu esti conectat!..`);
+    error.statusCode = 409;
+    res.send(
+      JSON.stringify({
+        message: "Nu esti conectat!",
+        authenticated: req.isAuthenticated(),
+      })
+    );
+
+    return next(error);
   }
-  // req.session.error = 'Please sign in!';
-  // res.redirect('/signin');
 });
 
 module.exports = router;

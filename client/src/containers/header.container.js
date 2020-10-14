@@ -14,7 +14,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 const Header = () => {
   const dispatch = useDispatch();
   const hidden = useSelector((state) => state.headerDropdown.hidden);
-  const isSignedIn = useSelector((state) => state.account.isSignedIn);
+  const account = useSelector((state) => state.account);
 
   const onClickHandler = () => {
     dispatch(toggleHidden());
@@ -41,7 +41,7 @@ const Header = () => {
           <Link to="/contact">
             <HeaderText>CONTACT</HeaderText>
           </Link>
-          {!isSignedIn ? (
+          {!account.isSignedIn ? (
             <Link to="/account/login">
               <RegistrationButton>
                 <RegistrationButtonText>Contul meu</RegistrationButtonText>
@@ -59,7 +59,7 @@ const Header = () => {
         ""
       ) : (
         <OverlayBackground onClick={() => onClickHandler()}>
-          <HeaderDropdown />
+          <HeaderDropdown user={account.user} />
         </OverlayBackground>
       )}
     </HeaderContainer>

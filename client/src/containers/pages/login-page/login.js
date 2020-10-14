@@ -7,6 +7,7 @@ import styled, { css } from "styled-components";
 ///////components
 import FormInput from "../../../components/form-input/form-input";
 import CustomButton from "../../../components/custom-button/custom-button";
+import GoogleAuth from "../../../components/GoogleAuth";
 ///////actions
 import { login } from "../../../redux/actions/account";
 
@@ -53,6 +54,7 @@ const Login = ({ history }) => {
   return (
     <LoginStyled>
       <div>
+        <GoogleAuth />
         <FormInput
           placeholder="Adresa e-mail"
           name="email"

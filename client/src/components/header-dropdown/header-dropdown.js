@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import { useDispatch, connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 ///////actions
 import { logout } from "../../redux/actions/account";
@@ -8,10 +8,37 @@ import { logout } from "../../redux/actions/account";
 import styled from "styled-components";
 
 let HeaderDropdown = ({ props, dispatch, history }) => {
+  const user = useSelector((state) => state.account.user);
+
+  const renderLogoutText = () => {
+    switch (user) {
+      case null:
+        return (
+          <button
+            type="button"
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={logoutHandler}
+          >
+            Deconectati-va
+          </button>
+        );
+
+      default:
+        return (
+          <li>
+            <a href="/auth/logout">Deconectati-va</a>
+          </li>
+        );
+    }
+  };
   const logoutHandler = () => {
-    //  dispatch(logout());
+    if (!user) {
+      dispatch(logout());
+    }
+
     history.push("/");
-    dispatch(logout());
   };
 
   return (
@@ -58,15 +85,7 @@ let HeaderDropdown = ({ props, dispatch, history }) => {
             //   alignSelf: "end",
           }}
         >
-          <button
-            type="button"
-            style={{
-              cursor: "pointer",
-            }}
-            onClick={logoutHandler}
-          >
-            Deconectati-va
-          </button>
+          {renderLogoutText()}
         </ListText>
       </ul>
     </DropdownStyle>

@@ -33,12 +33,6 @@ router.get("/current_user", (req, res, next) => {
   console.log("Authenticated?: " + req.isAuthenticated());
   // console.log("\n\nReq session: " + req.session.passport);
 
-  // res.send(
-  //   JSON.stringify({
-  //     user: req.user,
-  //     authenticated: req.isAuthenticated(),
-  //   })
-  // );
   if (req.isAuthenticated()) {
     res.send(
       JSON.stringify({

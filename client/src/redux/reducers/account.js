@@ -1,7 +1,7 @@
 import { ACCOUNT } from "../actions/types";
 import fetchStates from "./fetchStates";
 
-const DEFAULT_ACCOUNT = { isSignedIn: false };
+const DEFAULT_ACCOUNT = { isSignedIn: false, user: null };
 
 export default (state = DEFAULT_ACCOUNT, action) => {
   console.log("account-action", action);

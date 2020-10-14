@@ -6,7 +6,6 @@ import styled, { css } from "styled-components";
 import Header from "../../header.container";
 import Login from "./login";
 import Signup from "./signup";
-import GoogleAuth from "../../../components/GoogleAuth";
 
 // import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
@@ -43,7 +42,6 @@ class LoginPage extends React.Component {
             <div style={{ height: "22px" }}></div>
 
             <LoginBoxContentStyled>
-              <GoogleAuth />
               <Switch>
                 <Route path="/account/login" component={Login} />
                 <Route path="/account/signup" component={Signup} />

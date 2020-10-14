@@ -1,16 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-
-import { OAuthClientId } from "../secrets";
-
-import { login, logout } from "../redux/actions/account";
+import CustomButton from "../components/custom-button/custom-button";
 
 class GoogleAuth extends React.Component {
   renderAuthButton() {
     return (
       <li>
-        <a href="/auth/google">Sign In</a>
+        <CustomButton>
+          <a href="/auth/google">Sign In With Google</a>
+        </CustomButton>
       </li>
     );
   }

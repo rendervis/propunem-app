@@ -11,6 +11,7 @@ require("./services/passport");
 const { APP_SECRET } = require("../secrets/index");
 ///////routes
 const accountRouter = require("./api/account");
+const proposalRouter = require("./api/proposal");
 const authGoogleRouter = require("./api/authGoogle");
 
 //Init
@@ -45,6 +46,7 @@ const corsOptions = {
 
 //Routes with sessionString
 app.use("/account", cors(corsOptions), accountRouter);
+app.use("/proposal", cors(corsOptions), proposalRouter);
 
 //Session config
 app.use(

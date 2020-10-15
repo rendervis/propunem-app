@@ -12,3 +12,4 @@ CREATE TABLE account
 
 ALTER TABLE account
 ADD "googleId" CHARACTER(64);
+

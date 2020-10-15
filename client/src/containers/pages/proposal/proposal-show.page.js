@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { Switch, Route } from "react-router-dom";
 
+import { connect } from "react-redux";
+
 ///// COMPONENTS /////
 import Header from "../../header.container";
 
@@ -17,10 +19,8 @@ import ButtonRound from "../../../components/UI/button-round";
 import { TitleText } from "../../../components/UI/ui-elements";
 
 class ProposalShow extends Component {
-  //TODO: change {serviceName} from choose service options when
-  // clicking the AddProposalButton
-
   render() {
+    const { proposalName } = this.props.proposal;
     return (
       <React.Fragment>
         <Header />
@@ -28,7 +28,7 @@ class ProposalShow extends Component {
           <LeftSide>
             <MenuContainer>
               <MenuTitleContainer>
-                <TitleText>Fotografie Nunta</TitleText>
+                <TitleText>{proposalName}</TitleText>
               </MenuTitleContainer>
               <StyledUL>
                 <ButtonRound>DESPRE NOI</ButtonRound>
@@ -121,4 +121,9 @@ const StyledUL = styled.ul`
   /* position: relative; */
 `;
 
-export default ProposalShow;
+const mapStateToProps = (state) => {
+  return {
+    proposal: state.proposal,
+  };
+};
+export default connect(mapStateToProps)(ProposalShow);

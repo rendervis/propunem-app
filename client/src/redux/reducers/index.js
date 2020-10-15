@@ -8,6 +8,7 @@ import proposalOptionsReducer from "./proposal-options.reducer";
 import dropdownReducer from "../../components/header-dropdown/redux/dropdown.reducer";
 
 import accountReducer from "./account";
+import proposalReducer from "./proposal";
 
 export default combineReducers({
   form: formReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   headerDropdown: dropdownReducer,
 
   account: accountReducer,
+  proposal: proposalReducer,
 });

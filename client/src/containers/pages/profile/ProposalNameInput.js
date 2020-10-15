@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
 
 ///////COMPONENTS
 import OverlayBackground from "../../../components/UX/overlay-background";
-
+///////ACTIONS
+import { storeProposalName } from "../../../redux/actions/proposal";
 import styled, { css } from "styled-components";
 
+//TODO on login add accountId to store
+//TODO get accountId
 const ProposalNameInput = ({ history }) => {
+  const dispatch = useDispatch();
+  const [proposalName, setProposalName] = useState("");
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setProposalName(value);
+  };
+
+  const clickHandler = () => {
+    dispatch(storeProposalName({ proposalName }));
+    history.push("/propunere");
+  };
+
   return (
     <OverlayBackground blur onClick={() => history.push("/profil/profil")}>
       <Container>
@@ -20,12 +38,12 @@ const ProposalNameInput = ({ history }) => {
           placeholder="Nume Serviciu"
           name="service"
           type="text"
-          // value={data.email}
-          // onChange={handleChange}
+          value={proposalName}
+          onChange={handleChange}
           required
         />
         <div style={{ height: "40px" }} />
-        <YellowButtonStyled>CONTINUA</YellowButtonStyled>
+        <YellowButtonStyled onClick={clickHandler}>CONTINUA</YellowButtonStyled>
         <div style={{ height: "24px" }} />
         <CancelText onClick={() => history.push("/profil/profil")}>
           nu multumesc

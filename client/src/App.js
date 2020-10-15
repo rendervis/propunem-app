@@ -29,7 +29,7 @@ function App() {
         <Route exact path="/pret" component={Price} />
         <Route exact path="/contact" component={Contact} />
 
-        <Route exact path="/profil/:titlu" component={ProfilePage} />
+        <Route path="/profil/:titlu/" component={ProfilePage} />
         <Route exact path="/cont/:titlu" component={AccountDataPage} />
         <Route path="/propunere" component={ProposalShow} />
       </Switch>

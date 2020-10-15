@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const OverlayBackground = ({ children, ...props }) => {
@@ -11,6 +12,8 @@ const OverlayBackground = ({ children, ...props }) => {
 
 const ModalStyled = styled.div`
   background-color: ${(props) => props.backgroundColor || "rgba(0,0,0,0)"};
+  /* -webkit-backdrop-filter: blur(10px); */
+  backdrop-filter: ${(props) => (props.blur ? `blur(1px)` : "")};
   z-index: 100;
   position: fixed;
   width: 100%;
@@ -23,3 +26,5 @@ const ModalStyled = styled.div`
 `;
 
 export default OverlayBackground;
+
+// blur(1px);

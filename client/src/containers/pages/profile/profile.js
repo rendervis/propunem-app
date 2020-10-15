@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, Route } from "react-router-dom";
 
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 ////COMPONENTS////
 
 import PageTitle from "../../../components/UI/profile/page-title";
 import { BigButtonOutline } from "../../../components/UI/big-button-outline.component";
+import ProposalNameInput from "./ProposalNameInput";
 ////ui-elements////
 import { TextSmall, TextRegular } from "../../../components/UI/ui-elements";
 import {
@@ -14,8 +16,13 @@ import {
 } from "../../../components/UI/profile/ui-profile";
 
 export default () => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <React.Fragment>
+      {visible ? (
+        <Route path="/profil/profil/alerta" component={ProposalNameInput} />
+      ) : null}
       <PageTitle>Profil</PageTitle>
       <TopContainer>
         <div style={{ marginLeft: "1.88rem" }}>
@@ -28,7 +35,11 @@ export default () => {
           >
             Click pentru editare
           </TextSmall>
-          <BigButtonOutline profilePosition>Adauga Propunere</BigButtonOutline>
+          <Link to="profil/alerta">
+            <BigButtonOutline profilePosition onClick={() => setVisible(true)}>
+              Adauga Propunere
+            </BigButtonOutline>
+          </Link>
         </div>
         <SecondaryMenu>
           <TextRegular black style={{ padding: "0 5rem" }}>

@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 ///////COMPONENTS
 import OverlayBackground from "../../../components/UX/overlay-background";
 ///////ACTIONS
-import { storeProposalName } from "../../../redux/actions/proposal";
+import { storeProposal } from "../../../redux/actions/proposal";
 import styled, { css } from "styled-components";
 
 //TODO on login add accountId to store
 //TODO get accountId
 const ProposalNameInput = ({ history }) => {
   const dispatch = useDispatch();
+  const accountId = useSelector((state) => state.account.accountId);
   const [proposalName, setProposalName] = useState("");
 
   const handleChange = (event) => {
@@ -21,7 +22,7 @@ const ProposalNameInput = ({ history }) => {
   };
 
   const clickHandler = () => {
-    dispatch(storeProposalName({ proposalName }));
+    dispatch(storeProposal({ accountId, proposalName }));
     history.push("/propunere");
   };
 

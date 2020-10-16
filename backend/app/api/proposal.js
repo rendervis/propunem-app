@@ -4,11 +4,11 @@ const ProposalTable = require("../proposal/table");
 const router = new Router();
 
 router.post("/name", (req, res, next) => {
-  const { proposalName, accountId } = req.body;
-  ProposalTable.getProposal({ proposalName, accountId })
+  const { accountId, proposalName } = req.body;
+  ProposalTable.getProposal({ accountId, proposalName })
     .then(({ proposal }) => {
       if (!proposal) {
-        ProposalTable.storeProposalName({ proposalName });
+        ProposalTable.storeProposal({ accountId, proposalName });
         res.json({ message: "proposal name added." });
       } else {
         const error = new Error(

@@ -1,14 +1,12 @@
 import { PROPOSAL } from "./types";
 
-export const storeProposalName = ({ proposalName, accountId }) => (
-  dispatch
-) => {
+export const storeProposal = ({ accountId, proposalName }) => (dispatch) => {
   dispatch({
     type: PROPOSAL.FETCH,
   });
   return fetch("http://localhost:5000/proposal/name", {
     method: "POST",
-    body: JSON.stringify({ proposalName, accountId }),
+    body: JSON.stringify({ accountId, proposalName }),
     headers: { "Content-Type": "application/json" },
     credentials: "include",
   })
@@ -22,8 +20,8 @@ export const storeProposalName = ({ proposalName, accountId }) => (
         dispatch({
           type: PROPOSAL.FETCH_SUCCESS,
           ...json,
-          proposalName,
           accountId,
+          proposalName,
         });
       }
     })

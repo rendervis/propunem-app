@@ -46,9 +46,11 @@ const authenticatedAccount = ({ sessionString }) => {
       const { email, id } = Session.parse(sessionString);
       AccountTable.getAccount({ email })
         .then(({ account }) => {
+          // console.log("const authenticatedAccount = ", account);
           const authenticated = account.sessionId === id;
+          const accountId = account.account_id;
 
-          resolve({ account, authenticated, email });
+          resolve({ accountId, authenticated });
         })
         .catch((error) => reject(error));
     }

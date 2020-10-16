@@ -1,11 +1,11 @@
 const pool = require("../../databasePool");
 
 class ProposalTable {
-  static storeProposalName({ proposalName }) {
+  static storeProposal({ accountId, proposalName }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO proposal("proposalName") VALUES($1)`,
-        [proposalName],
+        `INSERT INTO proposal( account_id,proposalname) VALUES($1,$2)`,
+        [accountId, proposalName],
         (error, response) => {
           if (error) return reject(error);
           resolve({ message: "proposal name added." });
@@ -13,14 +13,14 @@ class ProposalTable {
       );
     });
   }
-  static getProposal({ proposalName, accountId }) {
+  static getProposal({ accountId, proposalName }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT id, "accountId", "proposalName",aboutus,services,approach,offer
+        `SELECT proposal_id, account_id, proposalname
            FROM proposal
-           WHERE "proposalName"=$1 AND "accountId"=$2
+           WHERE account_id=$1 AND proposalname=$2
           `,
-        [proposalName, accountId],
+        [accountId, proposalName],
         (error, response) => {
           if (error) return reject(error);
           resolve({ proposal: response.rows[0] });

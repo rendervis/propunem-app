@@ -5,8 +5,8 @@ const AccountTable = require("../account/table");
 
 //Serialization
 passport.serializeUser((user, done) => {
-  console.log("passport.serializeUser", user.id);
-  done(null, user.id);
+  console.log("passport.serializeUser", user.account_id);
+  done(null, user.account_id);
 });
 
 passport.deserializeUser((id, done) => {

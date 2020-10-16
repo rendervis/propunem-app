@@ -2,6 +2,7 @@ const { v4: uuid } = require("uuid");
 const { hash } = require("../helper");
 
 const SEPARATOR = "|";
+
 class Session {
   constructor({ email }) {
     this.email = email;

@@ -1,13 +1,12 @@
 CREATE TABLE proposal
 (
-    id SERIAL PRIMARY KEY,
-    "accountId" INTEGER REFERENCES account(id),
-    "proposalName" text NOT NULL,
-    aboutus text ,
-    services text ,
-    approach text ,
-    offer text
+    proposal_id SERIAL PRIMARY KEY,
 
+    account_id BIGINT REFERENCES account(account_id) NOT NULL,
+
+
+
+    proposalname CHARACTER(64) NOT NULL
 );
 
 id, "accountId", "proposalName",aboutus,services,approach,offer

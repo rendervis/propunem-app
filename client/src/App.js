@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Switch, Route, withRouter } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 //////actions
 import { fetchGoogleUser } from "./redux/actions/account";
+import { fetchAuthenticated } from "./redux/actions/account";
 
 ///// PAGES /////
 import LoginPage from "./containers/pages/login-page/login-page";
@@ -15,11 +16,17 @@ import About from "./containers/pages/about/about";
 import Price from "./containers/pages/price/price";
 import Contact from "./containers/pages/contact/contact";
 
-function App() {
+function App({ history }) {
   const dispatch = useDispatch();
+  const isSignedIn = useSelector((state) => state.account.isSignedIn);
   useEffect(() => {
-    dispatch(fetchGoogleUser());
-  });
+    dispatch(fetchAuthenticated({ history }));
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchGoogleUser({ history }));
+  }, [dispatch]);
+
   return (
     <React.Fragment>
       <Switch>
@@ -37,4 +44,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

@@ -1,14 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Switch, Route, withRouter } from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+
 import styled, { css } from "styled-components";
-
-import {
-  Switch,
-  Route,
-  Link,
-  withRouter,
-  useRouteMatch,
-} from "react-router-dom";
-
 ///components
 import Header from "../../header.container";
 import ProfileMenu from "../../../components/UI/profile/profile-menu/profile-menu";
@@ -25,7 +20,7 @@ import {
   col3,
 } from "../../../components/UI/profile/ui-profile";
 
-const ProfilePage = (props) => {
+const ProfilePage = ({ history }) => {
   //   let propsRed = red;
   return (
     <React.Fragment>
@@ -57,4 +52,4 @@ const BodyColumn3 = styled.div`
   ${col3}
 `;
 
-export default ProfilePage;
+export default withRouter(ProfilePage);

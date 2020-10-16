@@ -30,7 +30,7 @@ class AccountTable {
   static getAccount({ email }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT id,  "sessionId","passwordHash","googleId"
+        `SELECT account_id,  "sessionId","passwordHash","googleId"
            FROM account
            WHERE email = $1
           `,
@@ -45,9 +45,9 @@ class AccountTable {
   static getUserById({ id }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT id, email, "sessionId", "passwordHash", "googleId"
+        `SELECT account_id, email, "sessionId", "passwordHash", "googleId"
            FROM account
-           WHERE id = $1
+           WHERE account_id = $1
           `,
         [id],
         (error, response) => {
@@ -60,7 +60,7 @@ class AccountTable {
   static getGoogleUser({ googleId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT id, email, "sessionId", "passwordHash", "googleId"
+        `SELECT account_id, email, "sessionId", "passwordHash", "googleId"
            FROM account
            WHERE "googleId" = $1
           `,

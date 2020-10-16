@@ -32,11 +32,13 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         isSignedIn: false,
       };
     case ACCOUNT.FETCH_AUTHENTICATED_SUCCESS:
+      // console.log("case ACCOUNT.FETCH_AUTHENTICATED_SUCCESS:", action);
       return {
         ...state,
         status: fetchStates.success,
         message: action.message,
         isSignedIn: action.authenticated,
+        accountId: action.accountId,
       };
     case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:
       console.log(
@@ -47,6 +49,8 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         ...state,
         status: fetchStates.success,
         message: action.message,
+        accountId: action.user.account_id,
+
         user: { ...action.user },
         isSignedIn: action.authenticated,
       };

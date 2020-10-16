@@ -18,11 +18,11 @@ const Signup = ({ history }) => {
   });
   const signupHandler = () => {
     const { email, password } = data;
-    history.push("/profil/profil");
 
-    dispatch(signup({ email, password }));
+    dispatch(signup({ email, password, history }));
 
     setData({ email: "", password: "" });
+    // history.push("/profil/profil");
   };
 
   // const handleSubmit = (event) => {

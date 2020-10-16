@@ -2,6 +2,9 @@ import { ACCOUNT } from "./types";
 import { BACKEND } from "../../configuration";
 
 export const fetchFromAccount = ({
+  history,
+  pushOnError,
+  pushOnSuccess,
   endpoint,
   options,
   FETCH_TYPE,
@@ -14,11 +17,20 @@ export const fetchFromAccount = ({
   return fetch(`${BACKEND.ADDRESS}/account/${endpoint}`, options)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json);
+      console.log(" const fetchFromAccount =json", json);
       if (json.type === "error") {
-        dispatch({ type: ERROR_TYPE, message: json.message });
+        dispatch({
+          type: ERROR_TYPE,
+          message: json.message,
+        });
+        history.push(`${pushOnError}`);
       } else {
-        dispatch({ type: SUCCESS_TYPE, ...json });
+        dispatch({
+          type: SUCCESS_TYPE,
+
+          ...json,
+        });
+        history.push(`${pushOnSuccess}`);
       }
     })
 
@@ -27,8 +39,11 @@ export const fetchFromAccount = ({
     });
 };
 
-export const signup = ({ email, password }) =>
+export const signup = ({ email, password, history }) =>
   fetchFromAccount({
+    history,
+    pushOnError: "/account/signup",
+    pushOnSuccess: "/profil/profil",
     endpoint: "signup",
     options: {
       method: "POST",
@@ -80,8 +95,11 @@ export const login = ({ email, password }) =>
     SUCCESS_TYPE: ACCOUNT.FETCH_SUCCESS,
   });
 
-export const fetchAuthenticated = () =>
+export const fetchAuthenticated = ({ history }) =>
   fetchFromAccount({
+    history,
+    pushOnError: "/",
+    pushOnSuccess: "/profil/profil",
     endpoint: "authenticated",
     options: {
       ///////store Session cookie on the browser
@@ -92,7 +110,7 @@ export const fetchAuthenticated = () =>
     SUCCESS_TYPE: ACCOUNT.FETCH_AUTHENTICATED_SUCCESS,
   });
 
-export const fetchGoogleUser = () => (dispatch) => {
+export const fetchGoogleUser = ({ history }) => (dispatch) => {
   dispatch({
     type: ACCOUNT.FETCH,
   });
@@ -107,8 +125,10 @@ export const fetchGoogleUser = () => (dispatch) => {
       console.log("json:", { ...json });
       if (json.type === "error" || json.authenticated === false) {
         dispatch({ type: ACCOUNT.FETCH_ERROR, message: json.message });
+        history.push("/");
       } else {
         dispatch({ type: ACCOUNT.FETCH_GOOGLE_USER_SUCCESS, ...json });
+        history.push("/profil/profil");
       }
     })
     .catch((error) => {

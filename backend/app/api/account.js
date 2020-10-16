@@ -18,7 +18,10 @@ router.post("/signup", (req, res, next) => {
     .then(({ account }) => {
       if (!account) {
         ///////add Account
-        return AccountTable.storeAccount({ email, passwordHash });
+        return AccountTable.storeAccount({
+          email,
+          passwordHash,
+        });
       } else {
         const error = new Error(`Adresa de e-mail a fost deja folosita.`);
         error.statusCode = 409;
@@ -71,9 +74,12 @@ router.get("/logout", (req, res, next) => {
 
 router.get("/authenticated", (req, res, next) => {
   const { sessionString } = req.cookies;
+  // console.log("router.get(/authenticated-->sessionString", sessionString);
 
   authenticatedAccount({ sessionString })
-    .then(({ authenticated }) => res.json({ authenticated }))
+    .then(({ authenticated, accountId }) =>
+      res.json({ authenticated, accountId })
+    )
     .catch((error) => next(error));
 });
 

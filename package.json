@@ -8,7 +8,7 @@
     "npm": "6.14.8"
   },
   "scripts": {
-    "start": "node ./backend./bin/server",
+    "start": "node ./backend/bin/server",
     "start-dev": "nodemon ./backend/bin/server"
   },
   "keywords": [],

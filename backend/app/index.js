@@ -8,7 +8,7 @@ const passport = require("passport");
 const cors = require("cors");
 require("./services/passport");
 
-const { APP_SECRET } = require("../secrets/index");
+const { APP_SECRET } = require("../../environment_config/keys");
 ///////routes
 const accountRouter = require("./api/account");
 const proposalRouter = require("./api/proposal");
@@ -82,5 +82,16 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../../client/build"));
+
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "../../client", "build", "index.html")
+    );
+  });
+}
 
 module.exports = app;

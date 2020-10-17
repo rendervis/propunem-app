@@ -1,4 +1,4 @@
-const { APP_SECRET } = require("../secrets");
+const { APP_SECRET } = require("../../environment_config/keys");
 const SHA256 = require("crypto-js/sha256");
 
 const hash = (string) => {

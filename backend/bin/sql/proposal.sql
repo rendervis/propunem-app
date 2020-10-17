@@ -4,8 +4,6 @@ CREATE TABLE proposal
 
     account_id BIGINT REFERENCES account(account_id) NOT NULL,
 
-
-
     proposalname CHARACTER(64) NOT NULL
 );
 

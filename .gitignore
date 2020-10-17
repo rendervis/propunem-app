@@ -14,7 +14,7 @@ dev.js
 /backend/config/keys.js
 
 =======
-
+/.vscode
 # dependencies
 
 /.pnp
@@ -36,11 +36,10 @@ dev.js
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 
-// -->>  https://sheltered-fortress-17290.herokuapp.com/ 
-// -->>  https://git.heroku.com/sheltered-fortress-17290.git

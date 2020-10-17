@@ -1,6 +1,9 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require("../../secrets");
+const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+} = require("../../../environment_config/keys");
 const AccountTable = require("../account/table");
 
 //Serialization

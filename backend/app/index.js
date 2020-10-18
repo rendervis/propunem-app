@@ -30,7 +30,7 @@ app.use(cookieParser(APP_SECRET));
 // );
 
 // app.use(cors());
-const corsOptions = {
+let corsOptions = {
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
   credentials: true,
@@ -84,7 +84,7 @@ app.use((err, req, res, next) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  const corsOptions = {
+  corsOptions = {
     origin: "https://vispropunem.herokuapp.com",
     // optionsSuccessStatus: 200,
     // credentials: true,

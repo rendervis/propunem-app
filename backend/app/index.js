@@ -84,6 +84,11 @@ app.use((err, req, res, next) => {
 });
 
 if (process.env.NODE_ENV === "production") {
+  const corsOptions = {
+    origin: "https://vispropunem.herokuapp.com",
+    // optionsSuccessStatus: 200,
+    // credentials: true,
+  };
   app.use(express.static("../../client/build"));
 
   const path = require("path");

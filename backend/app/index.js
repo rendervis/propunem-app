@@ -14,6 +14,7 @@ const accountRouter = require("./api/account");
 const proposalRouter = require("./api/proposal");
 const authGoogleRouter = require("./api/authGoogle");
 
+const isProduction = process.env.NODE_ENV === "production";
 //Init
 const app = express();
 app.use(bodyParser.json());
@@ -31,7 +32,9 @@ app.use(cookieParser(APP_SECRET));
 
 // app.use(cors());
 let corsOptions = {
-  origin: "http://localhost:3000",
+  origin: isProduction
+    ? "https://vispropunem.herokuapp.com/ "
+    : "http://localhost:3000",
   optionsSuccessStatus: 200,
   credentials: true,
 };
@@ -83,12 +86,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-if (process.env.NODE_ENV === "production") {
-  corsOptions = {
-    origin: "https://vispropunem.herokuapp.com",
-    // optionsSuccessStatus: 200,
-    // credentials: true,
-  };
+if (isProduction) {
   app.use(express.static("../../client/build"));
 
   const path = require("path");

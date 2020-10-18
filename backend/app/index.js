@@ -65,12 +65,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (req, res) => {
-  res.send("this is working");
-  // console.log(req);
-  console.log("Cookies: ", req.cookies);
-  console.log("Signed Cookies: ", req.signedCookies);
-});
+// app.get("/", (req, res) => {
+//   res.send("this is working");
+//   // console.log(req);
+//   console.log("Cookies: ", req.cookies);
+//   console.log("Signed Cookies: ", req.signedCookies);
+// });
 
 //Routes with oauth
 app.use("/auth", authGoogleRouter);

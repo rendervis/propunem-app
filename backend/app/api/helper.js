@@ -29,7 +29,7 @@ const setSession = ({ email, res, sessionId }) => {
 setSessionCookie = ({ sessionString, res }) => {
   res.cookie("sessionString", sessionString, {
     expire: 2 * 60 * 60 * 1000,
-    httpOnly: isProduction ? null : true,
+    httpOnly: true,
     secure: isProduction ? true : false,
 
     // secure: true, // use with https

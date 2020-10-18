@@ -1,6 +1,7 @@
 const Session = require("../account/session");
 const { hash } = require("../helper");
 const AccountTable = require("../account/table");
+const isProduction = process.env.NODE_ENV === "production";
 
 const setSession = ({ email, res, sessionId }) => {
   return new Promise((resolve, reject) => {
@@ -28,8 +29,8 @@ const setSession = ({ email, res, sessionId }) => {
 setSessionCookie = ({ sessionString, res }) => {
   res.cookie("sessionString", sessionString, {
     expire: 2 * 60 * 60 * 1000,
-    httpOnly: true,
-    secure: false,
+    httpOnly: isProduction ? null : true,
+    secure: isProduction ? true : false,
 
     // secure: true, // use with https
     // sameSite: "none",

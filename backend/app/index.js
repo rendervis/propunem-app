@@ -60,8 +60,8 @@ app.use(
     name: "googleSession",
     secret: APP_SECRET,
     // proxy: true,
-    resave: isProduction ? false : true,
-    saveUninitialized: isProduction ? false : true,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       secure: isProduction ? true : false,

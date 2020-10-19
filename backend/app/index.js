@@ -61,7 +61,7 @@ app.use(
     secret: APP_SECRET,
     // proxy: true,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       secure: isProduction ? true : false,

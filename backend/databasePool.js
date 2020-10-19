@@ -12,9 +12,11 @@ const pool = new Pool({
   // sslmode: isProduction ? "require" : "disable",
   // ssl: isProduction,
 
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: isProduction
+    ? {
+        rejectUnauthorized: false,
+      }
+    : false,
 });
 
 // const pool = new Pool(databaseConfiguration);

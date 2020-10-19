@@ -11,7 +11,7 @@ const pool = new Pool({
   connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
   // sslmode: isProduction ? "require" : "disable",
   // ssl: isProduction,
-  ssl: { rejectUnauthorized: false },
+  ssl: isProduction ? { rejectUnauthorized: false } : null,
 });
 
 // const pool = new Pool(databaseConfiguration);

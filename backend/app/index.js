@@ -19,7 +19,7 @@ const isProduction = process.env.NODE_ENV === "production";
 //Init
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(APP_SECRET));
 
 // app.use(

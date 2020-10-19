@@ -72,12 +72,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.get("/", (req, res) => {
-//   res.send("this is working");
-//   // console.log(req);
-//   console.log("Cookies: ", req.cookies);
-//   console.log("Signed Cookies: ", req.signedCookies);
-// });
+app.get("/", (req, res) => {
+  res.send("this is working");
+  // console.log(req);
+  // console.log("Cookies: ", req.cookies);
+  // console.log("Signed Cookies: ", req.signedCookies);
+});
 
 //Routes with oauth
 app.use("/auth", authGoogleRouter);
@@ -91,11 +91,11 @@ app.use((err, req, res, next) => {
 });
 
 if (isProduction) {
-  app.use(express.static(__dirname + "../../client/build"));
-
   const path = require("path");
+  app.use(express.static(path.join(__dirname, "../../client/build")));
+
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../../client/build", "index.html"));
+    res.sendFile(path.join(__dirname, "../../client/build"));
   });
 }
 

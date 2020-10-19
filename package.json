@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "12.19.0",
-    "npm": "6.14.8"
+    "node": "12.19.0"
   },
   "scripts": {
-    "start": "node ./backend/bin/server.js",
+    "start": "node backend/bin/server.js",
     "server": "nodemon ./backend/bin/server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

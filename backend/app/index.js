@@ -51,6 +51,8 @@ app.use(cookieParser(APP_SECRET));
 app.use("/api", accountRouter);
 app.use("/api", proposalRouter);
 
+//-memory unleak---------
+app.set("trust proxy", 1);
 //Session config
 app.use(
   session({
@@ -61,6 +63,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
+      secure: isProduction ? true : false,
     },
   })
 );

@@ -20,7 +20,13 @@ module.exports = function (app) {
     })
   );
   app.use(
-    "/api/*",
+    "/api/account/*",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
+  app.use(
+    "/api/proposal/*",
     createProxyMiddleware({
       target: "http://localhost:5000",
     })

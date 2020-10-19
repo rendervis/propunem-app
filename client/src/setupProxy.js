@@ -31,4 +31,10 @@ module.exports = function (app) {
       target: "http://localhost:5000",
     })
   );
+  app.use(
+    "/api/proposal/*",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
 };

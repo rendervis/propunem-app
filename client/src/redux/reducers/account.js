@@ -4,7 +4,7 @@ import fetchStates from "./fetchStates";
 const DEFAULT_ACCOUNT = { isSignedIn: false, user: null };
 
 export default (state = DEFAULT_ACCOUNT, action) => {
-  console.log("account-action", action);
+  // console.log("account-action", action);
   switch (action.type) {
     case ACCOUNT.FETCH:
       return {
@@ -41,10 +41,10 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         accountId: action.accountId,
       };
     case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:
-      console.log(
-        "  case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:",
-        action.authenticated
-      );
+      // console.log(
+      //   "  case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:",
+      //   action.authenticated
+      // );
       return {
         ...state,
         status: fetchStates.success,

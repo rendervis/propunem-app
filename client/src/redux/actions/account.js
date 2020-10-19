@@ -17,7 +17,7 @@ export const fetchFromAccount = ({
   return fetch(`/api/${endpoint}`, options)
     .then((response) => response.json())
     .then((json) => {
-      console.log(" const fetchFromAccount =json", json);
+      // console.log(" const fetchFromAccount =json", json);
       if (json.type === "error") {
         dispatch({
           type: ERROR_TYPE,

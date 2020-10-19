@@ -9,6 +9,7 @@ const cors = require("cors");
 require("./services/passport");
 
 const { APP_SECRET } = require("../../environment_config/keys");
+
 ///////routes
 const accountRouter = require("./api/account");
 const proposalRouter = require("./api/proposal");
@@ -59,8 +60,8 @@ app.use(
     name: "googleSession",
     secret: APP_SECRET,
     // proxy: true,
-    resave: true,
-    saveUninitialized: true,
+    resave: isProduction ? false : true,
+    saveUninitialized: isProduction ? false : true,
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       secure: isProduction ? true : false,

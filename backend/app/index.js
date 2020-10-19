@@ -31,13 +31,13 @@ app.use(cookieParser(APP_SECRET));
 // );
 
 // app.use(cors());
-let corsOptions = {
-  origin: isProduction
-    ? "https://vispropunem.herokuapp.com/ "
-    : "http://localhost:3000",
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
+// let corsOptions = {
+//   origin: isProduction
+//     ? "https://vispropunem.herokuapp.com/ "
+//     : "http://localhost:3000",
+//   optionsSuccessStatus: 200,
+//   credentials: true,
+// };
 // app.use(
 //   cors({
 //     methods: ["GET", "POST"],
@@ -48,8 +48,8 @@ let corsOptions = {
 // );
 
 //Routes with sessionString
-app.use("/account", cors(corsOptions), accountRouter);
-app.use("/proposal", cors(corsOptions), proposalRouter);
+app.use("/api", accountRouter);
+app.use("/api", proposalRouter);
 
 //Session config
 app.use(

@@ -3,7 +3,7 @@ const ProposalTable = require("../proposal/table");
 
 const router = new Router();
 
-router.post("/name", (req, res, next) => {
+router.post("/proposal/name", (req, res, next) => {
   const { accountId, proposalName } = req.body;
   ProposalTable.getProposal({ accountId, proposalName })
     .then(({ proposal }) => {

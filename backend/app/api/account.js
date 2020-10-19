@@ -8,7 +8,7 @@ const { setSession, authenticatedAccount } = require("./helper");
 
 const router = new Router();
 
-router.post("/signup", (req, res, next) => {
+router.post("/account/signup", (req, res, next) => {
   const { email, password } = req.body;
   // const userNameHash = hash(userName);
   const passwordHash = hash(password);
@@ -40,7 +40,7 @@ router.post("/signup", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/account/login", (req, res, next) => {
   const { email, password } = req.body;
   AccountTable.getAccount({ email })
     .then(({ account }) => {
@@ -58,7 +58,7 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.get("/logout", (req, res, next) => {
+router.get("/account/logout", (req, res, next) => {
   console.log(" router.get/logout req.cookies", JSON.stringify(req.cookies));
   const { email } = Session.parse(req.cookies.sessionString);
   AccountTable.updateSessionId({
@@ -72,7 +72,7 @@ router.get("/logout", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.get("/authenticated", (req, res, next) => {
+router.get("/account/authenticated", (req, res, next) => {
   const { sessionString } = req.cookies;
   // console.log("router.get(/authenticated-->sessionString", sessionString);
 

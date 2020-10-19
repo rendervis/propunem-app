@@ -14,7 +14,7 @@ export const fetchFromAccount = ({
   dispatch({
     type: FETCH_TYPE,
   });
-  return fetch(`${BACKEND.ADDRESS}/account/${endpoint}`, options)
+  return fetch(`/api/${endpoint}`, options)
     .then((response) => response.json())
     .then((json) => {
       console.log(" const fetchFromAccount =json", json);
@@ -44,7 +44,7 @@ export const signup = ({ email, password, history }) =>
     history,
     pushOnError: "/account/signup",
     pushOnSuccess: "/profil/profil",
-    endpoint: "signup",
+    endpoint: "account/signup",
     options: {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -62,7 +62,7 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: ACCOUNT.FETCH,
   });
-  return fetch("http://localhost:5000/account/logout", {
+  return fetch("/api/account/logout", {
     credentials: "include",
   })
     .then((response) => {
@@ -82,7 +82,7 @@ export const logout = () => (dispatch) => {
 
 export const login = ({ email, password }) =>
   fetchFromAccount({
-    endpoint: "login",
+    endpoint: "account/login",
     options: {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -100,7 +100,7 @@ export const fetchAuthenticated = ({ history }) =>
     history,
     pushOnError: "/",
     pushOnSuccess: "/profil/profil",
-    endpoint: "authenticated",
+    endpoint: "account/authenticated",
     options: {
       ///////store Session cookie on the browser
       credentials: "include",

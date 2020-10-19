@@ -4,7 +4,7 @@ export const storeProposal = ({ accountId, proposalName }) => (dispatch) => {
   dispatch({
     type: PROPOSAL.FETCH,
   });
-  return fetch("http://localhost:5000/proposal/name", {
+  return fetch("/api/proposal/name", {
     method: "POST",
     body: JSON.stringify({ accountId, proposalName }),
     headers: { "Content-Type": "application/json" },

@@ -91,7 +91,7 @@ app.use((err, req, res, next) => {
 });
 
 if (isProduction) {
-  app.use(express.static(path.resolve(__dirname, "../../client/build")));
+  app.use(express.static(__dirname + "../../client/build"));
 
   const path = require("path");
   app.get("*", (req, res) => {

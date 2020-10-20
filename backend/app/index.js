@@ -13,6 +13,7 @@ const { APP_SECRET } = require("../../environment_config/keys");
 ///////routes
 const accountRouter = require("./api/account");
 const proposalRouter = require("./api/proposal");
+const aboutUsRouter = require("./api/aboutUs");
 const authGoogleRouter = require("./api/authGoogle");
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -51,6 +52,7 @@ app.use(cookieParser(APP_SECRET));
 //Routes with sessionString
 app.use("/api", accountRouter);
 app.use("/api", proposalRouter);
+app.use("/api", aboutUsRouter);
 
 //-memory unleak---------
 app.set("trust proxy", 1);

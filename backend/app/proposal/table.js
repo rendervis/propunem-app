@@ -4,7 +4,7 @@ class ProposalTable {
   static storeProposal({ accountId, proposalName }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO proposal( account_id,proposalname) VALUES($1,$2)`,
+        `INSERT INTO proposal( account_id,proposal_name) VALUES($1,$2)`,
         [accountId, proposalName],
         (error, response) => {
           if (error) return reject(error);
@@ -16,9 +16,9 @@ class ProposalTable {
   static getProposal({ accountId, proposalName }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT proposal_id, account_id, proposalname
+        `SELECT proposal_id, account_id, proposal_name
            FROM proposal
-           WHERE account_id=$1 AND proposalname=$2
+           WHERE account_id=$1 AND proposal_name=$2
           `,
         [accountId, proposalName],
         (error, response) => {

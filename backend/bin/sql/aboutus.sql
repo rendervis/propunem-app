@@ -1,9 +1,10 @@
 CREATE TABLE aboutus
 (
-    "proposalId" INTEGER REFERENCES proposal(id),
+
+    "proposalId" BIGINT REFERENCES proposal(proposal_id),
     PRIMARY KEY ("proposalId"),
-    textid INTEGER NOT NULL,
-    abouttext TEXT
+    text_id INTEGER NOT NULL,
+    about_text TEXT NOT NULL
 
 
 );

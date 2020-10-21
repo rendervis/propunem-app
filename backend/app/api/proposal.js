@@ -5,7 +5,7 @@ const router = new Router();
 
 router.post("/proposal/name", (req, res, next) => {
   const { accountId, proposalName } = req.body;
-  ProposalTable.getProposal({ accountId, proposalName })
+  ProposalTable.checkForName({ accountId, proposalName })
     .then(({ proposal }) => {
       if (!proposal) {
         return ProposalTable.storeProposal({ accountId, proposalName }).then(
@@ -20,6 +20,15 @@ router.post("/proposal/name", (req, res, next) => {
         error.statusCode = 409;
         throw error;
       }
+    })
+    .catch((error) => next(error));
+});
+
+router.post("/proposal/list", (req, res, next) => {
+  const { accountId } = req.body;
+  ProposalTable.getProposalList({ accountId })
+    .then(({ proposalList }) => {
+      res.json({ proposalList });
     })
     .catch((error) => next(error));
 });

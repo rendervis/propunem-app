@@ -7,7 +7,7 @@ import styled, { css } from "styled-components";
 ///components
 import Header from "../../header.container";
 import ProfileMenu from "../../../components/UI/profile/profile-menu/profile-menu";
-import PropositionList from "./PropositionList";
+import ProposalList from "./ProposalList";
 
 import Profile from "./profile";
 import OfferSend from "./offer-send";
@@ -33,7 +33,7 @@ const ProfilePage = ({ history }) => {
             <Route path="/profil/profil" component={Profile} />
             <Route path="/profil/situatie" component={Situation} />
           </Switch>
-          <PropositionList />
+          <ProposalList />
         </BodyColumn2>
 
         <BodyColumn3 col3>

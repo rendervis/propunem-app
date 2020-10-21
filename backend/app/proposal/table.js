@@ -16,7 +16,7 @@ class ProposalTable {
       );
     });
   }
-  static getProposal({ accountId, proposalName }) {
+  static checkForName({ accountId, proposalName }) {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT proposal_id, account_id, proposal_name
@@ -31,6 +31,27 @@ class ProposalTable {
       );
     });
   }
+  static getProposalList({ accountId }) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `SELECT  proposal_id, account_id, proposal_name
+           FROM proposal
+           WHERE account_id=$1 
+          `,
+        [accountId],
+        (error, response) => {
+          // console.log(response);
+          if (error) return reject(error);
+          resolve({ proposalList: response.rows });
+        }
+      );
+    });
+  }
 }
+
+///////debug
+// ProposalTable.getProposalList({ accountId: 22 })
+//   .then(({ proposalList }) => console.log({ proposalList }))
+//   .catch((error) => console.log("error", error));
 
 module.exports = ProposalTable;

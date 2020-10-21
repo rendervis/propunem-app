@@ -24,6 +24,7 @@ export default (state = { ...DEFAULT_PROPOSAL }, action) => {
         message: action.message,
         proposalName: action.proposalName,
         accountId: action.accountId,
+        proposalId: action.proposalId,
       };
     default:
       return state;

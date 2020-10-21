@@ -4,11 +4,14 @@ class ProposalTable {
   static storeProposal({ accountId, proposalName }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO proposal( account_id,proposal_name) VALUES($1,$2)`,
+        `INSERT INTO 
+        proposal( account_id,proposal_name) VALUES($1,$2) RETURNING proposal_id`,
         [accountId, proposalName],
         (error, response) => {
           if (error) return reject(error);
-          resolve({ message: "proposal name added." });
+          const proposalId = response.rows[0].proposal_id;
+
+          resolve({ message: "proposal name added.", proposalId });
         }
       );
     });

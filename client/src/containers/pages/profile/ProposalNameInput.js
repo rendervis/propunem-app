@@ -22,8 +22,7 @@ const ProposalNameInput = ({ history }) => {
   };
 
   const clickHandler = () => {
-    dispatch(storeProposal({ accountId, proposalName }));
-    history.push("/propunere");
+    dispatch(storeProposal({ accountId, proposalName, history }));
   };
 
   return (

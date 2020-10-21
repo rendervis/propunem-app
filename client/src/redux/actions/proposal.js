@@ -1,6 +1,8 @@
 import { PROPOSAL } from "./types";
 
-export const storeProposal = ({ accountId, proposalName }) => (dispatch) => {
+export const storeProposal = ({ accountId, proposalName, history }) => (
+  dispatch
+) => {
   dispatch({
     type: PROPOSAL.FETCH,
   });
@@ -15,7 +17,9 @@ export const storeProposal = ({ accountId, proposalName }) => (dispatch) => {
     })
     .then((json) => {
       if (json.type === "error") {
+        alert(json.message);
         dispatch({ type: PROPOSAL.FETCH_ERROR, message: json.message });
+        return;
       } else {
         dispatch({
           type: PROPOSAL.FETCH_SUCCESS,
@@ -23,6 +27,7 @@ export const storeProposal = ({ accountId, proposalName }) => (dispatch) => {
           accountId,
           proposalName,
         });
+        history.push("/propunere");
       }
     })
     .catch((error) => {

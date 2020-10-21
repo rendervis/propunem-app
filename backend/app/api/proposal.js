@@ -8,8 +8,11 @@ router.post("/proposal/name", (req, res, next) => {
   ProposalTable.getProposal({ accountId, proposalName })
     .then(({ proposal }) => {
       if (!proposal) {
-        ProposalTable.storeProposal({ accountId, proposalName });
-        res.json({ message: "proposal name added." });
+        return ProposalTable.storeProposal({ accountId, proposalName }).then(
+          ({ proposalId, message }) => {
+            res.json({ proposalId, message });
+          }
+        );
       } else {
         const error = new Error(
           `Exista deja o propunere pentru ${proposalName}.`

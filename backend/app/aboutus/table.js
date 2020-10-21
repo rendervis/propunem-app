@@ -24,6 +24,10 @@ class AboutUsTable {
         [proposalId],
         (error, response) => {
           if (error) return reject(error);
+          console.log(
+            "static getAboutUsText({ proposalId })-->>",
+            response.rows[0]
+          );
           resolve({ aboutUsText: response.rows[0] });
         }
       );
@@ -34,6 +38,18 @@ class AboutUsTable {
       pool.query(
         `UPDATE aboutus SET about_text = $1 WHERE "proposalId" = $2 AND text_id=$3`,
         [aboutText, proposalId, textId],
+        (error, response) => {
+          if (error) return reject(error);
+          resolve();
+        }
+      );
+    });
+  }
+  static deleteAboutUsText({ proposalId, textId }) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `DELETE from aboutus WHERE "proposalId" = $1 AND text_id=$2`,
+        [proposalId, textId],
         (error, response) => {
           if (error) return reject(error);
           resolve();

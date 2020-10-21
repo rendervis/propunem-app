@@ -5,8 +5,9 @@ import TextArea from "./text-area";
 import { TextSmall } from "../../../components/UI/ui-elements";
 
 import {
-  showText,
   createText,
+  fetchAboutUsText,
+  saveText,
   deleteText,
   showDefault,
 } from "../../../redux/actions/about-us.actions";
@@ -41,17 +42,26 @@ const AboutUs = (props) => {
   });
   const dispatch = useDispatch();
 
-  const aboutUsText = useSelector((state) =>
+  const accountId = useSelector((state) => state.account.accountId);
+  const proposalId = useSelector((state) => state.proposal.proposalId);
+  const aboutUs = useSelector((state) =>
     Object.values(state.aboutUsText.aboutUs)
   );
+  console.log("aboutUs", aboutUs);
+  console.log("accountId", accountId);
+  console.log("proposalId", proposalId);
 
   useEffect(() => {
-    dispatch(showText(aboutUsText));
+    dispatch(fetchAboutUsText({ proposalId, aboutUs }));
   }, []);
 
   useEffect(() => {
-    dispatch(createText(textCard));
+    dispatch(createText({ textCard }));
   }, [dispatch, textCard, newValue]);
+
+  // useEffect(() => {
+  //   dispatch(saveText({ textCard, proposalId }));
+  // }, [dispatch, textCard, newValue]);
 
   const onSaveHandler = (id) => {
     setTextCard({
@@ -59,6 +69,15 @@ const AboutUs = (props) => {
       aboutText: newValue,
       touched: false,
     });
+    dispatch(
+      saveText({
+        textCard: { textId: (1 + id).toString(), aboutText: newValue },
+        proposalId,
+      })
+    );
+  };
+
+  const onAddDefaultHandler = (id) => {
     dispatch(
       showDefault({
         textId: (2 + id).toString(),
@@ -72,7 +91,7 @@ const AboutUs = (props) => {
     setTextCard({
       textId: (1 + id).toString(),
       aboutText: newValue,
-      touched: !aboutUsText[id].touched,
+      touched: !aboutUs[id].touched,
     });
   };
 
@@ -81,7 +100,7 @@ const AboutUs = (props) => {
   };
 
   const actions = (id, textId, touched) => {
-    if (!aboutUsText[id]) {
+    if (!aboutUs[id]) {
       return null;
     }
 
@@ -94,7 +113,7 @@ const AboutUs = (props) => {
           textAlign: "right",
         }}
       >
-        {!aboutUsText[id].aboutText ? (
+        {!aboutUs[id].aboutText ? (
           ""
         ) : (
           <TextSmall
@@ -109,7 +128,7 @@ const AboutUs = (props) => {
 
         <TextSmall
           hovered
-          display={!aboutUsText[id].aboutText.toString()}
+          display={!aboutUs[id].aboutText.toString()}
           style={{ marginLeft: "34px" }}
           onClick={() => onUpdateHandler(id)}
           red={touched}
@@ -118,7 +137,7 @@ const AboutUs = (props) => {
         </TextSmall>
 
         <TextSmall
-          display={aboutUsText[id].aboutText.toString()}
+          display={aboutUs[id].aboutText.toString()}
           hovered
           red
           style={{ marginLeft: "34px" }}
@@ -126,6 +145,7 @@ const AboutUs = (props) => {
         >
           salveaza
         </TextSmall>
+        <span onClick={() => onAddDefaultHandler(id)}>+</span>
       </div>
     );
   };
@@ -136,18 +156,18 @@ const AboutUs = (props) => {
   const onClickHandler = (id) => {
     // console.log("[onClickHandler =]", aboutUsText[id]);
     setTextCard({
-      textId: aboutUsText[id].textId,
-      aboutText: aboutUsText[id].aboutText,
+      textId: aboutUs[id].textId,
+      aboutText: aboutUs[id].aboutText,
       touched: true,
     });
     // dispatch(updateTouched())
   };
 
   const renderText = () => {
-    if (!aboutUsText[0]) {
-      return <div>no list</div>;
+    if (!aboutUs[0]) {
+      return null;
     } else {
-      return aboutUsText.map((about, index) => {
+      return aboutUs.map((about, index) => {
         // console.log("[renderText = () =>]", about.textId);
         return (
           <div key={random[about.textId].toString()}>

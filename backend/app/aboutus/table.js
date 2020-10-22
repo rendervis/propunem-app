@@ -1,11 +1,11 @@
 const pool = require("../../databasePool");
 
 class AboutUsTable {
-  static storeAboutUs({ proposalId, textId, aboutText }) {
+  static storeAboutUs({ proposalId, text_id, about_text }) {
     return new Promise((resolve, reject) => {
       pool.query(
         `INSERT INTO aboutus( "proposalId",text_id, about_text) VALUES($1,$2,$3)`,
-        [proposalId, textId, aboutText],
+        [proposalId, text_id, about_text],
         (error, response) => {
           if (error) return reject(error);
           resolve({ message: "about us text added." });
@@ -28,7 +28,7 @@ class AboutUsTable {
             "static getAboutUsText({ proposalId })-->>",
             response.rows[0]
           );
-          resolve({ aboutUsText: response.rows[0] });
+          resolve({ aboutUsText: response.rows });
         }
       );
     });

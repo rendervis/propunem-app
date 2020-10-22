@@ -20,9 +20,9 @@ router.post("/aboutus", (req, res, next) => {
 });
 router.post("/aboutus/save", (req, res, next) => {
   console.log("/aboutus/save -->> req.body", req.body);
-  const { proposalId, textId, aboutText } = req.body;
+  const { proposalId, text_id, about_text } = req.body;
 
-  AboutUsTable.storeAboutUs({ proposalId, textId, aboutText })
+  AboutUsTable.storeAboutUs({ proposalId, text_id, about_text })
     .then(() => {
       res.json({ message: "about text was added." });
     })

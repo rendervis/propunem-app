@@ -26,7 +26,7 @@ export const storeProposal = ({ accountId, proposalName, history }) => (
           accountId,
           proposalName,
         });
-        history.push("/propunere");
+        history.push(`/propunere/${proposalName}`);
       }
     })
     .catch((error) => {
@@ -62,4 +62,12 @@ export const fetchProposalList = ({ accountId }) => (dispatch) => {
     .catch((error) => {
       dispatch({ type: PROPOSAL.FETCH_ERROR, message: error.message });
     });
+};
+
+export const proposalEdit = ({ proposalName, proposalId }) => {
+  return {
+    type: PROPOSAL.EDIT,
+    proposalName,
+    proposalId,
+  };
 };

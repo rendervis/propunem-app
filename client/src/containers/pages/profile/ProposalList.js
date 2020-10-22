@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProposalList } from "../../../redux/actions/proposal";
+import {
+  fetchProposalList,
+  proposalEdit,
+} from "../../../redux/actions/proposal";
 
-export default () => {
+const ProposalList = ({ history }) => {
   const accountId = useSelector((state) => state.account.accountId);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchProposalList({ accountId }));
   }, []);
   const proposalList = useSelector((state) => state.proposal.proposalList);
   console.log("proposalList", proposalList);
 
+  const clickHandler = (proposalName, proposalId) => {
+    dispatch(proposalEdit({ proposalName, proposalId }));
+    history.push(`/propunere/${proposalName}`);
+  };
   const renderNameList = () => {
     if (!proposalList) {
       return (
@@ -33,6 +42,7 @@ export default () => {
           style={{
             marginBottom: "10px",
           }}
+          onClick={() => clickHandler(name.proposal_name, name.proposal_id)}
         >
           {name.proposal_name}
         </span>
@@ -54,3 +64,5 @@ export default () => {
     </div>
   );
 };
+
+export default withRouter(ProposalList);

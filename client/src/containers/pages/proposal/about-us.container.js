@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuidv4, parse as uuidParse } from "uuid";
 
 import TextArea from "./text-area";
 import { TextSmall } from "../../../components/UI/ui-elements";
@@ -10,68 +11,79 @@ import {
   saveText,
   deleteText,
   showDefault,
+  aboutUsClearState,
+  updateTouched,
 } from "../../../redux/actions/about-us.actions";
-
-let random = [
-  0x10,
-  0x91,
-  0x56,
-  0xbe,
-  0xc4,
-  0xfb,
-  0xc1,
-  0xea,
-  0x71,
-  0xb4,
-  0xef,
-  0xe1,
-  0x67,
-  0x1c,
-  0x58,
-  0x36,
-];
 
 const textAreaPlaceHolder = "Care este povestea ta? Cum ai inceput?";
 
 const AboutUs = (props) => {
   const [newValue, setNewValue] = useState("");
   const [textCard, setTextCard] = useState({
-    textId: `${1}`,
-    aboutText: "",
+    text_id: `${1}`,
+    about_text: "",
     touched: false,
+    key: uuidv4(),
   });
   const dispatch = useDispatch();
 
   const accountId = useSelector((state) => state.account.accountId);
   const proposalId = useSelector((state) => state.proposal.proposalId);
-  const aboutUs = useSelector((state) =>
+  let aboutUs = useSelector((state) =>
     Object.values(state.aboutUsText.aboutUs)
   );
-  console.log("aboutUs", aboutUs);
-  console.log("accountId", accountId);
-  console.log("proposalId", proposalId);
+  let aboutUsDB = useSelector((state) =>
+    Object.values(state.aboutUsText.aboutUsText)
+  );
 
+  useEffect(() => {
+    dispatch(aboutUsClearState());
+  }, []);
+  useEffect(() => {
+    dispatch(createText({ textCard }));
+  }, []);
   useEffect(() => {
     dispatch(fetchAboutUsText({ proposalId, aboutUs }));
   }, []);
 
   useEffect(() => {
-    dispatch(createText({ textCard }));
+    dispatch(updateTouched({ textCard }));
   }, [dispatch, textCard, newValue]);
 
-  // useEffect(() => {
-  //   dispatch(saveText({ textCard, proposalId }));
-  // }, [dispatch, textCard, newValue]);
-
   const onSaveHandler = (id) => {
+    // setTextCard({
+    //   textId: (1 + id).toString(),
+    //   about_text: newValue,
+    //   touched: false,
+    //   key: uuidv4(),
+    // });
+    dispatch(
+      saveText({
+        textCard: {
+          text_id: (1 + id).toString(),
+          about_text: newValue,
+          touched: false,
+          key: uuidv4(),
+        },
+        proposalId,
+      })
+    );
+  };
+  const onUpdateHandler = (id) => {
     setTextCard({
-      textId: (1 + id).toString(),
-      aboutText: newValue,
-      touched: false,
+      text_id: (1 + id).toString(),
+      about_text: newValue,
+      touched: !aboutUs[id].touched,
+      key: aboutUs[id].key,
     });
     dispatch(
       saveText({
-        textCard: { textId: (1 + id).toString(), aboutText: newValue },
+        textCard: {
+          text_id: (1 + id).toString(),
+          about_text: newValue,
+          touched: false,
+          key: aboutUs[id].key,
+        },
         proposalId,
       })
     );
@@ -80,31 +92,27 @@ const AboutUs = (props) => {
   const onAddDefaultHandler = (id) => {
     dispatch(
       showDefault({
-        textId: (2 + id).toString(),
-        aboutText: "",
-        touched: false,
+        defaultText: {
+          text_id: (2 + id).toString(),
+          about_text: "",
+          touched: false,
+          key: uuidv4(),
+        },
       })
     );
   };
 
-  const onUpdateHandler = (id) => {
-    setTextCard({
-      textId: (1 + id).toString(),
-      aboutText: newValue,
-      touched: !aboutUs[id].touched,
-    });
+  const onDeleteHandler = (text_id) => {
+    dispatch(deleteText(text_id));
   };
 
-  const onDeleteHandler = (textId) => {
-    dispatch(deleteText(textId));
-  };
-
-  const actions = (id, textId, touched) => {
+  const actions = (id, text_id, touched) => {
     if (!aboutUs[id]) {
       return null;
     }
 
-    // console.log("[const actions =]");
+    console.log("[const actions = aboutUs[id]]", aboutUs[id]);
+    console.log("[textCard]", textCard);
     return (
       <div
         style={{
@@ -113,11 +121,11 @@ const AboutUs = (props) => {
           textAlign: "right",
         }}
       >
-        {!aboutUs[id].aboutText ? (
+        {!aboutUs[id].about_text ? (
           ""
         ) : (
           <TextSmall
-            onClick={() => onDeleteHandler(textId)}
+            onClick={() => onDeleteHandler(text_id)}
             hovered
             red
             style={{ marginLeft: "34px" }}
@@ -128,7 +136,7 @@ const AboutUs = (props) => {
 
         <TextSmall
           hovered
-          display={!aboutUs[id].aboutText.toString()}
+          display={!aboutUs[id].about_text.toString()}
           style={{ marginLeft: "34px" }}
           onClick={() => onUpdateHandler(id)}
           red={touched}
@@ -137,7 +145,7 @@ const AboutUs = (props) => {
         </TextSmall>
 
         <TextSmall
-          display={aboutUs[id].aboutText.toString()}
+          display={aboutUs[id].about_text.toString()}
           hovered
           red
           style={{ marginLeft: "34px" }}
@@ -154,29 +162,30 @@ const AboutUs = (props) => {
     setNewValue(text);
   };
   const onClickHandler = (id) => {
-    // console.log("[onClickHandler =]", aboutUsText[id]);
     setTextCard({
-      textId: aboutUs[id].textId,
-      aboutText: aboutUs[id].aboutText,
+      text_id: aboutUs[id].text_id,
+      about_text: aboutUs[id].about_text,
       touched: true,
+      key: aboutUs[id].key,
     });
-    // dispatch(updateTouched())
   };
 
   const renderText = () => {
-    if (!aboutUs[0]) {
+    if (!aboutUs) {
       return null;
     } else {
       return aboutUs.map((about, index) => {
-        // console.log("[renderText = () =>]", about.textId);
+        // console.log("[renderText = () =>]", about.text_id);
+
         return (
-          <div key={random[about.textId].toString()}>
+          <div key={about.key}>
             <TextArea
               placeholder={textAreaPlaceHolder}
               onClick={() => onClickHandler(index)}
               onChange={(text) => onChangeTextHandler(text)}
-            />
-            {actions(index, about.textId, about.touched)}
+              defaultValue={about.about_text}
+            ></TextArea>
+            {actions(index, about.text_id, about.touched)}
           </div>
         );
       });

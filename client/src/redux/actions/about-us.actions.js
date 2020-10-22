@@ -16,16 +16,18 @@ export const fetchAboutUsText = ({ proposalId, aboutUs }) => (dispatch) => {
     })
     .then((json) => {
       const { aboutUsText } = json;
-      console.log("fetchAboutUsText -->>json", json);
+      console.log("fetchAboutUsText -->>json.aboutUsText", aboutUsText);
+      console.log("fetchAboutUsText -->> {aboutUs}", aboutUs);
       if (!aboutUsText) {
         dispatch({
           type: ABOUTUS.FETCH_ERROR,
-          message: json.message,
+          message: "json.message",
           aboutUs,
         });
       } else {
         dispatch({
           type: ABOUTUS.FETCH_SUCCESS,
+          message: json.message,
           aboutUsText,
         });
       }
@@ -36,8 +38,8 @@ export const fetchAboutUsText = ({ proposalId, aboutUs }) => (dispatch) => {
 };
 
 export const saveText = ({ textCard, proposalId }) => (dispatch) => {
-  console.log("export const saveText-->> textCard", textCard);
-  const { textId, aboutText } = textCard;
+  console.log(" const saveText-->> textCard", textCard);
+  const { text_id, about_text } = textCard;
   dispatch({
     type: ABOUTUS.FETCH,
   });
@@ -45,8 +47,8 @@ export const saveText = ({ textCard, proposalId }) => (dispatch) => {
     method: "POST",
     body: JSON.stringify({
       proposalId,
-      textId,
-      aboutText,
+      text_id,
+      about_text,
     }),
     headers: { "Content-Type": "application/json" },
     // credentials: "include",
@@ -61,8 +63,7 @@ export const saveText = ({ textCard, proposalId }) => (dispatch) => {
         dispatch({
           type: ABOUTUS.SAVE_TEXT,
           message: json.message,
-          textId,
-          aboutText,
+          textCard,
         });
       }
     })
@@ -71,24 +72,24 @@ export const saveText = ({ textCard, proposalId }) => (dispatch) => {
     });
 };
 
-export const updateTouched = (textCard) => (dispatch) => {
+export const updateTouched = ({ textCard }) => {
   return {
     type: ABOUTUS.UPDATE_TOUCHED,
-    payload: textCard,
+    textCard,
   };
 };
 
-export const showDefault = (defaultText) => {
+export const showDefault = ({ defaultText }) => {
   return {
     type: ABOUTUS.SHOW_DEFAULT,
-    payload: defaultText,
+    defaultText,
   };
 };
 
-export const deleteText = (textId) => {
+export const deleteText = (text_id) => {
   return {
     type: ABOUTUS.DELETE_TEXT,
-    payload: textId,
+    payload: text_id,
   };
 };
 
@@ -97,4 +98,8 @@ export const createText = ({ textCard }) => {
     type: ABOUTUS.CREATE_TEXT,
     textCard,
   };
+};
+
+export const aboutUsClearState = () => {
+  return { type: ABOUTUS.CLEAR_STATE };
 };

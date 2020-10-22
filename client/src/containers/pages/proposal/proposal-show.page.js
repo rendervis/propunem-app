@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useParams } from "react-router-dom";
 
 import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 ///// COMPONENTS /////
 import Header from "../../header.container";
@@ -21,6 +22,7 @@ import { TitleText } from "../../../components/UI/ui-elements";
 class ProposalShow extends Component {
   render() {
     const { proposalName } = this.props.proposal;
+
     return (
       <React.Fragment>
         <Header />
@@ -50,10 +52,22 @@ class ProposalShow extends Component {
               }}
             >
               <Switch>
-                <Route path="/propunere/despre-noi" component={AboutUs} />
-                <Route path="/propunere/abordare" component={OurApproach} />
-                <Route path="/propunere/oferta" component={OfferShow} />
-                <Route path="/propunere/optiuni" component={ProposalOptions} />
+                <Route
+                  path="/propunere/:nume_propunere/despre-noi"
+                  component={AboutUs}
+                />
+                <Route
+                  path="/propunere/:nume_propunere/abordare"
+                  component={OurApproach}
+                />
+                <Route
+                  path="/propunere/:nume_propunere/oferta"
+                  component={OfferShow}
+                />
+                <Route
+                  path="/propunere/:nume_propunere/optiuni"
+                  component={ProposalOptions}
+                />
               </Switch>
             </div>
           </MainContent>

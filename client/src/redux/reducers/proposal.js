@@ -1,7 +1,11 @@
 import { PROPOSAL } from "../actions/types";
 import fetchStates from "./fetchStates";
 
-const DEFAULT_PROPOSAL = { proposalName: null, accountId: null };
+const DEFAULT_PROPOSAL = {
+  proposalName: null,
+  accountId: null,
+  proposalId: null,
+};
 
 export default (state = { ...DEFAULT_PROPOSAL }, action) => {
   switch (action.type) {
@@ -27,6 +31,14 @@ export default (state = { ...DEFAULT_PROPOSAL }, action) => {
         proposalId: action.proposalId,
         proposalList: action.proposalList,
       };
+    case PROPOSAL.EDIT:
+      console.log("case PROPOSAL.EDIT:", action);
+      return {
+        ...state,
+        proposalName: action.proposalName,
+        proposalId: action.proposalId,
+      };
+
     default:
       return state;
   }

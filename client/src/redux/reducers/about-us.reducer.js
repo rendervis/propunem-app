@@ -1,9 +1,11 @@
 import _ from "lodash";
+import { v4 as uuidv4 } from "uuid";
 import { ABOUTUS } from "../actions/types";
 import fetchStates from "./fetchStates";
 
 const INITIAL_STATE = {
   aboutUs: {},
+  aboutUsText: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,16 +23,27 @@ export default (state = INITIAL_STATE, action) => {
         message: action.message,
       };
     case ABOUTUS.FETCH_SUCCESS:
-      console.log("ABOUTUS.FETCH_SUCCESS: action", action);
+      // console.log("ABOUTUS.FETCH_SUCCESS: action", action);
+      let result = action.aboutUsText.map((object) => ({
+        key: uuidv4(),
+
+        touched: false,
+        ...object,
+      }));
+      console.log("ABOUTUS.FETCH_SUCCESS: result", result);
       return {
         ...state,
         status: fetchStates.success,
         message: action.message,
-        aboutUsText: action.aboutUsText,
+        // aboutUsText: action.aboutUsText,
+        aboutUsText: {
+          ..._.mapKeys(result, "text_id"),
+        },
 
         aboutUs: {
           ...state.aboutUs,
-          ..._.mapKeys(action.text, "textId"),
+          ..._.mapKeys(result, "text_id"),
+          ..._.mapKeys(action.text, "text_id"),
         },
       };
     case ABOUTUS.SAVE_TEXT:
@@ -39,26 +52,25 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         aboutUs: {
           ...state.aboutUs,
-          [action.payload.textId]: action.payload,
+          [action.textCard.text_id]: action.textCard,
         },
-        textId: action.textId,
-        aboutText: action.aboutText,
       };
     case ABOUTUS.UPDATE_TOUCHED:
+      console.log("case ABOUTUS.UPDATE_TOUCHED: action", action);
       return {
         ...state,
         aboutUs: {
           ...state.aboutUs,
-          [action.payload.textId]: action.payload,
+          [action.textCard.text_id]: action.textCard,
         },
       };
     case ABOUTUS.SHOW_DEFAULT:
-      // console.log("[case CREATE_TEXT:]", action);
+      console.log("[case ABOUTUS.SHOW_DEFAULT:action]", action);
       return {
         ...state,
         aboutUs: {
           ...state.aboutUs,
-          [action.payload.textId]: action.payload,
+          [action.defaultText.text_id]: action.defaultText,
         },
       };
     case ABOUTUS.DELETE_TEXT:
@@ -68,12 +80,18 @@ export default (state = INITIAL_STATE, action) => {
         aboutUs: _.omit(state.aboutUs, action.payload),
       };
     case ABOUTUS.CREATE_TEXT:
+      console.log("[ case ABOUTUS.CREATE_TEXT:]", action);
       return {
         ...state,
         aboutUs: {
           ...state.aboutUs,
-          [action.textCard.textId]: action.textCard,
+          [action.textCard.text_id]: action.textCard,
         },
+      };
+    case ABOUTUS.CLEAR_STATE:
+      return {
+        aboutUs: {},
+        aboutUsText: {},
       };
     default:
       return state;

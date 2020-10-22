@@ -36,9 +36,9 @@ function App({ history }) {
         <Route exact path="/pret" component={Price} />
         <Route exact path="/contact" component={Contact} />
 
-        <Route path="/profil/:titlu/" component={ProfilePage} />
+        <Route path="/profil/:titlu" component={ProfilePage} />
         <Route exact path="/cont/:titlu" component={AccountDataPage} />
-        <Route path="/propunere" component={ProposalShow} />
+        <Route path="/propunere/:nume_propunere" component={ProposalShow} />
       </Switch>
     </React.Fragment>
   );

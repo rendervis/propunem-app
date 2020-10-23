@@ -14,7 +14,7 @@ const ProposalList = ({ history }) => {
     dispatch(fetchProposalList({ accountId }));
   }, []);
   const proposalList = useSelector((state) => state.proposal.proposalList);
-  console.log("proposalList", proposalList);
+  // console.log("proposalList", proposalList);
 
   const clickHandler = (proposalName, proposalId) => {
     dispatch(proposalEdit({ proposalName, proposalId }));

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 ////COMPONENTS////
@@ -17,6 +18,8 @@ import {
 
 export default () => {
   const [visible, setVisible] = useState(false);
+  const proposalList = useSelector((state) => state.proposal.proposalList);
+  const proposalCount = proposalList ? proposalList.length : 0;
 
   return (
     <React.Fragment>
@@ -43,7 +46,7 @@ export default () => {
         </div>
         <SecondaryMenu>
           <TextRegular black style={{ padding: "0 5rem" }}>
-            20 Propuneri
+            {` ${proposalCount} Propuneri`}
           </TextRegular>
           <ArrowOptions>
             <TextRegular black>Toate</TextRegular>

@@ -17,7 +17,7 @@ const ProposalNameInput = ({ history }) => {
 
   const accountId = useSelector((state) => state.account.accountId);
   const [proposalName, setProposalName] = useState("");
-  console.log("const ProposalNameInput = ", accountId, proposalName);
+  // console.log("const ProposalNameInput = ", accountId, proposalName);
 
   const handleChange = (event) => {
     const { value } = event.target;

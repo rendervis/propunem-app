@@ -1,33 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  showText,
-  createText,
-  deleteText,
-  showDefault,
-} from "../../../redux/actions/our-approach.actions";
+import { v4 as uuidv4, parse as uuidParse } from "uuid";
 
 import TextArea from "./text-area";
 import { TextSmall } from "../../../components/UI/ui-elements";
 
-let random = [
-  0x10,
-  0x91,
-  0x56,
-  0xbe,
-  0xc4,
-  0xfb,
-  0xc1,
-  0xea,
-  0x71,
-  0xb4,
-  0xef,
-  0xe1,
-  0x67,
-  0x1c,
-  0x58,
-  0x36,
-];
+import {
+  createText,
+  fetchOurApproachText,
+  saveText,
+  deleteText,
+  showDefault,
+  ourApproachClearState,
+  updateTouched,
+} from "../../../redux/actions/our-approach.actions";
 
 const textAreaPlaceHolder =
   "Ce te face să ieși în evidență? De ce esti cea mai buna alegere?";
@@ -35,53 +21,85 @@ const textAreaPlaceHolder =
 const OurApproach = () => {
   const [newValue, setNewValue] = useState("");
   const [textCard, setTextCard] = useState({
-    textId: `${1}`,
-    aboutText: "",
+    text_id: `${1}`,
+    approach_text: "",
     touched: false,
+    key: uuidv4(),
   });
   const dispatch = useDispatch();
 
-  const aboutUsText = useSelector((state) =>
-    Object.values(state.aboutUsText.aboutUs)
+  const proposalId = useSelector((state) => state.proposal.proposalId);
+  const ourApproach = useSelector((state) =>
+    Object.values(state.ourApproachText.ourApproach)
   );
 
   useEffect(() => {
-    dispatch(showText(aboutUsText));
+    dispatch(ourApproachClearState());
+  }, []);
+  useEffect(() => {
+    dispatch(createText({ textCard }));
   }, []);
 
   useEffect(() => {
-    dispatch(createText(textCard));
+    dispatch(fetchOurApproachText({ proposalId, ourApproach }));
+  }, []);
+  useEffect(() => {
+    dispatch(updateTouched({ textCard }));
   }, [dispatch, textCard, newValue]);
 
   const onSaveHandler = (id) => {
-    setTextCard({
-      textId: (1 + id).toString(),
-      aboutText: newValue,
-      touched: false,
-    });
     dispatch(
-      showDefault({
-        textId: (2 + id).toString(),
-        aboutText: "",
-        touched: false,
+      saveText({
+        textCard: {
+          text_id: (1 + id).toString(),
+          approach_text: newValue,
+          touched: false,
+          key: uuidv4(),
+        },
+        proposalId,
       })
     );
   };
 
   const onUpdateHandler = (id) => {
     setTextCard({
-      textId: (1 + id).toString(),
-      aboutText: newValue,
-      touched: !aboutUsText[id].touched,
+      text_id: (1 + id).toString(),
+      approach_text: newValue,
+      touched: !ourApproach[id].touched,
+      key: ourApproach[id].key,
     });
+    dispatch(
+      saveText({
+        textCard: {
+          text_id: (1 + id).toString(),
+          approach_text: newValue,
+          touched: false,
+          key: ourApproach[id].key,
+        },
+        proposalId,
+      })
+    );
+  };
+
+  const onAddDefaultHandler = (id) => {
+    dispatch(
+      showDefault({
+        defaultText: {
+          text_id: (2 + id).toString(),
+          approach_text: "",
+          touched: false,
+          key: uuidv4(),
+        },
+      })
+    );
   };
 
   const onDeleteHandler = (textId) => {
     dispatch(deleteText(textId));
   };
 
-  const actions = (id, textId, touched) => {
-    if (!aboutUsText[id]) {
+  const actions = (id, text_id, touched) => {
+    if (!ourApproach[id]) {
       return null;
     }
 
@@ -94,11 +112,11 @@ const OurApproach = () => {
           textAlign: "right",
         }}
       >
-        {!aboutUsText[id].aboutText ? (
+        {!ourApproach[id].approach_text ? (
           ""
         ) : (
           <TextSmall
-            onClick={() => onDeleteHandler(textId)}
+            onClick={() => onDeleteHandler(text_id)}
             hovered
             red
             style={{ marginLeft: "34px" }}
@@ -109,7 +127,7 @@ const OurApproach = () => {
 
         <TextSmall
           hovered
-          display={!aboutUsText[id].aboutText.toString()}
+          display={!ourApproach[id].approach_text.toString()}
           style={{ marginLeft: "34px" }}
           onClick={() => onUpdateHandler(id)}
           red={touched}
@@ -118,7 +136,7 @@ const OurApproach = () => {
         </TextSmall>
 
         <TextSmall
-          display={aboutUsText[id].aboutText.toString()}
+          display={ourApproach[id].approach_text.toString()}
           hovered
           red
           style={{ marginLeft: "34px" }}
@@ -126,6 +144,7 @@ const OurApproach = () => {
         >
           salveaza
         </TextSmall>
+        <span onClick={() => onAddDefaultHandler(id)}>+</span>
       </div>
     );
   };
@@ -136,27 +155,28 @@ const OurApproach = () => {
   const onClickHandler = (id) => {
     // console.log("[onClickHandler =]", aboutUsText[id]);
     setTextCard({
-      textId: aboutUsText[id].textId,
-      aboutText: aboutUsText[id].aboutText,
+      text_id: ourApproach[id].text_id,
+      approach_text: ourApproach[id].approach_text,
       touched: true,
+      key: ourApproach[id].key,
     });
-    // dispatch(updateTouched())
   };
 
   const renderText = () => {
-    if (!aboutUsText[0]) {
+    if (!ourApproach) {
       return null;
     } else {
-      return aboutUsText.map((about, index) => {
+      return ourApproach.map((about, index) => {
         // console.log("[renderText = () =>]", about.textId);
         return (
-          <div key={random[about.textId].toString()}>
+          <div key={about.key}>
             <TextArea
               placeholder={textAreaPlaceHolder}
               onClick={() => onClickHandler(index)}
               onChange={(text) => onChangeTextHandler(text)}
+              defaultValue={about.approach_text}
             />
-            {actions(index, about.textId, about.touched)}
+            {actions(index, about.text_id, about.touched)}
           </div>
         );
       });

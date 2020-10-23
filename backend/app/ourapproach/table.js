@@ -1,13 +1,13 @@
 const pool = require("../../databasePool");
 
 class OurApproachTable {
-  static storeOurApproach({ text_id, approach_text }) {
+  static storeOurApproach({ proposalId, text_id, approach_text }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO ourapproach(
+        `INSERT INTO ourapproach( proposal_id,
             text_id,approach_text)
-            VALUES($1,$2)`,
-        [text_id, approach_text],
+            VALUES($1,$2,$3)`,
+        [proposalId, text_id, approach_text],
         (error, response) => {
           if (error) return reject(error);
           resolve({ message: "approach text added." });

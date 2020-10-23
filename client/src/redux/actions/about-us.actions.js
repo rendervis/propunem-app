@@ -1,5 +1,4 @@
 import { ABOUTUS } from "./types";
-import * as type from "./about-us.types";
 
 export const fetchAboutUsText = ({ proposalId, aboutUs }) => (dispatch) => {
   dispatch({
@@ -21,7 +20,7 @@ export const fetchAboutUsText = ({ proposalId, aboutUs }) => (dispatch) => {
       if (!aboutUsText) {
         dispatch({
           type: ABOUTUS.FETCH_ERROR,
-          message: "json.message",
+          message: json.message,
           aboutUs,
         });
       } else {
@@ -85,18 +84,17 @@ export const showDefault = ({ defaultText }) => {
     defaultText,
   };
 };
+export const createText = ({ textCard }) => {
+  return {
+    type: ABOUTUS.CREATE_TEXT,
+    textCard,
+  };
+};
 
 export const deleteText = (text_id) => {
   return {
     type: ABOUTUS.DELETE_TEXT,
     payload: text_id,
-  };
-};
-
-export const createText = ({ textCard }) => {
-  return {
-    type: ABOUTUS.CREATE_TEXT,
-    textCard,
   };
 };
 

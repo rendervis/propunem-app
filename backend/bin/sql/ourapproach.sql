@@ -1,6 +1,6 @@
 CREATE TABLE ourapproach
 (
-    ourapproach_id integer NOT NULL,
+    ourapproach_id SERIAL ,
     proposal_id BIGINT NOT NULL,
 
     text_id INTEGER NOT NULL,

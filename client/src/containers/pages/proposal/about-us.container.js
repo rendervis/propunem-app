@@ -27,14 +27,14 @@ const AboutUs = (props) => {
   });
   const dispatch = useDispatch();
 
-  const accountId = useSelector((state) => state.account.accountId);
+  // const accountId = useSelector((state) => state.account.accountId);
   const proposalId = useSelector((state) => state.proposal.proposalId);
   let aboutUs = useSelector((state) =>
     Object.values(state.aboutUsText.aboutUs)
   );
-  let aboutUsDB = useSelector((state) =>
-    Object.values(state.aboutUsText.aboutUsText)
-  );
+  // let aboutUsDB = useSelector((state) =>
+  //   Object.values(state.aboutUsText.aboutUsText)
+  // );
 
   useEffect(() => {
     dispatch(aboutUsClearState());
@@ -111,8 +111,8 @@ const AboutUs = (props) => {
       return null;
     }
 
-    console.log("[const actions = aboutUs[id]]", aboutUs[id]);
-    console.log("[textCard]", textCard);
+    // console.log("[const actions = aboutUs[id]]", aboutUs[id]);
+    // console.log("[textCard]", textCard);
     return (
       <div
         style={{

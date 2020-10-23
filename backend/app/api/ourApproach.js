@@ -1,3 +1,4 @@
+const json = require("body-parser/lib/types/json");
 const { Router } = require("express");
 const OurApproachTable = require("../ourapproach/table");
 
@@ -21,9 +22,10 @@ router.post("/ourapproach", (req, res, next) => {
 router.post("/ourapproach/save", (req, res, next) => {
   const { proposalId, text_id, approach_text } = req.body;
 
-  OurApproachTable.storeOurApproach({ text_id, approach_text })
-    .then(() => {
-      res.json({ message: "approach text added." });
+  OurApproachTable.storeOurApproach({ proposalId, text_id, approach_text })
+    .then((json) => {
+      console.log("/ourapproach/save", json.message);
+      res.json({ message: json.message });
     })
     .catch((error) => next(error));
 });

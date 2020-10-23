@@ -103,7 +103,7 @@ const AboutUs = (props) => {
   };
 
   const onDeleteHandler = (text_id) => {
-    dispatch(deleteText(text_id));
+    dispatch(deleteText({ proposalId, text_id }));
   };
 
   const actions = (id, text_id, touched) => {

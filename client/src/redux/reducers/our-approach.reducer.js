@@ -78,7 +78,7 @@ export default (state = INITIAL_STATE, action) => {
       // console.log("[case DELETE_TEXT:]", action);
       return {
         ...state,
-        ourApproach: _.omit(state.ourApproach, action.payload),
+        ourApproach: _.omit(state.ourApproach, action.text_id),
       };
     case APPROACH.CREATE_TEXT:
       // console.log("[case CREATE_TEXT:]", action);

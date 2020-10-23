@@ -74,10 +74,10 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case ABOUTUS.DELETE_TEXT:
-      // console.log("[case DELETE_TEXT:]", action);
+      // console.log("[case DELETE_TEXT:]", action.text_id);
       return {
         ...state,
-        aboutUs: _.omit(state.aboutUs, action.payload),
+        aboutUs: _.omit(state.aboutUs, action.text_id),
       };
     case ABOUTUS.CREATE_TEXT:
       console.log("[ case ABOUTUS.CREATE_TEXT:]", action);

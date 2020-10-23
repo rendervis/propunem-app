@@ -95,11 +95,33 @@ export const createText = ({ textCard }) => {
   };
 };
 
-export const deleteText = (textId) => {
-  return {
-    type: APPROACH.DELETE_TEXT,
-    payload: textId,
-  };
+export const deleteText = ({ proposalId, text_id }) => (dispatch) => {
+  dispatch({
+    type: APPROACH.FETCH,
+  });
+  return fetch("/api/ourapproach/delete-text", {
+    method: "DELETE",
+    body: JSON.stringify({ proposalId, text_id }),
+    headers: { "Content-Type": "application/json" },
+    // credentials: "include",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      if (json.type === "error") {
+        dispatch({ type: APPROACH.FETCH_ERROR, message: json.message });
+      } else {
+        dispatch({
+          type: APPROACH.DELETE_TEXT,
+          message: json.message,
+          text_id,
+        });
+      }
+    })
+    .catch((error) => {
+      dispatch({ type: APPROACH.FETCH_ERROR, message: error.message });
+    });
 };
 
 export const ourApproachClearState = () => {

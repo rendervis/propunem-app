@@ -8,7 +8,7 @@ class AboutUsTable {
         [proposalId, text_id, about_text],
         (error, response) => {
           if (error) return reject(error);
-          resolve({ message: "about us text added." });
+          resolve();
         }
       );
     });
@@ -33,7 +33,7 @@ class AboutUsTable {
       );
     });
   }
-  static updateAboutUsText({ aboutText, proposalId, textId }) {
+  static updateAboutUsText({ aboutText, proposalId, text_id }) {
     return new Promise((resolve, reject) => {
       pool.query(
         `UPDATE aboutus SET about_text = $1 WHERE proposal_id = $2 AND text_id=$3`,
@@ -45,11 +45,11 @@ class AboutUsTable {
       );
     });
   }
-  static deleteAboutUsText({ proposalId, textId }) {
+  static deleteAboutUsText({ proposalId, text_id }) {
     return new Promise((resolve, reject) => {
       pool.query(
         `DELETE from aboutus WHERE proposal_id = $1 AND text_id=$2`,
-        [proposalId, textId],
+        [proposalId, text_id],
         (error, response) => {
           if (error) return reject(error);
           resolve();

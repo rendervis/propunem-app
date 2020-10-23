@@ -30,16 +30,16 @@ router.post("/aboutus/save", (req, res, next) => {
 });
 
 router.put("/aboutus/update", (req, res, next) => {
-  const { proposalId, textId, aboutText } = req.body;
-  AboutUsTable.updateAboutUsText({ aboutText, proposalId, textId })
+  const { proposalId, text_id, about_text } = req.body;
+  AboutUsTable.updateAboutUsText({ about_text, proposalId, text_id })
     .then(() => {
       res.json({ message: "Successful update!" });
     })
     .catch((error) => next(error));
 });
 router.delete("/aboutus/delete-text", (req, res, next) => {
-  const { proposalId, textId } = req.body;
-  AboutUsTable.deleteAboutUsText({ proposalId, textId })
+  const { proposalId, text_id } = req.body;
+  AboutUsTable.deleteAboutUsText({ proposalId, text_id })
     .then(() => {
       res.json({ message: "Successfully deleted!" });
     })

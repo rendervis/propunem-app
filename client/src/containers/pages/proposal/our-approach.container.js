@@ -94,8 +94,8 @@ const OurApproach = () => {
     );
   };
 
-  const onDeleteHandler = (textId) => {
-    dispatch(deleteText(textId));
+  const onDeleteHandler = (text_id) => {
+    dispatch(deleteText({ proposalId, text_id }));
   };
 
   const actions = (id, text_id, touched) => {

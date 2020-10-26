@@ -35,18 +35,16 @@ class TextArea extends Component {
   render() {
     // console.log("[TextArea extends ->]", this.props);
     return (
-      <TextRegular>
-        <TextAreaStyled
-          {...this.props}
-          ref={this.textareaRef}
-          onKeyUp={this.autoGrow}
-          placeholder={this.props.placeholder}
-          onChange={this.onInputChangeContent}
-          rows="1"
-          minLength="10"
-          maxLength="200"
-        />
-      </TextRegular>
+      <TextAreaStyled
+        {...this.props}
+        ref={this.textareaRef}
+        onKeyUp={this.autoGrow}
+        placeholder={this.props.placeholder}
+        onChange={this.onInputChangeContent}
+        rows="1"
+        minLength="10"
+        maxLength="200"
+      />
     );
   }
 }

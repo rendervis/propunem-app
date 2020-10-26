@@ -12,7 +12,7 @@ import proposalReducer from "./proposal";
 
 export default combineReducers({
   form: formReducer,
-  offer: offerReducer,
+  offerCards: offerReducer,
   aboutUsText: aboutUsReducer,
   ourApproachText: ourApproachReducer,
   proposalOptions: proposalOptionsReducer,

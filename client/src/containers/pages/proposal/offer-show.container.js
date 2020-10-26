@@ -1,34 +1,58 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import _ from "lodash";
+import { v4 as uuidv4, parse as uuidParse } from "uuid";
+///////ACTIONS
 import {
+  fetchOfferCards,
+  saveCard,
+  updateCard,
+  showDefault,
   createCard,
   deleteCard,
-  showDefault,
-  showCards,
-  updateCard,
+  offerClearState,
 } from "../../../redux/actions/offer.actions";
-
-import _ from "lodash";
-
-///// COMPONENTS /////
-import OfferCard from "./offer-form.container";
+///////COMPONENTS
+import OfferCard from "./OfferCard";
 
 class OfferShow extends Component {
   state = {
     keyList: [],
   };
-  componentDidMount() {
-    this.props.showCards(this.props.cards);
-    this.handleKeyList();
-  }
-  // componentDidUpdate(prevProps, prevState) {
-  //   // console.log("[componentDidUpdate  :]");
-  //   if (prevProps.cards !== this.props.cards) {
-  //     // console.log("[componentDidUpdate - if:]", "CHANGE");
 
-  //     this.renderList();
-  //   }
-  // }
+  componentDidMount() {
+    console.log("[componentDidMount]", "mounted!");
+    let { proposalId, cards } = this.props;
+    this.handleKeyList();
+    this.props.offerClearState();
+    if (proposalId) {
+      this.props.fetchOfferCards({ proposalId, cards });
+      // console.log("componentDidUpdate  cards", this.props.cards);
+    }
+  }
+  componentDidUpdate(prevProps) {
+    console.log("[componentDidUpdate]", "mounted!");
+    // Typical usage (don't forget to compare props):
+    if (this.props.cards.length === 0) {
+      this.props.createCard({
+        card: {
+          key: uuidv4(),
+          idx: 1,
+          textCard: {
+            textId: "1.0",
+            title: "",
+            secondaryTitle: "",
+            text: "",
+          },
+          offerPlan: {
+            standard: false,
+            recomandat: false,
+            premium: false,
+          },
+        },
+      });
+    }
+  }
 
   getRndInteger = () => {
     return Math.round(Math.random().toFixed(5) * 1000);
@@ -47,13 +71,25 @@ class OfferShow extends Component {
   };
 
   onSaveHandler = (savedCard, cardIndex) => {
+    console.log("onSaveHandler", this.props.proposalId);
+    let { proposalId } = this.props;
+    this.handleKeyList();
+    savedCard.key = this.state.keyList[cardIndex];
+
+    this.props.saveCard({ proposalId, savedCard });
+  };
+  onAddDefaultHandler = (cardIndex) => {
     this.handleKeyList();
     let defaultCard = {
+      key: uuidv4(),
+      idx: cardIndex + 2,
+
       textCard: {
-        id: 0.0,
+        textId: 0.0,
         title: "",
         secondaryTitle: "",
         text: "",
+        touched: false,
       },
       offerPlan: {
         standard: false,
@@ -61,28 +97,28 @@ class OfferShow extends Component {
         premium: false,
       },
     };
-    savedCard.key = this.state.keyList[cardIndex];
-
-    let defaultCardIndex = cardIndex + 1;
-    defaultCard.key = this.state.keyList[cardIndex + 1];
-    defaultCard.idx = defaultCardIndex;
-
-    this.props.createCard(savedCard, cardIndex);
-    this.props.showDefault(defaultCard, defaultCardIndex);
-
-    // console.log("[onSaveHandler - AFTER]", this.state.keyList);
+    this.props.showDefault({ defaultCard });
   };
-  onUpdateHandler = (idx) => {
-    const toUpdate = _.find(this.props.cards, function (card) {
-      return card.idx === idx;
-    });
-    this.props.updateCard(toUpdate);
-    // console.log(toUpdate);
+  onUpdateHandler = ({ textCard, offerPlan, key, idx }) => {
+    let { proposalId } = this.props;
+    // let updatedCard = _.find(this.props.cards, function (card) {
+    //   // console.log("textCard, offerPlan, idx ", textCard, offerPlan, idx);
+    //   return card.idx === idx;
+    // });
+    let updatedCard = {
+      key,
+      idx,
+      textCard,
+      offerPlan,
+    };
+
+    console.log("updatedCard", updatedCard);
+    this.props.updateCard({ proposalId, updatedCard });
   };
 
-  onDeleteHandler = (key, id) => {
-    // console.log("[onDeleteHandler: ]", key, id);
-    this.props.deleteCard(id);
+  onDeleteHandler = (key, idx) => {
+    let { proposalId } = this.props;
+    this.props.deleteCard({ proposalId, idx });
 
     let newKeyList = this.state.keyList;
     const index = newKeyList.indexOf(key);
@@ -91,21 +127,10 @@ class OfferShow extends Component {
       newKeyList.splice(index, 1);
     }
 
-    // console.log(
-    //   "[onDeleteHandler - BEFORE]",
-    //   this.props.cards.length,
-    //   this.props.cards
-    // );
-
-    // this.props.showDefault(defaultCard, defaultCardIndex);
-
     this.setState({
       keyList: newKeyList,
     });
     this.handleKeyList();
-    // this.props.showCards(this.props.cards);
-
-    // console.log("[onDeleteHandler - AFTER]", this.state.keyList);
   };
 
   renderList = () => {
@@ -113,15 +138,29 @@ class OfferShow extends Component {
       return null;
     } else {
       return this.props.cards.map((card, index) => {
+        console.log("card", card.offerPlan);
         return (
           <div key={card.key.toString()}>
             <OfferCard
-              isSaved={card.isSaved}
+              isSaved={card.textCard.text}
               id={index}
+              idx={card.idx}
+              offerKey={card.key}
+              textId={card.textCard.textId}
               onSave={this.onSaveHandler}
               onUpdate={this.onUpdateHandler}
               onDelete={() => this.onDeleteHandler(card.key, card.idx)}
+              offerText={card.textCard.text}
+              offerTitle={card.textCard.title}
+              offerSecondaryTitle={card.textCard.secondaryTitle}
+              plan={card.offerPlan}
+              touched={card.textCard.touched}
             />
+            {this.props.cards.length - 1 === index ? (
+              <div onClick={() => this.onAddDefaultHandler(index)}>adauga</div>
+            ) : (
+              ""
+            )}
           </div>
         );
       });
@@ -129,35 +168,43 @@ class OfferShow extends Component {
   };
 
   render() {
-    // console.log("[render]", this.props.cards);
-    if (!this.props.cards) {
-      return <div>Loading...</div>;
-    }
-    let defaultCard = <OfferCard id={0.0} onSave={this.onSaveHandler} />;
-    let cards = null;
-
-    if (!this.props.cards.length) {
-      cards = <div key={this.state.keyList[1]}>{defaultCard}</div>;
-    } else if (this.props.cards) {
-      cards = this.renderList();
-    }
-
-    return <div>{cards}</div>;
+    return <div>{this.renderList()}</div>;
   }
 }
+//   render() {
+//     // console.log("[render]", this.props.cards);
+//     if (!this.props.cards) {
+//       return <div>Loading...</div>;
+//     }
+//     let defaultCard = <OfferCard id={0.0} onSave={this.onSaveHandler} />;
+//     let cards = null;
+
+//     if (!this.props.cards.length) {
+//       cards = <div key={this.state.keyList[1]}>{defaultCard}</div>;
+//     } else if (this.props.cards) {
+//       cards = this.renderList();
+//     }
+
+//     return <div>{cards}</div>;
+//   }
+// }
 
 const mapStateToProps = (state) => {
   return {
-    cards: Object.values(state.offer.cards),
+    cards: Object.values(state.offerCards.cards),
+    // offerCards: Object.values(state.offer.offerCards),
+    proposalId: state.proposal.proposalId,
   };
 };
 
 export default connect(mapStateToProps, {
+  fetchOfferCards,
+  saveCard,
+  updateCard,
+  showDefault,
   createCard,
   deleteCard,
-  showDefault,
-  showCards,
-  updateCard,
+  offerClearState,
 })(OfferShow);
 
 // id={(1.1 + index / 10).toFixed(1)}

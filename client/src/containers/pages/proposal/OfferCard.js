@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { Field, reduxForm, getFormMeta, isDirty } from "redux-form";
 
 import SavedOfferCard from "../../../models/savedOfferCard";
 
@@ -17,60 +18,75 @@ import {
 
 const textAreaPlaceHolder =
   "Descrierea momentului cu pasii care trebuiesc urmati si responsabilitati.";
-class OfferForm extends Component {
+class OfferCard extends Component {
   state = {
+    key: this.props.offerKey,
+    idx: this.props.idx,
+
     textCard: {
-      title: "",
-      secondaryTitle: "",
-      text: "",
+      textId: this.props.textId,
+      title: this.props.offerTitle,
+      secondaryTitle: this.props.offerSecondaryTitle,
+      text: this.props.offerText,
+      touched: false,
     },
     offerPlan: {
-      standard: false,
-      recomandat: false,
-      premium: false,
+      standard: this.props.plan.standard || false,
+      recomandat: this.props.plan.recomandat || false,
+      premium: this.props.plan.premium || false,
     },
     smallText: ["standard", "recomandat", "premium"],
     isSaved: false,
   };
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.anyTouched !== prevProps.anyTouched)
+  //     this.setState({ touched: this.props.anyTouched });
+  // }
 
-  renderTitle = ({ input, title, meta: { visited, touched } }) => {
+  renderTitle = ({ type, meta: { visited, touched } }) => {
+    console.log("this.props.offerTitle", this.props.offerTitle);
     return (
       <React.Fragment>
         <TextInput
-          {...input}
+          type={type}
           titleStyle
           black
           placeholder="Adauga titlu"
-          value={title}
+          defaultValue={this.props.offerTitle}
           onChange={this.onInputChangeTitle}
         />
       </React.Fragment>
     );
   };
-  renderSecondaryTitle = ({ input, secondaryTitle }) => {
+  renderSecondaryTitle = ({
+    type,
+
+    meta: { touched, error, disabled },
+  }) => {
     return (
       <TextInput
-        {...input}
-        secondaryTitle
+        type={type}
+        secondaryTitleStyle
         black
         placeholder="Mica descriere (durata in ore)"
-        value={secondaryTitle}
+        defaultValue={this.props.offerSecondaryTitle}
         onChange={this.onInputChangeSecondaryTitle}
       />
     );
   };
 
   renderTextArea = ({
-    input,
+    type,
     textArea,
+
     meta: { touched, error, disabled },
   }) => {
     return (
       <TextArea
-        {...input}
+        type={type}
         onChange={this.onInputChangeTextArea}
-        value={textArea}
         placeholder={textAreaPlaceHolder}
+        defaultValue={this.props.offerText}
       />
     );
   };
@@ -83,41 +99,83 @@ class OfferForm extends Component {
     };
     updatedOfferPlan[text] = !this.state.offerPlan[text];
     this.setState({
+      ...this.state,
+      textCard: {
+        textId: this.props.textId || this.state.textCard.textId,
+        title: this.props.offerTitle || this.state.textCard.title,
+        secondaryTitle:
+          this.props.offerSecondaryTitle || this.state.textCard.secondaryTitle,
+        text: this.props.offerText || this.state.textCard.text,
+        touched: true,
+      },
       offerPlan: updatedOfferPlan,
     });
   };
 
   onInputChangeTitle = (event) => {
     const newTitle = event.target.value;
-    const updateTitle = this.state.textCard;
-    updateTitle.title = newTitle;
+    // const updateTitle = { ...this.state.textCard };
+    // updateTitle.title = newTitle;
+    // updateTitle.textId = this.props.textId;
+    // updateTitle.touched = !this.props.touched;
+
     this.setState({
-      textCard: updateTitle,
+      textCard: {
+        textId: this.props.textId,
+        title: newTitle,
+        secondaryTitle:
+          this.props.offerSecondaryTitle || this.state.textCard.secondaryTitle,
+        text: this.props.offerText || this.state.textCard.text,
+        touched: !this.state.touched,
+      },
+      key: this.props.offerKey,
+      idx: this.props.idx,
     });
   };
   onInputChangeSecondaryTitle = (event) => {
     const newSecondaryTitle = event.target.value;
-    const updateSecondaryTitle = this.state.textCard;
-    updateSecondaryTitle.secondaryTitle = newSecondaryTitle;
+    // const updateSecondaryTitle = { ...this.state.textCard };
+    // updateSecondaryTitle.secondaryTitle = newSecondaryTitle;
+    // updateSecondaryTitle.textId = this.props.textId;
+    // updateSecondaryTitle.touched = !this.props.touched;
     this.setState({
-      textCard: updateSecondaryTitle,
+      textCard: {
+        textId: this.props.textId,
+        title: this.props.offerTitle || this.state.textCard.title,
+        secondaryTitle: newSecondaryTitle,
+        text: this.props.offerText || this.state.textCard.text,
+        touched: !this.state.touched,
+      },
+      key: this.props.offerKey,
+      idx: this.props.idx,
     });
   };
 
   onInputChangeTextArea = (text) => {
     const newText = text;
-    const updateCardText = this.state.textCard;
-    updateCardText.text = newText;
+    // const updateCardText = this.state.textCard;
+    // updateCardText.text = newText;
+    // updateCardText.textId = this.props.textId;
+    // updateCardText.touched = !this.props.touched;
     this.setState({
-      textCard: updateCardText,
+      ...this.state,
+      textCard: {
+        textId: this.props.textId,
+        title: this.props.offerTitle || this.state.textCard.title,
+        secondaryTitle:
+          this.props.offerSecondaryTitle || this.state.textCard.secondaryTitle,
+        text: newText,
+        touched: !this.state.touched,
+      },
+      key: this.props.offerKey,
+      idx: this.props.idx,
     });
   };
 
   onSaveHandler = () => {
     const newCard = new SavedOfferCard();
     newCard.textCard = { ...this.state.textCard };
-    newCard.textCard.id = (1.0 + this.props.id / 10).toFixed(1);
-    // console.log("[onSaveHandler]", typeof newCard.textCard.id);
+    newCard.textCard.textId = (1.0 + this.props.id / 10).toFixed(1);
     newCard.idx = this.props.id + 1;
     newCard.isSaved = true;
 
@@ -130,17 +188,30 @@ class OfferForm extends Component {
     this.props.onSave(newCard, this.props.id + 1);
   };
   onUpdateHandler = () => {
-    // console.log("[onUpdateHandler]", this.props);
-    this.props.onUpdate(this.props.id + 1);
+    let { textCard, offerPlan, key, idx } = this.state;
+    // console.log("[onUpdateHandler]", idx);
+    // if (offerPlan !== this.props.plan) {
+    //   offerPlan = this.props.plan;
+    // }
+    this.setState({
+      ...this.state,
+      textCard: {
+        ...this.textCard,
+        touched: false,
+      },
+    });
+    this.props.onUpdate({ textCard, offerPlan, key, idx });
   };
 
   render() {
     // console.log("[OfferForm]");
-    const { title, secondaryTitle, text } = this.state.textCard;
-    // console.log("[onSubmit formValues: ]", this.props);
+    const { title, secondaryTitle, text, touched } = this.state.textCard;
+
+    console.log("[state]", this.state);
+    // console.log("[props]", this.props);
 
     return (
-      <form>
+      <div>
         <TextContainer>
           <TextRegular bold style={{ fontSize: "18px", lineHeight: "22px" }}>
             {(1.0 + this.props.id / 10).toFixed(1)}
@@ -204,7 +275,7 @@ class OfferForm extends Component {
                   hovered
                   style={{ marginLeft: "34px" }}
                   onClick={this.onUpdateHandler}
-                  red={this.props.touch}
+                  red={touched}
                 >
                   modifica
                 </TextSmall>
@@ -225,7 +296,7 @@ class OfferForm extends Component {
                   hovered
                   style={{ marginLeft: "24px" }}
                   onClick={this.handleOfferPlan}
-                  blue={this.state.offerPlan[text]}
+                  blue={this.props.plan[text] || this.state.offerPlan[text]}
                 >
                   {text}
                 </TextSmall>
@@ -233,7 +304,7 @@ class OfferForm extends Component {
             </div>
           </div>
         </TextContainer>
-      </form>
+      </div>
     );
   }
 }
@@ -247,4 +318,4 @@ const TextContainer = styled.div`
 export default reduxForm({
   form: "offerCard",
   touchOnChange: true,
-})(OfferForm);
+})(OfferCard);

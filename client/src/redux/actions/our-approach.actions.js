@@ -4,6 +4,7 @@ export const fetchOurApproachText = ({ proposalId, ourApproach }) => (
   dispatch
 ) => {
   dispatch({ type: APPROACH.FETCH });
+
   return fetch("/api/ourapproach", {
     method: "POST",
     body: JSON.stringify({ proposalId }),
@@ -37,7 +38,7 @@ export const fetchOurApproachText = ({ proposalId, ourApproach }) => (
     });
 };
 
-export const saveText = ({ textCard, proposalId }) => (dispatch) => {
+export const saveText = ({ proposalId, textCard }) => (dispatch) => {
   const { text_id, approach_text } = textCard;
   dispatch({
     type: APPROACH.FETCH,

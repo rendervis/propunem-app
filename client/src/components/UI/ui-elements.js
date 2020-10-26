@@ -154,7 +154,7 @@ export const TextInput = styled.input`
     `}
 
   ${(props) =>
-    props.secondaryTitle &&
+    props.secondaryTitleStyle &&
     css`
       font-size: 18px;
       /* line-height: 8px; */

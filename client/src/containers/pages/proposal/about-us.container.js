@@ -27,14 +27,10 @@ const AboutUs = (props) => {
   });
   const dispatch = useDispatch();
 
-  // const accountId = useSelector((state) => state.account.accountId);
   const proposalId = useSelector((state) => state.proposal.proposalId);
   let aboutUs = useSelector((state) =>
     Object.values(state.aboutUsText.aboutUs)
   );
-  // let aboutUsDB = useSelector((state) =>
-  //   Object.values(state.aboutUsText.aboutUsText)
-  // );
 
   useEffect(() => {
     dispatch(aboutUsClearState());

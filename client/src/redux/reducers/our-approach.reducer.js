@@ -3,14 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import fetchStates from "./fetchStates";
 import { APPROACH } from "../actions/types";
 
-import {
-  SHOW_TEXT,
-  CREATE_TEXT,
-  UPDATE_TOUCHED,
-  DELETE_TEXT,
-  SHOW_DEFAULT,
-} from "../actions/about-us.types";
-
 const INITIAL_STATE = {
   ourApproach: {},
   ourApproachText: {},

@@ -16,6 +16,7 @@ const proposalRouter = require("./api/proposal");
 const aboutUsRouter = require("./api/aboutUs");
 const ourApproachRouter = require("./api/ourApproach");
 const offerRouter = require("./api/offer");
+const optionCardRouter = require("./api/optionCard.js");
 const authGoogleRouter = require("./api/authGoogle");
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -57,6 +58,7 @@ app.use("/api", proposalRouter);
 app.use("/api", aboutUsRouter);
 app.use("/api", ourApproachRouter);
 app.use("/api", offerRouter);
+app.use("/api", optionCardRouter);
 
 //-memory unleak---------
 app.set("trust proxy", 1);

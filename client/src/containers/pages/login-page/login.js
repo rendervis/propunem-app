@@ -33,48 +33,39 @@ const Login = ({ history }) => {
     });
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   setData({ email: "", password: "" });
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const { email, password } = data;
 
-  //   fetch("http://localhost:8080/account/login", {
-  //     method: "post",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       email: data.email,
-  //       password: data.password,
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((json) => console.log("message", json.message));
-  // };
+    history.push("/profil/profil");
+    dispatch(login({ email, password }));
+
+    setData({ email: "", password: "" });
+  };
 
   return (
     <LoginStyled>
       <div>
         <GoogleAuth />
-        <FormInput
-          placeholder="Adresa e-mail"
-          name="email"
-          type="email"
-          value={data.email}
-          onChange={handleChange}
-          required
-        />
-
-        <FormInput
-          placeholder="Parola"
-          name="password"
-          type="password"
-          value={data.password}
-          onChange={handleChange}
-          required
-        />
-
-        <CustomButton onClick={loginHandler}>Intra in cont</CustomButton>
-
+        <form onSubmit={onSubmitHandler}>
+          <FormInput
+            placeholder="Adresa e-mail"
+            name="email"
+            type="email"
+            value={data.email}
+            onChange={handleChange}
+            required
+          />
+          <FormInput
+            placeholder="Parola"
+            name="password"
+            type="password"
+            value={data.password}
+            onChange={handleChange}
+            required
+          />
+          <CustomButton type="submit">Intra in cont</CustomButton>
+        </form>
         <div
           style={{
             position: "relative",

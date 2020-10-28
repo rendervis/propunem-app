@@ -25,19 +25,14 @@ const Signup = ({ history }) => {
     // history.push("/profil/profil");
   };
 
-  // const handleSubmit = (event) => {
-  // event.preventDefault();
-  // setData({ email: "", password: "" });
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const { email, password } = data;
 
-  // fetch("http://localhost:8080/account/signup", {
-  //   method: "post",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({
-  //     email: data.email,
-  //     password: data.password,
-  //   }),
-  // }).then((response) => response.json());
-  // };
+    dispatch(signup({ email, password, history }));
+
+    setData({ email: "", password: "" });
+  };
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -50,27 +45,27 @@ const Signup = ({ history }) => {
   return (
     <LoginStyled>
       <div>
-        <FormInput
-          placeholder="Adresa e-mail"
-          name="email"
-          type="email"
-          value={data.email}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={onSubmitHandler}>
+          <FormInput
+            placeholder="Adresa e-mail"
+            name="email"
+            type="email"
+            value={data.email}
+            onChange={handleChange}
+            required
+          />
 
-        <FormInput
-          placeholder="Parola"
-          name="password"
-          type="password"
-          value={data.password}
-          onChange={handleChange}
-          required
-        />
+          <FormInput
+            placeholder="Parola"
+            name="password"
+            type="password"
+            value={data.password}
+            onChange={handleChange}
+            required
+          />
 
-        <CustomButton type="button" onClick={signupHandler}>
-          Inregistreaza-te
-        </CustomButton>
+          <CustomButton type="submit">Inregistreaza-te</CustomButton>
+        </form>
 
         <div
           style={{

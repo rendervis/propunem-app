@@ -51,6 +51,7 @@ const EditableTextLine = (props) => {
             minLength="5"
             maxLength="26"
             onChange={onInputChangeContent}
+            defaultValue={props.text}
           />
         </span>
       </li>

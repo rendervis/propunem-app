@@ -10,7 +10,9 @@ router.post("/option-card", (req, res, next) => {
   OptionCardTable.getOptionCard({ title, proposalId })
     .then(({ optionCard }) => {
       if (optionCard.length === 0) {
-        res.json({ optionCard, message: "database empty" });
+        const error = new Error("database empty");
+        error.statusCode = 409;
+        throw error;
       } else {
         res.json({ optionCard, message: "option card from database" });
       }
@@ -20,13 +22,14 @@ router.post("/option-card", (req, res, next) => {
 
 router.post("/option-card/save", (req, res, next) => {
   console.log("/option-card/save -->>body", req.body);
-  const { title, priceTag, text, textId, proposalId } = req.body;
+  const { title, priceTag, text, textId, proposalId, key } = req.body;
 
   OptionCardTable.storeOptionCard({
     title,
     priceTag,
     text,
     textId,
+    key,
     proposalId,
   })
     .then(({ message }) => {
@@ -52,7 +55,7 @@ router.put("/option-card/update", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.delete("/option-card/delete-card", (req, res, next) => {
+router.delete("/option-card/delete-card-text", (req, res, next) => {
   const { title, textId, proposalId } = req.body;
   OptionCardTable.deleteOptionCardText({ title, textId, proposalId })
     .then(() => {

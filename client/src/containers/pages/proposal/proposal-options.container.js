@@ -7,9 +7,9 @@ const ProposalOptions = (props) => {
 
   return (
     <div style={{ display: "flex" }}>
-      <OptionContainer title={"standard"} />
-      <OptionContainer title={"recomandat"} />
-      <OptionContainer title={"premium"} />
+      <OptionContainer proposalOptionName={"standard"} />
+      <OptionContainer proposalOptionName={"recomandat"} />
+      <OptionContainer proposalOptionName={"premium"} />
     </div>
   );
 };

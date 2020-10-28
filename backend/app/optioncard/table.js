@@ -1,12 +1,12 @@
 const pool = require("../../databasePool");
 
 class OptionCardTable {
-  static storeOptionCard({ title, priceTag, text, textId, proposalId }) {
+  static storeOptionCard({ title, priceTag, text, textId, key, proposalId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO optioncard(title,price_tag, option_text,text_id,proposal_id)
-                    VALUES($1, $2, $3, $4, $5)`,
-        [title, priceTag, text, textId, proposalId],
+        `INSERT INTO optioncard(title,price_tag, option_text,text_id, text_key,proposal_id)
+                    VALUES($1, $2, $3, $4, $5,$6)`,
+        [title, priceTag, text, textId, key, proposalId],
         (error, response) => {
           if (error) return reject(error);
           resolve({ message: "option card stored." });
@@ -35,9 +35,9 @@ class OptionCardTable {
   static getOptionCard({ title, proposalId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT title,price_tag as priceTag, option_text as optionText,text_id as textId,proposal_id as proposalId
+        `SELECT title,price_tag as "priceTag", option_text as text,text_id as "textId",text_key as key,proposal_id as "proposalId"
         FROM optioncard
-        WHERE title=$1 proposal_id=$2`,
+        WHERE title=$1 AND proposal_id=$2`,
         [title, proposalId],
         (error, response) => {
           if (error) return reject(error);
@@ -62,5 +62,10 @@ class OptionCardTable {
     });
   }
 }
+
+///////debug
+// OptionCardTable.getOptionCard({ title: "standard", proposalId: 158 })
+//   .then(({ optionCard }) => console.log("optionCard", optionCard))
+//   .catch((error) => console.log("error", error));
 
 module.exports = OptionCardTable;

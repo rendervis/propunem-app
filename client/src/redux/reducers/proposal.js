@@ -8,6 +8,7 @@ const DEFAULT_PROPOSAL = {
 };
 
 export default (state = { ...DEFAULT_PROPOSAL }, action) => {
+  // console.log("[proposal.reducer -->>]", action);
   switch (action.type) {
     case PROPOSAL.FETCH:
       return {
@@ -21,7 +22,7 @@ export default (state = { ...DEFAULT_PROPOSAL }, action) => {
         message: action.message,
       };
     case PROPOSAL.FETCH_SUCCESS:
-      console.log("PROPOSAL.FETCH_SUCCESS:", action);
+      // console.log("PROPOSAL.FETCH_SUCCESS:", action);
       return {
         ...state,
         status: fetchStates.success,
@@ -32,7 +33,7 @@ export default (state = { ...DEFAULT_PROPOSAL }, action) => {
         proposalList: action.proposalList,
       };
     case PROPOSAL.EDIT:
-      console.log("case PROPOSAL.EDIT:", action);
+      // console.log("case PROPOSAL.EDIT:", action);
       return {
         ...state,
         proposalName: action.proposalName,

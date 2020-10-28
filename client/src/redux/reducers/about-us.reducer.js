@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  // console.log("[about-us.reducer -->>]", action);
   switch (action.type) {
     case ABOUTUS.FETCH:
       // console.log("[case SHOW_TEXT:]", state.aboutUs);
@@ -30,7 +31,7 @@ export default (state = INITIAL_STATE, action) => {
         touched: false,
         ...object,
       }));
-      console.log("ABOUTUS.FETCH_SUCCESS: result", result);
+      // console.log("ABOUTUS.FETCH_SUCCESS: result", result);
       return {
         ...state,
         status: fetchStates.success,
@@ -47,7 +48,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case ABOUTUS.SAVE_TEXT:
-      console.log("[case ABOUTUS.SAVE_TEXT: action]", action);
+      // console.log("[case ABOUTUS.SAVE_TEXT: action]", action);
       return {
         ...state,
         aboutUs: {
@@ -56,7 +57,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case ABOUTUS.UPDATE_TOUCHED:
-      console.log("case ABOUTUS.UPDATE_TOUCHED: action", action);
+      // console.log("case ABOUTUS.UPDATE_TOUCHED: action", action);
       return {
         ...state,
         aboutUs: {
@@ -65,7 +66,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case ABOUTUS.SHOW_DEFAULT:
-      console.log("[case ABOUTUS.SHOW_DEFAULT:action]", action);
+      // console.log("[case ABOUTUS.SHOW_DEFAULT:action]", action);
       return {
         ...state,
         aboutUs: {
@@ -80,7 +81,7 @@ export default (state = INITIAL_STATE, action) => {
         aboutUs: _.omit(state.aboutUs, action.text_id),
       };
     case ABOUTUS.CREATE_TEXT:
-      console.log("[ case ABOUTUS.CREATE_TEXT:]", action);
+      // console.log("[ case ABOUTUS.CREATE_TEXT:]", action);
       return {
         ...state,
         aboutUs: {

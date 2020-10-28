@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuidv4, parse as uuidParse } from "uuid";
 
 import EditableTextLine from "./editable-text-line";
 
 import styled from "styled-components";
-
 import { styled as styledMaterial } from "@material-ui/core/styles";
 import EuroIcon from "@material-ui/icons/Euro";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
 import {
-  showOption,
-  createOption,
-  deleteOption,
+  optionCardClearState,
+  createOptionCard,
+  fetchOptionCard,
+  saveOptionCard,
+  updateOptionCard,
   showDefaultOption,
-} from "../../../redux/actions/proposal-options.actions";
+  deleteOptionCardText,
+} from "../../../redux/actions/optionCard";
 
 let random = [
   0x10,
@@ -37,94 +40,125 @@ let random = [
 
 const OptionContainer = (props) => {
   const dispatch = useDispatch();
-  const { title } = props;
-  const [newTitle, setNewTitle] = useState("");
+  const { proposalOptionName } = props;
+  const [newTitle, setNewTitle] = useState(proposalOptionName);
   const [newPriceTag, setNewPriceTag] = useState("");
   const [newTextLine, setNewTextLine] = useState({
-    id: `${1}`,
+    textId: `${1}`,
     text: "",
     clicked: false,
     saved: false,
+    key: null,
   });
   const [createOptionData, setCreateOptionData] = useState({
-    title: newTitle,
+    title: proposalOptionName,
     priceTag: newPriceTag,
     content: newTextLine,
   });
-
-  const proposalOption = useSelector(
-    (state) => state.proposalOptions.options[title]
+  // const proposalOption = useSelector(
+  //   (state) => state.proposalOptions.options[title]
+  // );
+  const proposalId = useSelector((state) => state.proposal.proposalId);
+  const option = useSelector(
+    (state) => state.optionCard.options[proposalOptionName]
   );
-  const contentArray = Object.values(proposalOption.content);
 
+  const contentArray = Object.values(option.content);
+  ///////clear state from previous proposal/content
   useEffect(() => {
-    if (title) {
-      setNewTitle(title);
-    }
-    dispatch(showOption(proposalOption, title));
+    if (contentArray.length >= 2) dispatch(optionCardClearState());
   }, []);
+  console.log("[OptionContainer -->>option]", option);
 
   useEffect(() => {
-    dispatch(createOption(createOptionData, title));
-  }, [createOptionData, newTextLine]);
+    dispatch(
+      createOptionCard({
+        option: {
+          ...createOptionData,
+          content: {
+            ...createOptionData.content,
+            key: uuidv4(),
+          },
+        },
+        proposalOptionName,
+      })
+    );
+  }, [newTitle]);
+  useEffect(() => {
+    dispatch(
+      fetchOptionCard({
+        proposalOptionName,
+        proposalId,
+        option,
+      })
+    );
+  }, [dispatch, newTitle]);
+
+  // useEffect(() => {
+  //   dispatch(createOption(createOptionData, title));
+  // }, [createOptionData, newTextLine]);
 
   const onChangeHandler = (textLine) => {
     setNewTextLine(textLine);
-
-    // console.log(
-    //   "[onChangeHandler = (textLine) => ]",
-    //   newTextLine,
-    //   createOption.content
-    // );
   };
 
   const onClickHandler = (index) => {
     setCreateOptionData({
-      title: newTitle,
+      title: proposalOptionName,
       priceTag: newPriceTag,
       content: {
-        id: contentArray[index].id,
+        textId: contentArray[index].textId,
         text: contentArray[index].text,
         saved: false,
         clicked: true,
+        key: contentArray[index].key,
       },
     });
   };
 
   const addDefaultHandler = (index) => {
     dispatch(
-      showDefaultOption(
-        {
+      showDefaultOption({
+        defaultOption: {
           ...createOptionData,
 
           content: {
-            id: (2 + index).toString(),
+            textId: (2 + index).toString(),
             text: "",
             clicked: false,
             saved: false,
+            key: uuidv4(),
           },
         },
-        title
-      )
+
+        proposalOptionName,
+      })
     );
   };
-  const saveHandler = (index) => {
-    setCreateOptionData({
-      title: newTitle,
-      priceTag: newPriceTag,
-      content: {
-        text: newTextLine.text,
-        id: (1 + index).toString(),
-        saved: true,
-        clicked: false,
-      },
-    });
+  const saveHandler = (index, key) => {
+    dispatch(
+      saveOptionCard({
+        savedOption: {
+          title: proposalOptionName,
+          priceTag: newPriceTag,
+          content: {
+            text: newTextLine.text,
+            textId: (1 + index).toString(),
+            saved: true,
+            clicked: false,
+            key,
+          },
+        },
+        proposalOptionName,
+        proposalId,
+      })
+    );
   };
-  const onDeleteHandler = (id) => {
-    dispatch(deleteOption(id, title));
+  const onDeleteHandler = (textId) => {
+    dispatch(deleteOptionCardText({ textId, proposalOptionName, proposalId }));
   };
 
-  const actions = (index, id) => {
+  const actions = (index, textId, key) => {
     return (
       <div
         style={{
@@ -133,7 +167,7 @@ const OptionContainer = (props) => {
           alignItems: "center",
         }}
       >
-        {!contentArray[index].text || contentArray.length > id ? (
+        {!contentArray[index].text || contentArray.length > textId ? (
           ""
         ) : (
           <div
@@ -144,14 +178,12 @@ const OptionContainer = (props) => {
           </div>
         )}
 
-        {contentArray[index].saved &&
-        newTextLine.clicked &&
-        createOption.priceTag ? (
+        {contentArray[index].saved && newTextLine.clicked ? (
           ""
         ) : (
           <p
             style={{ cursor: "pointer", fontSize: "14px", padding: " 0 8px" }}
-            onClick={() => saveHandler(index)}
+            onClick={() => saveHandler(index, key)}
           >
             SAVE
           </p>
@@ -161,7 +193,7 @@ const OptionContainer = (props) => {
         ) : (
           <p
             style={{ cursor: "pointer", fontSize: "14px", padding: " 0 8px" }}
-            onClick={() => onDeleteHandler(id)}
+            onClick={() => onDeleteHandler(textId)}
           >
             DELETE
           </p>
@@ -176,22 +208,24 @@ const OptionContainer = (props) => {
       return contentArray.map((item, index) => {
         // console.log("[const renderTextLineStandard = () =>]", item);
         return (
-          <div key={random[item.id.toString()]}>
+          <div key={item.key.toString()}>
             <EditableTextLine
               clicked={item.clicked}
-              id={index}
+              textId={index}
+              text={item.text}
               onChange={(textLine) => onChangeHandler(textLine)}
               onClick={() => onClickHandler(index)}
             />
-            {actions(index, item.id)}
+            {actions(index, item.textId, item.key)}
           </div>
         );
       });
     }
   };
+
   return (
     <OptionContainerStyled>
-      <OptionTitle>{props.title}</OptionTitle>
+      <OptionTitle>{props.proposalOptionName}</OptionTitle>
       <div
         style={{
           margin: "34px 0 0 0",
@@ -209,6 +243,7 @@ const OptionContainer = (props) => {
               onClick={() =>
                 setCreateOptionData({ ...createOptionData, priceTag: "" })
               }
+              defaultValue={option.priceTag}
               rows="1"
               wrap="off"
               minLength="2"

@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import fetchStates from "./fetchStates";
 import { OFFER } from "../actions/types";
 
@@ -11,7 +10,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("[offer.reducer]", action.type);
+  // console.log("[offer.reducer -->>]", action);
   switch (action.type) {
     case OFFER.FETCH:
       return {
@@ -89,7 +88,7 @@ export default (state = INITIAL_STATE, action) => {
         cards: _.omit(state.cards, action.idx),
       };
     case OFFER.CREATE_CARD:
-      console.log("[CREATE_CARD]", action);
+      // console.log("[CREATE_CARD]", action);
       return {
         ...state,
         cards: {

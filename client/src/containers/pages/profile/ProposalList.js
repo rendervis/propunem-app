@@ -42,7 +42,12 @@ const ProposalList = ({ history }) => {
           style={{
             marginBottom: "10px",
           }}
-          onClick={() => clickHandler(name.proposal_name, name.proposal_id)}
+          onClick={() =>
+            clickHandler(
+              name.proposal_name.replace(/ +$/, "").replace(/\s/g, "-"),
+              name.proposal_id
+            )
+          }
         >
           {name.proposal_name}
         </span>

@@ -4,6 +4,7 @@ import { connect, useSelector } from "react-redux";
 
 ///////actions
 import { logout } from "../../redux/actions/account";
+import { toggleHidden } from "../header-dropdown/redux/dropdown.actions";
 
 import styled from "styled-components";
 
@@ -39,6 +40,10 @@ let HeaderDropdown = ({ props, dispatch, history }) => {
     }
 
     history.push("/");
+    dispatch(toggleHidden());
+  };
+  const onLinkHandler = () => {
+    dispatch(toggleHidden());
   };
 
   return (
@@ -68,13 +73,13 @@ let HeaderDropdown = ({ props, dispatch, history }) => {
           width: "100%",
         }}
       >
-        <Link to="/profil/profil">
+        <Link to="/profil/profil" onClick={onLinkHandler}>
           <ListText>Profil</ListText>
         </Link>
-        <Link to="/profil/oferte-trimise">
+        <Link to="/profil/oferte-trimise" onClick={onLinkHandler}>
           <ListText>Oferte Trimise</ListText>
         </Link>
-        <Link to="/profil/situatie">
+        <Link to="/profil/situatie" onClick={onLinkHandler}>
           <ListText>Situatie</ListText>
         </Link>
         <Divider />

@@ -26,9 +26,11 @@ const Header = () => {
   return (
     <HeaderContainer>
       <BodyColumn2 col2>
-        <Link to="/">
-          <LogoText>PROPUNEM</LogoText>
-        </Link>
+        <div style={{ maxWidth: "124px" }}>
+          <Link to="/">
+            <LogoText>PROPUNEM</LogoText>
+          </Link>
+        </div>
       </BodyColumn2>
       <BodyColumn3 col3>
         <HeaderMenuContainer>
@@ -70,8 +72,6 @@ const HeaderContainer = styled.header`
   width: 100vw;
   height: 70px;
   border-bottom: 2px solid rgba(242, 242, 242, 1);
-  /* display: flex; */
-  /* flex-direction: row; */
   display: grid;
   grid-template-columns: 222px 1052px 646px;
 
@@ -100,9 +100,8 @@ const BodyColumn3 = styled.div`
 `;
 
 const LogoText = styled.div`
-  margin-right: auto;
+  /* margin-right: auto; */
   font-size: 1rem;
-  /* padding: 0 224px; */
 
   font-family: "Lora";
   font-size: 16px;

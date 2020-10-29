@@ -3,13 +3,15 @@ import { withRouter, NavLink, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 
 const ButtonRound = ({ children, ...props }) => {
-  let buttonText = children.replace(/\s+/g, "-").toLowerCase();
+  let buttonText = children.replace(/\s/g, "-").toLowerCase();
   let match = useRouteMatch();
-  // <StyledNavLink key={buttonText} to={`${match.url}${"/" + buttonText}`}>
 
   return (
     <ButtonRoundStyled>
-      <StyledNavLink key={buttonText} to={`${match.url}${"/" + buttonText}`}>
+      <StyledNavLink
+        key={buttonText}
+        to={`${match.url.replace(/\s/g, "")}/${buttonText}`}
+      >
         <NavLinkText>{children}</NavLinkText>
       </StyledNavLink>
     </ButtonRoundStyled>

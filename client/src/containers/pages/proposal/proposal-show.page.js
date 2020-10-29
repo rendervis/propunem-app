@@ -21,6 +21,7 @@ import { TitleText } from "../../../components/UI/ui-elements";
 
 class ProposalShow extends Component {
   render() {
+    let mathcUrl = this.props.match.url.replace(/\s/g, "");
     const { proposalName } = this.props.proposal;
 
     return (
@@ -52,20 +53,11 @@ class ProposalShow extends Component {
               }}
             >
               <Switch>
+                <Route path={`${mathcUrl}/despre-noi`} component={AboutUs} />
+                <Route path={`${mathcUrl}/abordare`} component={OurApproach} />
+                <Route path={`${mathcUrl}/oferta`} component={OfferShow} />
                 <Route
-                  path="/propunere/:nume_propunere/despre-noi"
-                  component={AboutUs}
-                />
-                <Route
-                  path="/propunere/:nume_propunere/abordare"
-                  component={OurApproach}
-                />
-                <Route
-                  path="/propunere/:nume_propunere/oferta"
-                  component={OfferShow}
-                />
-                <Route
-                  path="/propunere/:nume_propunere/optiuni"
+                  path={`${mathcUrl}/optiuni`}
                   component={ProposalOptions}
                 />
               </Switch>

@@ -21,7 +21,14 @@ import {
   col3,
 } from "../../../components/UI/profile/ui-profile";
 
+//////actions
+import { fetchAuthenticated } from "../../../redux/actions/account";
+
 const ProfilePage = ({ history }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAuthenticated({ history }));
+  }, [dispatch]);
   //   let propsRed = red;
   return (
     <React.Fragment>

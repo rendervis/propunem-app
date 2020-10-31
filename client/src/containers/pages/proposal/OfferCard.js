@@ -38,10 +38,6 @@ class OfferCard extends Component {
     smallText: ["standard", "recomandat", "premium"],
     isSaved: false,
   };
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.anyTouched !== prevProps.anyTouched)
-  //     this.setState({ touched: this.props.anyTouched });
-  // }
 
   renderTitle = ({ type, meta: { visited, touched } }) => {
     console.log("this.props.offerTitle", this.props.offerTitle);

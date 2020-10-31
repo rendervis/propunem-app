@@ -40,7 +40,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("[optionCard -->>reducer:]", action);
+  // console.log("[optionCard -->>reducer:]", action);
 
   switch (action.type) {
     case OPTION_CARD.FETCH:
@@ -60,9 +60,9 @@ export default (state = INITIAL_STATE, action) => {
         action.optionCard === undefined ? "" : _.result(db[1], "priceTag");
 
       let name = action.proposalOptionName;
-      console.log("db", db);
-      console.log("name", name, action.proposalOptionName);
-      console.log("dbPriceTag", dbPriceTag);
+      // console.log("db", db);
+      // console.log("name", name, action.proposalOptionName);
+      // console.log("dbPriceTag", dbPriceTag);
       return {
         ...state,
         optionCard: {

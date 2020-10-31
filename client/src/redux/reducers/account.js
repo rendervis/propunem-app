@@ -1,7 +1,7 @@
 import { ACCOUNT } from "../actions/types";
 import fetchStates from "./fetchStates";
 
-const DEFAULT_ACCOUNT = { isSignedIn: false, user: null };
+const DEFAULT_ACCOUNT = { isSignedIn: false, googleUser: null };
 
 export default (state = DEFAULT_ACCOUNT, action) => {
   // console.log("[account.reducer -->>]", action);
@@ -49,9 +49,9 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         ...state,
         status: fetchStates.success,
         message: action.message,
-        accountId: action.user.account_id,
+        accountId: action.googleUser.account_id,
 
-        user: { ...action.user },
+        googleUser: { ...action.googleUser },
         isSignedIn: action.authenticated,
       };
 

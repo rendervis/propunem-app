@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { useDispatch, connect, useSelector } from "react-redux";
+import { reduxForm, getFormValues, isValid } from "redux-form";
 
 import styled from "styled-components";
 
@@ -9,66 +11,211 @@ import PageTitle from "../../../components/UI/profile/page-title";
 import AccountField from "./account-field";
 
 ///////UI
-///////UI
+///////actions
+import {
+  saveUserAccountInfo,
+  dataToForm,
+} from "../../../redux/actions/userAccount";
 
 import { BigButtonOutline } from "../../../components/UI/big-button-outline.component";
 
-const PersonalInformation = () => (
-  <React.Fragment>
-    <PageTitle>Date personale</PageTitle>
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        paddingTop: "20px",
-        justifyContent: "flex-start",
-        textAlign: "left",
+let PersonalInformation = (props) => {
+  const [userLocal, setUserLocal] = useState({
+    firstName: "",
+    surname: "",
+    address: "",
+    addressExtra: "",
+    city: "",
+    county: "",
+    companyName: "",
+    jobTitle: "",
+  });
 
-        width: "864px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <AccountField marginRight="128px" name="prenume" label="Prenume" />
-        <AccountField name="nume" label="Nume" />
-      </div>
-      <div style={{ height: "64px" }}></div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <AccountField marginRight="128px" name="adresa" label="Adresa" />
-        <AccountField name="adresa" />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <AccountField marginRight="128px" name="oras" label="Oras" />
-        <AccountField name="judet" label="Judet" />
-      </div>
-      <div style={{ height: "64px" }}></div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginBottom: "32px",
-        }}
-      >
-        <AccountField marginRight="128px" name="companie" label="Companie" />
-        <AccountField name="titlu-job" label="Titlu Job" />
-      </div>
-      <BigButtonOutline inputHeight="32px">Salveaza</BigButtonOutline>
-    </div>
-  </React.Fragment>
-);
+  const dispatch = useDispatch();
+  const accountId = useSelector((state) => state.account.accountId);
+  let userDb = useSelector((state) => state.userInformation.userInformation);
 
-export default PersonalInformation;
+  useEffect(() => {
+    setUserLocal({
+      ...userDb,
+    });
+  }, [userDb]);
+
+  useEffect(() => {
+    props.load({ userLocal });
+    console.log("[props.load -->>]", userLocal);
+  }, [userDb, userLocal]);
+
+  //////not used
+  const onInputChangeHandler = (event) => {
+    event.preventDefault();
+    const { value, name } = event.target;
+    setUserLocal({
+      ...userLocal,
+      [name]: value,
+    });
+  };
+
+  console.log("[const PersonalInformation : userDb]", userDb);
+  console.log("[const PersonalInformation : userLocal]", userLocal);
+  console.log("[const PersonalInformation : valid]", props.valid);
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log("[formValues]", props.formValues);
+    if (props.valid) {
+      dispatch(
+        saveUserAccountInfo({
+          accountId,
+          userInformation: { ...props.formValues },
+        })
+      );
+      alert("multumesc");
+    } else {
+      alert("completeaza datele");
+    }
+  };
+  const { surname, firstName } = props;
+  return (
+    <React.Fragment>
+      <PageTitle>Date personale</PageTitle>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          paddingTop: "20px",
+          justifyContent: "flex-start",
+          textAlign: "left",
+
+          width: "864px",
+        }}
+      >
+        <form onSubmit={onSubmitHandler}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <AccountField
+              label="Prenume"
+              name="firstName"
+              defaultValue={`${userLocal.firstName}`}
+              marginRight="128px"
+            />
+            <AccountField
+              name="surname"
+              label="Nume"
+              defaultValue={`${userLocal.surname}`}
+            />
+          </div>
+          <div style={{ height: "64px" }}></div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <AccountField
+              name="address"
+              label="Adresa"
+              defaultValue={`${userLocal.address}`}
+              marginRight="128px"
+            />
+            <AccountField
+              name="addressExtra"
+              defaultValue={`${userLocal.addressExtra}`}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <AccountField
+              name="city"
+              label="Oras"
+              defaultValue={`${userLocal.city}`}
+              marginRight="128px"
+            />
+            <AccountField
+              name="county"
+              label="Judet"
+              defaultValue={`${userLocal.county}`}
+            />
+          </div>
+          <div style={{ height: "64px" }}></div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginBottom: "32px",
+            }}
+          >
+            <AccountField
+              name="companyName"
+              label="Companie"
+              defaultValue={`${userLocal.companyName}`}
+              marginRight="128px"
+            />
+            <AccountField
+              name="jobTitle"
+              label="Titlu Job"
+              defaultValue={`${userLocal.jobTitle}`}
+            />
+          </div>
+          <BigButtonOutline
+            isDisabled={!props.valid}
+            inputHeight="32px"
+            type="submit"
+          >
+            Salveaza
+          </BigButtonOutline>
+        </form>
+      </div>
+    </React.Fragment>
+  );
+};
+
+///////get redux-form values from state
+///////get validate rules
+const validateMyField = (formValues) => {
+  console.log("[const validate: formValues]", formValues);
+  const { firstName, surname, companyName, jobTitle } = formValues;
+  const errors = {};
+
+  if (!firstName) {
+    errors.firstName = "Trebuie sa introduci prenume!";
+  }
+  if (!surname) {
+    errors.surname = "Trebuie sa introduci nume!";
+  }
+  if (!companyName) {
+    errors.companyName = "Trebuie sa introduci companie!";
+  }
+  if (!jobTitle) {
+    errors.jobTitle = "Trebuie sa introduci job!";
+  }
+  return errors;
+};
+
+PersonalInformation = reduxForm({
+  form: "accountField", // a unique identifier for this form
+  validate: validateMyField,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: true,
+})(PersonalInformation);
+
+export default connect(
+  (state, props) => ({
+    formValues: getFormValues("accountField")(state),
+    valid: isValid("accountField")(state),
+    initialValues: { ...state.userInformation.userLocal },
+
+    // dirty: isDirty('myForm')(state),
+    // pristine: isPristine('myForm')(state),
+    // invalid: isInvalid('myForm')(state)
+  }),
+  { load: dataToForm }
+)(PersonalInformation);

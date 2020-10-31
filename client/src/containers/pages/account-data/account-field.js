@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Field, reduxForm } from "redux-form";
+import { Field } from "redux-form";
 
 class AccountField extends React.Component {
   renderError(meta) {
@@ -14,50 +14,33 @@ class AccountField extends React.Component {
   }
 
   renderInput = (formProps) => {
-    // console.log(formProps.meta);
-    const className = `field ${
-      formProps.meta.error && formProps.meta.touched ? "error" : ""
-    }`;
+    // console.log("[renderInput -->> input]", input);
+    let { input, label, meta, defaultValue } = formProps;
+
+    const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
       <FieldContainer {...this.props} className={className}>
-        <LabelStyled>{formProps.label}</LabelStyled>
-        <div>
-          <InputStyled
-            {...formProps.input}
-            type={this.props.type}
-            autoComplete="off"
-          />
-        </div>
-        {this.renderError(formProps.meta)}
+        <LabelStyled>{label}</LabelStyled>
+        <li>
+          <InputStyled {...input} />
+        </li>
+        {this.renderError(meta)}
       </FieldContainer>
     );
   };
 
   render() {
-    // console.log(this.props);
+    console.log("[class AccountField: props]", this.props);
     return (
       <Field
         label={this.props.label}
         name={this.props.name}
         component={this.renderInput}
+        placeholder={this.props.placeholder}
       />
     );
   }
 }
-
-const validate = (formValues) => {
-  // console.log(formValues);
-  const errors = {};
-  if (!formValues.title) {
-    errors.title = "You must enter a title!";
-  }
-  if (!formValues.description) {
-    errors.description = "You must enter a description!";
-  }
-
-  return errors;
-};
-
 const InputStyled = styled.input`
   height: 32px;
   width: 100%;
@@ -99,7 +82,4 @@ const FieldContainer = styled.div`
   color: #161616;
 `;
 
-export default reduxForm({
-  form: "accountField",
-  validate: validate,
-})(AccountField);
+export default AccountField;

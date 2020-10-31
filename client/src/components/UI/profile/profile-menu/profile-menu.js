@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import styled, { css } from "styled-components";
 import { Link, NavLink, withRouter } from "react-router-dom";
@@ -6,7 +7,13 @@ import { Link, NavLink, withRouter } from "react-router-dom";
 ///// UI elements /////
 import { TextSmall, TextRegular } from "../../ui-elements";
 
+///////actions
+import { fetchUserAccountInfo } from "../../../../redux/actions/userAccount";
+
 const ProfileMenu = () => {
+  const dispatch = useDispatch();
+  const accountId = useSelector((state) => state.account.accountId);
+
   return (
     <ProfileMenuStyled>
       <CirclePhotoStyled></CirclePhotoStyled>
@@ -15,7 +22,11 @@ const ProfileMenu = () => {
           Nume Prenume
         </TextRegular>
         <Link to="/cont/date-personale">
-          <TextSmall blue marginLeft>
+          <TextSmall
+            blue
+            marginLeft
+            onClick={() => dispatch(fetchUserAccountInfo({ accountId }))}
+          >
             edit
           </TextSmall>
         </Link>

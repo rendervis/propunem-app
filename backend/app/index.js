@@ -16,7 +16,8 @@ const proposalRouter = require("./api/proposal");
 const aboutUsRouter = require("./api/aboutUs");
 const ourApproachRouter = require("./api/ourApproach");
 const offerRouter = require("./api/offer");
-const optionCardRouter = require("./api/optionCard.js");
+const optionCardRouter = require("./api/optionCard");
+const userAccountRouter = require("./api/userAccount");
 const authGoogleRouter = require("./api/authGoogle");
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -54,6 +55,7 @@ app.use(cookieParser(APP_SECRET));
 
 //Routes with sessionString
 app.use("/api", accountRouter);
+app.use("/api", userAccountRouter);
 app.use("/api", proposalRouter);
 app.use("/api", aboutUsRouter);
 app.use("/api", ourApproachRouter);

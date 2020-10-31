@@ -36,7 +36,7 @@ router.get("/current_user", (req, res, next) => {
   if (req.isAuthenticated()) {
     res.send(
       JSON.stringify({
-        user: req.user,
+        googleUser: req.user,
         authenticated: req.isAuthenticated(),
         message: "Conectare reusita!",
       })

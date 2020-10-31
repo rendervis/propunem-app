@@ -6,6 +6,7 @@ import aboutUsReducer from "./about-us.reducer";
 import ourApproachReducer from "./our-approach.reducer";
 import optionCardReducer from "./optionCard";
 import dropdownReducer from "../../components/header-dropdown/redux/dropdown.reducer";
+import userAccountReducer from "./userAccount";
 
 import accountReducer from "./account";
 import proposalReducer from "./proposal";
@@ -19,5 +20,6 @@ export default combineReducers({
   headerDropdown: dropdownReducer,
 
   account: accountReducer,
+  userInformation: userAccountReducer,
   proposal: proposalReducer,
 });

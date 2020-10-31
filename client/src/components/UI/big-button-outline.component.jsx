@@ -3,13 +3,13 @@ import styled, { css } from "styled-components";
 
 export const BigButtonOutline = (props) => {
   return (
-    <OutlineContainer {...props}>
+    <ButtonStyled {...props}>
       <ButtonTitle>{props.children}</ButtonTitle>
-    </OutlineContainer>
+    </ButtonStyled>
   );
 };
 
-const OutlineContainer = styled.div`
+const ButtonStyled = styled.button`
   width: 276px;
   /* height: 48px; */
   height: ${(props) => props.inputHeight || "48px"};
@@ -24,17 +24,22 @@ const OutlineContainer = styled.div`
   border-style: solid;
 
   border-width: 1px;
-  /* ${(props) =>
-    props.profilePosition &&
-    css`
-      margin-left: 0.12rem;
-    `} */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
   :hover {
     cursor: pointer;
     color: #0277bd;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
   }
+  ${(props) =>
+    props.isDisabled &&
+    css`
+      pointer-events: none;
+      /* background-color: #000000; */
+      border-color: #ffb3b3;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 0;
+    `}
 `;
 
 const ButtonTitle = styled.span`

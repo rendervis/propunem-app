@@ -1,4 +1,5 @@
 import React from "react";
+import { reduxForm, getFormValues, isValid } from "redux-form";
 
 ////COMPONENTS////
 
@@ -9,7 +10,7 @@ import AccountField from "./account-field";
 
 import { BigButtonOutline } from "../../../components/UI/big-button-outline.component";
 
-const SetPassword = () => (
+let SetPassword = () => (
   <React.Fragment>
     <PageTitle>Seteaza parola</PageTitle>
     <div
@@ -51,4 +52,8 @@ const SetPassword = () => (
   </React.Fragment>
 );
 
+SetPassword = reduxForm({
+  form: "accountField", // a unique identifier for this form
+  // validate: validateMyField,
+})(SetPassword);
 export default SetPassword;

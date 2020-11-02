@@ -15,7 +15,7 @@ import Situation from "./situation";
 
 ///ui-elements
 import {
-  ProfileBody,
+  ProfileBodyGrid,
   col1,
   col2,
   col3,
@@ -35,23 +35,32 @@ const ProfilePage = ({ history }) => {
   return (
     <React.Fragment>
       <Header />
-      <ProfileBody>
-        <BodyColumn2 col2>
-          <Switch>
-            <Route path="/profil/oferte-trimise" component={OfferSend} />
-            <Route path="/profil/profil" component={Profile} />
-            <Route path="/profil/situatie" component={Situation} />
-          </Switch>
-          <ProposalList />
-        </BodyColumn2>
+      <FlexWrapper>
+        <ProfileBodyGrid>
+          <BodyColumn2 col2>
+            <Switch>
+              <Route path="/profil/oferte-trimise" component={OfferSend} />
+              <Route path="/profil/profil" component={Profile} />
+              <Route path="/profil/situatie" component={Situation} />
+            </Switch>
+            <ProposalList />
+          </BodyColumn2>
 
-        <BodyColumn3 col3>
-          <ProfileMenu />
-        </BodyColumn3>
-      </ProfileBody>
+          <BodyColumn3 col3>
+            <ProfileMenu />
+          </BodyColumn3>
+        </ProfileBodyGrid>
+      </FlexWrapper>
     </React.Fragment>
   );
 };
+
+const FlexWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+`;
 
 const BodyColumn1 = styled.div`
   ${col1}

@@ -45,7 +45,7 @@ export default () => {
           </Link>
         </div>
         <SecondaryMenu>
-          <TextRegular black style={{ padding: "0 5rem" }}>
+          <TextRegular black style={{ padding: "0 4.16vw" }}>
             {` ${proposalCount} Propuneri`}
           </TextRegular>
           <ArrowOptions>

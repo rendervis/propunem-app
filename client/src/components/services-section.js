@@ -16,6 +16,7 @@ const ServicesSection = () => (
         placeholder="Cauta servicii "
       />
     </SearchBar>
+    <div style={{ height: "25px" }}></div>
     <ServiceRoll>
       <MyArrowBackIosIconLeft />
       <ServiceInfo>
@@ -30,8 +31,14 @@ const ServicesSection = () => (
           <ServiceContact>Prenume Nume</ServiceContact>
         </ServiceFooter>
       </ServiceInfo>
-
-      <MyArrowForwardIosIcon />
+      <div
+        style={{
+          display: "flex",
+          alignContent: "flex-end",
+        }}
+      >
+        <MyArrowForwardIosIconRight />
+      </div>
     </ServiceRoll>
   </ServicesSectionStyled>
 );
@@ -39,15 +46,16 @@ const ServicesSection = () => (
 const ServicesSectionStyled = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 283px 0 232px;
 `;
 const SearchBar = styled.div`
   background-color: white;
   // display: block;
 
-  flex: 1;
-
   float: left;
-  // position: relative;
+  position: relative;
 
   border: 2px solid rgba($color: #777777, $alpha: 1);
   border-radius: 25px;
@@ -56,7 +64,7 @@ const SearchBar = styled.div`
   height: 3.125rem;
   width: 22.5rem;
   margin-top: 2.5rem;
-  margin-left: 27.0625rem;
+  margin-left: 204px;
 `;
 const SearchInput = styled.input`
   border: 0;
@@ -86,38 +94,44 @@ const SearchInput = styled.input`
   -webkit-appearance: textfield;
 `;
 const ServiceRoll = styled.div`
-  width: 89.875rem;
+  width: 100%;
   height: 6.5rem;
-  position: absolute;
-  left: 13.75rem;
-  margin-top: 8.375rem;
-  right: 16.375rem;
+  padding: 0;
+  /* position: absolute; */
+  /* left: 13.75rem; */
+  /* margin-top: 8.375rem; */
+  /* right: 16.375rem; */
   // flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
-  // justify-content: flex-end;
-  // background-color: red;
+  justify-content: space-between;
+  /* background-color: red; */
 `;
 const MyArrowBackIosIconLeft = styledMaterial(ArrowBackIosIcon)({
   fontWeight: "bolder",
   color: "#bbbbbb",
   fontSize: "5rem",
-  marginRight: "2.225rem",
-  marginLeft: "0",
+  // marginRight: "2.225rem",
+  // marginLeft: "0",
   cursor: "pointer",
+  position: "relative",
 });
-const MyArrowForwardIosIcon = styledMaterial(ArrowForwardIosIcon)({
+const MyArrowForwardIosIconRight = styledMaterial(ArrowForwardIosIcon)({
   fontWeight: "bolder",
   color: "#bbbbbb",
   fontSize: "5rem",
+  position: "relative",
+  marginRight: "0",
   marginLeft: "auto",
   cursor: "pointer",
 });
 const ServiceInfo = styled.div`
   width: 22.5rem;
   height: 6.5rem;
-  margin: 0 6.25rem;
+  /* margin: 0 204px; */
+  margin-right: auto;
+  margin-left: 124px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

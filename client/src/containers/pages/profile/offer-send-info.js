@@ -28,7 +28,7 @@ const OfferSendInfo = (props) => {
 };
 
 const OfferDisplay = styled.div`
-  width: 54.19rem;
+  width: 45vw;
   height: 3.69rem;
 
   margin-top: 0;

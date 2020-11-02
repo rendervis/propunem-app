@@ -10,7 +10,7 @@ const PageTitle = (props) => {
 };
 
 const TitleContainer = styled.div`
-  width: 864px;
+  width: 45vw;
   height: 140px;
   display: flex;
   flex-direction: column;

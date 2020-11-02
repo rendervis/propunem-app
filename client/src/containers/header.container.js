@@ -24,57 +24,64 @@ const Header = () => {
   };
 
   return (
-    <HeaderContainer>
-      <BodyColumn2 col2>
-        <div style={{ maxWidth: "124px" }}>
-          <Link to="/">
-            <LogoText>PROPUNEM</LogoText>
-          </Link>
-        </div>
-      </BodyColumn2>
-      <BodyColumn3 col3>
-        <HeaderMenuContainer>
-          <Link to="/despre-noi">
-            <HeaderText style={{ paddingLeft: "0" }}>DESPRE NOI</HeaderText>
-          </Link>
-          <Link to="/pret">
-            <HeaderText>PRET</HeaderText>
-          </Link>
-          <Link to="/contact">
-            <HeaderText>CONTACT</HeaderText>
-          </Link>
-          {!account.isSignedIn ? (
-            <Link to="/account/login">
-              <RegistrationButton>
-                <RegistrationButtonText>Contul meu</RegistrationButtonText>
-              </RegistrationButton>
+    <FlexHeader>
+      <HeaderGrid>
+        <BodyColumn2 col2>
+          <div style={{ maxWidth: "124px" }}>
+            <Link to="/">
+              <LogoText>PROPUNEM</LogoText>
             </Link>
-          ) : (
-            <MenuCircle onClick={() => onClickHandler()}>
-              <MenuIcon />
-            </MenuCircle>
-          )}
-        </HeaderMenuContainer>
-      </BodyColumn3>
+          </div>
+        </BodyColumn2>
+        <BodyColumn3 col3>
+          <HeaderMenuContainer>
+            <Link to="/despre-noi">
+              <HeaderText style={{ paddingLeft: "0" }}>DESPRE NOI</HeaderText>
+            </Link>
+            <Link to="/pret">
+              <HeaderText>PRET</HeaderText>
+            </Link>
+            <Link to="/contact">
+              <HeaderText>CONTACT</HeaderText>
+            </Link>
+            {!account.isSignedIn ? (
+              <Link to="/account/login">
+                <RegistrationButton>
+                  <RegistrationButtonText>Contul meu</RegistrationButtonText>
+                </RegistrationButton>
+              </Link>
+            ) : (
+              <MenuCircle onClick={() => onClickHandler()}>
+                <MenuIcon />
+              </MenuCircle>
+            )}
+          </HeaderMenuContainer>
+        </BodyColumn3>
 
-      {hidden ? (
-        ""
-      ) : (
-        <OverlayBackground onClick={() => onClickHandler()}>
-          <HeaderDropdown user={account.user} />
-        </OverlayBackground>
-      )}
-    </HeaderContainer>
+        {hidden ? (
+          ""
+        ) : (
+          <OverlayBackground onClick={() => onClickHandler()}>
+            <HeaderDropdown user={account.user} />
+          </OverlayBackground>
+        )}
+      </HeaderGrid>
+    </FlexHeader>
   );
 };
-
-const HeaderContainer = styled.header`
+const FlexHeader = styled.header`
   width: 100vw;
   height: 70px;
-  border-bottom: 2px solid rgba(242, 242, 242, 1);
-  display: grid;
-  grid-template-columns: 222px 1052px 646px;
+  display: flex;
+`;
+// grid-template-columns: 222px 1052px 646px;
 
+const HeaderGrid = styled.div`
+  /* max-width: 800px; */
+  border-bottom: 2px solid rgba(242, 242, 242, 1);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 12fr 56fr 32fr;
   align-items: center;
 `;
 const BodyColumn1 = styled.div`

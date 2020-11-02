@@ -1,16 +1,19 @@
 import styled, { css } from "styled-components";
 
-export const ProfileBody = styled.div`
+export const ProfileBodyGrid = styled.div`
   background-color: #f2f2f2;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+
   /* padding: 79px 224px 79px 224px; */
   display: grid;
-  grid-template-columns: 222px 1052px 646px;
+  grid-template-columns: 12fr 56fr 32fr;
 `;
+
 export const col1 = (props) =>
   props.col1 &&
   css`
+    grid-column-start: 1;
     padding: 79px 0;
   `;
 export const col2 = (props) =>
@@ -28,7 +31,7 @@ export const col3 = (props) =>
   `;
 
 export const TopContainer = styled.div`
-  width: 864px;
+  width: 45vw;
   height: 140px;
   display: flex;
   flex-direction: row;
@@ -39,9 +42,10 @@ export const TopContainer = styled.div`
 export const SecondaryMenu = styled.div`
   /* width: 10.36rem; */
   height: 100%;
+  width: 78.93vw;
 
   margin-right: 1.75rem;
-  margin-left: auto;
+  /* margin-left: auto; */
 
   padding-bottom: 2rem;
   padding-top: 9%;

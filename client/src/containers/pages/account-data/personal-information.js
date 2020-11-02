@@ -56,13 +56,13 @@ let PersonalInformation = (props) => {
     });
   };
 
-  console.log("[const PersonalInformation : userDb]", userDb);
-  console.log("[const PersonalInformation : userLocal]", userLocal);
-  console.log("[const PersonalInformation : valid]", props.valid);
+  // console.log("[const PersonalInformation : userDb]", userDb);
+  // console.log("[const PersonalInformation : userLocal]", userLocal);
+  // console.log("[const PersonalInformation : valid]", props.valid);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log("[formValues]", props.formValues);
+    // console.log("[formValues]", props.formValues);
     if (props.valid) {
       dispatch(
         saveUserAccountInfo({
@@ -100,14 +100,9 @@ let PersonalInformation = (props) => {
             <AccountField
               label="Prenume"
               name="firstName"
-              defaultValue={`${userLocal.firstName}`}
               marginRight="128px"
             />
-            <AccountField
-              name="surname"
-              label="Nume"
-              defaultValue={`${userLocal.surname}`}
-            />
+            <AccountField name="surname" label="Nume" />
           </div>
           <div style={{ height: "64px" }}></div>
           <div
@@ -116,16 +111,8 @@ let PersonalInformation = (props) => {
               flexDirection: "row",
             }}
           >
-            <AccountField
-              name="address"
-              label="Adresa"
-              defaultValue={`${userLocal.address}`}
-              marginRight="128px"
-            />
-            <AccountField
-              name="addressExtra"
-              defaultValue={`${userLocal.addressExtra}`}
-            />
+            <AccountField name="address" label="Adresa" marginRight="128px" />
+            <AccountField name="addressExtra" />
           </div>
           <div
             style={{
@@ -133,17 +120,8 @@ let PersonalInformation = (props) => {
               flexDirection: "row",
             }}
           >
-            <AccountField
-              name="city"
-              label="Oras"
-              defaultValue={`${userLocal.city}`}
-              marginRight="128px"
-            />
-            <AccountField
-              name="county"
-              label="Judet"
-              defaultValue={`${userLocal.county}`}
-            />
+            <AccountField name="city" label="Oras" marginRight="128px" />
+            <AccountField name="county" label="Judet" />
           </div>
           <div style={{ height: "64px" }}></div>
           <div
@@ -156,14 +134,9 @@ let PersonalInformation = (props) => {
             <AccountField
               name="companyName"
               label="Companie"
-              defaultValue={`${userLocal.companyName}`}
               marginRight="128px"
             />
-            <AccountField
-              name="jobTitle"
-              label="Titlu Job"
-              defaultValue={`${userLocal.jobTitle}`}
-            />
+            <AccountField name="jobTitle" label="Titlu Job" />
           </div>
           <BigButtonOutline
             isDisabled={!props.valid}

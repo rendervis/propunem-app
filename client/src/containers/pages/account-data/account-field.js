@@ -4,10 +4,11 @@ import { Field } from "redux-form";
 
 class AccountField extends React.Component {
   renderError(meta) {
-    if (meta.touched && meta.error) {
+    if (meta.touched && (meta.error || meta.warning)) {
       return (
         <div className="ui error message">
           <div className="header"> {meta.error}</div>
+          <div className="header"> {meta.warning}</div>
         </div>
       );
     }
@@ -15,14 +16,14 @@ class AccountField extends React.Component {
 
   renderInput = (formProps) => {
     // console.log("[renderInput -->> input]", input);
-    let { input, label, meta, defaultValue } = formProps;
+    let { input, label, meta, type } = formProps;
 
     const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
       <FieldContainer {...this.props} className={className}>
         <LabelStyled>{label}</LabelStyled>
         <li>
-          <InputStyled {...input} />
+          <InputStyled {...input} type={type} />
         </li>
         {this.renderError(meta)}
       </FieldContainer>
@@ -35,6 +36,7 @@ class AccountField extends React.Component {
       <Field
         label={this.props.label}
         name={this.props.name}
+        type={this.props.type}
         component={this.renderInput}
         placeholder={this.props.placeholder}
       />

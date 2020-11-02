@@ -85,6 +85,31 @@ class AccountTable {
       );
     });
   }
+
+  static updatePassword({ passwordHash, email }) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `UPDATE account SET "passwordHash" = $1 WHERE email = $2`,
+        [passwordHash, email],
+        (error, response) => {
+          if (error) return reject(error);
+          resolve();
+        }
+      );
+    });
+  }
+  static updateEmail({ email, oldEmail }) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `UPDATE account SET email = $1 WHERE email = $2`,
+        [email, oldEmail],
+        (error, response) => {
+          if (error) return reject(error);
+          resolve();
+        }
+      );
+    });
+  }
 }
 
 // AccountTable.getUserById({ id: 59 })

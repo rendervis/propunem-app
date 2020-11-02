@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("[userAccount.reducer -->>]", action);
+  // console.log("[userAccount.reducer -->>]", action);
   switch (action.type) {
     case USER.FETCH:
       return {

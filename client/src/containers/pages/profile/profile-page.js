@@ -26,10 +26,12 @@ import { fetchAuthenticated } from "../../../redux/actions/account";
 
 const ProfilePage = ({ history }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAuthenticated({ history }));
-  }, [dispatch]);
-  //   let propsRed = red;
+
+  ///////not working as expected
+  // useEffect(() => {
+  //   dispatch(fetchAuthenticated({ history }));
+  // }, [dispatch]);
+  // //   let propsRed = red;
   return (
     <React.Fragment>
       <Header />

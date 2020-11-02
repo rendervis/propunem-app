@@ -22,7 +22,7 @@ export default (state = { ...DEFAULT_PROPOSAL }, action) => {
         message: action.message,
       };
     case PROPOSAL.FETCH_SUCCESS:
-      console.log("PROPOSAL.FETCH_SUCCESS:", action);
+      // console.log("PROPOSAL.FETCH_SUCCESS:", action);
       return {
         ...state,
         status: fetchStates.success,

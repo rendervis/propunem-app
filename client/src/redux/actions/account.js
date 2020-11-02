@@ -58,6 +58,35 @@ export const signup = ({ email, password, history }) =>
     SUCCESS_TYPE: ACCOUNT.FETCH_SUCCESS,
   });
 
+export const updatePassword = ({ password }) =>
+  fetchFromAccount({
+    endpoint: "account/password-update",
+    options: {
+      method: "PATCH",
+      body: JSON.stringify({ password }),
+      headers: { "Content-Type": "application/json" },
+
+      credentials: "include",
+    },
+    FETCH_TYPE: ACCOUNT.FETCH,
+    ERROR_TYPE: ACCOUNT.FETCH_ERROR,
+    SUCCESS_TYPE: ACCOUNT.FETCH_SUCCESS,
+  });
+export const updateEmail = ({ email }) =>
+  fetchFromAccount({
+    endpoint: "account/email-update",
+    options: {
+      method: "PATCH",
+      body: JSON.stringify({ email }),
+      headers: { "Content-Type": "application/json" },
+
+      credentials: "include",
+    },
+    FETCH_TYPE: ACCOUNT.FETCH,
+    ERROR_TYPE: ACCOUNT.FETCH_ERROR,
+    SUCCESS_TYPE: ACCOUNT.FETCH_SUCCESS,
+  });
+
 //TODO  not working with fetchFromAccount(). why??
 export const logout = () => (dispatch) => {
   dispatch({
@@ -81,8 +110,11 @@ export const logout = () => (dispatch) => {
     });
 };
 
-export const login = ({ email, password }) =>
+export const login = ({ email, password, history }) =>
   fetchFromAccount({
+    history,
+    pushOnError: "/account/login",
+    pushOnSuccess: "/profil/profil",
     endpoint: "account/login",
     options: {
       method: "POST",

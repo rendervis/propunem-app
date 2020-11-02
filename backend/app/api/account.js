@@ -59,7 +59,7 @@ router.post("/account/login", (req, res, next) => {
 });
 
 router.get("/account/logout", (req, res, next) => {
-  console.log(" router.get/logout req.cookies", JSON.stringify(req.cookies));
+  // console.log(" router.get/logout req.cookies", JSON.stringify(req.cookies));
   const { email } = Session.parse(req.cookies.sessionString);
   AccountTable.updateSessionId({
     sessionId: null,
@@ -74,12 +74,50 @@ router.get("/account/logout", (req, res, next) => {
 
 router.get("/account/authenticated", (req, res, next) => {
   const { sessionString } = req.cookies;
-  // console.log("router.get(/authenticated-->sessionString", sessionString);
+  console.log("router.get(/authenticated-->sessionString", sessionString);
 
   authenticatedAccount({ sessionString })
     .then(({ authenticated, accountId }) =>
       res.json({ authenticated, accountId })
     )
+    .catch((error) => next(error));
+});
+
+router.patch("/account/password-update", (req, res, next) => {
+  const { email } = Session.parse(req.cookies.sessionString);
+  console.log("req.cookies.sessionString", req.cookies.sessionString);
+  const { password } = req.body;
+
+  const passwordHash = hash(password);
+
+  AccountTable.updatePassword({
+    passwordHash,
+    email,
+  })
+    .then(() => {
+      res.json({ message: "Successful update" });
+    })
+    .catch((error) => next(error));
+});
+router.patch("/account/email-update", (req, res, next) => {
+  const { email: oldEmail } = Session.parse(req.cookies.sessionString);
+  // console.log("req.cookies.sessionString", req.cookies.sessionString);
+  const { email } = req.body;
+  console.log("oldEmail, email", oldEmail, email);
+
+  AccountTable.updateEmail({
+    email,
+    oldEmail,
+  })
+    .then(() => {
+      ///////start Session
+      return setSession({ email, res });
+    })
+    .then(({ message }) => {
+      ///////respond to client
+      console.log({ message });
+      res.json({ message: "Successful email update" });
+    })
     .catch((error) => next(error));
 });
 

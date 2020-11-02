@@ -13,7 +13,14 @@ let HeaderDropdown = ({ props, dispatch, history }) => {
 
   const renderLogoutText = () => {
     switch (user) {
-      case null:
+      case "googleUser":
+        return (
+          <li>
+            <a href="/auth/logout">Deconectati-va</a>
+          </li>
+        );
+
+      default:
         return (
           <button
             type="button"
@@ -24,13 +31,6 @@ let HeaderDropdown = ({ props, dispatch, history }) => {
           >
             Deconectati-va
           </button>
-        );
-
-      default:
-        return (
-          <li>
-            <a href="/auth/logout">Deconectati-va</a>
-          </li>
         );
     }
   };

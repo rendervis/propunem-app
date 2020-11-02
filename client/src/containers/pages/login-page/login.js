@@ -17,13 +17,14 @@ const Login = ({ history }) => {
     email: "",
     password: "",
   });
-  const loginHandler = () => {
-    const { email, password } = data;
-    history.push("/profil/profil");
 
-    dispatch(login({ email, password }));
-    setData({ email: "", password: "" });
-  };
+  // const loginHandler = () => {
+  //   const { email, password } = data;
+  //   history.push("/profil/profil");
+
+  //   dispatch(login({ email, password, history }));
+  //   setData({ email: "", password: "" });
+  // };
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -37,8 +38,8 @@ const Login = ({ history }) => {
     event.preventDefault();
     const { email, password } = data;
 
-    history.push("/profil/profil");
-    dispatch(login({ email, password }));
+    // history.push("/profil/profil");
+    dispatch(login({ email, password, history }));
 
     setData({ email: "", password: "" });
   };

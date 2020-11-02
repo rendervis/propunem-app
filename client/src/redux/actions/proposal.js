@@ -45,7 +45,7 @@ export const fetchProposalList = ({ accountId }) => (dispatch) => {
     credentials: "include",
   })
     .then((response) => {
-      console.log("response", response);
+      // console.log("response", response);
       return response.json();
     })
     .then((json) => {

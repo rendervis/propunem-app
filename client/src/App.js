@@ -23,9 +23,9 @@ function App({ history }) {
     dispatch(fetchAuthenticated({ history }));
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchGoogleUser({ history }));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchGoogleUser({ history }));
+  // }, [dispatch]);
 
   return (
     <React.Fragment>

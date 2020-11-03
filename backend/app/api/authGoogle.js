@@ -24,10 +24,17 @@ router.get(
     failureRedirect: isProduction
       ? "https://vispropunem.herokuapp.com/account/login"
       : "/account/login",
-  })
+  }),
+  (req, res) => {
+    res.send(
+      JSON.stringify({
+        googleUser: req.user,
+        authenticated: req.isAuthenticated(),
+        message: "Conectare reusita!",
+      })
+    );
+  }
 );
-// (req, res) => {
-//   res.redirect("/profil/profil");
 
 // router.get(
 //   "/auth/google/callback",

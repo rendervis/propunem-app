@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //////actions
@@ -21,11 +21,20 @@ function App({ history }) {
   const isSignedIn = useSelector((state) => state.account.isSignedIn);
   useEffect(() => {
     dispatch(fetchAuthenticated({ history }));
+    dispatch(fetchGoogleUser({ history }));
   }, [dispatch]);
 
   // useEffect(() => {
   //   dispatch(fetchGoogleUser({ history }));
   // }, [dispatch]);
+
+  const AuthRoute = (props) => {
+    if (!isSignedIn) {
+      return <Redirect to={{ pathname: "/" }} />;
+    }
+    const { component, path } = props;
+    return <Route path={path} component={component} />;
+  };
 
   return (
     <React.Fragment>
@@ -36,9 +45,9 @@ function App({ history }) {
         <Route exact path="/pret" component={Price} />
         <Route exact path="/contact" component={Contact} />
 
-        <Route path="/profil/:titlu" component={ProfilePage} />
-        <Route exact path="/cont/:titlu" component={AccountDataPage} />
-        <Route path="/propunere/:nume_propunere" component={ProposalShow} />
+        <AuthRoute path="/profil/:titlu" component={ProfilePage} />
+        <AuthRoute exact path="/cont/:titlu" component={AccountDataPage} />
+        <AuthRoute path="/propunere/:nume_propunere" component={ProposalShow} />
       </Switch>
     </React.Fragment>
   );

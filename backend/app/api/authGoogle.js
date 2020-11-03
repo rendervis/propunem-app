@@ -17,8 +17,8 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/profil/profil",
-    failureRedirect: "/account/login",
+    successRedirect: "https://vispropunem.herokuapp.com/profil/profil",
+    failureRedirect: "https://vispropunem.herokuapp.com/account/login",
   })
 );
 // (req, res) => {

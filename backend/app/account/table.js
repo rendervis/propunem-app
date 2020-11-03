@@ -4,15 +4,17 @@ class AccountTable {
   static storeAccount({ email, passwordHash }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO account(email, "passwordHash") VALUES($1, $2)`,
+        `INSERT INTO account(email, "passwordHash") VALUES($1, $2) RETURNING account_id`,
         [email, passwordHash],
         (error, response) => {
           if (error) return reject(error);
-          resolve();
+          const accountId = response.rows[0].account_id;
+          resolve({ accountId });
         }
       );
     });
   }
+
   static storeGoogleUser({ email, googleId }) {
     return new Promise((resolve, reject) => {
       pool.query(

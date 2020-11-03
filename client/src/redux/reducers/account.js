@@ -4,7 +4,7 @@ import fetchStates from "./fetchStates";
 const DEFAULT_ACCOUNT = { isSignedIn: false, user: null };
 
 export default (state = DEFAULT_ACCOUNT, action) => {
-  // console.log("[account.reducer -->>]", action);
+  console.log("[account.reducer -->>]", action);
   switch (action.type) {
     case ACCOUNT.FETCH:
       return {
@@ -22,6 +22,7 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         ...state,
         status: fetchStates.success,
         message: action.message,
+        accountId: action.accountId,
         isSignedIn: true,
         user: "regular",
       };

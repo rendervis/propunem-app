@@ -10,6 +10,7 @@ const router = new Router();
 
 router.post("/account/signup", (req, res, next) => {
   const { email, password } = req.body;
+  let accountIdFomDb;
   // const userNameHash = hash(userName);
   const passwordHash = hash(password);
 
@@ -21,6 +22,8 @@ router.post("/account/signup", (req, res, next) => {
         return AccountTable.storeAccount({
           email,
           passwordHash,
+        }).then(({ accountId }) => {
+          accountIdFomDb = accountId;
         });
       } else {
         const error = new Error(`Adresa de e-mail a fost deja folosita.`);
@@ -30,23 +33,26 @@ router.post("/account/signup", (req, res, next) => {
     })
     .then(() => {
       ///////start Session
+
       return setSession({ email, res });
     })
     .then(({ message }) => {
       ///////respond to client
-      console.log({ message });
-      res.json({ message });
+      // console.log({ message, accountIdFomDb });
+      res.json({ message, accountId: accountIdFomDb });
     })
     .catch((error) => next(error));
 });
 
 router.post("/account/login", (req, res, next) => {
   const { email, password } = req.body;
+  let accountId;
   AccountTable.getAccount({ email })
     .then(({ account }) => {
-      // console.log("account", account);
+      console.log("account", account);
       if (account && account.passwordHash === hash(password)) {
         const { sessionId } = account;
+        accountId = account.account_id;
         return setSession({ email, res, sessionId });
       } else {
         const error = new Error("Date incorecte.");
@@ -54,7 +60,10 @@ router.post("/account/login", (req, res, next) => {
         throw error;
       }
     })
-    .then(({ message }) => res.json({ message }))
+    .then(({ message }) => {
+      // console.log("accountID", accountId);
+      res.json({ message, accountId });
+    })
     .catch((error) => next(error));
 });
 

@@ -23,7 +23,7 @@ export const fetchFromAccount = ({
           type: ERROR_TYPE,
           message: json.message,
         });
-        alert(json.message);
+        // alert(json.message);
         history.push(`${pushOnError}`);
       } else {
         dispatch({

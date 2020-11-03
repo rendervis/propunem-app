@@ -35,12 +35,9 @@ let HeaderDropdown = ({ props, dispatch, history }) => {
     }
   };
   const logoutHandler = () => {
-    if (!user) {
-      dispatch(logout());
-    }
-
-    history.push("/");
+    dispatch(logout());
     dispatch(toggleHidden());
+    history.push("/");
   };
   const onLinkHandler = () => {
     dispatch(toggleHidden());

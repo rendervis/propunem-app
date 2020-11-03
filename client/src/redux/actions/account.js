@@ -2,6 +2,7 @@ import { ACCOUNT } from "./types";
 import { BACKEND } from "../../configuration";
 
 export const fetchFromAccount = ({
+  alert,
   history,
   pushOnError,
   pushOnSuccess,
@@ -24,7 +25,10 @@ export const fetchFromAccount = ({
           type: ERROR_TYPE,
           message: json.message,
         });
-        // alert(json.message);
+        if (alert) {
+          alert(json.message);
+        }
+
         history.push(`${pushOnError}`);
       } else {
         dispatch({
@@ -43,6 +47,7 @@ export const fetchFromAccount = ({
 
 export const signup = ({ email, password, history }) =>
   fetchFromAccount({
+    alert,
     history,
     pushOnError: "/account/signup",
     pushOnSuccess: "/profil/profil",
@@ -113,6 +118,7 @@ export const logout = () => (dispatch) => {
 
 export const login = ({ email, password, history }) =>
   fetchFromAccount({
+    alert,
     history,
     pushOnError: "/account/login",
     pushOnSuccess: "/profil/profil",

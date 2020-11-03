@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import styled, { css } from "styled-components";
 
@@ -16,11 +16,12 @@ const Signup = ({ history }) => {
     email: "",
     password: "",
   });
+  let { account } = useSelector((state) => state.account);
+  let [message, setMessage] = useState("");
+
   const signupHandler = () => {
     const { email, password } = data;
-
     dispatch(signup({ email, password, history }));
-
     setData({ email: "", password: "" });
     // history.push("/profil/profil");
   };
@@ -28,7 +29,6 @@ const Signup = ({ history }) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const { email, password } = data;
-
     dispatch(signup({ email, password, history }));
 
     setData({ email: "", password: "" });

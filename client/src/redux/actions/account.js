@@ -14,6 +14,7 @@ export const fetchFromAccount = ({
   dispatch({
     type: FETCH_TYPE,
   });
+
   return fetch(`/api/${endpoint}`, options)
     .then((response) => response.json())
     .then((json) => {

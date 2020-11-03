@@ -14,9 +14,15 @@ router.get(
 );
 
 //Callback - Send user to /profil/profil or back to auth screen-
-router.get("/google/callback", passport.authenticate("google"), (req, res) => {
-  res.redirect("/profil/profil");
-});
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/profil/profil",
+    failureRedirect: "/account/login",
+  })
+);
+// (req, res) => {
+//   res.redirect("/profil/profil");
 
 // router.get(
 //   "/auth/google/callback",
@@ -24,6 +30,7 @@ router.get("/google/callback", passport.authenticate("google"), (req, res) => {
 //     successRedirect: "/profil/profil",
 //     failureRedirect: "/",
 // })
+
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");

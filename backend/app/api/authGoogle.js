@@ -1,6 +1,7 @@
 // Dependencies
 const { Router } = require("express");
 const passport = require("passport");
+
 const isProduction = process.env.NODE_ENV === "production";
 
 //Init router
@@ -22,6 +23,8 @@ router.get(
     failureRedirect: "/account/login",
   }),
   (req, res) => {
+    console.log("req.user", req.user);
+    const { email } = req.user;
     res.send(
       JSON.stringify({
         googleUser: req.user,

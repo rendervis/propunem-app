@@ -93,11 +93,17 @@ router.get("/account/authenticated", (req, res, next) => {
 });
 
 router.patch("/account/password-update", (req, res, next) => {
-  const { email } = Session.parse(req.cookies.sessionString);
+  let email;
   console.log("req.cookies.sessionString", req.cookies.sessionString);
-  const { password } = req.body;
+  let { password } = req.body;
+  if (req.body.email) {
+    email = req.body.email;
+  } else {
+    email = Session.parse(req.cookies.sessionString);
+  }
 
   const passwordHash = hash(password);
+  console.log("email", email);
 
   AccountTable.updatePassword({
     passwordHash,

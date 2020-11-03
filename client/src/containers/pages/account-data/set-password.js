@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { reduxForm, getFormValues, isValid, reset } from "redux-form";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch, connect, useSelector } from "react-redux";
 
 ////COMPONENTS////
 import PageTitle from "../../../components/UI/profile/page-title";
@@ -12,14 +12,28 @@ import { updatePassword } from "../../../redux/actions/account";
 
 let SetPassword = (props) => {
   const dispatch = useDispatch();
-  // const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(null);
+  useEffect(() => {
+    if (props.account.googleUser) {
+      setEmail(props.account.googleUser.email);
+    }
+  });
+
+  // useEffect(() => {
+  //   if (account && account.googleUSer) {
+  //     setEmail(account.googleUSer.email);
+  //     console.log("email", account.googleUSer.email);
+  //   }
+  // }, [account]);
+
+  // console.log("email", email);
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const { password } = props.formValues;
     console.log("[formValues]", password);
     if (props.valid) {
-      dispatch(updatePassword({ password }));
+      dispatch(updatePassword({ password, email }));
       dispatch(reset("accountField"));
       alert("parola a fost schimbata!");
     } else {
@@ -115,6 +129,7 @@ SetPassword = reduxForm({
 export default connect((state, props) => ({
   formValues: getFormValues("accountField")(state),
   valid: isValid("accountField")(state),
+  account: state.account,
 
   // initialValues: { ...state.userInformation.userLocal },
   // dirty: isDirty('myForm')(state),

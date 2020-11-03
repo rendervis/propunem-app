@@ -64,12 +64,12 @@ export const signup = ({ email, password, history }) =>
     SUCCESS_TYPE: ACCOUNT.FETCH_SUCCESS,
   });
 
-export const updatePassword = ({ password }) =>
+export const updatePassword = ({ password, email }) =>
   fetchFromAccount({
     endpoint: "account/password-update",
     options: {
       method: "PATCH",
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ password, email }),
       headers: { "Content-Type": "application/json" },
 
       credentials: "include",

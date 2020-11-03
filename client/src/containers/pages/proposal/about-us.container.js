@@ -149,7 +149,11 @@ const AboutUs = (props) => {
         >
           salveaza
         </TextSmall>
-        <span onClick={() => onAddDefaultHandler(id)}>+</span>
+        {aboutUs.length - 1 === id ? (
+          <span onClick={() => onAddDefaultHandler(id)}>+</span>
+        ) : (
+          ""
+        )}
       </div>
     );
   };

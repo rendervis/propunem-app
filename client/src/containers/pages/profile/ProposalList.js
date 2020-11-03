@@ -41,6 +41,7 @@ const ProposalList = ({ history }) => {
         <span
           style={{
             marginBottom: "10px",
+            cursor: "pointer",
           }}
           onClick={() =>
             clickHandler(

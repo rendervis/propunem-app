@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -16,16 +16,19 @@ import {
   ArrowOptions,
 } from "../../../components/UI/profile/ui-profile";
 
-export default () => {
-  const [visible, setVisible] = useState(false);
+export default (props) => {
+  let { path } = props.match;
+  let proposalCount;
   const proposalList = useSelector((state) => state.proposal.proposalList);
-  const proposalCount = proposalList ? proposalList.length : 0;
+  proposalCount = proposalList ? proposalList.length : 0;
 
+  // const [visible, setVisible] = useState(false);
+
+  // console.log("path", path);
   return (
     <React.Fragment>
-      {visible ? (
-        <Route path="/profil/profil/alerta" component={ProposalNameInput} />
-      ) : null}
+      <Route exact path={`${path}/alerta`} component={ProposalNameInput} />
+
       <PageTitle>Profil</PageTitle>
       <TopContainer>
         <div style={{ marginLeft: "1.88rem" }}>
@@ -38,8 +41,8 @@ export default () => {
           >
             Click pentru editare
           </TextSmall>
-          <Link to="profil/alerta">
-            <BigButtonOutline profilePosition onClick={() => setVisible(true)}>
+          <Link to={`${path}/alerta`}>
+            <BigButtonOutline profilePosition>
               Adauga Propunere
             </BigButtonOutline>
           </Link>

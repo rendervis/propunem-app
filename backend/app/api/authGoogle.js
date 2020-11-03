@@ -1,6 +1,7 @@
 // Dependencies
 const { Router } = require("express");
 const passport = require("passport");
+const isProduction = process.env.NODE_ENV === "production";
 
 //Init router
 const router = new Router();
@@ -17,8 +18,12 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "https://vispropunem.herokuapp.com/profil/profil",
-    failureRedirect: "https://vispropunem.herokuapp.com/account/login",
+    successRedirect: isProduction
+      ? "https://vispropunem.herokuapp.com/profil/profil"
+      : "/profil/profil",
+    failureRedirect: isProduction
+      ? "https://vispropunem.herokuapp.com/account/login"
+      : "/account/login",
   })
 );
 // (req, res) => {

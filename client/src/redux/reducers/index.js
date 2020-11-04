@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 import { reducer as formReducer } from "redux-form";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import offerReducer from "./offer.reducer";
 import aboutUsReducer from "./about-us.reducer";
@@ -11,15 +13,24 @@ import userAccountReducer from "./userAccount";
 import accountReducer from "./account";
 import proposalReducer from "./proposal";
 
-export default combineReducers({
-  form: formReducer,
-  offerCards: offerReducer,
-  aboutUsText: aboutUsReducer,
-  ourApproachText: ourApproachReducer,
-  optionCard: optionCardReducer,
-  headerDropdown: dropdownReducer,
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["account", "userInformation"],
+};
 
-  account: accountReducer,
-  userInformation: userAccountReducer,
-  proposal: proposalReducer,
-});
+export default persistReducer(
+  persistConfig,
+  combineReducers({
+    form: formReducer,
+    offerCards: offerReducer,
+    aboutUsText: aboutUsReducer,
+    ourApproachText: ourApproachReducer,
+    optionCard: optionCardReducer,
+    headerDropdown: dropdownReducer,
+
+    account: accountReducer,
+    userInformation: userAccountReducer,
+    proposal: proposalReducer,
+  })
+);

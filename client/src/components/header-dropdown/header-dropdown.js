@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 
 ///////actions
-import { logout } from "../../redux/actions/account";
+import { logout, clearGoogleUser } from "../../redux/actions/account";
 import { toggleHidden } from "../header-dropdown/redux/dropdown.actions";
 
 import styled from "styled-components";
@@ -15,7 +15,7 @@ let HeaderDropdown = ({ props, dispatch, history }) => {
     switch (user) {
       case "googleUser":
         return (
-          <li>
+          <li onClick={() => dispatch(clearGoogleUser())}>
             <a href="/auth/logout">Deconectati-va</a>
           </li>
         );

@@ -19,14 +19,14 @@ import Contact from "./containers/pages/contact/contact";
 function App({ history }) {
   const dispatch = useDispatch();
   const isSignedIn = useSelector((state) => state.account.isSignedIn);
-  useEffect(() => {
-    dispatch(fetchAuthenticated({ history }));
-    dispatch(fetchGoogleUser({ history }));
-  }, [dispatch]);
-
   // useEffect(() => {
-  //   dispatch(fetchGoogleUser({ history }));
-  // }, [dispatch]);
+  //   dispatch(fetchAuthenticated({ history }));
+  //   // dispatch(fetchGoogleUser({ history }));
+  // }, [dispatch, isSignedIn]);
+
+  useEffect(() => {
+    dispatch(fetchGoogleUser({ history }));
+  }, []);
 
   const AuthRoute = (props) => {
     if (!isSignedIn) {
@@ -37,7 +37,7 @@ function App({ history }) {
   };
 
   return (
-    <React.Fragment>
+    <div>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/account/:tab" component={LoginPage} />
@@ -46,10 +46,10 @@ function App({ history }) {
         <Route exact path="/contact" component={Contact} />
 
         <AuthRoute path="/profil/:titlu" component={ProfilePage} />
-        <AuthRoute exact path="/cont/:titlu" component={AccountDataPage} />
+        <AuthRoute path="/cont/:titlu" component={AccountDataPage} />
         <AuthRoute path="/propunere/:nume_propunere" component={ProposalShow} />
       </Switch>
-    </React.Fragment>
+    </div>
   );
 }
 

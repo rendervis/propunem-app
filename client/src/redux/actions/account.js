@@ -137,9 +137,9 @@ export const login = ({ email, password, history }) =>
 
 export const fetchAuthenticated = ({ history }) =>
   fetchFromAccount({
-    history,
-    pushOnError: "/",
-    pushOnSuccess: "/profil/profil",
+    // history,
+    // pushOnError: "/",
+    // pushOnSuccess: "/profil/profil",
     endpoint: "account/authenticated",
     options: {
       ///////store Session cookie on the browser
@@ -165,13 +165,19 @@ export const fetchGoogleUser = ({ history }) => (dispatch) => {
       console.log("json:", { ...json });
       if (json.type === "error" || json.authenticated === false) {
         dispatch({ type: ACCOUNT.FETCH_ERROR, message: json.message });
-        history.push("/");
+        // history.push("/");
       } else {
         dispatch({ type: ACCOUNT.FETCH_GOOGLE_USER_SUCCESS, ...json });
-        history.push("/profil/profil");
+        // history.push("/profil/profil");
       }
     })
     .catch((error) => {
       dispatch({ type: ACCOUNT.FETCH_ERROR, message: error.message });
     });
+};
+
+export const clearGoogleUser = () => {
+  return {
+    type: ACCOUNT.GOOGLE_USER_CLEAR,
+  };
 };

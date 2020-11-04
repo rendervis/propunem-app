@@ -13,6 +13,9 @@ import OfferShow from "./offer-show.container";
 import AboutUs from "./about-us.container";
 import OurApproach from "./our-approach.container";
 import ProposalOptions from "./proposal-options.container";
+import RenderPdf, {
+  MyDocument,
+} from "../../../components/my_pdf_document/RenderPdf";
 
 ///// UI elements /////
 import ButtonRound from "../../../components/UI/button-round";
@@ -21,7 +24,7 @@ import { TitleText } from "../../../components/UI/ui-elements";
 
 class ProposalShow extends Component {
   render() {
-    let mathcUrl = this.props.match.url.replace(/\s/g, "");
+    let matchPath = this.props.match.path.replace(/\s/g, "");
     const { proposalName } = this.props.proposal;
 
     return (
@@ -40,6 +43,7 @@ class ProposalShow extends Component {
                 <ButtonRound>ABORDARE</ButtonRound>
                 <ButtonRound>OFERTA</ButtonRound>
                 <ButtonRound>OPTIUNI</ButtonRound>
+                <ButtonRound>PREVIEW</ButtonRound>
               </StyledUL>
             </MenuContainer>
           </LeftSide>
@@ -52,15 +56,33 @@ class ProposalShow extends Component {
                 flexDirection: "row",
               }}
             >
-              <Switch>
-                <Route path={`${mathcUrl}/despre-noi`} component={AboutUs} />
-                <Route path={`${mathcUrl}/abordare`} component={OurApproach} />
-                <Route path={`${mathcUrl}/oferta`} component={OfferShow} />
+              <div>
                 <Route
-                  path={`${mathcUrl}/optiuni`}
+                  exact
+                  path={`${matchPath}/despre-noi`}
+                  component={AboutUs}
+                />
+                <Route
+                  exact
+                  path={`${matchPath}/abordare`}
+                  component={OurApproach}
+                />
+                <Route
+                  exact
+                  path={`${matchPath}/oferta`}
+                  component={OfferShow}
+                />
+                <Route
+                  exact
+                  path={`${matchPath}/optiuni`}
                   component={ProposalOptions}
                 />
-              </Switch>
+                <Route
+                  exact
+                  path={`${matchPath}/preview`}
+                  component={RenderPdf}
+                />
+              </div>
             </div>
           </MainContent>
         </ProposalPageLayout>

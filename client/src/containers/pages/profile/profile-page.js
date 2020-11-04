@@ -39,9 +39,13 @@ const ProfilePage = ({ history }) => {
         <ProfileBodyGrid>
           <BodyColumn2 col2>
             <Switch>
-              <Route path="/profil/oferte-trimise" component={OfferSend} />
-              <Route path="/profil/profil" component={Profile} />
-              <Route path="/profil/situatie" component={Situation} />
+              <Route exact path="/profil/profil" component={Profile} />
+              <Route
+                exact
+                path="/profil/oferte-trimise"
+                component={OfferSend}
+              />
+              <Route exact path="/profil/situatie" component={Situation} />
             </Switch>
             <ProposalList />
           </BodyColumn2>

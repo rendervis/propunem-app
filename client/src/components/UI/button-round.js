@@ -7,14 +7,14 @@ const ButtonRound = ({ children, ...props }) => {
   let match = useRouteMatch();
 
   return (
-    <ButtonRoundStyled>
-      <StyledNavLink
-        key={buttonText}
-        to={`${match.url.replace(/\s/g, "")}/${buttonText}`}
-      >
+    <StyledNavLink
+      key={buttonText}
+      to={`${match.url.replace(/\s/g, "")}/${buttonText}`}
+    >
+      <ButtonRoundStyled>
         <NavLinkText>{children}</NavLinkText>
-      </StyledNavLink>
-    </ButtonRoundStyled>
+      </ButtonRoundStyled>
+    </StyledNavLink>
   );
 };
 
@@ -38,7 +38,7 @@ const ButtonRoundStyled = styled.div`
 
 const StyledNavLink = styled(NavLink)`
   width: 100%;
-  height: 100%;
+  height: 40px;
   border-radius: 18px;
   display: flex;
   &.active {

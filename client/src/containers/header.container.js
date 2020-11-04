@@ -5,7 +5,6 @@ import styled, { css } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 ///////actions
 import { toggleHidden } from "../components/header-dropdown/redux/dropdown.actions";
-import { logout } from "../redux/actions/account";
 
 import OverlayBackground from "../components/UX/overlay-background";
 import HeaderDropdown from "../components/header-dropdown/header-dropdown";
@@ -18,9 +17,6 @@ const Header = () => {
 
   const onClickHandler = () => {
     dispatch(toggleHidden());
-  };
-  const logoutHandler = () => {
-    dispatch(logout());
   };
 
   return (

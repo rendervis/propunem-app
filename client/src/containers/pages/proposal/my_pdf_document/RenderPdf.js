@@ -10,7 +10,7 @@ import ReactPDF, {
 } from "@react-pdf/renderer";
 
 ///////COMPONENTS
-import OverlayBackground from "../UX/overlay-background";
+import OverlayBackground from "../../../../components/UX/overlay-background";
 
 // Create styles
 const styles = StyleSheet.create({

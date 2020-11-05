@@ -13,9 +13,7 @@ import OfferShow from "./offer-show.container";
 import AboutUs from "./about-us.container";
 import OurApproach from "./our-approach.container";
 import ProposalOptions from "./proposal-options.container";
-import RenderPdf, {
-  MyDocument,
-} from "../../../components/my_pdf_document/RenderPdf";
+import RenderPdf, { MyDocument } from "./my_pdf_document/RenderPdf";
 
 ///// UI elements /////
 import ButtonRound from "../../../components/UI/button-round";

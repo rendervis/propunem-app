@@ -24,7 +24,7 @@ export default (props) => {
 
   // const [visible, setVisible] = useState(false);
 
-  // console.log("path", path);
+  console.log("path", path);
   return (
     <React.Fragment>
       <Route exact path={`${path}/alerta`} component={ProposalNameInput} />

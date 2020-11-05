@@ -6,10 +6,6 @@
   "engines": {
     "node": "12.19.0"
   },
-  "clean_urls": false,
-  "routes": {
-    "/**": "index.html"
-  },
   "scripts": {
     "start": "node backend/bin/server.js",
     "server": "nodemon ./backend/bin/server.js",

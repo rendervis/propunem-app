@@ -1,6 +1,6 @@
 {
   "_comment1": "fix client-side routing errors (Heroku 404 errors):",
-  "root": "client/build",
+  "root": "./client/build",
   "clean_urls": false,
   "routes": {
     "/**": "index.html"

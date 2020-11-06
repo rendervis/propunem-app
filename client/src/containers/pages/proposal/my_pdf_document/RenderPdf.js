@@ -281,6 +281,101 @@ const MyDocument = () => (
         LOGO
       </Text>
     </Page>
+    <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
+      <Text
+        style={{
+          textAlign: "left",
+          fontSize: 6,
+        }}
+      >
+        Cu ce ne ocupam
+      </Text>
+      <View style={{ marginTop: 40 }} />
+      <Text style={{ fontSize: 21 }}>Abordarea noastra</Text>
+      <View style={{ marginTop: 24 }} />
+      <Text style={{ width: 474, fontSize: 17.5 }}>
+        Oh, how I wish I could believe or understand that!There's only one
+        reasonable course of action now:kill Flexo! Yes, except the Dave
+        Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+        yourcrotch is wrong, hey I don't wanna be right.
+      </Text>
+
+      <Text style={styles.cornerPageLogo} fixed>
+        LOGO
+      </Text>
+    </Page>
+    <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
+      <Text style={{ fontSize: 21 }}>Oferta</Text>
+      <View style={{ marginTop: 24 }} />
+      <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
+        <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
+          1.0
+        </Text>
+        <View style={{ marginLeft: 15 }}>
+          <Text style={{ fontSize: 9 }}>
+            Discovery: On-site facilitation (2-3 Days)
+          </Text>
+          <Text style={{ fontSize: 9 }}>Overview</Text>
+          <Text
+            style={{ width: 412, marginTop: 4, fontSize: 8, color: "#707070" }}
+          >
+            Oh, how I wish I could believe or understand that!There's only one
+            reasonable course of action now:kill Flexo! Yes, except the Dave
+            Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+            yourcrotch is wrong, hey I don't wanna be right.
+          </Text>
+        </View>
+      </View>
+      <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
+        <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
+          1.1
+        </Text>
+        <View style={{ marginLeft: 15 }}>
+          <Text style={{ fontSize: 9 }}>Overview</Text>
+          <Text
+            style={{ width: 412, marginTop: 4, fontSize: 8, color: "#707070" }}
+          >
+            Oh, how I wish I could believe or understand that!There's only one
+            reasonable course of action now:kill Flexo! Yes, except the Dave
+            Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+            yourcrotch is wrong, hey I don't wanna be right.
+          </Text>
+        </View>
+      </View>
+      <View style={{ marginTop: 12, width: 554, textAlign: "right" }}>
+        <Text style={{ fontSize: 12 }}>50.000 </Text>
+        <Text style={{ width: 554, height: 3, backgroundColor: "#E2E2E2" }} />
+      </View>
+
+      <Text style={styles.cornerPageLogo} fixed>
+        LOGO
+      </Text>
+    </Page>
+    <Page
+      size="A4"
+      orientation="landscape"
+      style={{
+        display: "flex",
+        // alignContent: "center",
+        justifyContent: "center",
+      }}
+      wrap={false}
+    >
+      <Text
+        style={{
+          // margin: 240,
+          textAlign: "center",
+
+          // alignSelf: "center",
+          fontSize: 32,
+        }}
+      >
+        Multumesc.
+      </Text>
+      <Text style={styles.cornerPageLogo} fixed>
+        LOGO
+      </Text>
+    </Page>
   </Document>
 );
 

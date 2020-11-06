@@ -19,10 +19,10 @@ import Contact from "./containers/pages/contact/contact";
 function App({ history }) {
   const dispatch = useDispatch();
   const isSignedIn = useSelector((state) => state.account.isSignedIn);
-  // useEffect(() => {
-  //   dispatch(fetchAuthenticated({ history }));
-  //   // dispatch(fetchGoogleUser({ history }));
-  // }, [dispatch, isSignedIn]);
+  useEffect(() => {
+    dispatch(fetchAuthenticated({ history }));
+    // dispatch(fetchGoogleUser({ history }));
+  }, [dispatch, isSignedIn]);
 
   useEffect(() => {
     dispatch(fetchGoogleUser({ history }));

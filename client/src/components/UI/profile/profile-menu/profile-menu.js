@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styled, { css } from "styled-components";
@@ -11,22 +11,33 @@ import { TextSmall, TextRegular } from "../../ui-elements";
 import { fetchUserAccountInfo } from "../../../../redux/actions/userAccount";
 
 const ProfileMenu = () => {
+  const [firstName, setFirstName] = useState("Prenume");
+  const [surname, setSurname] = useState("Nume");
   const dispatch = useDispatch();
   const accountId = useSelector((state) => state.account.accountId);
+  const { userInformation } = useSelector((state) => state.userInformation);
+  useEffect(() => {
+    dispatch(fetchUserAccountInfo({ accountId }));
+  }, [dispatch, accountId]);
+
+  useEffect(() => {
+    if (userInformation.firstName) {
+      setFirstName(userInformation.firstName);
+    }
+    if (userInformation.surname) {
+      setSurname(userInformation.surname);
+    }
+  }, [userInformation]);
 
   return (
     <ProfileMenuStyled>
       <CirclePhotoStyled></CirclePhotoStyled>
       <EditNameStyled>
         <TextRegular black paddingBottom>
-          Nume Prenume
+          {`${firstName} ${surname}`}
         </TextRegular>
         <Link to="/cont/date-personale">
-          <TextSmall
-            blue
-            marginLeft
-            onClick={() => dispatch(fetchUserAccountInfo({ accountId }))}
-          >
+          <TextSmall blue marginLeft onClick={() => {}}>
             edit
           </TextSmall>
         </Link>

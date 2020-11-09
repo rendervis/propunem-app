@@ -7,13 +7,17 @@ import { useSelector, useDispatch } from "react-redux";
 
 ///// COMPONENTS /////
 import Header from "../../header.container";
+import RenderPdf, {
+  DownloadPdf,
+  MyDocument,
+} from "./my_pdf_document/RenderPdf";
+import { pdf } from "@react-pdf/renderer";
 
 ///// MAIN Content /////
 import OfferShow from "./offer-show.container";
 import AboutUs from "./about-us.container";
 import OurApproach from "./our-approach.container";
 import ProposalOptions from "./proposal-options.container";
-import RenderPdf, { MyDocument } from "./my_pdf_document/RenderPdf";
 
 ///////UI
 import ButtonRound from "../../../components/UI/button-round";
@@ -26,7 +30,19 @@ class ProposalShow extends Component {
     let matchPath = this.props.match.path.replace(/\s/g, "");
     const { proposalName } = this.props.proposal;
 
-    this.sendEmailHandler = () => {
+    this.sendEmailHandler = ({ fields }) => {
+      // const pdfBlob = pdf(MyDocument).toBlob();
+      fetch("/api/send-email", {
+        method: "POST",
+        body: JSON.stringify({ ...fields }),
+        headers: { "Content-Type": "application/json" },
+      }).then((json) => {
+        if (json.type === "success") {
+          alert("Email sent, awesome!");
+        } else if (json.type === "error") {
+          alert("Oops, something went wrong. Try again");
+        }
+      });
       console.log("trimite mail cu propunere");
     };
 
@@ -48,6 +64,9 @@ class ProposalShow extends Component {
                 <ButtonRound>OPTIUNI</ButtonRound>
                 <ButtonRound>PREVIEW</ButtonRound>
                 <ButtonRound>TRIMITE</ButtonRound>
+
+                <DownloadPdf />
+                <pdfBlob />
               </StyledUL>
             </MenuContainer>
           </LeftSide>

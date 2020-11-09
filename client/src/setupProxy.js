@@ -91,4 +91,10 @@ module.exports = function (app) {
       target: "http://localhost:5000",
     })
   );
+  app.use(
+    "/api/send-email",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
 };

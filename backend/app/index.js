@@ -19,6 +19,7 @@ const offerRouter = require("./api/offer");
 const optionCardRouter = require("./api/optionCard");
 const userAccountRouter = require("./api/userAccount");
 const authGoogleRouter = require("./api/authGoogle");
+const nodemailerRouter = require("./api/nodemailer");
 
 const isProduction = process.env.NODE_ENV === "production";
 //Init
@@ -61,6 +62,7 @@ app.use("/api", aboutUsRouter);
 app.use("/api", ourApproachRouter);
 app.use("/api", offerRouter);
 app.use("/api", optionCardRouter);
+app.use("/api", nodemailerRouter);
 
 //-memory unleak---------
 app.set("trust proxy", 1);

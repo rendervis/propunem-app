@@ -7,6 +7,8 @@ import ReactPDF, {
   View,
   StyleSheet,
   PDFViewer,
+  PDFDownloadLink,
+  pdf,
   Font,
 } from "@react-pdf/renderer";
 
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MyDocument = () => (
+export const MyDocument = () => (
   <Document>
     <Page size="A4" orientation="landscape" style={styles.page} wrap={false}>
       <View style={styles.cover} wrap={false}>
@@ -402,5 +404,14 @@ const RenderPdf = (props) => {
     document.querySelector("#render_pdf")
   );
 };
+export const DownloadPdf = () => (
+  <div>
+    <PDFDownloadLink document={<MyDocument />} fileName="somename.pdf">
+      {({ blob, url, loading, error }) => {
+        return loading ? "Loading document..." : "Descarca!";
+      }}
+    </PDFDownloadLink>
+  </div>
+);
 
 export default RenderPdf;

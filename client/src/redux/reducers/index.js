@@ -16,7 +16,7 @@ import proposalReducer from "./proposal";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["account", "userInformation"],
+  whitelist: ["account", "userInformation", "proposal"],
 };
 
 export default persistReducer(

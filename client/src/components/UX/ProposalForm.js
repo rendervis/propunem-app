@@ -3,29 +3,26 @@ import { withRouter } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 
-///////COMPONENTS
-import OverlayBackground from "../../../components/UX/overlay-background";
-///////ACTIONS
-import { storeProposal } from "../../../redux/actions/proposal";
+///////UX
+import OverlayBackground from "./overlay-background";
 
 import styled, { css } from "styled-components";
 
 const ProposalForm = ({ history, ...props }) => {
-  console.log("props", props);
-  const dispatch = useDispatch();
-
-  const accountId = useSelector((state) => state.account.accountId);
-  const [proposalName, setProposalName] = useState("");
+  let [fields, setFields] = useState({});
 
   const handleChange = (event) => {
-    const { value } = event.target;
-    setProposalName(value);
+    const values = { ...fields };
+    const { name, value } = event.target;
+    values[name] = value;
+    setFields(values);
+
+    // const { value } = event.target;
+    // setData(value);
   };
 
-  const clickHandler = () => {
-    if (proposalName.length <= 0)
-      return alert("Nume Serviciu nu este completat");
-    dispatch(storeProposal({ accountId, proposalName, history }));
+  const onClickHandler = () => {
+    props.onContinue({ fields });
   };
 
   ///////build a placeHolder list to add more inputs to ProposalForm
@@ -38,6 +35,7 @@ const ProposalForm = ({ history, ...props }) => {
   });
   //////for multiple inputs on the form add placeholder, placeholder2, placeholder3 ...etc
 
+  console.log("fields", fields);
   return (
     <OverlayBackground blur onClick={() => history.goBack()}>
       <Container>
@@ -48,19 +46,27 @@ const ProposalForm = ({ history, ...props }) => {
         <SecondaryTitle>{props.secondaryTitle}</SecondaryTitle>
         <div style={{ height: "40px" }} />
         {placeholderList.map((string) => {
+          //Input name = value from placeholder
+          let name = props[string]
+            .toLowerCase()
+            .replace(/\s+/, "_")
+            .replace("-", "_");
+
           return (
             <InputStyled
               placeholder={props[string]}
-              name="service"
+              name={name}
               type="text"
-              value={proposalName}
+              value={fields[name]}
               onChange={handleChange}
               required
             />
           );
         })}
         <div style={{ height: "40px" }} />
-        <YellowButtonStyled onClick={clickHandler}>CONTINUA</YellowButtonStyled>
+        <YellowButtonStyled onClick={onClickHandler}>
+          CONTINUA
+        </YellowButtonStyled>
         <div style={{ height: "24px" }} />
         <CancelText onClick={() => history.goBack()}>nu multumesc</CancelText>
       </Container>

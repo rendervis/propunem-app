@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import { Switch, Route, useParams } from "react-router-dom";
+import { Switch, Route, useParams, Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,17 +14,21 @@ import AboutUs from "./about-us.container";
 import OurApproach from "./our-approach.container";
 import ProposalOptions from "./proposal-options.container";
 import RenderPdf, { MyDocument } from "./my_pdf_document/RenderPdf";
-import ProposalSendForm from "./ProposalSendForm";
 
-///// UI elements /////
+///////UI
 import ButtonRound from "../../../components/UI/button-round";
-
 import { TitleText } from "../../../components/UI/ui-elements";
+///////UX
+import ProposalForm from "../../../components/UX/ProposalForm";
 
 class ProposalShow extends Component {
   render() {
     let matchPath = this.props.match.path.replace(/\s/g, "");
     const { proposalName } = this.props.proposal;
+
+    this.sendEmailHandler = () => {
+      console.log("trimite mail cu propunere");
+    };
 
     return (
       <React.Fragment>
@@ -85,7 +89,17 @@ class ProposalShow extends Component {
                 <Route
                   exact
                   path={`${matchPath}/trimite`}
-                  component={ProposalSendForm}
+                  render={(props) => (
+                    <ProposalForm
+                      {...props}
+                      fadedLine="esti cu un pas mai aproape!"
+                      placeholder="Nume Client"
+                      placeholder2="Titlu Proiect"
+                      placeholder3="E-mail"
+                      onContinue={this.sendEmailHandler}
+                    />
+                  )}
+                  //  component={ProposalForm}
                 />
               </div>
             </div>

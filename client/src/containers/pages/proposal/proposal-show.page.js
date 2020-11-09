@@ -14,6 +14,7 @@ import AboutUs from "./about-us.container";
 import OurApproach from "./our-approach.container";
 import ProposalOptions from "./proposal-options.container";
 import RenderPdf, { MyDocument } from "./my_pdf_document/RenderPdf";
+import ProposalSendForm from "./ProposalSendForm";
 
 ///// UI elements /////
 import ButtonRound from "../../../components/UI/button-round";
@@ -42,6 +43,7 @@ class ProposalShow extends Component {
                 <ButtonRound>OFERTA</ButtonRound>
                 <ButtonRound>OPTIUNI</ButtonRound>
                 <ButtonRound>PREVIEW</ButtonRound>
+                <ButtonRound>TRIMITE</ButtonRound>
               </StyledUL>
             </MenuContainer>
           </LeftSide>
@@ -79,6 +81,11 @@ class ProposalShow extends Component {
                   exact
                   path={`${matchPath}/preview`}
                   component={RenderPdf}
+                />
+                <Route
+                  exact
+                  path={`${matchPath}/trimite`}
+                  component={ProposalSendForm}
                 />
               </div>
             </div>

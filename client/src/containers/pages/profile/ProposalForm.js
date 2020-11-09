@@ -10,14 +10,12 @@ import { storeProposal } from "../../../redux/actions/proposal";
 
 import styled, { css } from "styled-components";
 
-//TODO on login add accountId to store
-//TODO get accountId
-const ProposalNameInput = ({ history }) => {
+const ProposalForm = ({ history, ...props }) => {
+  console.log("props", props);
   const dispatch = useDispatch();
 
   const accountId = useSelector((state) => state.account.accountId);
   const [proposalName, setProposalName] = useState("");
-  // console.log("const ProposalNameInput = ", accountId, proposalName);
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -25,32 +23,46 @@ const ProposalNameInput = ({ history }) => {
   };
 
   const clickHandler = () => {
+    if (proposalName.length <= 0)
+      return alert("Nume Serviciu nu este completat");
     dispatch(storeProposal({ accountId, proposalName, history }));
   };
 
+  ///////build a placeHolder list to add more inputs to ProposalForm
+  const placeholderList = [];
+  let keysList = Object.keys(props);
+  keysList.find((string) => {
+    if (string.includes("placeholder")) {
+      placeholderList.push(string);
+    }
+  });
+  //////for multiple inputs on the form add placeholder, placeholder2, placeholder3 ...etc
+
   return (
-    <OverlayBackground blur onClick={() => history.push("/profil/profil")}>
+    <OverlayBackground blur onClick={() => history.goBack()}>
       <Container>
-        <Title>Vezi cat de repede poti sa scrii o propunere</Title>
+        <Title>{props.title}</Title>
         <div style={{ height: "64px" }} />
-        <FadedLine>Introduci numele serviciului</FadedLine>
+        <FadedLine>{props.fadedLine}</FadedLine>
         <div style={{ height: "12px" }} />
-        <SecondaryTitle>esti cu un pas mai aproape!</SecondaryTitle>
+        <SecondaryTitle>{props.secondaryTitle}</SecondaryTitle>
         <div style={{ height: "40px" }} />
-        <InputStyled
-          placeholder="Nume Serviciu"
-          name="service"
-          type="text"
-          value={proposalName}
-          onChange={handleChange}
-          required
-        />
+        {placeholderList.map((string) => {
+          return (
+            <InputStyled
+              placeholder={props[string]}
+              name="service"
+              type="text"
+              value={proposalName}
+              onChange={handleChange}
+              required
+            />
+          );
+        })}
         <div style={{ height: "40px" }} />
         <YellowButtonStyled onClick={clickHandler}>CONTINUA</YellowButtonStyled>
         <div style={{ height: "24px" }} />
-        <CancelText onClick={() => history.push("/profil/profil")}>
-          nu multumesc
-        </CancelText>
+        <CancelText onClick={() => history.goBack()}>nu multumesc</CancelText>
       </Container>
     </OverlayBackground>
   );
@@ -192,4 +204,4 @@ const CancelText = styled.div`
   }
 `;
 
-export default withRouter(ProposalNameInput);
+export default withRouter(ProposalForm);

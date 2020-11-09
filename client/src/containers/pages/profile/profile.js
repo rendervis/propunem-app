@@ -7,7 +7,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 import PageTitle from "../../../components/UI/profile/page-title";
 import { BigButtonOutline } from "../../../components/UI/big-button-outline.component";
-import ProposalNameInput from "./ProposalNameInput";
+import ProposalForm from "./ProposalForm";
 ////ui-elements////
 import { TextSmall, TextRegular } from "../../../components/UI/ui-elements";
 import {
@@ -27,7 +27,20 @@ export default (props) => {
   console.log("path", path);
   return (
     <React.Fragment>
-      <Route exact path={`${path}/alerta`} component={ProposalNameInput} />
+      <Route
+        exact
+        path={`${path}/alerta`}
+        render={(props) => (
+          <ProposalForm
+            {...props}
+            title="Vezi cat de repede poti sa scrii o propunere"
+            fadedLine="Introduci numele serviciului"
+            secondaryTitle="esti cu un pas mai aproape!"
+            placeholder="Nume Serviciu"
+          />
+        )}
+        //  component={ProposalForm}
+      />
 
       <PageTitle>Profil</PageTitle>
       <TopContainer>

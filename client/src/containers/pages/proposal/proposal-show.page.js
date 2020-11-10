@@ -27,6 +27,7 @@ import ProposalForm from "../../../components/UX/ProposalForm";
 
 class ProposalShow extends Component {
   render() {
+    // console.log("this.props", this.props);
     let matchPath = this.props.match.path.replace(/\s/g, "");
     const { proposalName } = this.props.proposal;
 
@@ -36,14 +37,20 @@ class ProposalShow extends Component {
         method: "POST",
         body: JSON.stringify({ ...fields }),
         headers: { "Content-Type": "application/json" },
-      }).then((json) => {
-        if (json.type === "success") {
-          alert("Email sent, awesome!");
-        } else if (json.type === "error") {
-          alert("Oops, something went wrong. Try again");
-        }
-      });
-      console.log("trimite mail cu propunere");
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((json) => {
+          console.log("json", json);
+          if (json.type === "success") {
+            this.props.history.goBack();
+            alert("Email trimis, super!");
+          } else if (json.type === "error") {
+            alert("Oops, nu ai completat tot!");
+          }
+        });
+      // console.log("trimite mail cu propunere");
     };
 
     return (

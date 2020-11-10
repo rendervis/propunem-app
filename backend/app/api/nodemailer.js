@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 
 const router = new Router();
 
+///////with transporter
 const transport = {
   //   host: smtp.gmail.com, // e.g. smtp.gmail.com
   //   service: "yahoo",
@@ -16,9 +17,7 @@ const transport = {
     pass: process.env.EMAIL_PASSWORD,
   },
 };
-
 const transporter = nodemailer.createTransport(transport);
-
 transporter.verify((error, success) => {
   if (error) {
     console.log(error);
@@ -27,35 +26,64 @@ transporter.verify((error, success) => {
   }
 });
 
+///////with nodemailer-promise
+const mailer = require("nodemailer-promise");
+var sendEmail = mailer.config({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
 router.post("/send-email", (req, res, next) => {
   console.log("req.body", req.body);
   const name = req.body.nume_client;
   const email = req.body.e_mail;
   //   const message = req.body.messageHtml;
-  res.set("Content-Type", "application/json");
+  // res.set("Content-Type", "application/json");
 
-  /* Send email here */
+  /* WITH TRANSPORTER */
+  // let mailOptions = {
+  //   from: name,
+  //   to: email,
+  //   // replyTo: 'your_gmail@gmail.com'
+  //   subject: "Contact form request",
 
-  let mailOptions = {
+  //   html: "<b>Hello world?</b>",
+  // };
+  // transporter.sendMail(mailOptions, (err, info) => {
+  //   if (err) {
+  //     res.json({
+  //       status: "fail",
+  //     });
+  //     next(err);
+  //   } else {
+  //     res.json({
+  //       status: "success",
+  //     });
+  //     console.log("info", info);
+  //   }
+  //   done();
+  // });
+
+  /*with nodemailer-promise*/
+  const message = {
     from: name,
     to: email,
-    subject: "Contact form request",
-
-    html: "<b>Hello world?</b>",
+    // subject: 'Message title',
+    // text: 'Plaintext version of the message',
+    html: "<p>HTML version of the message</p>",
   };
-
-  transporter.sendMail(mailOptions, (err, data) => {
-    if (err) {
-      res.json({
-        message: "fail",
-      });
-    } else {
+  sendEmail(message)
+    .then((info) => {
+      console.log("info", info);
       res.json({
         message: "success",
+        type: "success",
       });
-    }
-  });
-  res.send({ message: "Email sent." });
+    }) // if successful
+    .catch((error) => next(error));
 });
 
 module.exports = router;

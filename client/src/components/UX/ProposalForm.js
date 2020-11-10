@@ -35,7 +35,7 @@ const ProposalForm = ({ history, ...props }) => {
   });
   //////for multiple inputs on the form add placeholder, placeholder2, placeholder3 ...etc
 
-  console.log("fields", fields);
+  // console.log("fields", fields);
   return (
     <OverlayBackground blur onClick={() => history.goBack()}>
       <Container>

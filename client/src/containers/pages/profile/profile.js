@@ -28,9 +28,11 @@ export default ({ history, ...props }) => {
 
   const storeProposalHandler = ({ fields }) => {
     ///////placeholder value with "_" from ProposalForm gives the key name for fields
+    console.log("[storeProposalHandler = ]", fields);
 
-    if (fields.nume_serviciu.length <= 0)
+    if (Object.keys(fields).length === 0) {
       return alert("Nume Serviciu nu este completat");
+    }
     dispatch(
       storeProposal({
         accountId,

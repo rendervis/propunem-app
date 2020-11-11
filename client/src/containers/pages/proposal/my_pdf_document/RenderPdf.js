@@ -10,6 +10,7 @@ import ReactPDF, {
   PDFDownloadLink,
   pdf,
   Font,
+  BlobProvider,
 } from "@react-pdf/renderer";
 
 // Register font

@@ -7,10 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 ///// COMPONENTS /////
 import Header from "../../header.container";
-import RenderPdf, {
-  DownloadPdf,
-  MyDocument,
-} from "./my_pdf_document/RenderPdf";
+import RenderPdf, { DownloadPdf } from "./my_pdf_document/RenderPdf";
 import { pdf } from "@react-pdf/renderer";
 
 ///// MAIN Content /////
@@ -27,26 +24,36 @@ import ProposalForm from "../../../components/UX/ProposalForm";
 
 class ProposalShow extends Component {
   render() {
-    // console.log("this.props", this.props);
     let matchPath = this.props.match.path.replace(/\s/g, "");
     const { proposalName } = this.props.proposal;
 
-    this.sendEmailHandler = ({ fields }) => {
-      // const pdfBlob = pdf(MyDocument).toBlob();
+    this.sendEmailHandler = async ({ fields }) => {
+      /* import the pdf document */
+      const { MyDocument } = require("./my_pdf_document/RenderPdf");
+      const json = JSON.stringify({ ...fields });
+      // const jsonBlob = new Blob([json], {
+      //   type: "application/json",
+      // });
+
+      let pdfBlob = await pdf(<MyDocument />).toBlob(); // the blob
+      let data = new FormData();
+      data.append("json", json);
+      data.append("file", pdfBlob);
+      ///*FETCH*/
       fetch("/api/send-email", {
         method: "POST",
-        body: JSON.stringify({ ...fields }),
-        headers: { "Content-Type": "application/json" },
+        // credentials: "include",
+        body: data,
       })
         .then((response) => {
           return response.json();
         })
         .then((json) => {
-          console.log("json", json);
           if (json.type === "success") {
             this.props.history.goBack();
             alert("Email trimis, super!");
           } else if (json.type === "error") {
+            console.log(json);
             alert("Oops, nu ai completat tot!");
           }
         });
@@ -73,7 +80,6 @@ class ProposalShow extends Component {
                 <ButtonRound>TRIMITE</ButtonRound>
 
                 <DownloadPdf />
-                <pdfBlob />
               </StyledUL>
             </MenuContainer>
           </LeftSide>

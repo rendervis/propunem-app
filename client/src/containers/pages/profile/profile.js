@@ -42,7 +42,7 @@ export default ({ history, ...props }) => {
     );
   };
 
-  console.log("path", path);
+  // console.log("path", path);
   return (
     <React.Fragment>
       <Route

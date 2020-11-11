@@ -28,6 +28,7 @@ class ProposalShow extends Component {
     const { proposalName } = this.props.proposal;
 
     this.sendEmailHandler = async ({ fields }) => {
+      console.log("fields", fields);
       /* import the pdf document */
       const { MyDocument } = require("./my_pdf_document/RenderPdf");
       const json = JSON.stringify({ ...fields });
@@ -35,7 +36,12 @@ class ProposalShow extends Component {
       //   type: "application/json",
       // });
 
-      let pdfBlob = await pdf(<MyDocument />).toBlob(); // the blob
+      let pdfBlob = await pdf(
+        <MyDocument
+          clientName={fields.nume_client}
+          projectTitle={fields.titlu_proiect}
+        />
+      ).toBlob(); // the blob
       let data = new FormData();
       data.append("json", json);
       data.append("file", pdfBlob);

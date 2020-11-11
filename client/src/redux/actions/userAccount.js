@@ -15,7 +15,7 @@ export const fetchUserAccountInfo = ({ accountId }) => (dispatch) => {
       return response.json();
     })
     .then((json) => {
-      console.log("json", json);
+      // console.log("json", json);
       if (json.type === "error") {
         dispatch({ type: USER.FETCH_ERROR, message: json.message });
       } else {
@@ -44,7 +44,7 @@ export const saveUserAccountInfo = ({ userInformation, accountId }) => (
     companyName,
     jobTitle,
   } = userInformation;
-  console.log("export const saveUserInfo", userInformation);
+  // console.log("export const saveUserInfo", userInformation);
   dispatch({ type: USER.FETCH });
 
   return fetch("/api/user/save", {

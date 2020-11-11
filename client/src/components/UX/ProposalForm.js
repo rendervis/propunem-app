@@ -16,9 +16,6 @@ const ProposalForm = ({ history, ...props }) => {
     const { name, value } = event.target;
     values[name] = value;
     setFields(values);
-
-    // const { value } = event.target;
-    // setData(value);
   };
 
   const onClickHandler = () => {

@@ -68,7 +68,7 @@ const OptionContainer = (props) => {
   useEffect(() => {
     if (contentArray.length >= 2) dispatch(optionCardClearState());
   }, []);
-  console.log("[OptionContainer -->>option]", option);
+  // console.log("[OptionContainer -->>option]", option);
 
   useEffect(() => {
     dispatch(

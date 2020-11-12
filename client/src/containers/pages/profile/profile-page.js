@@ -39,7 +39,7 @@ const ProfilePage = ({ history }) => {
         <ProfileBodyGrid>
           <BodyColumn2 col2>
             <Switch>
-              <Route path="/profil/profil" component={Profile} />
+              <Route exact path="/profil/profil" component={Profile} />
               <Route
                 exact
                 path="/profil/oferte-trimise"
@@ -47,7 +47,6 @@ const ProfilePage = ({ history }) => {
               />
               <Route exact path="/profil/situatie" component={Situation} />
             </Switch>
-            <ProposalList />
           </BodyColumn2>
 
           <BodyColumn3 col3>

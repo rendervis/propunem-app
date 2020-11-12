@@ -6,6 +6,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 ////COMPONENTS////
 import PageTitle from "../../../components/UI/profile/page-title";
 import { BigButtonOutline } from "../../../components/UI/big-button-outline.component";
+import ProposalList from "./ProposalList";
 ///////UI
 import { TextSmall, TextRegular } from "../../../components/UI/ui-elements";
 import {
@@ -89,6 +90,7 @@ export default ({ history, ...props }) => {
           </ArrowOptions>
         </SecondaryMenu>
       </TopContainer>
+      <ProposalList />
     </React.Fragment>
   );
 };

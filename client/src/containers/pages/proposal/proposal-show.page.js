@@ -122,7 +122,8 @@ class ProposalShow extends Component {
                 <Route
                   exact
                   path={`${matchPath}/preview`}
-                  component={RenderPdf}
+                  render={(props) => <RenderPdf />}
+                  // component={RenderPdf}
                 />
                 <Route
                   exact

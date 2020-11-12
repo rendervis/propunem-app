@@ -109,16 +109,51 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 });
-
 // Create Document Component
 export const MyDocument = (props) => {
   console.log("const MyDocument props", props);
+  /**** return DATE ****/
+  const date = () => {
+    // const monthNames = [
+    //   "January",
+    //   "February",
+    //   "March",
+    //   "April",
+    //   "May",
+    //   "June",
+    //   "July",
+    //   "August",
+    //   "September",
+    //   "October",
+    //   "November",
+    //   "December",
+    // ];
+    const monthNames = [
+      "Ianuarie",
+      "Februarie",
+      "Martie",
+      "Aprilie",
+      "Mai",
+      "Iunie",
+      "Iulie",
+      "August",
+      "Septembrie",
+      "Octombrie",
+      "Noiembrie",
+      "Decembrie",
+    ];
+    const newDate = new Intl.DateTimeFormat();
+    const f_date = (m_ca, m_it) => Object({ ...m_ca, [m_it.type]: m_it.value });
+    const date = newDate.formatToParts().reduce(f_date, {});
+    return date.day + " " + monthNames[date.month - 1] + ", " + date.year;
+  };
+
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page} wrap={false}>
         <View style={styles.cover} wrap={false}>
           <View style={{ flexDirection: "row" }}>
-            <Text style={{ fontSize: 8 }}>LUNA XX, YYYY</Text>
+            <Text style={{ fontSize: 8 }}>{date()}</Text>
           </View>
           {/****  Add client Name ****/}
           <Text style={styles.clientName}>

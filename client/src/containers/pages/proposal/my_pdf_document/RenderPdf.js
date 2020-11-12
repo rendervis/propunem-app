@@ -20,8 +20,7 @@ import styles from "./styles";
 // Create Document Component
 export const MyDocument = (props) => {
   const [userInformation, setUserInformation] = useState(props.userInformation);
-
-  /** Load data from props from Redux */
+  const [aboutUs, setAboutUs] = useState(Object.values(props.aboutUs));
 
   let {
     address,
@@ -71,6 +70,27 @@ export const MyDocument = (props) => {
     return date.day + " " + monthNames[date.month - 1] + ", " + date.year;
   };
 
+  const renderAboutUsText = () => {
+    if (aboutUs.length === 0) {
+      return (
+        <Text style={styles.text}>
+          Oh, how I wish I could believe or understand that!There's only one
+          reasonable course of action now:kill Flexo! Yes, except the Dave
+          Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+          yourcrotch is wrong, hey I don't wanna be right.
+        </Text>
+      );
+    } else {
+      return aboutUs.map((about, index) => {
+        console.log("about.about_text", about.about_text);
+        return (
+          <React.Fragment key={about.text_id}>
+            <Text style={styles.text}>{about.about_text}</Text>
+          </React.Fragment>
+        );
+      });
+    }
+  };
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page} wrap={false}>
@@ -177,24 +197,7 @@ export const MyDocument = (props) => {
           }}
           fixed
         >
-          <Text style={styles.text}>
-            Oh, how I wish I could believe or understand that!There's only one
-            reasonable course of action now:kill Flexo! Yes, except the Dave
-            Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-            yourcrotch is wrong, hey I don't wanna be right.
-          </Text>
-          <Text style={styles.text}>
-            Oh, how I wish I could believe or understand that!There's only one
-            reasonable course of action now:kill Flexo! Yes, except the Dave
-            Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-            yourcrotch is wrong, hey I don't wanna be right.
-          </Text>
-          <Text style={styles.text}>
-            Oh, how I wish I could believe or understand that!There's only one
-            reasonable course of action now:kill Flexo! Yes, except the Dave
-            Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-            yourcrotch is wrong, hey I don't wanna be right.
-          </Text>
+          {renderAboutUsText()}
         </View>
         <Text style={styles.cornerPageLogo} fixed>
           LOGO
@@ -373,26 +376,32 @@ export const MyDocument = (props) => {
 
 const RenderPdf = (props) => {
   // console.log("userInformation", userInformation);
+  /**
+   * data from Redux store
+   */
   const { userInformation } = useSelector((state) => state.userInformation);
+  const aboutUs = useSelector((state) => state.aboutUsText.aboutUs);
   return ReactDOM.render(
-    <PDFViewer
-      style={{
-        position: "fixed",
-        left: "auto",
-        right: "auto",
-        top: 0,
+    <BrowserRouter>
+      <PDFViewer
+        style={{
+          position: "fixed",
+          left: "auto",
+          right: "auto",
+          top: 0,
 
-        // display: "flex",
-        // alignItems: "center",
-        // justifyContent: "center",
-        // zIndex: "101",
-        width: "100vw",
-        height: "100vh",
-        // backgroundColor: "red",
-      }}
-    >
-      <MyDocument userInformation={userInformation} />
-    </PDFViewer>,
+          // display: "flex",
+          // alignItems: "center",
+          // justifyContent: "center",
+          // zIndex: "101",
+          width: "100vw",
+          height: "100vh",
+          // backgroundColor: "red",
+        }}
+      >
+        <MyDocument userInformation={userInformation} aboutUs={aboutUs} />
+      </PDFViewer>
+    </BrowserRouter>,
     document.getElementById("render_pdf")
   );
 };

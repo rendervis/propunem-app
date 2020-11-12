@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Router, withRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import store from "../../../../redux/store";
+import { useSelector, useDispatch } from "react-redux";
 import ReactPDF, {
   Document,
   Page,
@@ -8,110 +12,29 @@ import ReactPDF, {
   StyleSheet,
   PDFViewer,
   PDFDownloadLink,
-  pdf,
   Font,
-  BlobProvider,
 } from "@react-pdf/renderer";
 
-// Register font
-let source1 = "http://fonts.gstatic.com/s/arimo/v9/BkZwJXYnumPMepfEA344yQ.ttf";
-Font.register({
-  family: "Arimo",
-  fonts: [
-    { src: source1 }, // font-style: normal, font-weight: normal
-    // { src: source2, fontStyle: "italic" },
-    // { src: source3, fontStyle: "italic", fontWeight: 700 },
-  ],
-});
+import styles from "./styles";
 
-// Create styles
-const styles = StyleSheet.create({
-  page: {
-    margin: 0,
-    padding: 0,
-    // paddingTop: 35,
-    // paddingBottom: 65,
-    // paddingHorizontal: 35,
-    flexDirection: "column",
-  },
-  cover: {
-    paddingTop: 140,
-    paddingLeft: 107,
-    margin: 0,
-  },
-  logo: {
-    fontSize: 25,
-    textAlign: "left",
-    fontWeight: "normal",
-    fontStretch: "normal",
-    lineHeight: 1.2,
-  },
-  clientName: {
-    marginTop: 64,
-    fontSize: 44,
-    textAlign: "justify",
-  },
-  projectTitle: {
-    marginTop: 14,
-    fontSize: 26,
-    textAlign: "justify",
-  },
-  decorationLine: {
-    width: 382,
-    height: 6,
-    backgroundColor: "black",
-  },
-  decorationLineMedium: {
-    width: 182,
-    height: 6,
-    backgroundColor: "#535353",
-  },
-  decorationLineSmall: {
-    width: 150,
-    height: 6,
-    backgroundColor: "#E2E2E2",
-  },
-  senderName: {
-    marginTop: 14,
-    fontSize: 9,
-    textAlign: "justify",
-  },
-  jobTitle: {
-    marginTop: 3,
-    fontSize: 6,
-    textAlign: "justify",
-  },
-  address: {
-    marginTop: 14,
-    fontSize: 6,
-    textAlign: "justify",
-  },
-  webAddress: {
-    marginTop: 10,
-    fontSize: 9,
-    textAlign: "justify",
-  },
-
-  text: {
-    margin: 12,
-    fontSize: 12,
-    textAlign: "left",
-  },
-  cornerPageLogo: {
-    position: "absolute",
-    bottom: 56,
-    right: 20,
-    fontSize: 16,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-});
 // Create Document Component
 export const MyDocument = (props) => {
-  console.log("const MyDocument props", props);
+  const [userInformation, setUserInformation] = useState(props.userInformation);
+
+  /** Load data from props from Redux */
+
+  let {
+    address,
+    city,
+    companyName,
+    county,
+    firstName,
+    jobTitle,
+    surname,
+    telephone,
+    webAddress,
+  } = userInformation;
+
   /**** return DATE ****/
   const date = () => {
     // const monthNames = [
@@ -167,12 +90,20 @@ export const MyDocument = (props) => {
           <Text style={styles.decorationLine} />
           <View style={{ flexDirection: "row" }}>
             <View>
-              <Text style={styles.senderName}>Nume Ofertant</Text>
-              <Text style={styles.jobTitle}>Titlu Job</Text>
+              <Text style={styles.senderName}>
+                {firstName && surname
+                  ? `${firstName + " " + surname}`
+                  : "Nume Ofertant"}
+              </Text>
+              <Text style={styles.jobTitle}>
+                {jobTitle || ` ${"Titlu Job"}`}
+              </Text>
             </View>
             <View style={{ marginLeft: 180 }}>
-              <Text style={styles.address}>Adresa</Text>
-              <Text style={styles.webAddress}>www.adresa-web.com</Text>
+              <Text style={styles.address}> {address || ` ${"Adresa"}`}</Text>
+              <Text style={styles.webAddress}>
+                {webAddress || ` ${"www.adresa-web.com"}`}
+              </Text>
             </View>
           </View>
         </View>
@@ -441,6 +372,8 @@ export const MyDocument = (props) => {
 };
 
 const RenderPdf = (props) => {
+  // console.log("userInformation", userInformation);
+  const { userInformation } = useSelector((state) => state.userInformation);
   return ReactDOM.render(
     <PDFViewer
       style={{
@@ -458,9 +391,9 @@ const RenderPdf = (props) => {
         // backgroundColor: "red",
       }}
     >
-      <MyDocument />
+      <MyDocument userInformation={userInformation} />
     </PDFViewer>,
-    document.querySelector("#render_pdf")
+    document.getElementById("render_pdf")
   );
 };
 export const DownloadPdf = () => (
@@ -473,4 +406,4 @@ export const DownloadPdf = () => (
   </div>
 );
 
-export default RenderPdf;
+export default withRouter(RenderPdf);

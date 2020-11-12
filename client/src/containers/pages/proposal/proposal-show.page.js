@@ -85,7 +85,7 @@ class ProposalShow extends Component {
                 <ButtonRound>PREVIEW</ButtonRound>
                 <ButtonRound>TRIMITE</ButtonRound>
 
-                <DownloadPdf />
+                {/** <DownloadPdf /> */}
               </StyledUL>
             </MenuContainer>
           </LeftSide>
@@ -120,10 +120,9 @@ class ProposalShow extends Component {
                   component={ProposalOptions}
                 />
                 <Route
-                  exact
                   path={`${matchPath}/preview`}
                   render={(props) => <RenderPdf />}
-                  // component={RenderPdf}
+                  //  component={RenderPdf}
                 />
                 <Route
                   exact

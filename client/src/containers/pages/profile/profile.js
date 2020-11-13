@@ -24,6 +24,7 @@ export default ({ history, ...props }) => {
   let proposalCount;
   let { path } = props.match;
   const accountId = useSelector((state) => state.account.accountId);
+  /** need proposalList to display proposalCount */
   const proposalList = useSelector((state) => state.proposal.proposalList);
   proposalCount = proposalList ? proposalList.length : 0;
 

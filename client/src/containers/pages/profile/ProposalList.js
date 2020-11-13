@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import styled, { css } from "styled-components";
+///////actions
 import {
   fetchProposalList,
   proposalEdit,
 } from "../../../redux/actions/proposal";
 
-const ProposalList = ({ history }) => {
+const ProposalList = ({ history, ...props }) => {
   const accountId = useSelector((state) => state.account.accountId);
   const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ const ProposalList = ({ history }) => {
     dispatch(proposalEdit({ proposalName, proposalId }));
     history.push(`/propunere/${proposalName}`);
   };
-  const renderNameList = () => {
+  const renderNameList = (props) => {
     if (!proposalList) {
       return (
         <span
@@ -38,11 +40,8 @@ const ProposalList = ({ history }) => {
     }
     return proposalList.map((name) => {
       return (
-        <span
-          style={{
-            marginBottom: "10px",
-            cursor: "pointer",
-          }}
+        <StyledSpan
+          {...props}
           onClick={() =>
             clickHandler(
               name.proposal_name.replace(/ +$/, "").replace(/\s/g, "-"),
@@ -51,7 +50,7 @@ const ProposalList = ({ history }) => {
           }
         >
           {name.proposal_name}
-        </span>
+        </StyledSpan>
       );
     });
   };
@@ -66,9 +65,20 @@ const ProposalList = ({ history }) => {
         flexDirection: "column",
       }}
     >
-      {renderNameList()}
+      {renderNameList(props)}
     </div>
   );
 };
+
+const StyledSpan = styled.span`
+  margin-bottom: 10px;
+  cursor: pointer;
+  /* ${(props) =>
+    props.black &&
+    css`
+      color: #000000;
+    `} */
+  pointer-events: ${(props) => props.noClick || "null"};
+`;
 
 export default withRouter(ProposalList);

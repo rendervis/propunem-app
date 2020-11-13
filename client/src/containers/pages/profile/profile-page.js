@@ -7,7 +7,7 @@ import styled, { css } from "styled-components";
 ///components
 import Header from "../../header.container";
 import ProfileMenu from "../../../components/UI/profile/profile-menu/profile-menu";
-import ProposalList from "./ProposalList";
+import Services from "./Services";
 
 import Profile from "./profile";
 import OfferSend from "./offer-send";
@@ -40,6 +40,7 @@ const ProfilePage = ({ history }) => {
           <BodyColumn2 col2>
             <Switch>
               <Route path="/profil/profil" component={Profile} />
+              <Route path="/profil/servicii" component={Services} />
               <Route
                 exact
                 path="/profil/oferte-trimise"

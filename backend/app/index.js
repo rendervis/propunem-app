@@ -12,12 +12,13 @@ const { APP_SECRET } = require("../../environment_config/keys");
 
 ///////routes
 const accountRouter = require("./api/account");
+const userAccountRouter = require("./api/userAccount");
+const brandingDeclarationRouter = require("./api/brandingDeclaration");
 const proposalRouter = require("./api/proposal");
 const aboutUsRouter = require("./api/aboutUs");
 const ourApproachRouter = require("./api/ourApproach");
 const offerRouter = require("./api/offer");
 const optionCardRouter = require("./api/optionCard");
-const userAccountRouter = require("./api/userAccount");
 const authGoogleRouter = require("./api/authGoogle");
 const nodemailerRouter = require("./api/nodemailer");
 
@@ -57,6 +58,7 @@ app.use(cookieParser(APP_SECRET));
 //Routes with sessionString
 app.use("/api", accountRouter);
 app.use("/api", userAccountRouter);
+app.use("/api", brandingDeclarationRouter);
 app.use("/api", proposalRouter);
 app.use("/api", aboutUsRouter);
 app.use("/api", ourApproachRouter);

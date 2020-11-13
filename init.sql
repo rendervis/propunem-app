@@ -1,3 +1,4 @@
+--1
 CREATE TABLE account
 (
     account_id SERIAL PRIMARY KEY,
@@ -11,6 +12,7 @@ CREATE TABLE account
 
 );
 
+--2
 CREATE TABLE proposal
 (
     proposal_id SERIAL PRIMARY KEY ,
@@ -20,6 +22,7 @@ CREATE TABLE proposal
     proposal_name CHARACTER(64) NOT NULL
 );
 
+--3
 CREATE TABLE aboutus
 (
 
@@ -31,6 +34,7 @@ CREATE TABLE aboutus
 
 );
 
+--4
 CREATE TABLE offer
 (
     offer_id SERIAL,
@@ -48,7 +52,7 @@ CREATE TABLE offer
 
 );
 
-
+--5
 CREATE TABLE optioncard
 (
     optioncard_id SERIAL ,
@@ -65,6 +69,7 @@ CREATE TABLE optioncard
 
 );
 
+--6
 CREATE TABLE ourapproach
 (
     ourapproach_id SERIAL ,
@@ -78,6 +83,7 @@ CREATE TABLE ourapproach
 
 );
 
+--7
 CREATE TABLE useraccount
 (
     user_id SERIAL,
@@ -96,4 +102,17 @@ CREATE TABLE useraccount
     CONSTRAINT user_id_pk PRIMARY KEY (user_id),
 
     CONSTRAINT fk_user_account_id FOREIGN KEY (account_id) REFERENCES account(account_id)
+);
+
+--8
+CREATE TABLE branding_declaration
+(
+    branding_id SERIAL PRIMARY KEY,
+    account_id BIGINT NOT NULL,
+
+    text_id INTEGER NOT NULL,
+    branding_text TEXT NOT NULL,
+
+    CONSTRAINT fk_account_accountid FOREIGN KEY (account_id) REFERENCES account(account_id)
+
 );

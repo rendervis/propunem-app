@@ -4,16 +4,17 @@ import { Switch, Route, useParams, Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
+import { pdf } from "@react-pdf/renderer";
 
 ///// COMPONENTS /////
 import Header from "../../header.container";
 import RenderPdf, { DownloadPdf } from "./my_pdf_document/RenderPdf";
-import { pdf } from "@react-pdf/renderer";
 
 ///// MAIN Content /////
-import OfferShow from "./offer-show.container";
 import AboutUs from "./about-us.container";
+import ServicesAndCapabilities from "./ServicesAndCapabilities";
 import OurApproach from "./our-approach.container";
+import OfferShow from "./offer-show.container";
 import ProposalOptions from "./proposal-options.container";
 
 ///////UI
@@ -77,7 +78,6 @@ class ProposalShow extends Component {
               </MenuTitleContainer>
               <StyledUL>
                 <ButtonRound>DESPRE NOI</ButtonRound>
-
                 <ButtonRound>SERVICII</ButtonRound>
                 <ButtonRound>ABORDARE</ButtonRound>
                 <ButtonRound>OFERTA</ButtonRound>
@@ -103,6 +103,11 @@ class ProposalShow extends Component {
                   exact
                   path={`${matchPath}/despre-noi`}
                   component={AboutUs}
+                />
+                <Route
+                  exact
+                  path={`${matchPath}/servicii`}
+                  component={ServicesAndCapabilities}
                 />
                 <Route
                   exact

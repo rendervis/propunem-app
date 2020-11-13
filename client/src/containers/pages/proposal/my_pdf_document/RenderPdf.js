@@ -8,12 +8,14 @@ import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import MyDocument from "./MyDocument";
 
 const RenderPdf = (props) => {
+  //TODO dispatch actions to update data from store
   /**
    * data from Redux store
    */
-  //TODO dispatch actions to update data from store
   const { userInformation } = useSelector((state) => state.userInformation);
-  const aboutUs = useSelector((state) => state.aboutUsText.aboutUs);
+  const aboutUsText = useSelector((state) => state.aboutUsText.aboutUsText);
+  console.log("aboutUsText", aboutUsText);
+  /**Return */
   return ReactDOM.render(
     <BrowserRouter>
       <PDFViewer
@@ -32,7 +34,10 @@ const RenderPdf = (props) => {
           // backgroundColor: "red",
         }}
       >
-        <MyDocument userInformation={userInformation} aboutUs={aboutUs} />
+        <MyDocument
+          userInformation={userInformation}
+          aboutUsText={aboutUsText}
+        />
       </PDFViewer>
     </BrowserRouter>,
     document.getElementById("render_pdf")

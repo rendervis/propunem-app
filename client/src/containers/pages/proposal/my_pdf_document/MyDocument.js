@@ -5,7 +5,9 @@ import styles from "./styles";
 // Create Document Component
 export default (props) => {
   const [userInformation, setUserInformation] = useState(props.userInformation);
-  const [aboutUs, setAboutUs] = useState(Object.values(props.aboutUs));
+  const [aboutUsText, setAboutUsText] = useState(
+    Object.values(props.aboutUsText)
+  );
 
   let {
     address,
@@ -56,7 +58,7 @@ export default (props) => {
   };
 
   const renderAboutUsText = () => {
-    if (aboutUs.length === 0) {
+    if (aboutUsText.length === 0) {
       return (
         <Text style={styles.text}>
           Oh, how I wish I could believe or understand that!There's only one
@@ -66,7 +68,7 @@ export default (props) => {
         </Text>
       );
     } else {
-      return aboutUs.map((about, index) => {
+      return aboutUsText.map((about, index) => {
         // console.log("about.about_text", about.about_text);
         return (
           <React.Fragment key={about.text_id}>

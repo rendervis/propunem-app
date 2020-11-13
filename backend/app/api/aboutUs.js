@@ -4,12 +4,12 @@ const AboutUsTable = require("../aboutus/table");
 const router = new Router();
 
 router.post("/aboutus", (req, res, next) => {
-  console.log("/aboutus", req.body);
+  // console.log("/aboutus", req.body);
   const { proposalId } = req.body;
 
   AboutUsTable.getAboutUsText({ proposalId })
     .then(({ aboutUsText }) => {
-      console.log(" AboutUsTable.getAboutUsText", aboutUsText);
+      // console.log(" AboutUsTable.getAboutUsText", aboutUsText);
       if (!aboutUsText) {
         res.json({ message: "no database record." });
       } else {
@@ -19,7 +19,7 @@ router.post("/aboutus", (req, res, next) => {
     .catch((error) => next(error));
 });
 router.post("/aboutus/save", (req, res, next) => {
-  console.log("/aboutus/save -->> req.body", req.body);
+  // console.log("/aboutus/save -->> req.body", req.body);
   const { proposalId, text_id, about_text } = req.body;
 
   AboutUsTable.storeAboutUs({ proposalId, text_id, about_text })
@@ -37,6 +37,7 @@ router.put("/aboutus/update", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
+
 router.delete("/aboutus/delete-text", (req, res, next) => {
   const { proposalId, text_id } = req.body;
   AboutUsTable.deleteAboutUsText({ proposalId, text_id })

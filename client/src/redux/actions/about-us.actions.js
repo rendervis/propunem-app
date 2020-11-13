@@ -15,8 +15,6 @@ export const fetchAboutUsText = ({ proposalId, aboutUs }) => (dispatch) => {
     })
     .then((json) => {
       const { aboutUsText } = json;
-      console.log("fetchAboutUsText -->>json.aboutUsText", aboutUsText);
-      console.log("fetchAboutUsText -->> {aboutUs}", aboutUs);
       if (!aboutUsText) {
         dispatch({
           type: ABOUTUS.FETCH_ERROR,
@@ -37,7 +35,7 @@ export const fetchAboutUsText = ({ proposalId, aboutUs }) => (dispatch) => {
 };
 
 export const saveText = ({ textCard, proposalId }) => (dispatch) => {
-  console.log(" const saveText-->> textCard", textCard);
+  // console.log(" const saveText-->> textCard", textCard);
   const { text_id, about_text } = textCard;
   dispatch({
     type: ABOUTUS.FETCH,

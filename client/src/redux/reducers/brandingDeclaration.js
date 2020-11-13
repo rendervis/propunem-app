@@ -64,6 +64,14 @@ export default (state = INITIAL_STATE, action) => {
           [action.defaultText.text_id]: action.defaultText,
         },
       };
+    case BRANDING_DECLARATION.CREATE:
+      return {
+        ...state,
+        brandingDeclaration: {
+          ...state.brandingDeclaration,
+          [action.textCard.text_id]: action.textCard,
+        },
+      };
     case BRANDING_DECLARATION.CLEAR_STATE:
       return {
         brandingDeclaration: {},

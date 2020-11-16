@@ -2,85 +2,86 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4, parse as uuidParse } from "uuid";
 
+///////COMPONENTS
+import ProposalList from "../profile/ProposalList";
 ///////UX
 import TextArea from "../../../components/UX/text-area";
 ///////UI
 import { TextSmall } from "../../../components/UI/ui-elements";
-
+//////actions
 import {
-  createText,
-  fetchOurApproachText,
-  saveText,
-  deleteText,
+  fetchBrandingDeclaration,
+  brandingDeclarationSave,
+  brandingDeclarationUpdate,
   showDefault,
-  ourApproachClearState,
+  createText,
   updateTouched,
-} from "../../../redux/actions/our-approach.actions";
+  brandingDeclarationClearState,
+} from "../../../redux/actions/brandingDeclaration";
 
 const textAreaPlaceHolder =
-  "Ce te face să ieși în evidență? De ce esti cea mai buna alegere?";
+  "Declaratia ta de Branding (pozitionarea ta in piata).";
 
-const OurApproach = () => {
+const BrandingDeclaration = (props) => {
   const [newValue, setNewValue] = useState("");
   const [textCard, setTextCard] = useState({
     text_id: `${1}`,
-    approach_text: "",
+    text: "",
     touched: false,
     key: uuidv4(),
   });
   const dispatch = useDispatch();
 
-  const proposalId = useSelector((state) => state.proposal.proposalId);
-  const ourApproach = useSelector((state) =>
-    Object.values(state.ourApproachText.ourApproach)
+  const accountId = useSelector((state) => state.account.accountId);
+  let brandingDeclaration = useSelector((state) =>
+    Object.values(state.branding.brandingDeclaration)
   );
 
   useEffect(() => {
-    dispatch(ourApproachClearState());
+    dispatch(brandingDeclarationClearState());
   }, []);
   useEffect(() => {
     dispatch(createText({ textCard }));
   }, []);
-
   useEffect(() => {
-    dispatch(fetchOurApproachText({ proposalId, ourApproach }));
+    dispatch(fetchBrandingDeclaration({ accountId, brandingDeclaration }));
   }, []);
+
   useEffect(() => {
     dispatch(updateTouched({ textCard }));
   }, [dispatch, textCard, newValue]);
 
   const onSaveHandler = (id) => {
     dispatch(
-      saveText({
+      brandingDeclarationSave({
         textCard: {
           text_id: (1 + id).toString(),
-          approach_text: newValue,
+          text: newValue,
           touched: false,
           key: uuidv4(),
         },
-        proposalId,
+        accountId,
       })
     );
   };
-
   const onUpdateHandler = (id) => {
-    setTextCard({
-      text_id: (1 + id).toString(),
-      approach_text: newValue,
-      touched: !ourApproach[id].touched,
-      key: ourApproach[id].key,
-    });
     dispatch(
-      saveText({
+      brandingDeclarationUpdate({
         textCard: {
           text_id: (1 + id).toString(),
-          approach_text: newValue,
+          text: newValue,
           touched: false,
-          key: ourApproach[id].key,
+          key: brandingDeclaration[id].key,
         },
-        proposalId,
+        accountId,
       })
     );
+    setTextCard({
+      text_id: (1 + id).toString(),
+      text: newValue,
+      touched: !brandingDeclaration[id].touched,
+      key: brandingDeclaration[id].key,
+    });
   };
 
   const onAddDefaultHandler = (id) => {
@@ -88,7 +89,7 @@ const OurApproach = () => {
       showDefault({
         defaultText: {
           text_id: (2 + id).toString(),
-          approach_text: "",
+          text: "",
           touched: false,
           key: uuidv4(),
         },
@@ -96,40 +97,22 @@ const OurApproach = () => {
     );
   };
 
-  const onDeleteHandler = (text_id) => {
-    dispatch(deleteText({ proposalId, text_id }));
-  };
-
-  const actions = (id, text_id, touched) => {
-    if (!ourApproach[id]) {
+  const actions = (id, touched) => {
+    if (!brandingDeclaration[id]) {
       return null;
     }
-
-    // console.log("[const actions =]");
     return (
       <div
         style={{
           display: "flex",
           flexFlow: "row-reverse ",
           textAlign: "right",
+          marginTop: "16px",
         }}
       >
-        {!ourApproach[id].approach_text ? (
-          ""
-        ) : (
-          <TextSmall
-            onClick={() => onDeleteHandler(text_id)}
-            hovered
-            red
-            style={{ marginLeft: "34px" }}
-          >
-            sterge
-          </TextSmall>
-        )}
-
         <TextSmall
           hovered
-          display={!ourApproach[id].approach_text.toString()}
+          display={!brandingDeclaration[id].text.toString()}
           style={{ marginLeft: "34px" }}
           onClick={() => onUpdateHandler(id)}
           red={touched}
@@ -138,7 +121,7 @@ const OurApproach = () => {
         </TextSmall>
 
         <TextSmall
-          display={ourApproach[id].approach_text.toString()}
+          display={brandingDeclaration[id].text.toString()}
           hovered
           red
           style={{ marginLeft: "34px" }}
@@ -146,11 +129,6 @@ const OurApproach = () => {
         >
           salveaza
         </TextSmall>
-        {ourApproach.length - 1 === id ? (
-          <span onClick={() => onAddDefaultHandler(id)}>+</span>
-        ) : (
-          ""
-        )}
       </div>
     );
   };
@@ -159,37 +137,38 @@ const OurApproach = () => {
     setNewValue(text);
   };
   const onClickHandler = (id) => {
-    // console.log("[onClickHandler =]", aboutUsText[id]);
     setTextCard({
-      text_id: ourApproach[id].text_id,
-      approach_text: ourApproach[id].approach_text,
+      text_id: brandingDeclaration[id].text_id,
+      text: brandingDeclaration[id].text,
       touched: true,
-      key: ourApproach[id].key,
+      key: brandingDeclaration[id].key,
     });
   };
 
   const renderText = () => {
-    if (!ourApproach) {
+    if (!brandingDeclaration) {
       return null;
     } else {
-      return ourApproach.map((about, index) => {
-        // console.log("[renderText = () =>]", about.textId);
+      return brandingDeclaration.map((object, index) => {
+        // console.log("[renderText = () =>]", object);
+
         return (
-          <div key={about.key}>
+          <div key={object.key} style={{ width: "740px" }} {...props}>
             <TextArea
               placeholder={textAreaPlaceHolder}
               onClick={() => onClickHandler(index)}
               onChange={(text) => onChangeTextHandler(text)}
-              defaultValue={about.approach_text}
-            />
-            {actions(index, about.text_id, about.touched)}
+              defaultValue={object.text}
+              text={object.text}
+            ></TextArea>
+            {actions(index, object.touched)}
           </div>
         );
       });
     }
   };
 
-  return <div>{renderText()}</div>;
+  return <div style={{ display: "flex" }}>{renderText()}</div>;
 };
 
-export default OurApproach;
+export default BrandingDeclaration;

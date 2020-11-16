@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4, parse as uuidParse } from "uuid";
-
-import TextArea from "./text-area";
+///////UX
+import TextArea from "../../../components/UX/text-area";
 import { TextSmall } from "../../../components/UI/ui-elements";
 
 import {

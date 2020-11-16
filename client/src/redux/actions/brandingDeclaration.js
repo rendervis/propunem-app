@@ -42,6 +42,7 @@ export const fetchBrandingDeclaration = ({
 export const brandingDeclarationSave = ({ accountId, textCard }) => (
   dispatch
 ) => {
+  console.log("[brandingDeclarationSave]:textCard", textCard);
   const { text_id, text } = textCard;
   dispatch({ type: BRANDING_DECLARATION.FETCH });
   return fetch("/api/branding-declaration/save", {
@@ -123,6 +124,13 @@ export const showDefault = ({ defaultText }) => {
   return {
     type: BRANDING_DECLARATION.SHOW_DEFAULT,
     defaultText,
+  };
+};
+///////
+export const updateTouched = ({ textCard }) => {
+  return {
+    type: BRANDING_DECLARATION.UPDATE_TOUCHED,
+    textCard,
   };
 };
 ///////

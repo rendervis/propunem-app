@@ -36,7 +36,7 @@ export default (state = INITIAL_STATE, action) => {
         },
         brandingDeclaration: {
           ...state.brandingDeclaration,
-          ..._mapKeys(result, "text_id"),
+          ..._.mapKeys(result, "text_id"),
           ..._.mapKeys(action.text, "text_id"),
         },
       };
@@ -49,6 +49,14 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case BRANDING_DECLARATION.UPDATE:
+      return {
+        ...state,
+        brandingDeclaration: {
+          ...state.brandingDeclaration,
+          [action.textCard.text_id]: action.textCard,
+        },
+      };
+    case BRANDING_DECLARATION.UPDATE_TOUCHED:
       return {
         ...state,
         brandingDeclaration: {

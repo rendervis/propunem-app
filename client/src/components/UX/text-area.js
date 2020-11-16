@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 ///// UI elements /////
-import { TextRegular } from "../../../components/UI/ui-elements";
+import { TextRegular } from "../UI/ui-elements";
 
 class TextArea extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class TextArea extends Component {
     this.state = {
       defaultValue: "Adauga continut, acuma serios, scrie si tu ceva...",
       textHeight: null,
-      text: "",
+      text: this.props.text || "",
     };
     this.textareaRef = React.createRef();
   }
@@ -24,6 +24,7 @@ class TextArea extends Component {
   };
   autoGrow = () => {
     const { scrollHeight, clientHeight, style } = this.textareaRef.current;
+    // console.log("this.textareaRef.current", this.textareaRef.current);
     if (scrollHeight > clientHeight) {
       style.height = scrollHeight + "px";
       this.setState({
@@ -33,7 +34,9 @@ class TextArea extends Component {
   };
 
   render() {
-    // console.log("[TextArea extends ->]", this.props);
+    // console.log("[TextArea extends ->this.props]", this.props.text);
+    // console.log("[TextArea extends ->this.state]", this.state.text);
+    // console.log("this.textareaRef.current", this.textareaRef.current);
     return (
       <TextAreaStyled
         {...this.props}
@@ -41,7 +44,7 @@ class TextArea extends Component {
         onKeyUp={this.autoGrow}
         placeholder={this.props.placeholder}
         onChange={this.onInputChangeContent}
-        rows="1"
+        // rows="1"
         minLength="10"
         maxLength="200"
       />
@@ -50,7 +53,8 @@ class TextArea extends Component {
 }
 
 const TextAreaStyled = styled.textarea`
-  width: 836px;
+  width: 740px;
+
   height: auto;
   resize: none;
   text-overflow: clip;

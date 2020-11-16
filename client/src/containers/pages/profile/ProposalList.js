@@ -60,7 +60,7 @@ const ProposalList = ({ history, ...props }) => {
       style={{
         paddingTop: "1.6rem",
         paddingBottom: "1.38rem",
-        marginLeft: "5.44rem",
+        // marginLeft: "5.44rem",
         display: "flex",
         flexDirection: "column",
       }}

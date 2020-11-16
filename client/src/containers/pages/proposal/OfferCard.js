@@ -8,7 +8,8 @@ import styled from "styled-components";
 
 ///// COMPONENTS /////
 
-import TextArea from "./text-area";
+///////UX
+import TextArea from "../../../components/UX/text-area";
 ///// UI elements /////
 import {
   TextRegular,

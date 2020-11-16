@@ -91,7 +91,7 @@ export default ({ history, ...props }) => {
           </ArrowOptions>
         </SecondaryMenu>
       </TopContainer>
-      <ProposalList />
+      <ProposalList style={{ marginLeft: "5.44rem" }} />
     </React.Fragment>
   );
 };

@@ -92,6 +92,18 @@ module.exports = function (app) {
     })
   );
   app.use(
+    "/api/branding-declaration",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
+  app.use(
+    "/api/branding-declaration/*",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
+  app.use(
     "/api/send-email",
     createProxyMiddleware({
       target: "http://localhost:5000",

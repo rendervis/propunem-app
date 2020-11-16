@@ -12,11 +12,18 @@ import userAccountReducer from "./userAccount";
 
 import accountReducer from "./account";
 import proposalReducer from "./proposal";
+import brandingDeclarationReducer from "./brandingDeclaration";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["account", "userInformation", "proposal", "aboutUsText"],
+  whitelist: [
+    "account",
+    "userInformation",
+    "proposal",
+    "aboutUsText",
+    "branding",
+  ],
 };
 
 export default persistReducer(
@@ -32,5 +39,6 @@ export default persistReducer(
     account: accountReducer,
     userInformation: userAccountReducer,
     proposal: proposalReducer,
+    branding: brandingDeclarationReducer,
   })
 );

@@ -49,4 +49,12 @@ class BrandingDeclarationTable {
   }
 }
 
+// BrandingDeclarationTable.storeBrandingDeclaration({
+//   accountId: 53,
+//   text_id: 1,
+//   text: "Mare dar din db... test.",
+// })
+//   // .then((user) => console.log("AccountTable.getUserById", user))
+//   .catch((error) => console.error("error", error));
+
 module.exports = BrandingDeclarationTable;

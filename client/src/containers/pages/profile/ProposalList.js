@@ -20,7 +20,7 @@ const ProposalList = ({ history, ...props }) => {
 
   const clickHandler = (proposalName, proposalId) => {
     dispatch(proposalEdit({ proposalName, proposalId }));
-    history.push(`/propunere/${proposalName}`);
+    history.push(`/propunere/${proposalName}/${proposalId}`);
   };
   const renderNameList = (props) => {
     if (!proposalList) {

@@ -47,7 +47,10 @@ function App({ history }) {
 
         <AuthRoute path="/profil/:titlu" component={ProfilePage} />
         <AuthRoute path="/cont/:titlu" component={AccountDataPage} />
-        <AuthRoute path="/propunere/:nume_propunere" component={ProposalShow} />
+        <AuthRoute
+          path="/propunere/:proposalName/:proposalId"
+          component={ProposalShow}
+        />
       </Switch>
     </div>
   );

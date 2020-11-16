@@ -18,6 +18,7 @@ import {
 const textAreaPlaceHolder = "Care este povestea ta? Cum ai inceput?";
 
 const AboutUs = (props) => {
+  console.log("props", props);
   const [newValue, setNewValue] = useState("");
   const [textCard, setTextCard] = useState({
     text_id: `${1}`,
@@ -27,7 +28,9 @@ const AboutUs = (props) => {
   });
   const dispatch = useDispatch();
 
-  const proposalId = useSelector((state) => state.proposal.proposalId);
+  const proposalId =
+    useSelector((state) => state.proposal.proposalId) ||
+    props.match.params.proposalId;
   let aboutUs = useSelector((state) =>
     Object.values(state.aboutUsText.aboutUs)
   );

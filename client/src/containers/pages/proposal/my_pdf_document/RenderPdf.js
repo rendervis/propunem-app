@@ -14,7 +14,12 @@ const RenderPdf = (props) => {
    */
   const { userInformation } = useSelector((state) => state.userInformation);
   const aboutUsText = useSelector((state) => state.aboutUsText.aboutUsText);
-  console.log("aboutUsText", aboutUsText);
+  let brandingDeclaration = useSelector(
+    (state) => state.branding.brandingDeclarationDB[1].text
+  );
+  const proposalList = useSelector((state) => state.proposal.proposalList);
+  const ourApproach = useSelector((state) => state.ourApproachText.ourApproach);
+
   /**Return */
   return ReactDOM.render(
     <BrowserRouter>
@@ -37,6 +42,9 @@ const RenderPdf = (props) => {
         <MyDocument
           userInformation={userInformation}
           aboutUsText={aboutUsText}
+          brandingDeclaration={brandingDeclaration}
+          proposalList={proposalList}
+          ourApproach={ourApproach}
         />
       </PDFViewer>
     </BrowserRouter>,

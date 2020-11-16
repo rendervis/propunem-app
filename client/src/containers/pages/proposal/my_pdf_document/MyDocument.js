@@ -2,13 +2,21 @@ import React, { useEffect, useState } from "react";
 import ReactPDF, { Document, Page, Text, View } from "@react-pdf/renderer";
 import styles from "./styles";
 
+//TODO include MyDocument in redux STORE and receive data via STORE and not props
+
 // Create Document Component
 export default (props) => {
   const [userInformation, setUserInformation] = useState(props.userInformation);
   const [aboutUsText, setAboutUsText] = useState(
     Object.values(props.aboutUsText)
   );
-
+  const [brandingDeclaration, setBrandingDeclaration] = useState(
+    props.brandingDeclaration
+  );
+  const [proposalList, setProposalList] = useState(props.proposalList);
+  const [ourApproach, setOurApproach] = useState(
+    Object.values(props.ourApproach)
+  );
   let {
     address,
     city,
@@ -56,7 +64,7 @@ export default (props) => {
     const date = newDate.formatToParts().reduce(f_date, {});
     return date.day + " " + monthNames[date.month - 1] + ", " + date.year;
   };
-
+  /**** AboutUs ****/
   const renderAboutUsText = () => {
     if (aboutUsText.length === 0) {
       return (
@@ -77,6 +85,51 @@ export default (props) => {
         );
       });
     }
+  };
+  /**** Branding Declaration */
+  const renderBrandingDeclaration = () => {
+    if (!brandingDeclaration) {
+      return (
+        <Text style={{ width: 474, fontSize: 13 }}>
+          Oh, how I wish I could believe or understand that!There's only one
+          reasonable course of action now:kill Flexo! Yes, except the Dave
+          Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+          yourcrotch is wrong, hey I don't wanna be right.
+        </Text>
+      );
+    } else {
+      return (
+        <Text style={{ width: 474, fontSize: 13 }}>{brandingDeclaration}</Text>
+      );
+    }
+  };
+  /**** proposalList */
+  const renderServices = () => {
+    return proposalList.map((name) => {
+      return (
+        <Text style={{ fontSize: 6, fontWeight: 700, marginTop: 9 }}>
+          {name.proposal_name}
+        </Text>
+      );
+    });
+  };
+  /**** ourApproach */
+  const renderOurApproach = () => {
+    if (ourApproach.length === 0) {
+      return (
+        <Text style={{ width: 474, fontSize: 13 }}>
+          Oh, how I wish I could believe or understand that!There's only one
+          reasonable course of action now:kill Flexo! Yes, except the Dave
+          Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+          yourcrotch is wrong, hey I don't wanna be right.
+        </Text>
+      );
+    }
+    return ourApproach.map((about, index) => {
+      return (
+        <Text style={{ width: 474, fontSize: 13 }}>{about.approach_text}</Text>
+      );
+    });
   };
   return (
     <Document>
@@ -219,12 +272,9 @@ export default (props) => {
         <View style={{ marginTop: 40 }} />
         <Text style={{ fontSize: 21 }}>Capabilitati si Servicii</Text>
         <View style={{ marginTop: 24 }} />
-        <Text style={{ width: 474, fontSize: 17.5 }}>
-          Oh, how I wish I could believe or understand that!There's only one
-          reasonable course of action now:kill Flexo! Yes, except the Dave
-          Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-          yourcrotch is wrong, hey I don't wanna be right.
-        </Text>
+
+        {renderBrandingDeclaration()}
+
         <View style={{ marginTop: 40 }} />
         <View
           style={{
@@ -235,17 +285,7 @@ export default (props) => {
         >
           <Text style={styles.decorationLineSmall} />
           <View style={{ marginTop: 17 }} />
-          <View>
-            <Text style={{ fontSize: 7, fontWeight: 700, marginTop: 9 }}>
-              Fotografie produs
-            </Text>
-            <Text style={{ fontSize: 7, fontWeight: 700, marginTop: 9 }}>
-              Fotografie Eveniment
-            </Text>
-            <Text style={{ fontSize: 7, fontWeight: 700, marginTop: 9 }}>
-              Fotografie Corporate
-            </Text>
-          </View>
+          <View>{renderServices()}</View>
         </View>
 
         <Text style={styles.cornerPageLogo} fixed>
@@ -264,12 +304,7 @@ export default (props) => {
         <View style={{ marginTop: 40 }} />
         <Text style={{ fontSize: 21 }}>Abordarea noastra</Text>
         <View style={{ marginTop: 24 }} />
-        <Text style={{ width: 474, fontSize: 17.5 }}>
-          Oh, how I wish I could believe or understand that!There's only one
-          reasonable course of action now:kill Flexo! Yes, except the Dave
-          Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-          yourcrotch is wrong, hey I don't wanna be right.
-        </Text>
+        {renderOurApproach()}
 
         <Text style={styles.cornerPageLogo} fixed>
           LOGO

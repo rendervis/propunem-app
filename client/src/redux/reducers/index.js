@@ -23,6 +23,7 @@ const persistConfig = {
     "proposal",
     "aboutUsText",
     "branding",
+    "ourApproachText",
   ],
 };
 

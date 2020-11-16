@@ -22,15 +22,19 @@ const ServicesAndCapabilities = (props) => {
   const [newValue, setNewValue] = useState("");
 
   const dispatch = useDispatch();
+  const proposalId =
+    useSelector((state) => state.proposal.proposalId) ||
+    props.match.params.proposalId;
 
-  const proposalId = useSelector((state) => state.proposal.proposalId);
-  let aboutUs = useSelector((state) =>
-    Object.values(state.aboutUsText.aboutUs)
-  );
+  let text =
+    useSelector((state) => state.branding.brandingDeclarationDB[1].text) ||
+    "Declaratia ta de branding vine aici!";
+  // console.log("text", text);
 
   return (
     <div>
-      <div>BRANDING DECLARATION</div>
+      <div style={{ fontSize: "8px" }}>BRANDING DECLARATION</div>
+      <div style={{ marginTop: "16px" }}>{text}</div>
 
       <ProposalList noClick="none" />
     </div>

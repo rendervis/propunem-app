@@ -20,7 +20,7 @@ import {
 const textAreaPlaceHolder =
   "Ce te face să ieși în evidență? De ce esti cea mai buna alegere?";
 
-const OurApproach = () => {
+const OurApproach = (props) => {
   const [newValue, setNewValue] = useState("");
   const [textCard, setTextCard] = useState({
     text_id: `${1}`,
@@ -30,7 +30,9 @@ const OurApproach = () => {
   });
   const dispatch = useDispatch();
 
-  const proposalId = useSelector((state) => state.proposal.proposalId);
+  const proposalId =
+    useSelector((state) => state.proposal.proposalId) ||
+    props.match.params.proposalId;
   const ourApproach = useSelector((state) =>
     Object.values(state.ourApproachText.ourApproach)
   );

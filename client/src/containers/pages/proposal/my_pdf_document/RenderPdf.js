@@ -19,6 +19,7 @@ const RenderPdf = (props) => {
   );
   const proposalList = useSelector((state) => state.proposal.proposalList);
   const ourApproach = useSelector((state) => state.ourApproachText.ourApproach);
+  const offerCards = useSelector((state) => state.offerCards.offerCards);
 
   /**Return */
   return ReactDOM.render(
@@ -45,6 +46,7 @@ const RenderPdf = (props) => {
           brandingDeclaration={brandingDeclaration}
           proposalList={proposalList}
           ourApproach={ourApproach}
+          offerCards={offerCards}
         />
       </PDFViewer>
     </BrowserRouter>,

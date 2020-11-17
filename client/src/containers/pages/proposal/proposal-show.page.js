@@ -30,7 +30,13 @@ const ProposalShow = (props) => {
    */
   const { userInformation } = useSelector((state) => state.userInformation);
   const aboutUsText = useSelector((state) => state.aboutUsText.aboutUsText);
-  console.log("aboutUsText", aboutUsText);
+  const brandingDeclaration = useSelector(
+    (state) => state.branding.brandingDeclarationDB[1].text
+  );
+  const proposalList = useSelector((state) => state.proposal.proposalList);
+  const ourApproach = useSelector((state) => state.ourApproachText.ourApproach);
+  const offerCards = useSelector((state) => state.offerCards.offerCards);
+
   ///////
   let matchPath = props.match.path.replace(/\s/g, "");
   const { proposalName } = props.proposal;
@@ -46,6 +52,10 @@ const ProposalShow = (props) => {
         ///////
         userInformation={userInformation}
         aboutUsText={aboutUsText}
+        brandingDeclaration={brandingDeclaration}
+        proposalList={proposalList}
+        ourApproach={ourApproach}
+        offerCards={offerCards}
       />
     ).toBlob(); // the blob
     let data = new FormData();

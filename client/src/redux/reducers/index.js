@@ -24,6 +24,7 @@ const persistConfig = {
     "aboutUsText",
     "branding",
     "ourApproachText",
+    "offerCards",
   ],
 };
 

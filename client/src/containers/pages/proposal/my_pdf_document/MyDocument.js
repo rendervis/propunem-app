@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from "react";
-import ReactPDF, { Document, Page, Text, View } from "@react-pdf/renderer";
+import ReactPDF, {
+  Document,
+  Page,
+  Text,
+  View,
+  Font,
+} from "@react-pdf/renderer";
 import styles from "./styles";
+import robotoRegular from "../../../../assets/fonts/Roboto-Regular.ttf";
+
+// Register font
+let source1 = "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
+Font.register({
+  family: "Roboto",
+
+  src: robotoRegular,
+});
 
 //TODO include MyDocument in redux STORE and receive data via STORE and not props
 
@@ -17,6 +32,7 @@ export default (props) => {
   const [ourApproach, setOurApproach] = useState(
     Object.values(props.ourApproach)
   );
+  const [offerCards, setOfferCards] = useState(Object.values(props.offerCards));
   let {
     address,
     city,
@@ -131,6 +147,73 @@ export default (props) => {
       );
     });
   };
+
+  /**** Offer ****/
+  const renderOffer = () => {
+    if (offerCards.length === 0) {
+      return (
+        <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
+          <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
+            1.0
+          </Text>
+          <View style={{ marginLeft: 15 }}>
+            <Text style={{ fontSize: 9 }}>
+              Discovery: On-site facilitation (2-3 Days)
+            </Text>
+            <Text style={{ fontSize: 9 }}>Overview</Text>
+            <Text
+              style={{
+                width: 412,
+                marginTop: 4,
+                fontSize: 8,
+                color: "#707070",
+              }}
+            >
+              Oh, how I wish I could believe or understand that!There's only one
+              reasonable course of action now:kill Flexo! Yes, except the Dave
+              Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+              yourcrotch is wrong, hey I don't wanna be right.
+            </Text>
+          </View>
+        </View>
+      );
+    } else {
+      return offerCards.map((card, index) => {
+        // console.log("about.about_text", about.about_text);
+        return (
+          <React.Fragment key={card.key}>
+            <View
+              style={{ display: "flex", flexDirection: "row", marginTop: 16 }}
+            >
+              <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
+                {card.textCard.textId}
+              </Text>
+              <View style={{ marginLeft: 15 }}>
+                <Text style={{ fontSize: 9, fontFamily: "Roboto" }}>
+                  {card.textCard.title}
+                </Text>
+                <Text style={{ fontSize: 9, fontFamily: "Roboto" }}>
+                  {card.textCard.secondaryTitle}
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "Roboto",
+                    width: 412,
+                    marginTop: 4,
+                    fontSize: 8,
+                    color: "#707070",
+                  }}
+                >
+                  {card.textCard.text}
+                </Text>
+              </View>
+            </View>
+          </React.Fragment>
+        );
+      });
+    }
+  };
+
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page} wrap={false}>
@@ -313,51 +396,8 @@ export default (props) => {
       <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
         <Text style={{ fontSize: 21 }}>Oferta</Text>
         <View style={{ marginTop: 24 }} />
-        <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
-          <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
-            1.0
-          </Text>
-          <View style={{ marginLeft: 15 }}>
-            <Text style={{ fontSize: 9 }}>
-              Discovery: On-site facilitation (2-3 Days)
-            </Text>
-            <Text style={{ fontSize: 9 }}>Overview</Text>
-            <Text
-              style={{
-                width: 412,
-                marginTop: 4,
-                fontSize: 8,
-                color: "#707070",
-              }}
-            >
-              Oh, how I wish I could believe or understand that!There's only one
-              reasonable course of action now:kill Flexo! Yes, except the Dave
-              Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-              yourcrotch is wrong, hey I don't wanna be right.
-            </Text>
-          </View>
-        </View>
-        <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
-          <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
-            1.1
-          </Text>
-          <View style={{ marginLeft: 15 }}>
-            <Text style={{ fontSize: 9 }}>Overview</Text>
-            <Text
-              style={{
-                width: 412,
-                marginTop: 4,
-                fontSize: 8,
-                color: "#707070",
-              }}
-            >
-              Oh, how I wish I could believe or understand that!There's only one
-              reasonable course of action now:kill Flexo! Yes, except the Dave
-              Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-              yourcrotch is wrong, hey I don't wanna be right.
-            </Text>
-          </View>
-        </View>
+        {renderOffer()}
+
         <View style={{ marginTop: 12, width: 554, textAlign: "right" }}>
           <Text style={{ fontSize: 12 }}>50.000 </Text>
           <Text style={{ width: 554, height: 3, backgroundColor: "#E2E2E2" }} />

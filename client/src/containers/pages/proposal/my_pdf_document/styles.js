@@ -1,13 +1,12 @@
-import ReactPDF, { StyleSheet, Font } from "@react-pdf/renderer";
+import { StyleSheet, Font } from "@react-pdf/renderer";
+import robotoRegular from "../../../../assets/fonts/Roboto-Regular.ttf";
 // Register font
-let source1 = "http://fonts.gstatic.com/s/arimo/v9/BkZwJXYnumPMepfEA344yQ.ttf";
+// let source1 =
+//   "http://fonts.gstatic.com/s/roboto/v15/12mE4jfMSBTmg-81EiS-YS3USBnSvpkopQaUR-2r7iU.ttf";
 Font.register({
-  family: "Arimo",
-  fonts: [
-    { src: source1 }, // font-style: normal, font-weight: normal
-    // { src: source2, fontStyle: "italic" },
-    // { src: source3, fontStyle: "italic", fontWeight: 700 },
-  ],
+  family: "Roboto",
+
+  src: robotoRegular,
 });
 
 // Create styles
@@ -82,6 +81,7 @@ export default StyleSheet.create({
     margin: 12,
     fontSize: 12,
     textAlign: "left",
+    fontFamily: "Roboto",
   },
   cornerPageLogo: {
     position: "absolute",

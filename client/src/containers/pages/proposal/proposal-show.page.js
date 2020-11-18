@@ -113,7 +113,7 @@ const ProposalShow = (props) => {
               flexDirection: "row",
             }}
           >
-            <div>
+            <Switch>
               <Route
                 exact
                 path={`${matchPath}/despre-noi`}
@@ -135,11 +135,14 @@ const ProposalShow = (props) => {
                 path={`${matchPath}/optiuni`}
                 component={ProposalOptions}
               />
+
               <Route
+                exact
                 path={`${matchPath}/preview`}
                 render={(props) => <RenderPdf />}
                 //  component={RenderPdf}
               />
+
               <Route
                 exact
                 path={`${matchPath}/trimite`}
@@ -155,7 +158,7 @@ const ProposalShow = (props) => {
                 )}
                 //  component={ProposalForm}
               />
-            </div>
+            </Switch>
           </div>
         </MainContent>
       </ProposalPageLayout>

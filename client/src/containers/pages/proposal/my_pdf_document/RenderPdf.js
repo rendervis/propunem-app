@@ -1,58 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Router, withRouter } from "react-router-dom";
-import ReactDOM from "react-dom";
 
-import { useSelector, useDispatch } from "react-redux";
+import { Provider, connect } from "react-redux";
+
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 
 import MyDocument from "./MyDocument";
 
-const RenderPdf = (props) => {
+class RenderPdf extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   //TODO dispatch actions to update data from store
-  /**
-   * data from Redux store
-   */
-  const { userInformation } = useSelector((state) => state.userInformation);
-  const aboutUsText = useSelector((state) => state.aboutUsText.aboutUsText);
-  let brandingDeclaration = useSelector(
-    (state) => state.branding.brandingDeclarationDB[1].text
-  );
-  const proposalList = useSelector((state) => state.proposal.proposalList);
-  const ourApproach = useSelector((state) => state.ourApproachText.ourApproach);
-  const offerCards = useSelector((state) => state.offerCards.offerCards);
 
-  /**Return */
-  return ReactDOM.render(
-    <BrowserRouter>
-      <PDFViewer
-        style={{
-          position: "fixed",
-          left: "auto",
-          right: "auto",
-          top: 0,
-
-          // display: "flex",
-          // alignItems: "center",
-          // justifyContent: "center",
-          // zIndex: "101",
-          width: "100vw",
-          height: "100vh",
-          // backgroundColor: "red",
-        }}
-      >
-        <MyDocument
-          userInformation={userInformation}
-          aboutUsText={aboutUsText}
-          brandingDeclaration={brandingDeclaration}
-          proposalList={proposalList}
-          ourApproach={ourApproach}
-          offerCards={offerCards}
-        />
-      </PDFViewer>
-    </BrowserRouter>,
-    document.getElementById("render_pdf")
-  );
-};
+  render() {
+    // console.log("[RenderPdf -->>this.props.showPd]", this.props);
+    // console.log("[RenderPdf -->>state]", this.state);
+    /**Return */
+    return (
+      <BrowserRouter>
+        <div
+          onClick={() => this.props.history.goBack()}
+          style={{
+            position: "absolute",
+            top: "0",
+            left: "auto",
+            right: "0",
+            padding: "0 16vw",
+            display: "flex",
+            alignSelf: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            alignItems: "center",
+            textAlign: "center",
+            width: "100vw",
+            height: "100vh",
+            // backgroundColor: "red",
+            backdropFilter: "blur(2px)",
+          }}
+        >
+          <PDFViewer
+            style={{
+              // position: "absolute",
+              // left: "275px",
+              // right: "auto",
+              // top: "75px",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <MyDocument
+              userInformation={this.props.userInformation}
+              aboutUsText={this.props.aboutUsText}
+              brandingDeclaration={this.props.brandingDeclaration}
+              proposalList={this.props.proposalList}
+              ourApproach={this.props.ourApproach}
+              offerCards={this.props.offerCards}
+            />
+          </PDFViewer>
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
 export const DownloadPdf = () => (
   <div>
     <PDFDownloadLink document={<MyDocument />} fileName="somename.pdf">
@@ -63,4 +74,19 @@ export const DownloadPdf = () => (
   </div>
 );
 
-export default withRouter(RenderPdf);
+const mapStateToProps = (state) => {
+  return {
+    /**
+     * data from Redux store
+     */
+
+    userInformation: state.userInformation,
+    aboutUsText: state.aboutUsText.aboutUsText,
+    brandingDeclaration: state.branding.brandingDeclarationDB[1].text,
+    proposalList: state.proposal.proposalList,
+    ourApproach: state.ourApproachText.ourApproach,
+    offerCards: state.offerCards.offerCards,
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(RenderPdf));

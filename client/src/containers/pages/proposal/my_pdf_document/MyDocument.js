@@ -123,7 +123,10 @@ export default (props) => {
   const renderServices = () => {
     return proposalList.map((name) => {
       return (
-        <Text style={{ fontSize: 6, fontWeight: 700, marginTop: 9 }}>
+        <Text
+          key={name.proposal_name}
+          style={{ fontSize: 6, fontWeight: 700, marginTop: 9 }}
+        >
           {name.proposal_name}
         </Text>
       );

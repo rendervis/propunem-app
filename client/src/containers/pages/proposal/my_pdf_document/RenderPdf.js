@@ -3,7 +3,7 @@ import { BrowserRouter, Router, withRouter } from "react-router-dom";
 
 import { Provider, connect } from "react-redux";
 
-import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
+import { PDFViewer, PDFDownloadLink, Font } from "@react-pdf/renderer";
 
 import MyDocument from "./MyDocument";
 

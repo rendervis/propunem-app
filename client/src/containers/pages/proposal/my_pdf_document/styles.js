@@ -1,13 +1,5 @@
+import React from "react";
 import { StyleSheet, Font } from "@react-pdf/renderer";
-import robotoRegular from "../../../../assets/fonts/Roboto-Regular.ttf";
-// Register font
-// let source1 =
-//   "http://fonts.gstatic.com/s/roboto/v15/12mE4jfMSBTmg-81EiS-YS3USBnSvpkopQaUR-2r7iU.ttf";
-Font.register({
-  family: "Roboto",
-
-  src: robotoRegular,
-});
 
 // Create styles
 export default StyleSheet.create({
@@ -81,7 +73,6 @@ export default StyleSheet.create({
     margin: 12,
     fontSize: 12,
     textAlign: "left",
-    fontFamily: "Roboto",
   },
   cornerPageLogo: {
     position: "absolute",

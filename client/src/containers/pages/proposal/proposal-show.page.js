@@ -1,41 +1,54 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { Switch, Route, useParams, Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
 import { pdf } from "@react-pdf/renderer";
-
 ///// COMPONENTS /////
 import Header from "../../header.container";
 import RenderPdf, { DownloadPdf } from "./my_pdf_document/RenderPdf";
 import MyDocument from "./my_pdf_document/MyDocument";
-
 ///// MAIN Content /////
 import AboutUs from "./about-us.container";
 import ServicesAndCapabilities from "./ServicesAndCapabilities";
 import OurApproach from "./our-approach.container";
 import OfferShow from "./offer-show.container";
 import ProposalOptions from "./proposal-options.container";
-
 ///////UI
 import ButtonRound from "../../../components/UI/button-round";
 import { TitleText } from "../../../components/UI/ui-elements";
 ///////UX
 import ProposalForm from "../../../components/UX/ProposalForm";
+import { getStoredState } from "redux-persist";
+//////actions
+import { fetchBrandingDeclaration } from "../../../redux/actions/brandingDeclaration";
 
 const ProposalShow = (props) => {
+  const dispatch = useDispatch();
+  const accountId = useSelector((state) => state.account.accountId);
+  let [brandingDeclaration, setBrandingDeclaration] = useState({});
   /**
    * data from Redux store
    */
   const { userInformation } = useSelector((state) => state.userInformation);
   const aboutUsText = useSelector((state) => state.aboutUsText.aboutUsText);
-  const brandingDeclaration = useSelector(
-    (state) => state.branding.brandingDeclarationDB[1].text
-  );
+
   const proposalList = useSelector((state) => state.proposal.proposalList);
   const ourApproach = useSelector((state) => state.ourApproachText.ourApproach);
   const offerCards = useSelector((state) => state.offerCards.offerCards);
+  let { brandingDeclarationDB } = useSelector((state) => state.branding);
+  ///////clear State
+
+  useEffect(() => {
+    dispatch(fetchBrandingDeclaration({ accountId }));
+  }, []);
+  useEffect(() => {
+    if (brandingDeclarationDB[1]) {
+      setBrandingDeclaration(brandingDeclarationDB[1].text);
+    }
+  });
+  console.log("ProposalShow ->>", brandingDeclaration);
 
   ///////
   let matchPath = props.match.path.replace(/\s/g, "");
@@ -99,6 +112,10 @@ const ProposalShow = (props) => {
               <ButtonRound>OPTIUNI</ButtonRound>
               <ButtonRound>PREVIEW</ButtonRound>
               <ButtonRound>TRIMITE</ButtonRound>
+
+              <div style={{ marginTop: "24px" }}>
+                <ButtonRound>STERGE</ButtonRound>
+              </div>
 
               {/** <DownloadPdf /> */}
             </StyledUL>

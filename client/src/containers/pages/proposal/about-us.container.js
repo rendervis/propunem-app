@@ -18,7 +18,7 @@ import {
 const textAreaPlaceHolder = "Care este povestea ta? Cum ai inceput?";
 
 const AboutUs = (props) => {
-  console.log("props", props);
+  // console.log("props", props);
   const [newValue, setNewValue] = useState("");
   const [textCard, setTextCard] = useState({
     text_id: `${1}`,

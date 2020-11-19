@@ -20,13 +20,14 @@ export const storeProposal = ({ accountId, proposalName, history }) => (
         alert(json.message);
         dispatch({ type: PROPOSAL.FETCH_ERROR, message: json.message });
       } else {
+        const { proposalId } = json;
         dispatch({
           type: PROPOSAL.FETCH_SUCCESS,
           ...json,
           accountId,
           proposalName,
         });
-        history.push(`/propunere/${proposalName}`);
+        history.push(`/propunere/${proposalName}/${proposalId}`);
       }
     })
     .catch((error) => {

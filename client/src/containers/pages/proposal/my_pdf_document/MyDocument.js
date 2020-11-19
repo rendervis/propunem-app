@@ -7,15 +7,6 @@ import ReactPDF, {
   Font,
 } from "@react-pdf/renderer";
 import styles from "./styles";
-import robotoRegular from "../../../../assets/fonts/Roboto-Regular.ttf";
-
-// Register font
-let source1 = "https://fonts.googleapis.com/css2?family=Roboto&display=swap";
-Font.register({
-  family: "Roboto",
-
-  src: robotoRegular,
-});
 
 //TODO include MyDocument in redux STORE and receive data via STORE and not props
 
@@ -192,15 +183,12 @@ export default (props) => {
                 {card.textCard.textId}
               </Text>
               <View style={{ marginLeft: 15 }}>
-                <Text style={{ fontSize: 9, fontFamily: "Roboto" }}>
-                  {card.textCard.title}
-                </Text>
-                <Text style={{ fontSize: 9, fontFamily: "Roboto" }}>
+                <Text style={{ fontSize: 9 }}>{card.textCard.title}</Text>
+                <Text style={{ fontSize: 9 }}>
                   {card.textCard.secondaryTitle}
                 </Text>
                 <Text
                   style={{
-                    fontFamily: "Roboto",
                     width: 412,
                     marginTop: 4,
                     fontSize: 8,

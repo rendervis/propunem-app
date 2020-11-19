@@ -7,11 +7,16 @@ import styled, { css } from "styled-components";
 import { TextSmall } from "../../../components/UI/ui-elements";
 
 const ServicesAndCapabilities = (props) => {
+  let [brandingText, setBrandingText] = useState(
+    "Declaratia ta de branding vine aici!"
+  );
   const proposalList = useSelector((state) => state.proposal.proposalList);
-  const brandingText =
-    useSelector((state) => state.branding.brandingDeclarationDB[1].text) ||
-    "Declaratia ta de branding vine aici!";
-
+  const { brandingDeclarationDB } = useSelector((state) => state.branding);
+  useEffect(() => {
+    if (brandingDeclarationDB[1]) {
+      setBrandingText(brandingDeclarationDB[1].text);
+    }
+  });
   const renderNameList = (props) => {
     if (!proposalList) {
       return (

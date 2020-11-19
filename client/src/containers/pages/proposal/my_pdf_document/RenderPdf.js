@@ -75,6 +75,7 @@ export const DownloadPdf = () => (
 );
 
 const mapStateToProps = (state) => {
+  console.log("state");
   return {
     /**
      * data from Redux store
@@ -84,7 +85,7 @@ const mapStateToProps = (state) => {
     aboutUsText: state.aboutUsText.aboutUsText,
     brandingDeclaration: state.branding.brandingDeclarationDB,
     proposalList: state.proposal.proposalList,
-    ourApproach: state.ourApproachText.ourApproach,
+    ourApproach: state.ourApproachText.ourApproachText,
     offerCards: state.offerCards.offerCards,
   };
 };

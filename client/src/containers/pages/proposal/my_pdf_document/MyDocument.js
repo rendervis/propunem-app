@@ -20,9 +20,8 @@ export default (props) => {
     props.brandingDeclaration
   );
   const [proposalList, setProposalList] = useState(props.proposalList);
-  const [ourApproach, setOurApproach] = useState(
-    Object.values(props.ourApproach)
-  );
+  const [ourApproach, setOurApproach] = useState(props.ourApproach);
+  console.log(ourApproach);
   const [offerCards, setOfferCards] = useState(Object.values(props.offerCards));
   let {
     address,
@@ -134,21 +133,27 @@ export default (props) => {
   };
   /**** ourApproach */
   const renderOurApproach = () => {
-    if (ourApproach.length === 0) {
+    if (Object.keys(ourApproach.length === 0)) {
       return (
-        <Text style={{ width: 474, fontSize: 13 }}>
-          Oh, how I wish I could believe or understand that!There's only one
-          reasonable course of action now:kill Flexo! Yes, except the Dave
-          Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
-          yourcrotch is wrong, hey I don't wanna be right.
-        </Text>
+        <View>
+          <Text style={{ width: 474, fontSize: 13 }}>
+            Oh, how I wish I could believe or understand that!There's only one
+            reasonable course of action now:kill Flexo! Yes, except the Dave
+            Matthews Banddoesn't rock. Kif might! If rubbin' frozen dirt in
+            yourcrotch is wrong, hey I don't wanna be right.
+          </Text>
+        </View>
       );
+    } else {
+      let ourApproachArray = Object.values(ourApproach);
+      return ourApproachArray.map((about, index) => {
+        return (
+          <Text style={{ width: 474, fontSize: 13 }}>
+            {about.approach_text}
+          </Text>
+        );
+      });
     }
-    return ourApproach.map((about, index) => {
-      return (
-        <Text style={{ width: 474, fontSize: 13 }}>{about.approach_text}</Text>
-      );
-    });
   };
 
   /**** Offer ****/

@@ -82,7 +82,7 @@ const mapStateToProps = (state) => {
 
     userInformation: state.userInformation,
     aboutUsText: state.aboutUsText.aboutUsText,
-    brandingDeclaration: state.branding.brandingDeclarationDB[1].text,
+    brandingDeclaration: state.branding.brandingDeclarationDB,
     proposalList: state.proposal.proposalList,
     ourApproach: state.ourApproachText.ourApproach,
     offerCards: state.offerCards.offerCards,

@@ -95,7 +95,7 @@ export default (props) => {
   };
   /**** Branding Declaration */
   const renderBrandingDeclaration = () => {
-    if (!brandingDeclaration) {
+    if (Object.keys(brandingDeclaration).length === 0) {
       return (
         <Text style={{ width: 474, fontSize: 13 }}>
           Oh, how I wish I could believe or understand that!There's only one
@@ -106,12 +106,21 @@ export default (props) => {
       );
     } else {
       return (
-        <Text style={{ width: 474, fontSize: 13 }}>{brandingDeclaration}</Text>
+        <Text style={{ width: 474, fontSize: 13 }}>
+          {brandingDeclaration[1].text}
+        </Text>
       );
     }
   };
   /**** proposalList */
   const renderServices = () => {
+    if (!proposalList) {
+      return (
+        <Text style={{ fontSize: 6, fontWeight: 700, marginTop: 9 }}>
+          nu sunt servicii
+        </Text>
+      );
+    }
     return proposalList.map((name) => {
       return (
         <Text

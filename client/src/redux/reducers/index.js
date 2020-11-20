@@ -13,6 +13,7 @@ import userAccountReducer from "./userAccount";
 import accountReducer from "./account";
 import proposalReducer from "./proposal";
 import brandingDeclarationReducer from "./brandingDeclaration";
+import searchBarReducer from "./searchBar";
 
 const persistConfig = {
   key: "root",
@@ -42,5 +43,6 @@ export default persistReducer(
     userInformation: userAccountReducer,
     proposal: proposalReducer,
     branding: brandingDeclarationReducer,
+    searchBar: searchBarReducer,
   })
 );

@@ -35,7 +35,9 @@ const ProposalShow = (props) => {
   const aboutUsText = useSelector((state) => state.aboutUsText.aboutUsText);
 
   const proposalList = useSelector((state) => state.proposal.proposalList);
-  const ourApproach = useSelector((state) => state.ourApproachText.ourApproach);
+  const ourApproach = useSelector(
+    (state) => state.ourApproachText.ourApproachText
+  );
   const offerCards = useSelector((state) => state.offerCards.offerCards);
   let { brandingDeclarationDB } = useSelector((state) => state.branding);
   ///////clear State

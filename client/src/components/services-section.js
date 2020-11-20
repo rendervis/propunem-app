@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 ///////icons///////////
@@ -6,42 +7,66 @@ import { styled as styledMaterial } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+///////actions
+import { fetchHomepageAccounts } from "../redux/actions/searchBar";
+const ServicesSection = (props) => {
+  const dispatch = useDispatch();
+  /** state */
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const { homepageAccounts } = useSelector((state) => state.searchBar);
+  /** events */
+  const handleOnSearchInputChange = (event) => {
+    event.preventDefault();
+    // const query = event.target.value;
+    setQuery(event.target.value);
+    setLoading(true);
+  };
+  /** actions */
+  useEffect(() => {
+    dispatch(fetchHomepageAccounts());
+  }, []);
+  console.log("homepageAccounts", homepageAccounts);
+  return (
+    <ServicesSectionStyled>
+      <SearchBar>
+        <SearchInput
+          type="search"
+          value={query}
+          id="services-search-input"
+          placeholder="Cauta servicii "
+          onChange={handleOnSearchInputChange}
+        />
+      </SearchBar>
+      <div style={{ height: "25px" }}></div>
+      <ServiceRoll>
+        <MyArrowBackIosIconLeft />
+        <ServiceInfo>
+          <ServiceOwner>Nume Firma</ServiceOwner>
+          <ServiceText>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore
+          </ServiceText>
+          <ServiceFooter>
+            <PersonIcon />
 
-const ServicesSection = () => (
-  <ServicesSectionStyled>
-    <SearchBar>
-      <SearchInput
-        id="services-search-input"
-        type="search"
-        placeholder="Cauta servicii "
-      />
-    </SearchBar>
-    <div style={{ height: "25px" }}></div>
-    <ServiceRoll>
-      <MyArrowBackIosIconLeft />
-      <ServiceInfo>
-        <ServiceOwner>Nume Firma</ServiceOwner>
-        <ServiceText>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore
-        </ServiceText>
-        <ServiceFooter>
-          <PersonIcon />
-
-          <ServiceContact>Prenume Nume</ServiceContact>
-        </ServiceFooter>
-      </ServiceInfo>
-      <div
-        style={{
-          display: "flex",
-          alignContent: "flex-end",
-        }}
-      >
-        <MyArrowForwardIosIconRight />
-      </div>
-    </ServiceRoll>
-  </ServicesSectionStyled>
-);
+            <ServiceContact>Prenume Nume</ServiceContact>
+          </ServiceFooter>
+        </ServiceInfo>
+        <div
+          style={{
+            display: "flex",
+            alignContent: "flex-end",
+          }}
+        >
+          <MyArrowForwardIosIconRight />
+        </div>
+      </ServiceRoll>
+    </ServicesSectionStyled>
+  );
+};
 
 const ServicesSectionStyled = styled.div`
   width: 100%;

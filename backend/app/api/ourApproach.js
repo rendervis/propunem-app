@@ -4,7 +4,7 @@ const OurApproachTable = require("../ourapproach/table");
 const router = new Router();
 
 router.post("/ourapproach", (req, res, next) => {
-  console.log("/ourapproach", req.body);
+  // console.log("/ourapproach", req.body);
   const { proposalId } = req.body;
 
   OurApproachTable.getOurApproachText({ proposalId })

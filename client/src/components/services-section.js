@@ -28,7 +28,35 @@ const ServicesSection = (props) => {
   useEffect(() => {
     dispatch(fetchHomepageAccounts());
   }, []);
-  console.log("homepageAccounts", homepageAccounts);
+  /** render methods */
+  const renderAccounts = () => {
+    let arrayOfAccounts = Object.values(homepageAccounts);
+    return arrayOfAccounts.map((account) => {
+      return (
+        <ServiceInfo>
+          <ServiceOwner>
+            {!account.companyName ? `Nume Companie` : account.companyName}
+          </ServiceOwner>
+          <ServiceText>
+            {account.brandingText === null
+              ? `Declaratia ta de branding este prezentata aici.`
+              : account.brandingText}
+          </ServiceText>
+          <ServiceFooter>
+            <PersonIcon />
+
+            <ServiceContact>
+              {!account.firstName && !account.surname
+                ? `Prenume Nume`
+                : account.firstName + " " + account.surname}
+            </ServiceContact>
+          </ServiceFooter>
+        </ServiceInfo>
+      );
+    });
+  };
+
+  // console.log("arrayOfAccounts", arrayOfAccounts);
   return (
     <ServicesSectionStyled>
       <SearchBar>
@@ -43,18 +71,7 @@ const ServicesSection = (props) => {
       <div style={{ height: "25px" }}></div>
       <ServiceRoll>
         <MyArrowBackIosIconLeft />
-        <ServiceInfo>
-          <ServiceOwner>Nume Firma</ServiceOwner>
-          <ServiceText>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore
-          </ServiceText>
-          <ServiceFooter>
-            <PersonIcon />
-
-            <ServiceContact>Prenume Nume</ServiceContact>
-          </ServiceFooter>
-        </ServiceInfo>
+        {renderAccounts()}
         <div
           style={{
             display: "flex",

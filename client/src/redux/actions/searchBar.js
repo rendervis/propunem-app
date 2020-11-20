@@ -29,3 +29,20 @@ export const fetchHomepageAccounts = () => (dispatch) => {
       dispatch({ type: HOMEPAGE_ACCOUNTS.FETCH_ERROR, message: error.message });
     });
 };
+
+export const fetchSearchResults = ({ query }) => (dispatch) => {
+  dispatch({ type: HOMEPAGE_ACCOUNTS.FETCH });
+  return fetch("/api/search/accounts", {
+    method: "POST",
+    body: JSON.stringify({ query }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log("[fetchSearchResults]json", json);
+      dispatch({ type: HOMEPAGE_ACCOUNTS.FETCH_SUCCESS, ...json });
+    })
+    .catch((error) => {
+      dispatch({ type: HOMEPAGE_ACCOUNTS.FETCH_ERROR, message: error.message });
+    });
+};

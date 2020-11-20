@@ -18,4 +18,14 @@ router.get("/search/homepage-accounts", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+router.post("/search/accounts", (req, res, next) => {
+  console.log("req.body", req.body);
+  const { query } = req.body;
+  SearchBarQuery.searchForAccounts({ query })
+    .then(({ queryResult, message }) => {
+      res.json({ queryResult, message });
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = router;

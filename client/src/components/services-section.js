@@ -7,8 +7,12 @@ import { styled as styledMaterial } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import SearchIcon from "@material-ui/icons/Search";
 ///////actions
-import { fetchHomepageAccounts } from "../redux/actions/searchBar";
+import {
+  fetchHomepageAccounts,
+  fetchSearchResults,
+} from "../redux/actions/searchBar";
 const ServicesSection = (props) => {
   const dispatch = useDispatch();
   /** state */
@@ -17,12 +21,21 @@ const ServicesSection = (props) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { homepageAccounts } = useSelector((state) => state.searchBar);
+  const { queryResult } = useSelector((state) => state.searchBar);
+  const { status } = useSelector((state) => state.searchBar);
   /** events */
   const handleOnSearchInputChange = (event) => {
     event.preventDefault();
-    // const query = event.target.value;
     setQuery(event.target.value);
-    setLoading(true);
+    if (!query) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  };
+  const handleClickSearch = () => {
+    dispatch(fetchSearchResults({ query }));
+    setQuery("");
   };
   /** actions */
   useEffect(() => {
@@ -31,44 +44,75 @@ const ServicesSection = (props) => {
   /** render methods */
   const renderAccounts = () => {
     let arrayOfAccounts = Object.values(homepageAccounts);
-    return arrayOfAccounts.map((account) => {
-      return (
-        <ServiceInfo>
-          <ServiceOwner>
-            {!account.companyName ? `Nume Companie` : account.companyName}
-          </ServiceOwner>
-          <ServiceText>
-            {account.brandingText === null
-              ? `Declaratia ta de branding este prezentata aici.`
-              : account.brandingText}
-          </ServiceText>
-          <ServiceFooter>
-            <PersonIcon />
+    let arrayOfQueryResult = Object.values(queryResult);
+    if (Object.keys(queryResult).length !== 0) {
+      return arrayOfQueryResult.map((account) => {
+        return (
+          <ServiceInfo>
+            <ServiceOwner>
+              {!account.companyName ? `Nume Companie` : account.companyName}
+            </ServiceOwner>
+            <ServiceText>
+              {account.brandingText === null
+                ? `Declaratia ta de branding este prezentata aici.`
+                : account.brandingText}
+            </ServiceText>
+            <ServiceFooter>
+              <PersonIcon />
 
-            <ServiceContact>
-              {!account.firstName && !account.surname
-                ? `Prenume Nume`
-                : account.firstName + " " + account.surname}
-            </ServiceContact>
-          </ServiceFooter>
-        </ServiceInfo>
-      );
-    });
+              <ServiceContact>
+                {!account.firstName && !account.surname
+                  ? `Prenume Nume`
+                  : account.firstName + " " + account.surname}
+              </ServiceContact>
+            </ServiceFooter>
+          </ServiceInfo>
+        );
+      });
+    } else {
+      return arrayOfAccounts.map((account) => {
+        return (
+          <ServiceInfo>
+            <ServiceOwner>
+              {!account.companyName ? `Nume Companie` : account.companyName}
+            </ServiceOwner>
+            <ServiceText>
+              {account.brandingText === null
+                ? `Declaratia ta de branding este prezentata aici.`
+                : account.brandingText}
+            </ServiceText>
+            <ServiceFooter>
+              <PersonIcon />
+
+              <ServiceContact>
+                {!account.firstName && !account.surname
+                  ? `Prenume Nume`
+                  : account.firstName + " " + account.surname}
+              </ServiceContact>
+            </ServiceFooter>
+          </ServiceInfo>
+        );
+      });
+    }
   };
 
-  // console.log("arrayOfAccounts", arrayOfAccounts);
+  console.log("loading", loading);
+  // console.log("query", query);
   return (
     <ServicesSectionStyled>
       <SearchBar>
         <SearchInput
-          type="search"
+          type="text"
           value={query}
           id="services-search-input"
           placeholder="Cauta servicii "
           onChange={handleOnSearchInputChange}
         />
+        <MySearchIcon onClick={handleClickSearch} />
       </SearchBar>
-      <div style={{ height: "25px" }}></div>
+
+      <div style={{ height: "155px" }} />
+
       <ServiceRoll>
         <MyArrowBackIosIconLeft />
         {renderAccounts()}
@@ -88,16 +132,17 @@ const ServicesSection = (props) => {
 const ServicesSectionStyled = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+
   padding: 0 283px 0 232px;
 `;
 const SearchBar = styled.div`
   background-color: white;
   // display: block;
-
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   float: left;
-  position: relative;
+  /* position: relative; */
 
   border: 2px solid rgba($color: #777777, $alpha: 1);
   border-radius: 25px;
@@ -166,6 +211,11 @@ const MyArrowForwardIosIconRight = styledMaterial(ArrowForwardIosIcon)({
   position: "relative",
   marginRight: "0",
   marginLeft: "auto",
+  cursor: "pointer",
+});
+const MySearchIcon = styledMaterial(SearchIcon)({
+  fontSize: "29px",
+  margin: "12px",
   cursor: "pointer",
 });
 const ServiceInfo = styled.div`

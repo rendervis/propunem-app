@@ -4,6 +4,7 @@ import fetchStates from "./fetchStates";
 
 const INITIAL_STATE = {
   homepageAccounts: {},
+  queryResult: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,6 +29,9 @@ export default (state = INITIAL_STATE, action) => {
         homepageAccounts: {
           ...state.homepageAccounts,
           ..._.mapKeys(action.homepageAccounts, "accountId"),
+        },
+        queryResult: {
+          ..._.mapKeys(action.queryResult, "accountId"),
         },
       };
     default:

@@ -3,10 +3,12 @@ import { withRouter } from "react-router-dom";
 
 ///////UX
 import OverlayBackground from "./overlay-background";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import styled, { css } from "styled-components";
 
 const ProposalForm = ({ history, ...props }) => {
+  console.log("props", props);
   let [fields, setFields] = useState({});
 
   const handleChange = (event) => {
@@ -34,6 +36,8 @@ const ProposalForm = ({ history, ...props }) => {
   return (
     <OverlayBackground blur onClick={() => history.goBack()}>
       <Container>
+        {props.loading ? <CircularProgress /> : ""}
+
         <Title>{props.title}</Title>
         <div style={{ height: "64px" }} />
         <FadedLine>{props.fadedLine}</FadedLine>

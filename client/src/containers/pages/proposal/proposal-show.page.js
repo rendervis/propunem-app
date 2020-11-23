@@ -46,7 +46,8 @@ const ProposalShow = (props) => {
   );
 
   const accountId = useSelector((state) => state.account.accountId);
-
+  /** Local state */
+  const [loading, setLoading] = useState(false);
   ///////clear State
 
   useEffect(() => {
@@ -69,7 +70,7 @@ const ProposalShow = (props) => {
   const { proposalName } = props.proposal;
   //** send EMAIL */
   const sendEmailHandler = async ({ fields }) => {
-    console.log("fields", fields);
+    setLoading(true);
     const json = JSON.stringify({ ...fields });
 
     let pdfBlob = await pdf(
@@ -100,6 +101,7 @@ const ProposalShow = (props) => {
       .then((json) => {
         if (json.type === "success") {
           props.history.goBack();
+          setLoading(false);
           alert("Email trimis, super!");
         } else if (json.type === "error") {
           console.log(json);
@@ -180,6 +182,7 @@ const ProposalShow = (props) => {
                 render={(props) => (
                   <ProposalForm
                     {...props}
+                    loading={loading}
                     fadedLine="esti cu un pas mai aproape!"
                     placeholder="Nume Client"
                     placeholder2="Titlu Proiect"

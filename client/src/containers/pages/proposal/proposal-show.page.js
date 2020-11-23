@@ -23,11 +23,13 @@ import ProposalForm from "../../../components/UX/ProposalForm";
 import { getStoredState } from "redux-persist";
 //////actions
 import { fetchBrandingDeclaration } from "../../../redux/actions/brandingDeclaration";
+import { fetchAboutUsText } from "../../../redux/actions/about-us.actions";
+import { fetchOurApproachText } from "../../../redux/actions/our-approach.actions";
+import { fetchOfferCards } from "../../../redux/actions/offer.actions";
 
 const ProposalShow = (props) => {
   const dispatch = useDispatch();
-  const accountId = useSelector((state) => state.account.accountId);
-  let [brandingDeclaration, setBrandingDeclaration] = useState({});
+  const { proposalId } = props.match.params;
   /**
    * data from Redux store
    */
@@ -39,17 +41,27 @@ const ProposalShow = (props) => {
     (state) => state.ourApproachText.ourApproachText
   );
   const offerCards = useSelector((state) => state.offerCards.offerCards);
-  let { brandingDeclarationDB } = useSelector((state) => state.branding);
+  let brandingDeclaration = useSelector(
+    (state) => state.branding.brandingDeclarationDB
+  );
+
+  const accountId = useSelector((state) => state.account.accountId);
+
   ///////clear State
 
   useEffect(() => {
     dispatch(fetchBrandingDeclaration({ accountId }));
+    dispatch(fetchAboutUsText({ proposalId }));
+    dispatch(fetchOurApproachText({ proposalId }));
+    dispatch(fetchOfferCards({ proposalId }));
   }, []);
-  useEffect(() => {
-    if (brandingDeclarationDB[1]) {
-      setBrandingDeclaration(brandingDeclarationDB[1].text);
-    }
-  });
+
+  // useEffect(() => {
+  //   console.log("brandingDeclarationDB", brandingDeclarationDB);
+  //   if (brandingDeclarationDB[1]) {
+  //     setBrandingDeclaration(brandingDeclarationDB[1].text);
+  //   }
+  // });
   console.log("ProposalShow ->>", brandingDeclaration);
 
   ///////

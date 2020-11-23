@@ -20,8 +20,10 @@ export default (props) => {
     props.brandingDeclaration
   );
   const [proposalList, setProposalList] = useState(props.proposalList);
-  const [ourApproach, setOurApproach] = useState(props.ourApproach);
-  console.log(ourApproach);
+  const [ourApproach, setOurApproach] = useState(
+    Object.values(props.ourApproach)
+  );
+
   const [offerCards, setOfferCards] = useState(Object.values(props.offerCards));
   let {
     address,
@@ -133,7 +135,7 @@ export default (props) => {
   };
   /**** ourApproach */
   const renderOurApproach = () => {
-    if (Object.keys(ourApproach.length === 0)) {
+    if (ourApproach.length === 0) {
       return (
         <View>
           <Text style={{ width: 474, fontSize: 13 }}>
@@ -145,12 +147,13 @@ export default (props) => {
         </View>
       );
     } else {
-      let ourApproachArray = Object.values(ourApproach);
-      return ourApproachArray.map((about, index) => {
+      return ourApproach.map((card, index) => {
         return (
-          <Text style={{ width: 474, fontSize: 13 }}>
-            {about.approach_text}
-          </Text>
+          <React.Fragment key={card.key}>
+            <Text style={{ width: 474, fontSize: 13 }}>
+              {card.approach_text}
+            </Text>
+          </React.Fragment>
         );
       });
     }

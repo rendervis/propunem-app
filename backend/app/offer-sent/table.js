@@ -36,7 +36,7 @@ class OfferSentTable {
   static getOffersSent({ accountId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        ` SELECT client_name,project_title,email,downloaded,signed
+        ` SELECT offer_sent_id as "offerSentId",  client_name as "clientName",project_title as "projectTitle",email,downloaded,signed
               FROM offer_sent
               WHERE account_id=$1
               `,

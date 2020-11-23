@@ -13,7 +13,7 @@ export const fetchOfferCards = ({ proposalId, cards }) => (dispatch) => {
       return response.json();
     })
     .then((json) => {
-      console.log(" const fetchOfferCards =json", json);
+      // console.log(" const fetchOfferCards =json", json);
 
       if (json.type === "error") {
         dispatch({

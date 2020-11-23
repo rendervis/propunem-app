@@ -10,7 +10,7 @@ import ProfileMenu from "../../../components/UI/profile/profile-menu/profile-men
 import Services from "./Services";
 
 import Profile from "./profile";
-import OfferSend from "./offer-send";
+import OffersSent from "./OffersSent";
 import Situation from "./situation";
 
 ///ui-elements
@@ -44,7 +44,7 @@ const ProfilePage = ({ history }) => {
               <Route
                 exact
                 path="/profil/oferte-trimise"
-                component={OfferSend}
+                component={OffersSent}
               />
               <Route exact path="/profil/situatie" component={Situation} />
             </Switch>

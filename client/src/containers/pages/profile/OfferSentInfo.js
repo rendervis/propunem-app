@@ -6,17 +6,19 @@ import { TextRegular, TextSmall } from "../../../components/UI/ui-elements";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 
-const OfferSendInfo = (props) => {
+const OfferSentInfo = ({ ...props }) => {
+  const { clientName, email, offerSentId, projectTitle, signed } = props;
+  console.log("props", props);
   return (
     <OfferDisplay>
       <OfferName>
-        <TextRegular title>Prenume Nume</TextRegular>
+        <TextRegular title>{clientName}</TextRegular>
         <TextSmall blue style={{ paddingLeft: "0.44rem" }}>
           sterge
         </TextSmall>
       </OfferName>
       <StatusContainer>
-        <TextRegular>Prospect</TextRegular>
+        <TextRegular>{email}</TextRegular>
       </StatusContainer>
       <CheckMark>
         <CheckCircleIcon />
@@ -63,4 +65,4 @@ const CheckMark = styled.div`
   color: #707070;
 `;
 
-export default OfferSendInfo;
+export default OfferSentInfo;

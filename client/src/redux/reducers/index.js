@@ -4,6 +4,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import offerReducer from "./offer.reducer";
+import offerSentReducer from "./offerSent";
 import aboutUsReducer from "./about-us.reducer";
 import ourApproachReducer from "./our-approach.reducer";
 import optionCardReducer from "./optionCard";
@@ -34,6 +35,7 @@ export default persistReducer(
   combineReducers({
     form: formReducer,
     offerCards: offerReducer,
+    offersSent: offerSentReducer,
     aboutUsText: aboutUsReducer,
     ourApproachText: ourApproachReducer,
     optionCard: optionCardReducer,

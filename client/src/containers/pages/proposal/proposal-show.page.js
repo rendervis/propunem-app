@@ -102,6 +102,7 @@ const ProposalShow = (props) => {
         if (json.type === "success") {
           props.history.goBack();
           setLoading(false);
+
           alert("Email trimis, super!");
         } else if (json.type === "error") {
           console.log(json);

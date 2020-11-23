@@ -68,6 +68,18 @@ module.exports = function (app) {
     })
   );
   app.use(
+    "/api/offer-sent",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
+  app.use(
+    "/api/offer-sent/*",
+    createProxyMiddleware({
+      target: "http://localhost:5000",
+    })
+  );
+  app.use(
     "/api/option-card",
     createProxyMiddleware({
       target: "http://localhost:5000",

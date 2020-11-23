@@ -1,7 +1,8 @@
 require("dotenv").config();
 const { Router } = require("express");
 const nodemailer = require("nodemailer");
-let multer = require("multer");
+const multer = require("multer");
+const OfferSentTable = require("../offer-sent/table");
 
 // var upload = multer({ dest: __dirname + "/public/uploads/" });
 // var type = upload.single("pdfBlob");
@@ -62,12 +63,14 @@ router.post(
   ]),
   (req, res, next) => {
     const path = require("path");
-
-    let inputFields = JSON.parse(req.body.json);
+    let input = JSON.parse(req.body.json);
     // console.log("inputFields", inputFields);
-    const name = inputFields.nume_client;
-    const email = inputFields.e_mail;
-    /*with nodemailer-promise*/
+    const name = input.nume_client;
+    const email = input.e_mail;
+    const projectTitle = input.titlu_proiect;
+    const accountId = input.accountId;
+    const proposalId = input.proposalId;
+    /*nodemailer-promise*/
     const message = {
       from: name,
       to: email,
@@ -87,7 +90,24 @@ router.post(
           message: "success",
           type: "success",
         });
-      }) // if successful
+      })
+      /**store offer that user emails to client*/
+      .then(() => {
+        console.log("OfferSentTable");
+        return OfferSentTable.storeOfferSent({
+          proposalId,
+          accountId,
+          clientName: name,
+          projectTitle,
+          email,
+          downloaded: false,
+          signed: false,
+        });
+      })
+      .then(({ message }) => {
+        res.json({ message });
+      })
+      // if successful
       .catch((error) => next(error));
   }
 );

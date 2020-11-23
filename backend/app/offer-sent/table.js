@@ -3,6 +3,7 @@ const pool = require("../../databasePool");
 class OfferSentTable {
   static storeOfferSent({
     proposalId,
+    accountId,
     clientName,
     projectTitle,
     email,
@@ -12,13 +13,37 @@ class OfferSentTable {
     return new Promise((resolve, reject) => {
       pool.query(
         `
-                INSERT INTO offer_sent(proposal_id,client_name,project_title,email,downloaded,signed)
-                VALUES ($1, $2, $3, $4, $5,$6)
+                INSERT INTO offer_sent(proposal_id,account_id,client_name,project_title,email,downloaded,signed)
+                VALUES ($1, $2, $3, $4, $5,$6,$7)
                 `,
-        [proposalId, clientName, projectTitle, email, downloaded, signed],
+        [
+          proposalId,
+          accountId,
+          clientName,
+          projectTitle,
+          email,
+          downloaded,
+          signed,
+        ],
         (error, response) => {
           if (error) return reject(error);
           resolve({ message: "offer sent" });
+        }
+      );
+    });
+  }
+
+  static getOffersSent({ accountId }) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        ` SELECT client_name,project_title,email,downloaded,signed
+              FROM offer_sent
+              WHERE account_id=$1
+              `,
+        [accountId],
+        (error, response) => {
+          if (error) return reject(error);
+          resolve({ offersSent: response.rows, message: "offers sent." });
         }
       );
     });

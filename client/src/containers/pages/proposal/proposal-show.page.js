@@ -71,7 +71,7 @@ const ProposalShow = (props) => {
   //** send EMAIL */
   const sendEmailHandler = async ({ fields }) => {
     setLoading(true);
-    const json = JSON.stringify({ ...fields });
+    const json = JSON.stringify({ ...fields, accountId, proposalId });
 
     let pdfBlob = await pdf(
       <MyDocument
@@ -101,8 +101,8 @@ const ProposalShow = (props) => {
       .then((json) => {
         if (json.type === "success") {
           props.history.goBack();
-          setLoading(false);
 
+          setLoading(false);
           alert("Email trimis, super!");
         } else if (json.type === "error") {
           console.log(json);

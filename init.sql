@@ -16,10 +16,11 @@ CREATE TABLE account
 CREATE TABLE proposal
 (
     proposal_id SERIAL PRIMARY KEY ,
-    account_id BIGINT REFERENCES account(account_id) NOT NULL,
+    account_id BIGINT NOT NULL,
 
 
-    proposal_name CHARACTER(64) NOT NULL
+    proposal_name CHARACTER(64) NOT NULL,
+    CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE
 );
 
 --3
@@ -30,7 +31,7 @@ CREATE TABLE aboutus
 
     text_id INTEGER NOT NULL,
     about_text TEXT NOT NULL,
-    CONSTRAINT fk_aboutus_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id)
+    CONSTRAINT fk_aboutus_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE
 
 );
 
@@ -47,7 +48,7 @@ CREATE TABLE offer
     text TEXT NOT NULL,
     "offerPlan" jsonb NOT NULL,
 
-    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id),
+    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE,
     CONSTRAINT offer_pk PRIMARY KEY (offer_id)
 
 );
@@ -64,7 +65,7 @@ CREATE TABLE optioncard
     text_key VARCHAR(50) NOT NULL,
     option_text TEXT NOT NULL,
 
-    CONSTRAINT fk_optioncard_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id),
+    CONSTRAINT fk_optioncard_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE,
     CONSTRAINT optioncard_pk PRIMARY KEY (optioncard_id)
 
 );
@@ -78,7 +79,7 @@ CREATE TABLE ourapproach
     text_id INTEGER NOT NULL,
     approach_text TEXT NOT NULL,
 
-    CONSTRAINT fk_ourapproach_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id),
+    CONSTRAINT fk_ourapproach_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE,
     CONSTRAINT ourapproach_pk PRIMARY KEY (ourapproach_id)
 
 );
@@ -101,7 +102,7 @@ CREATE TABLE useraccount
 
     CONSTRAINT user_id_pk PRIMARY KEY (user_id),
 
-    CONSTRAINT fk_user_account_id FOREIGN KEY (account_id) REFERENCES account(account_id)
+    CONSTRAINT fk_user_account_id FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE
 );
 
 --8
@@ -113,7 +114,7 @@ CREATE TABLE branding_declaration
     text_id INTEGER NOT NULL,
     branding_text TEXT NOT NULL,
 
-    CONSTRAINT fk_account_accountid FOREIGN KEY (account_id) REFERENCES account(account_id)
+    CONSTRAINT fk_account_accountid FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE
 
 );
 
@@ -130,8 +131,8 @@ CREATE TABLE offer_sent
     downloaded boolean,
     signed boolean,
 
-    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id),
-    CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account(account_id),
+    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE,
+    CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE,
     CONSTRAINT offer_sent_pk PRIMARY KEY (offer_sent_id)
 
 );

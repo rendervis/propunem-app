@@ -28,7 +28,7 @@ passport.use(
       scope: ["profile", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log("new GoogleStrategy  -->");
+      console.log("new GoogleStrategy  -->", profile);
 
       const existingUser = await AccountTable.getGoogleUser({
         googleId: profile.id,
@@ -38,7 +38,7 @@ passport.use(
         // console.log("AccountTable.getGoogleUser", user);
         return done(null, existingUser);
       } else {
-        const user = await AccountTable.storeGoogleUser({
+        await AccountTable.storeGoogleUser({
           email: profile.emails[0].value,
           googleId: profile.id,
         });

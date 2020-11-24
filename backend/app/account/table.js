@@ -18,11 +18,12 @@ class AccountTable {
   static storeGoogleUser({ email, googleId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO account(email, "googleId") VALUES($1, $2)`,
+        `INSERT INTO account(email, "googleId") VALUES($1, $2) RETURNING "googleId":`,
         [email, googleId],
         (error, response) => {
           if (error) return reject(error);
-          resolve();
+          const googleId = response.rows[0].googleId;
+          resolve({ googleId });
         }
       );
     });

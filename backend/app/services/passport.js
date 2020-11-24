@@ -9,12 +9,15 @@ const AccountTable = require("../account/table");
 //Serialization
 passport.serializeUser((user, done) => {
   console.log("passport.serializeUser", user);
-  done(null, user.accountId);
+
+  return done(null, user.accountId);
 });
 
-passport.deserializeUser((id, done) => {
+passport.deserializeUser(async (id, done) => {
   console.log("passport.deserializeUser id", id);
-  AccountTable.getUserById({ id }).then(({ user }) => done(null, user));
+
+  const user = await AccountTable.getUserById({ id });
+  return done(null, user);
 });
 
 //Authenticate with Google and get users data
@@ -28,22 +31,22 @@ passport.use(
       scope: ["profile", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log("new GoogleStrategy  -->", profile);
+      console.log("new GoogleStrategy  -->", profile.displayName);
 
       const existingUser = await AccountTable.getGoogleUser({
         googleId: profile.id,
       });
-      console.log("existingUser", existingUser);
-      if (existingUser) {
-        // console.log("AccountTable.getGoogleUser", user);
-        return done(null, existingUser);
-      } else {
+      return done(null, existingUser);
+
+      console.log("existingUser", typeof existingUser);
+
+      if (Object.keys(existingUser).length === 0) {
         const user = await AccountTable.storeGoogleUser({
           email: profile.emails[0].value,
           googleId: profile.id,
         });
         console.log("user", user);
-        done(null, user);
+        return done(null, user);
       }
     }
   )

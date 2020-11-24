@@ -73,10 +73,12 @@ app.use("/auth", authGoogleRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
-  res.status(statusCode).json({
-    type: "error",
-    message: err.message,
-  });
+  if (err) {
+    return res.status(statusCode).json({
+      type: "error",
+      message: err.message,
+    });
+  }
   next();
 });
 

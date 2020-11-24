@@ -1,6 +1,5 @@
 
 
-
 CREATE TABLE useraccount
 (
     user_id SERIAL,
@@ -18,6 +17,5 @@ CREATE TABLE useraccount
 
     CONSTRAINT user_id_pk PRIMARY KEY (user_id),
 
-    CONSTRAINT fk_user_account_id FOREIGN KEY (account_id) REFERENCES account(account_id)
+    CONSTRAINT fk_user_account_id FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE
 );
-         

@@ -1,4 +1,3 @@
-
 CREATE TABLE optioncard
 (
     optioncard_id SERIAL ,
@@ -10,7 +9,7 @@ CREATE TABLE optioncard
     text_key VARCHAR(50) NOT NULL,
     option_text TEXT NOT NULL,
 
-    CONSTRAINT fk_optioncard_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id),
+    CONSTRAINT fk_optioncard_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE,
     CONSTRAINT optioncard_pk PRIMARY KEY (optioncard_id)
 
 );

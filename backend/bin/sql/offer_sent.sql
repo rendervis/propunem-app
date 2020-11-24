@@ -10,8 +10,8 @@ CREATE TABLE offer_sent
     downloaded boolean,
     signed boolean,
 
-    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id),
-    CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account(account_id),
+    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE,
+    CONSTRAINT fk_account_id FOREIGN KEY (account_id) REFERENCES account(account_id) ON DELETE CASCADE,
     CONSTRAINT offer_sent_pk PRIMARY KEY (offer_sent_id)
 
 );

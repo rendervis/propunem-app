@@ -10,7 +10,7 @@ CREATE TABLE offer
     text TEXT NOT NULL,
     "offerPlan" jsonb NOT NULL,
 
-    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id),
+    CONSTRAINT fk_offer_proposalid FOREIGN KEY (proposal_id) REFERENCES proposal(proposal_id) ON DELETE CASCADE,
     CONSTRAINT offer_pk PRIMARY KEY (offer_id)
 
 );

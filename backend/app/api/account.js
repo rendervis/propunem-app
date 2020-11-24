@@ -39,7 +39,7 @@ router.post("/account/signup", (req, res, next) => {
     .then(({ message }) => {
       ///////respond to client
       // console.log({ message, accountIdFomDb });
-      res.json({ message, accountId: accountIdFomDb });
+      return res.json({ message, accountId: accountIdFomDb });
     })
     .catch((error) => next(error));
 });
@@ -84,12 +84,15 @@ router.get("/account/logout", (req, res, next) => {
 router.get("/account/authenticated", (req, res, next) => {
   const { sessionString } = req.cookies;
   console.log("router.get(/authenticated-->sessionString", sessionString);
-
-  authenticatedAccount({ sessionString })
-    .then(({ authenticated, accountId }) =>
-      res.json({ authenticated, accountId })
-    )
-    .catch((error) => next(error));
+  if (sessionString) {
+    return authenticatedAccount({ sessionString })
+      .then(({ authenticated, accountId }) =>
+        res.json({ authenticated, accountId })
+      )
+      .catch((error) => next(error));
+  } else {
+    return next();
+  }
 });
 
 router.patch("/account/password-update", (req, res, next) => {

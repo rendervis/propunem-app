@@ -52,3 +52,28 @@ export const deleteOffer = ({ projectTitle, email, offerSentId }) => (
       });
     });
 };
+
+export const toggleSigned = ({ offerSentId }) => (dispatch) => {
+  dispatch({ type: OFFERS_SENT.FETCH });
+  return fetch("/api/offer-sent/update-signed", {
+    method: "PATCH",
+    body: JSON.stringify({ offerSentId }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      dispatch({
+        type: OFFERS_SENT.TOGGLE_SIGNED,
+        offerSentId,
+        message: json.message,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: OFFERS_SENT.FETCH_ERROR,
+        message: error.message,
+      });
+    });
+};

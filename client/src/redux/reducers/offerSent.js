@@ -3,10 +3,11 @@ import fetchStates from "./fetchStates";
 import { OFFERS_SENT } from "../actions/types";
 
 const INITIAL_STATE = {
-  offersSent: [],
+  offersSent: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log("action", action);
   switch (action.type) {
     case OFFERS_SENT.FETCH:
       return {
@@ -24,7 +25,18 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         status: fetchStates.success,
         message: action.message,
-        offersSent: action.offersSent,
+        offersSent: { ..._.mapKeys(action.offersSent, "offerSentId") },
+      };
+    case OFFERS_SENT.TOGGLE_SIGNED:
+      return {
+        ...state,
+        offersSent: {
+          ...state.offersSent,
+          [action.offerSentId]: {
+            ...state.offersSent[action.offerSentId],
+            signed: !state.offersSent[action.offerSentId].signed,
+          },
+        },
       };
     case OFFERS_SENT.DELETE:
       return {

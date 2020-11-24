@@ -36,8 +36,9 @@ class AboutUsTable {
   static updateAboutUsText({ aboutText, proposalId, text_id }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `UPDATE aboutus SET about_text = $1 WHERE proposal_id = $2 AND text_id=$3`,
-        [aboutText, proposalId, textId],
+        `UPDATE aboutus 
+        SET about_text = $1 WHERE proposal_id = $2 AND text_id=$3`,
+        [aboutText, proposalId, text_id],
         (error, response) => {
           if (error) return reject(error);
           resolve();

@@ -43,6 +43,7 @@ class BrandingDeclarationTable {
         [accountId, text_id, text],
         (error, response) => {
           if (error) return reject(error);
+          resolve();
         }
       );
     });

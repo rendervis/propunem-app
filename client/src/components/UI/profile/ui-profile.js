@@ -44,7 +44,7 @@ export const SecondaryMenu = styled.div`
   height: 100%;
   width: 78.93vw;
 
-  margin-right: 1.75rem;
+  /* margin-right: 1.75rem; */
   /* margin-left: auto; */
 
   padding-bottom: 2rem;
@@ -55,13 +55,49 @@ export const SecondaryMenu = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 `;
+export const MenuGrid = styled.div`
+  width: 100%;
+  display: grid;
 
+  grid-template-columns: 50fr 11fr 11fr 11fr 11fr 6fr;
+`;
+export const HalfGrid = styled.div`
+  grid-column-start: 1;
+  display: flex;
+`;
+export const Column1 = styled.div`
+  grid-column-start: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const Column2 = styled.div`
+  grid-column-start: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const Column3 = styled.div`
+  grid-column-start: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const Column4 = styled.div`
+  grid-column-start: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const GridRightMargin = styled.div`
+  grid-column-start: 6;
+`;
 export const ArrowOptions = styled.div`
   display: flex;
   flex-direction: row;
 `;
 export const TextTopBar = styled.p`
-  padding: 0 1.81rem;
+  /* padding: 0 1.81rem; */
 
   font-family: "Arimo";
   font-size: 14px;

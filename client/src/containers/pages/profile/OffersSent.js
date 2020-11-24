@@ -12,9 +12,20 @@ import {
   TopContainer,
   TextTopBar,
   SecondaryMenu,
+  MenuGrid,
+  HalfGrid,
+  Column1,
+  Column2,
+  Column3,
+  Column4,
+  GridRightMargin,
 } from "../../../components/UI/profile/ui-profile";
 ///////actions
-import { fetchOffersSent, deleteOffer } from "../../../redux/actions/offerSent";
+import {
+  fetchOffersSent,
+  deleteOffer,
+  toggleSigned,
+} from "../../../redux/actions/offerSent";
 
 const OffersSent = (props) => {
   const dispatch = useDispatch();
@@ -24,13 +35,22 @@ const OffersSent = (props) => {
   }, []);
 
   const offersSent = useSelector((state) => state.offersSent.offersSent);
+  // console.log("offersSent - offer", offersSent);
   const renderOffersSent = () => {
-    if (!offersSent) {
+    if (Object.keys(offersSent).length === 0) {
       return <span>Nu sunt oferte trimise.</span>;
     }
-    return offersSent.map((offer) => {
-      // console.log("offersSent - offer", offer);
-      return <OfferSentInfo {...offer} />;
+    return Object.values(offersSent).map((offer) => {
+      return (
+        <React.Fragment key={offer.offerSentId}>
+          <OfferSentInfo
+            {...offer}
+            toggleSigned={() =>
+              dispatch(toggleSigned({ offerSentId: offer.offerSentId }))
+            }
+          />
+        </React.Fragment>
+      );
     });
   };
   return (
@@ -38,16 +58,23 @@ const OffersSent = (props) => {
       <PageTitle>Oferte trimise</PageTitle>
       <TopContainer>
         <SecondaryMenu>
-          <TextTopBar>Standard</TextTopBar>
-          <TextTopBar>E-mail</TextTopBar>
-          <TextTopBar>Descarcat</TextTopBar>
-          <TextTopBar>Semnat</TextTopBar>
+          <MenuGrid>
+            <HalfGrid />
+            <Column1 />
+            <Column2>
+              <TextTopBar>Trimis</TextTopBar>
+            </Column2>
+            <Column3>
+              <TextTopBar>Descarcat</TextTopBar>
+            </Column3>
+            <Column4>
+              <TextTopBar>Semnat</TextTopBar>
+            </Column4>
+            <GridRightMargin />
+          </MenuGrid>
         </SecondaryMenu>
       </TopContainer>
       {renderOffersSent()}
-      <OfferSentInfo />
-      <OfferSentInfo />
-      <OfferSentInfo />
     </React.Fragment>
   );
 };

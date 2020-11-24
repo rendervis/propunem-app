@@ -21,4 +21,13 @@ router.delete("/offer-sent/delete", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+router.patch("/offer-sent/update-signed", (req, res, next) => {
+  const { offerSentId } = req.body;
+  OfferSentTable.updateSigned({ offerSentId })
+    .then(() => {
+      res.json({ message: "Signed toggled!" });
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = router;

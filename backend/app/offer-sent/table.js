@@ -62,10 +62,28 @@ class OfferSentTable {
       );
     });
   }
+
+  static updateSigned({ offerSentId }) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `UPDATE offer_sent
+      SET signed = NOT signed
+      WHERE offer_sent_id=$1`,
+        [offerSentId],
+        (error, response) => {
+          if (error) return reject(error);
+          resolve();
+        }
+      );
+    });
+  }
 }
 
 ///////debug
 // OfferTable.getOfferCards({ proposalId: 158 })
 //   .then(({ offerCards }) => console.log("OfferTable.getOfferCards", offerCards))
+//   .catch((error) => console.log("error", error));
+// OfferSentTable.updateSigned({ offerSentId: 1, signed: true })
+//   .then(() => console.log("updated"))
 //   .catch((error) => console.log("error", error));
 module.exports = OfferSentTable;

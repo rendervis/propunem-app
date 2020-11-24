@@ -51,7 +51,7 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         accountId: action.googleUser.account_id,
         user: "googleUser",
         googleUser: { ...action.googleUser },
-        isSignedIn: action.authenticated,
+        isSignedIn: true,
       };
     case ACCOUNT.GOOGLE_USER_CLEAR:
       return {

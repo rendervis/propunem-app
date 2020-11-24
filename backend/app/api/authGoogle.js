@@ -56,15 +56,7 @@ router.get("/current_user", (req, res, next) => {
   console.log("Authenticated?: " + req.isAuthenticated());
   // console.log("\n\nReq session: " + req.session.passport);
 
-  if (req.isAuthenticated()) {
-    return res.send(
-      JSON.stringify({
-        googleUser: { ...req.user },
-        authenticated: req.isAuthenticated(),
-        message: "Conectare reusita!",
-      })
-    );
-  } else {
+  if (!req.isAuthenticated()) {
     const error = new Error(`Nu esti conectat prin google!..`);
     error.statusCode = 409;
     return res.send(
@@ -72,8 +64,16 @@ router.get("/current_user", (req, res, next) => {
         message: "Nu esti conectat prin google!..",
       })
     );
+    next(error);
+  } else {
+    res.send(
+      JSON.stringify({
+        googleUser: { ...req.user },
+        authenticated: req.isAuthenticated(),
+        message: "Conectare reusita!",
+      })
+    );
   }
-  next(error);
 });
 
 module.exports = router;

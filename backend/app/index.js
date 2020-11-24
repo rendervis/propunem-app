@@ -31,32 +31,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(APP_SECRET));
 
-// app.use(
-//   cookieSession({
-//     name: "googleSession",
-//     keys: [APP_SECRET],
-//     maxAge: 30 * 24 * 60 * 60 * 1000,
-//     // secureProxy: true,
-//   })
-// );
-
-// app.use(cors());
-// let corsOptions = {
-//   origin: isProduction
-//     ? "https://vispropunem.herokuapp.com/ "
-//     : "http://localhost:3000",
-//   optionsSuccessStatus: 200,
-//   credentials: true,
-// };
-// app.use(
-//   cors({
-//     methods: ["GET", "POST"],
-//     origin: "http://localhost:3000",
-//     optionsSuccessStatus: 200,
-//     credentials: true,
-//   })
-// );
-
 //Routes with sessionString
 app.use("/api", accountRouter);
 app.use("/api", userAccountRouter);
@@ -93,13 +67,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-// app.get("/", (req, res) => {
-//   res.send("this is working");
-//   // console.log(req);
-//   // console.log("Cookies: ", req.cookies);
-//   // console.log("Signed Cookies: ", req.signedCookies);
-// });
 
 //Routes with oauth
 app.use("/auth", authGoogleRouter);

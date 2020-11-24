@@ -36,13 +36,14 @@ passport.use(
       if (existingUser) {
         // console.log("AccountTable.getGoogleUser", user);
         return done(null, existingUser);
+      } else {
+        const user = await AccountTable.storeGoogleUser({
+          email: profile.emails[0].value,
+          googleId: profile.id,
+        }).then(() => {
+          return done(null, user);
+        });
       }
-
-      const user = await AccountTable.storeGoogleUser({
-        email: profile.emails[0].value,
-        googleId: profile.id,
-      });
-      done(null, user);
     }
   )
 );

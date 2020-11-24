@@ -1,6 +1,6 @@
 //Dependencies
 const express = require("express");
-const session = require("express-session");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 // const cookieSession = require("cookie-session");
@@ -73,16 +73,21 @@ app.use("/api", searchBarRouter);
 //-memory unleak---------
 app.set("trust proxy", 1);
 //Session config
+const session = require("express-session");
+var MemoryStore = require("memorystore")(session);
 app.use(
   session({
     name: "googleSession",
-    secret: APP_SECRET,
-    resave: false,
-    saveUninitialized: false,
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       secure: isProduction ? true : false,
     },
+    store: new MemoryStore({
+      checkPeriod: 4 * 60 * 60 * 1000, // prune expired entries every 4h
+    }),
+    resave: false,
+    secret: APP_SECRET,
+    saveUninitialized: false,
   })
 );
 

@@ -16,6 +16,7 @@ router.get("/search/homepage-accounts", (req, res, next) => {
       res.status(200).send(JSON.stringify({ homepageAccounts, message }));
     })
     .catch((error) => next(error));
+  next();
 });
 
 router.post("/search/accounts", (req, res, next) => {

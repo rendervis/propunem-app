@@ -36,10 +36,6 @@ passport.use(
       const existingUser = await AccountTable.getGoogleUser({
         googleId: profile.id,
       });
-      return done(null, existingUser);
-
-      console.log("existingUser", typeof existingUser);
-
       if (Object.keys(existingUser).length === 0) {
         const user = await AccountTable.storeGoogleUser({
           email: profile.emails[0].value,
@@ -48,6 +44,9 @@ passport.use(
         console.log("user", user);
         return done(null, user);
       }
+
+      return done(null, existingUser);
+      console.log("existingUser", typeof existingUser);
     }
   )
 );

@@ -43,10 +43,7 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         accountId: action.accountId,
       };
     case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:
-      // console.log(
-      //   "  case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:",
-      //   action.authenticated
-      // );
+      console.log("  case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:", action);
       return {
         ...state,
         status: fetchStates.success,

@@ -55,7 +55,7 @@ class AccountTable {
         [id],
         (error, response) => {
           if (error) return reject(error);
-          resolve({ user: response.rows[0] });
+          resolve(response.rows[0]);
         }
       );
     });

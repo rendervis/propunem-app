@@ -19,14 +19,16 @@ import Contact from "./containers/pages/contact/contact";
 function App({ history }) {
   const dispatch = useDispatch();
   const isSignedIn = useSelector((state) => state.account.isSignedIn);
-  useEffect(() => {
-    dispatch(fetchAuthenticated({ history }));
-    // dispatch(fetchGoogleUser({ history }));
-  }, [dispatch, isSignedIn]);
-
+  let { googleUser } = useSelector((state) => state.account);
+  console.log("googleUser", googleUser);
   useEffect(() => {
     dispatch(fetchGoogleUser({ history }));
   }, []);
+  useEffect(() => {
+    if (googleUser === undefined) {
+      dispatch(fetchAuthenticated({ history }));
+    }
+  }, [googleUser]);
 
   const AuthRoute = (props) => {
     if (!isSignedIn) {

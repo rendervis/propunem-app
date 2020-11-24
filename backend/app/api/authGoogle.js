@@ -26,12 +26,12 @@ router.get(
     // }
   ),
   (req, res, next) => {
-    // console.log("req.user", req.user);
+    console.log("req.user", req.user);
     // const { email } = req.user;
     res.redirect(`/profil/profil`);
     return res.send(
       JSON.stringify({
-        googleUser: req.user,
+        // googleUser: req.user,
         authenticated: req.isAuthenticated(),
         message: "Conectare reusita!",
       })
@@ -58,7 +58,7 @@ router.get("/current_user", (req, res, next) => {
   if (req.isAuthenticated()) {
     return res.send(
       JSON.stringify({
-        googleUser: req.user,
+        googleUser: { ...req.user },
         authenticated: req.isAuthenticated(),
         message: "Conectare reusita!",
       })

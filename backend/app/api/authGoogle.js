@@ -36,7 +36,6 @@ router.get(
         message: "Conectare reusita!",
       })
     );
-    return next();
   }
 );
 
@@ -64,8 +63,6 @@ router.get("/current_user", (req, res, next) => {
         message: "Conectare reusita!",
       })
     );
-
-    return next();
   } else {
     const error = new Error(`Nu esti conectat prin google!..`);
     error.statusCode = 409;

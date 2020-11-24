@@ -29,7 +29,7 @@ router.get(
     // console.log("req.user", req.user);
     // const { email } = req.user;
     res.redirect(`/profil/profil`);
-    res.send(
+    return res.send(
       JSON.stringify({
         googleUser: req.user,
         authenticated: req.isAuthenticated(),

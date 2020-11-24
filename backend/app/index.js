@@ -105,6 +105,7 @@ app.use((err, req, res, next) => {
     type: "error",
     message: err.message,
   });
+  next();
 });
 
 if (isProduction) {

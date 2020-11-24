@@ -84,14 +84,17 @@ router.get("/account/logout", (req, res, next) => {
 router.get("/account/authenticated", (req, res, next) => {
   const { sessionString } = req.cookies;
   console.log("router.get(/authenticated-->sessionString", sessionString);
-  if (sessionString !== undefined) {
+  if (sessionString === undefined) {
+    return res.status(400).json({
+      status: "error",
+      error: "no cookies",
+    });
+  } else {
     return authenticatedAccount({ sessionString })
       .then(({ authenticated, accountId }) =>
         res.json({ authenticated, accountId })
       )
       .catch((error) => next(error));
-  } else {
-    next();
   }
 });
 

@@ -18,25 +18,26 @@ router.get(
 //Callback - Send user to /profil/profil or back to auth screen-
 router.get(
   "/google/callback",
-  passport.authenticate(
-    "google"
-    // , {
-    //   failureRedirect: "/account/login",
-    //   successRedirect: "/profil/profil",
-    // }
-  ),
-  (req, res, next) => {
-    console.log("req.user", req.user);
-    // const { email } = req.user;
-    res.redirect(`/profil/profil`);
-    // return res.send(
-    //   JSON.stringify({
-    //     // googleUser: req.user,
-    //     authenticated: req.isAuthenticated(),
-    //     message: "Conectare reusita!",
-    //   })
-    // );
-  }
+  passport.authenticate("google", {
+    failureRedirect: "/account/login",
+    successRedirect: "/profil/profil",
+  })
+  // (req, res) => {
+  //   console.log("req.user", req.user);
+  //   if (!req.user) {
+  //     return res.status(400).json({
+  //       status: "error",
+  //       error: "no google user",
+  //     });
+  //   }
+  //   res.redirect(`/profil/profil`);
+  //   return res.send(
+  //     JSON.stringify({
+  //       authenticated: req.isAuthenticated(),
+  //       message: "Conectare reusita!",
+  //     })
+  //   );
+  // }
 );
 
 // router.get(
@@ -69,7 +70,6 @@ router.get("/current_user", (req, res, next) => {
     return res.send(
       JSON.stringify({
         message: "Nu esti conectat prin google!..",
-        authenticated: req.isAuthenticated(),
       })
     );
   }

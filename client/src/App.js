@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -18,17 +18,23 @@ import Contact from "./containers/pages/contact/contact";
 
 function App({ history }) {
   const dispatch = useDispatch();
-  const isSignedIn = useSelector((state) => state.account.isSignedIn);
+  let isSignedIn = useSelector((state) => state.account.isSignedIn);
   let { googleUser } = useSelector((state) => state.account);
+  const [account, setAccount] = useState(null);
+  const [gUser, setGuser] = useState(null);
   console.log("googleUser", googleUser);
   useEffect(() => {
+    setAccount(isSignedIn);
+    setGuser(googleUser);
+  }, [gUser, account]);
+  useEffect(() => {
     dispatch(fetchGoogleUser({ history }));
-  }, []);
+  }, [gUser, account]);
   useEffect(() => {
     if (googleUser === undefined) {
       dispatch(fetchAuthenticated({ history }));
     }
-  }, [googleUser]);
+  }, [gUser, account]);
 
   const AuthRoute = (props) => {
     if (!isSignedIn) {

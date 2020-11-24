@@ -40,9 +40,8 @@ passport.use(
         const user = await AccountTable.storeGoogleUser({
           email: profile.emails[0].value,
           googleId: profile.id,
-        }).then(() => {
-          return done(null, user);
         });
+        done(null, user);
       }
     }
   )

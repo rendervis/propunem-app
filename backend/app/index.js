@@ -48,7 +48,7 @@ app.use("/api", searchBarRouter);
 app.set("trust proxy", 1);
 //Session config
 const session = require("express-session");
-var MemoryStore = require("memorystore")(session);
+let MemoryStore = require("memorystore")(session);
 app.use(
   session({
     name: "googleSession",

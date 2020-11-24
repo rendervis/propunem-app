@@ -18,12 +18,12 @@ class AccountTable {
   static storeGoogleUser({ email, googleId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `INSERT INTO account(email, "googleId") VALUES($1, $2) RETURNING "googleId":`,
+        `INSERT INTO account(email, "googleId") VALUES($1, $2) RETURNING account_id as "accountId","googleId",email`,
         [email, googleId],
         (error, response) => {
           if (error) return reject(error);
-          const googleId = response.rows[0].googleId;
-          resolve({ googleId });
+
+          resolve(response.rows[0]);
         }
       );
     });
@@ -48,7 +48,7 @@ class AccountTable {
   static getUserById({ id }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT account_id, email, "sessionId", "passwordHash", "googleId"
+        `SELECT account_id as "accountId", email, "sessionId", "passwordHash", "googleId"
            FROM account
            WHERE account_id = $1
           `,
@@ -63,7 +63,7 @@ class AccountTable {
   static getGoogleUser({ googleId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT account_id, email, "sessionId", "passwordHash", "googleId"
+        `SELECT account_id as "accountId", email, "sessionId", "passwordHash", "googleId"
            FROM account
            WHERE "googleId" = $1
           `,

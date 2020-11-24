@@ -8,8 +8,8 @@ const AccountTable = require("../account/table");
 
 //Serialization
 passport.serializeUser((user, done) => {
-  console.log("passport.serializeUser", user.account_id);
-  done(null, user.account_id);
+  console.log("passport.serializeUser", user);
+  done(null, user.accountId);
 });
 
 passport.deserializeUser((id, done) => {
@@ -38,7 +38,7 @@ passport.use(
         // console.log("AccountTable.getGoogleUser", user);
         return done(null, existingUser);
       } else {
-        await AccountTable.storeGoogleUser({
+        const user = await AccountTable.storeGoogleUser({
           email: profile.emails[0].value,
           googleId: profile.id,
         });

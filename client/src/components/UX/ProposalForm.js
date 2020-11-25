@@ -25,10 +25,9 @@ const ProposalForm = ({ history, ...props }) => {
   ///////build a placeHolder list to add more inputs to ProposalForm
   const placeholderList = [];
   let keysList = Object.keys(props);
-
-  // if (string.includes("placeholder")) ;
-  keysList.find((string) => placeholderList.push(string));
-
+  keysList.find((string) => {
+    if (string.includes("placeholder")) placeholderList.push(string);
+  });
   //////for multiple inputs on the form add placeholder, placeholder2, placeholder3 ...etc
 
   // console.log("fields", fields);

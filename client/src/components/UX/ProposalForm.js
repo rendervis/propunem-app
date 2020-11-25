@@ -9,6 +9,7 @@ import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
 import styled from "styled-components";
+import { styled as styledMaterial } from "@material-ui/core/styles";
 
 const ProposalForm = ({ history, ...props }) => {
   const [selected, setSelected] = React.useState("standard");
@@ -42,7 +43,7 @@ const ProposalForm = ({ history, ...props }) => {
   return (
     <OverlayBackground blur onClick={() => history.goBack()}>
       <Container>
-        {props.loading ? <CircularProgress /> : ""}
+        {props.loading ? <MyCircularProgress /> : ""}
 
         <Title>{props.title}</Title>
         <div style={{ height: "64px" }} />
@@ -99,7 +100,9 @@ const ProposalForm = ({ history, ...props }) => {
     </OverlayBackground>
   );
 };
-
+const MyCircularProgress = styledMaterial(CircularProgress)({
+  color: "#0277bd",
+});
 const Container = styled.div`
   width: 820px;
   height: 530px;

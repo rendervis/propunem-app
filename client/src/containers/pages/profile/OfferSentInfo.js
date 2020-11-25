@@ -24,14 +24,18 @@ const OfferSentInfo = ({ ...props }) => {
     signed,
     downloaded,
   } = props;
-  console.log("props", props);
+  // console.log("props", props);
   return (
     <OfferDisplay>
       <MenuGrid>
         <HalfGrid>
           <ClientName>
             <TextRegular title>{clientName}</TextRegular>
-            <TextSmall blue style={{ paddingLeft: "0.44rem" }}>
+            <TextSmall
+              onClick={() => props.onDelete()}
+              blue
+              style={{ paddingLeft: "0.44rem", cursor: "pointer" }}
+            >
               sterge
             </TextSmall>
           </ClientName>

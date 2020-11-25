@@ -30,7 +30,7 @@ export const deleteOffer = ({ projectTitle, email, offerSentId }) => (
 ) => {
   dispatch({ type: OFFERS_SENT.FETCH });
 
-  return fetch("/api/offer-sent/delete", {
+  return fetch("/api/offer-sent/delete-offer", {
     method: "DELETE",
     body: JSON.stringify({ projectTitle, email }),
     headers: { "Content-Type": "application/json" },

@@ -24,6 +24,7 @@ import {
 import {
   fetchOffersSent,
   toggleSigned,
+  deleteOffer,
 } from "../../../redux/actions/offerSent";
 
 const OffersSent = (props) => {
@@ -39,11 +40,23 @@ const OffersSent = (props) => {
     if (Object.keys(offersSent).length === 0) {
       return <span>Nu sunt oferte trimise.</span>;
     }
+    const deleteHandler = ({ projectTitle, email, offerSentId }) => {
+      // console.log("STERGE->> projectTitle, email, offerSentId");
+      dispatch(deleteOffer({ projectTitle, email, offerSentId }));
+    };
     return Object.values(offersSent).map((offer) => {
+      // console.log("offer", offer);
       return (
         <React.Fragment key={offer.offerSentId}>
           <OfferSentInfo
             {...offer}
+            onDelete={() =>
+              deleteHandler({
+                projectTitle: offer.projectTitle,
+                email: offer.email,
+                offerSentId: offer.offerSentId,
+              })
+            }
             toggleSigned={() =>
               dispatch(toggleSigned({ offerSentId: offer.offerSentId }))
             }

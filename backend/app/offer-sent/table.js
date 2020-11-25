@@ -53,8 +53,8 @@ class OfferSentTable {
     return new Promise((resolve, reject) => {
       pool.query(
         `DELETE from offer_sent
-              WHERE project_title=$1 AND email=$2
-              `[(projectTitle, email)],
+              WHERE project_title=$1 AND email=$2`,
+        [projectTitle, email],
         (error, response) => {
           if (error) return reject(error);
           resolve();
@@ -83,7 +83,10 @@ class OfferSentTable {
 // OfferTable.getOfferCards({ proposalId: 158 })
 //   .then(({ offerCards }) => console.log("OfferTable.getOfferCards", offerCards))
 //   .catch((error) => console.log("error", error));
-// OfferSentTable.updateSigned({ offerSentId: 1, signed: true })
-//   .then(() => console.log("updated"))
+// OfferSentTable.deleteOfferSent({
+//   projectTitle: "Foto Produs",
+//   email: "nina@g.com",
+// })
+//   .then(() => console.log("deleted"))
 //   .catch((error) => console.log("error", error));
 module.exports = OfferSentTable;

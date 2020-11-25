@@ -12,7 +12,8 @@ router.post("/offer-sent", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.delete("/offer-sent/delete", (req, res, next) => {
+router.delete("/offer-sent/delete-offer", (req, res, next) => {
+  // console.log("req.body", req.body);
   const { projectTitle, email } = req.body;
   OfferSentTable.deleteOfferSent({ projectTitle, email })
     .then(() => {
@@ -22,6 +23,7 @@ router.delete("/offer-sent/delete", (req, res, next) => {
 });
 
 router.patch("/offer-sent/update-signed", (req, res, next) => {
+  // console.log("toggled");
   const { offerSentId } = req.body;
   OfferSentTable.updateSigned({ offerSentId })
     .then(() => {

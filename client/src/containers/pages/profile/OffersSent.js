@@ -55,6 +55,7 @@ const OffersSent = (props) => {
                 projectTitle: offer.projectTitle,
                 email: offer.email,
                 offerSentId: offer.offerSentId,
+                selected: offer.selected,
               })
             }
             toggleSigned={() =>

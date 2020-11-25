@@ -21,6 +21,7 @@ const OfferSentInfo = ({ ...props }) => {
     email,
     offerSentId,
     projectTitle,
+    selected,
     signed,
     downloaded,
   } = props;
@@ -43,7 +44,7 @@ const OfferSentInfo = ({ ...props }) => {
             <TextRegular>{email}</TextRegular>
           </StatusContainer>
         </HalfGrid>
-        <Column1>Standard</Column1>
+        <Column1>{selected}</Column1>
         <Column2>
           {downloaded ? <RadioButtonUncheckedIcon /> : <CheckCircleIcon />}
         </Column2>

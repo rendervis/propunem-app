@@ -68,9 +68,10 @@ const ProposalShow = (props) => {
   let matchPath = props.match.path.replace(/\s/g, "");
   const { proposalName } = props.proposal;
   //** send EMAIL */
-  const sendEmailHandler = async ({ fields }) => {
+  const sendEmailHandler = async ({ fields, selected }) => {
+    // console.log("selected", selected);
     setLoading(true);
-    const json = JSON.stringify({ ...fields, accountId, proposalId });
+    const json = JSON.stringify({ accountId, proposalId, selected, ...fields });
 
     let pdfBlob = await pdf(
       <MyDocument
@@ -183,6 +184,7 @@ const ProposalShow = (props) => {
                   <ProposalForm
                     {...props}
                     loading={loading}
+                    showToggleGroup
                     fadedLine="esti cu un pas mai aproape!"
                     placeholder="Nume Client"
                     placeholder2="Titlu Proiect"

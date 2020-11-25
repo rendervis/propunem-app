@@ -4,11 +4,15 @@ import { withRouter } from "react-router-dom";
 ///////UX
 import OverlayBackground from "./overlay-background";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CheckIcon from "@material-ui/icons/Check";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
 import styled from "styled-components";
 
 const ProposalForm = ({ history, ...props }) => {
-  console.log("props", props);
+  const [selected, setSelected] = React.useState("standard");
+  // console.log("props", props);
   let [fields, setFields] = useState({});
 
   const handleChange = (event) => {
@@ -17,9 +21,12 @@ const ProposalForm = ({ history, ...props }) => {
     values[name] = value;
     setFields(values);
   };
-
+  const handleToggled = (event, newToggle) => {
+    setSelected(newToggle);
+  };
   const onClickHandler = () => {
-    props.onContinue({ fields });
+    // console.log("selected", selected);
+    props.onContinue({ fields, selected });
   };
 
   ///////build a placeHolder list to add more inputs to ProposalForm
@@ -31,6 +38,7 @@ const ProposalForm = ({ history, ...props }) => {
   //////for multiple inputs on the form add placeholder, placeholder2, placeholder3 ...etc
 
   // console.log("fields", fields);
+
   return (
     <OverlayBackground blur onClick={() => history.goBack()}>
       <Container>
@@ -61,6 +69,27 @@ const ProposalForm = ({ history, ...props }) => {
           );
         })}
         <div style={{ height: "40px" }} />
+        {props.showToggleGroup ? (
+          <div style={{ marginBottom: "25px" }}>
+            <ToggleButtonGroup
+              value={selected}
+              exclusive
+              onChange={handleToggled}
+            >
+              <ToggleButton value="standard">
+                <span>STANDARD</span>
+              </ToggleButton>
+              <ToggleButton value="recomandat">
+                <span>RECOMANDAT</span>
+              </ToggleButton>
+              <ToggleButton value="premium">
+                <span>PREMIUM</span>
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
+        ) : (
+          ""
+        )}
         <YellowButtonStyled onClick={onClickHandler}>
           CONTINUA
         </YellowButtonStyled>

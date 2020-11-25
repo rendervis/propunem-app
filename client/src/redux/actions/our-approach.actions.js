@@ -14,7 +14,7 @@ export const fetchOurApproachText = ({ proposalId, ourApproach }) => (
       return response.json();
     })
     .then((json) => {
-      console.log(" const fetchOurApproachText =json", json);
+      // console.log(" const fetchOurApproachText =json", json);
       const { ourApproachText } = json;
       if (!ourApproach) {
         dispatch({
@@ -57,7 +57,7 @@ export const saveText = ({ proposalId, textCard }) => (dispatch) => {
       return response.json();
     })
     .then((json) => {
-      console.log("const saveText = json", json.message);
+      // console.log("const saveText = json", json.message);
       if (json.type === "error") {
         dispatch({ type: APPROACH.FETCH_ERROR, message: json.message });
       } else {

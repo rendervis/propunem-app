@@ -21,7 +21,7 @@ class OfferShow extends Component {
   };
 
   componentDidMount() {
-    console.log("[componentDidMount]", "mounted!");
+    // console.log("[componentDidMount]", "mounted!");
     let { proposalId, cards } = this.props;
     this.handleKeyList();
     this.props.offerClearState();
@@ -31,7 +31,7 @@ class OfferShow extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    console.log("[componentDidUpdate]", "mounted!");
+    // console.log("[componentDidUpdate]", "mounted!");
     // Typical usage (don't forget to compare props):
     if (this.props.cards.length === 0) {
       this.props.createCard({
@@ -138,7 +138,7 @@ class OfferShow extends Component {
       return null;
     } else {
       return this.props.cards.map((card, index) => {
-        console.log("card", card.offerPlan);
+        // console.log("card", card.offerPlan);
         return (
           <div key={card.key.toString()}>
             <OfferCard

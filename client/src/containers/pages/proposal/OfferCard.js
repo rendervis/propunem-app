@@ -41,7 +41,7 @@ class OfferCard extends Component {
   };
 
   renderTitle = ({ type, meta: { visited, touched } }) => {
-    console.log("this.props.offerTitle", this.props.offerTitle);
+    // console.log("this.props.offerTitle", this.props.offerTitle);
     return (
       <React.Fragment>
         <TextInput
@@ -204,7 +204,7 @@ class OfferCard extends Component {
     // console.log("[OfferForm]");
     const { title, secondaryTitle, text, touched } = this.state.textCard;
 
-    console.log("[state]", this.state);
+    // console.log("[state]", this.state);
     // console.log("[props]", this.props);
 
     return (

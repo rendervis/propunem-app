@@ -29,6 +29,7 @@ import { fetchOfferCards } from "../../../redux/actions/offer.actions";
 const ProposalShow = (props) => {
   const dispatch = useDispatch();
   const { proposalId } = props.match.params;
+  const [previewSelected, setPreviewSelected] = useState("standard");
   /**
    * data from Redux store
    */
@@ -71,12 +72,14 @@ const ProposalShow = (props) => {
   const sendEmailHandler = async ({ fields, selected }) => {
     // console.log("selected", selected);
     setLoading(true);
+    setPreviewSelected(selected);
     const json = JSON.stringify({ accountId, proposalId, selected, ...fields });
 
     let pdfBlob = await pdf(
       <MyDocument
         clientName={fields.nume_client}
         projectTitle={fields.titlu_proiect}
+        selected={selected}
         ///////
         userInformation={userInformation}
         aboutUsText={aboutUsText}

@@ -30,6 +30,9 @@ export default (props) => {
     telephone,
     webAddress,
   } = userInformation;
+  const [selectedOption, setSelectedOption] = useState(
+    props.selected || "premium"
+  );
 
   /**** return DATE ****/
   const date = () => {
@@ -155,6 +158,7 @@ export default (props) => {
 
   /**** Offer ****/
   const renderOffer = () => {
+    // let selected = "premium";
     if (offerCards.length === 0) {
       return (
         <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
@@ -183,36 +187,102 @@ export default (props) => {
         </View>
       );
     } else {
-      return offerCards.map((card, index) => {
-        // console.log("about.about_text", about.about_text);
-        return (
-          <React.Fragment key={card.key}>
-            <View
-              style={{ display: "flex", flexDirection: "row", marginTop: 16 }}
-            >
-              <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
-                {card.textCard.textId}
-              </Text>
-              <View style={{ marginLeft: 15 }}>
-                <Text style={{ fontSize: 9 }}>{card.textCard.title}</Text>
-                <Text style={{ fontSize: 9 }}>
-                  {card.textCard.secondaryTitle}
-                </Text>
-                <Text
-                  style={{
-                    width: 412,
-                    marginTop: 4,
-                    fontSize: 8,
-                    color: "#707070",
-                  }}
-                >
-                  {card.textCard.text}
-                </Text>
-              </View>
-            </View>
-          </React.Fragment>
-        );
-      });
+      // const filteredArray = offerCards.filter(
+      //   (card) =>
+      //     card.offerPlan[selected] === true ||
+      //     card.offerPlan.recomandat === true ||
+      //     card.offerPlan.standard === true
+      // );
+
+      switch (selectedOption) {
+        case "standard":
+          return offerCards
+            .filter((card) => card.offerPlan[selectedOption] === true)
+            .map((card, index) => {
+              let keys = Object.keys(card.offerPlan);
+              console.log("card", card);
+
+              return (
+                <React.Fragment key={card.key}>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 16,
+                    }}
+                  >
+                    <Text
+                      style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}
+                    >
+                      {card.textCard.textId}
+                    </Text>
+                    <View style={{ marginLeft: 15 }}>
+                      <Text style={{ fontSize: 9 }}>{card.textCard.title}</Text>
+                      <Text style={{ fontSize: 9 }}>
+                        {card.textCard.secondaryTitle}
+                      </Text>
+                      <Text
+                        style={{
+                          width: 412,
+                          marginTop: 4,
+                          fontSize: 8,
+                          color: "#707070",
+                        }}
+                      >
+                        {card.textCard.text}
+                      </Text>
+                    </View>
+                  </View>
+                </React.Fragment>
+              );
+            });
+        default:
+          return offerCards
+            .filter(
+              (card) =>
+                card.offerPlan[selectedOption] === true ||
+                card.offerPlan.recomandat === true ||
+                card.offerPlan.standard === true
+            )
+            .map((card, index) => {
+              let keys = Object.keys(card.offerPlan);
+              console.log("card", card);
+
+              return (
+                <React.Fragment key={card.key}>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 16,
+                    }}
+                  >
+                    <Text
+                      style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}
+                    >
+                      {card.textCard.textId}
+                    </Text>
+                    <View style={{ marginLeft: 15 }}>
+                      <Text style={{ fontSize: 9 }}>{card.textCard.title}</Text>
+                      <Text style={{ fontSize: 9 }}>
+                        {card.textCard.secondaryTitle}
+                      </Text>
+                      <Text
+                        style={{
+                          width: 412,
+                          marginTop: 4,
+                          fontSize: 8,
+                          color: "#707070",
+                        }}
+                      >
+                        {card.textCard.text}
+                      </Text>
+                    </View>
+                  </View>
+                </React.Fragment>
+              );
+            });
+      }
     }
   };
 

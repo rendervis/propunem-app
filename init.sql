@@ -127,6 +127,7 @@ CREATE TABLE offer_sent
 
     client_name character varying(200) NOT NULL,
     project_title character varying(200) NOT NULL,
+    selected character varying(200) NOT NULL,
     email text NOT NULL,
     downloaded boolean,
     signed boolean,

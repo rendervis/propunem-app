@@ -70,6 +70,7 @@ router.post(
     const projectTitle = input.titlu_proiect;
     const accountId = input.accountId;
     const proposalId = input.proposalId;
+    const selected = input.selected;
     /*nodemailer-promise*/
     const message = {
       from: name,
@@ -99,6 +100,7 @@ router.post(
           accountId,
           clientName: name,
           projectTitle,
+          selected,
           email,
           downloaded: false,
           signed: false,

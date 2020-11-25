@@ -6,6 +6,7 @@ class OfferSentTable {
     accountId,
     clientName,
     projectTitle,
+    selected,
     email,
     downloaded,
     signed,
@@ -13,14 +14,15 @@ class OfferSentTable {
     return new Promise((resolve, reject) => {
       pool.query(
         `
-                INSERT INTO offer_sent(proposal_id,account_id,client_name,project_title,email,downloaded,signed)
-                VALUES ($1, $2, $3, $4, $5,$6,$7)
+                INSERT INTO offer_sent(proposal_id,account_id,client_name,project_title,selected,email,downloaded,signed)
+                VALUES ($1, $2, $3, $4, $5,$6,$7,$8)
                 `,
         [
           proposalId,
           accountId,
           clientName,
           projectTitle,
+          selected,
           email,
           downloaded,
           signed,
@@ -36,7 +38,7 @@ class OfferSentTable {
   static getOffersSent({ accountId }) {
     return new Promise((resolve, reject) => {
       pool.query(
-        ` SELECT offer_sent_id as "offerSentId",  client_name as "clientName",project_title as "projectTitle",email,downloaded,signed
+        ` SELECT offer_sent_id as "offerSentId",  client_name as "clientName",project_title as "projectTitle",selected,email,downloaded,signed
               FROM offer_sent
               WHERE account_id=$1
               `,

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+
 import { useDispatch, connect, useSelector } from "react-redux";
 import { reduxForm, getFormValues, isValid } from "redux-form";
-
-import styled from "styled-components";
 
 ////COMPONENTS////
 
@@ -47,14 +45,14 @@ let PersonalInformation = (props) => {
   }, [userDb, userLocal]);
 
   //////not used
-  const onInputChangeHandler = (event) => {
-    event.preventDefault();
-    const { value, name } = event.target;
-    setUserLocal({
-      ...userLocal,
-      [name]: value,
-    });
-  };
+  // const onInputChangeHandler = (event) => {
+  //   event.preventDefault();
+  //   const { value, name } = event.target;
+  //   setUserLocal({
+  //     ...userLocal,
+  //     [name]: value,
+  //   });
+  // };
 
   // console.log("[const PersonalInformation : userDb]", userDb);
   // console.log("[const PersonalInformation : userLocal]", userLocal);

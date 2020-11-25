@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -30,7 +30,7 @@ export default ({ history, ...props }) => {
 
   const storeProposalHandler = ({ fields }) => {
     ///////placeholder value with "_" from ProposalForm gives the key name for fields
-    console.log("[storeProposalHandler = ]", fields);
+    // console.log("[storeProposalHandler = ]", fields);
 
     if (Object.keys(fields).length === 0) {
       return alert("Nume Serviciu nu este completat");

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 ///////components
 import FormInput from "../../../components/form-input/form-input";
@@ -16,15 +16,14 @@ const Signup = ({ history }) => {
     email: "",
     password: "",
   });
-  let { account } = useSelector((state) => state.account);
-  let [message, setMessage] = useState("");
 
-  const signupHandler = () => {
-    const { email, password } = data;
-    dispatch(signup({ email, password, history }));
-    setData({ email: "", password: "" });
-    // history.push("/profil/profil");
-  };
+  /**not used */
+  // const signupHandler = () => {
+  //   const { email, password } = data;
+  //   dispatch(signup({ email, password, history }));
+  //   setData({ email: "", password: "" });
+  //   // history.push("/profil/profil");
+  // };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -83,13 +82,13 @@ const Signup = ({ history }) => {
   );
 };
 
-const Line = styled.div`
-  width: 330px;
-  height: 1px;
-  left: 0;
+// const Line = styled.div`
+//   width: 330px;
+//   height: 1px;
+//   left: 0;
 
-  background: #c4c4c4;
-`;
+//   background: #c4c4c4;
+// `;
 
 const LoginStyled = styled.li``;
 

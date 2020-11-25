@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-///// UI elements /////
-import { TextRegular } from "../UI/ui-elements";
-
 class TextArea extends Component {
   constructor(props) {
     super(props);

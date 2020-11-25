@@ -1,10 +1,7 @@
 import React from "react";
 
-import styled, { css } from "styled-components";
-import { Link, NavLink, withRouter } from "react-router-dom";
-
-///// UI elements /////
-import { TextSmall, TextRegular } from "../../../components/UI/ui-elements";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const AccountMenu = () => {
   return (

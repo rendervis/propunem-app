@@ -22,7 +22,7 @@ function App({ history }) {
   let { googleUser } = useSelector((state) => state.account);
   const [account, setAccount] = useState(null);
   const [gUser, setGuser] = useState(null);
-  console.log("googleUser", googleUser);
+  // console.log("googleUser", googleUser);
   useEffect(() => {
     setAccount(isSignedIn);
     setGuser(googleUser);

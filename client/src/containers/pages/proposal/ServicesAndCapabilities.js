@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4, parse as uuidParse } from "uuid";
-import styled, { css } from "styled-components";
+import { useSelector } from "react-redux";
 
-///////UI
-import { TextSmall } from "../../../components/UI/ui-elements";
+import styled from "styled-components";
 
 const ServicesAndCapabilities = (props) => {
   let [brandingText, setBrandingText] = useState(
@@ -16,7 +13,7 @@ const ServicesAndCapabilities = (props) => {
     if (brandingDeclarationDB[1]) {
       setBrandingText(brandingDeclarationDB[1].text);
     }
-  });
+  }, [brandingDeclarationDB]);
   const renderNameList = (props) => {
     if (!proposalList) {
       return (

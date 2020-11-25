@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import styled, { css } from "styled-components";
-import { Link, NavLink, withRouter } from "react-router-dom";
+import styled from "styled-components";
+import { Link, NavLink } from "react-router-dom";
 
 ///// UI elements /////
 import { TextSmall, TextRegular } from "../../ui-elements";

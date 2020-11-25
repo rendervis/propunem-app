@@ -20,7 +20,7 @@ export const fetchBrandingDeclaration = ({
       if (!brandingDeclarationDB) {
         dispatch({
           type: BRANDING_DECLARATION.FETCH_ERROR,
-          type: json.message,
+          message: json.message,
           brandingDeclaration,
         });
       } else {

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 ///components
 import Header from "../../header.container";
 import ProfileMenu from "../../../components/UI/profile/profile-menu/profile-menu";
@@ -21,12 +19,7 @@ import {
   col3,
 } from "../../../components/UI/profile/ui-profile";
 
-//////actions
-import { fetchAuthenticated } from "../../../redux/actions/account";
-
 const ProfilePage = ({ history }) => {
-  const dispatch = useDispatch();
-
   ///////not working as expected
   // useEffect(() => {
   //   dispatch(fetchAuthenticated({ history }));

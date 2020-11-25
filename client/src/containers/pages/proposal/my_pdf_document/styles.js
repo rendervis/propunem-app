@@ -1,5 +1,4 @@
-import React from "react";
-import { StyleSheet, Font } from "@react-pdf/renderer";
+import { StyleSheet } from "@react-pdf/renderer";
 
 // Create styles
 export default StyleSheet.create({

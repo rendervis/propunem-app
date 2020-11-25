@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { reduxForm, getFormValues, isValid, reset } from "redux-form";
-import { useDispatch, connect, useSelector } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 
 ////COMPONENTS////
 import PageTitle from "../../../components/UI/profile/page-title";
@@ -17,7 +17,7 @@ let SetPassword = (props) => {
     if (props.account.googleUser) {
       setEmail(props.account.googleUser.email);
     }
-  });
+  }, [props.account.googleUser]);
 
   // useEffect(() => {
   //   if (account && account.googleUSer) {

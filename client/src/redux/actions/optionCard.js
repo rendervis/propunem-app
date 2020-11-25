@@ -1,4 +1,3 @@
-import * as type from "./proposal-options.types";
 import { OPTION_CARD } from "./types";
 
 export const fetchOptionCard = ({ proposalId, proposalOptionName, option }) => (

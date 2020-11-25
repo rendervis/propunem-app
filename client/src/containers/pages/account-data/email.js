@@ -1,5 +1,5 @@
 import React from "react";
-import { reduxForm, getFormValues, isValid, reset } from "redux-form";
+import { reduxForm, getFormValues, isValid } from "redux-form";
 import { useDispatch, connect } from "react-redux";
 
 ////COMPONENTS////

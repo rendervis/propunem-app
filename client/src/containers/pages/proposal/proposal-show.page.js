@@ -1,13 +1,13 @@
-import React, { Component, useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { Switch, Route, useParams, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Switch, Route } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
 import { pdf } from "@react-pdf/renderer";
 ///// COMPONENTS /////
 import Header from "../../header.container";
-import RenderPdf, { DownloadPdf } from "./my_pdf_document/RenderPdf";
+import RenderPdf from "./my_pdf_document/RenderPdf";
 import MyDocument from "./my_pdf_document/MyDocument";
 ///// MAIN Content /////
 import AboutUs from "./about-us.container";
@@ -20,7 +20,6 @@ import ButtonRound from "../../../components/UI/button-round";
 import { TitleText } from "../../../components/UI/ui-elements";
 ///////UX
 import ProposalForm from "../../../components/UX/ProposalForm";
-import { getStoredState } from "redux-persist";
 //////actions
 import { fetchBrandingDeclaration } from "../../../redux/actions/brandingDeclaration";
 import { fetchAboutUsText } from "../../../redux/actions/about-us.actions";
@@ -63,7 +62,7 @@ const ProposalShow = (props) => {
   //     setBrandingDeclaration(brandingDeclarationDB[1].text);
   //   }
   // });
-  console.log("ProposalShow ->>", brandingDeclaration);
+  // console.log("ProposalShow ->>", brandingDeclaration);
 
   ///////
   let matchPath = props.match.path.replace(/\s/g, "");

@@ -93,13 +93,13 @@ const LiStyled = styled.li`
   line-height: 1.29;
 `;
 
-const Line = styled.div`
-  width: 330px;
-  height: 1px;
-  left: 0;
+// const Line = styled.div`
+//   width: 330px;
+//   height: 1px;
+//   left: 0;
 
-  background: #c4c4c4;
-`;
+//   background: #c4c4c4;
+// `;
 const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   list-style: none;
@@ -149,18 +149,18 @@ const NavLinkStyled = styled(NavLink)`
       `}
   }
 `;
-const ActiveLine = styled.div`
-  height: 3px;
-  width: 100%;
-  background: #002f34;
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
+// const ActiveLine = styled.div`
+//   height: 3px;
+//   width: 100%;
+//   background: #002f34;
+//   content: "";
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
 
-  transition: width 0.5s ease-in-out;
-  color: ${(props) => props.theme.orange};
-`;
+//   transition: width 0.5s ease-in-out;
+//   color: ${(props) => props.theme.orange};
+// `;
 const RegisterStyled = styled.li``;
 
 export default LoginPage;

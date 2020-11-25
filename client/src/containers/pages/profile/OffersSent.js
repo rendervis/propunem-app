@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 
-import styled from "styled-components";
+// import styled from "styled-components";
 
 ////COMPONENTS////
 import PageTitle from "../../../components/UI/profile/page-title";
@@ -23,7 +23,6 @@ import {
 ///////actions
 import {
   fetchOffersSent,
-  deleteOffer,
   toggleSigned,
 } from "../../../redux/actions/offerSent";
 

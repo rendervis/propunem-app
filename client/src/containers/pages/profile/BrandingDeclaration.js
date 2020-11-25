@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4, parse as uuidParse } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
-///////COMPONENTS
-import ProposalList from "../profile/ProposalList";
 ///////UX
 import TextArea from "../../../components/UX/text-area";
 ///////UI
@@ -13,7 +11,6 @@ import {
   fetchBrandingDeclaration,
   brandingDeclarationSave,
   brandingDeclarationUpdate,
-  showDefault,
   createText,
   updateTouched,
   brandingDeclarationClearState,
@@ -84,18 +81,18 @@ const BrandingDeclaration = (props) => {
     });
   };
 
-  const onAddDefaultHandler = (id) => {
-    dispatch(
-      showDefault({
-        defaultText: {
-          text_id: (2 + id).toString(),
-          text: "",
-          touched: false,
-          key: uuidv4(),
-        },
-      })
-    );
-  };
+  // const onAddDefaultHandler = (id) => {
+  //   dispatch(
+  //     showDefault({
+  //       defaultText: {
+  //         text_id: (2 + id).toString(),
+  //         text: "",
+  //         touched: false,
+  //         key: uuidv4(),
+  //       },
+  //     })
+  //   );
+  // };
 
   const actions = (id, touched) => {
     if (!brandingDeclaration[id]) {

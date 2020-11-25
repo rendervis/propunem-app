@@ -1,13 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
 
-import {
-  Switch,
-  Route,
-  Link,
-  withRouter,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 ///components
 import Header from "../../header.container";

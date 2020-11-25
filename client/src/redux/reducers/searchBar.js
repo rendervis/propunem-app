@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("searchBar reducer-action", action);
+  // console.log("searchBar reducer-action", action);
   switch (action.type) {
     case HOMEPAGE_ACCOUNTS.FETCH:
       return {

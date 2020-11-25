@@ -43,19 +43,21 @@ export default (state = DEFAULT_ACCOUNT, action) => {
         accountId: action.accountId,
       };
     case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:
-      console.log("  case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:", action);
+      // console.log("  case ACCOUNT.FETCH_GOOGLE_USER_SUCCESS:", action);
       return {
         ...state,
         status: fetchStates.success,
         message: action.message,
-        accountId: action.googleUser.account_id,
         user: "googleUser",
         googleUser: { ...action.googleUser },
         isSignedIn: true,
+        accountId: action.googleUser.accountId,
       };
     case ACCOUNT.GOOGLE_USER_CLEAR:
       return {
         isSignedIn: false,
+        user: "no user",
+        googleUser: {},
       };
 
     default:

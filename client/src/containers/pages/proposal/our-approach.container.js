@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4, parse as uuidParse } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 ///////UX
 import TextArea from "../../../components/UX/text-area";

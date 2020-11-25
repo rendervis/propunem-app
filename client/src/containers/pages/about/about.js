@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 ///// COMPONENTS /////
 
@@ -26,9 +26,9 @@ const About = () => {
   );
 };
 
-const AboutStyled = styled.div`
-  height: 100vh;
-  width: 100vw;
-`;
+// const AboutStyled = styled.div`
+//   height: 100vh;
+//   width: 100vw;
+// `;
 
 export default About;

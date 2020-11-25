@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import OverlayBackground from "./overlay-background";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const ProposalForm = ({ history, ...props }) => {
   console.log("props", props);
@@ -25,11 +25,10 @@ const ProposalForm = ({ history, ...props }) => {
   ///////build a placeHolder list to add more inputs to ProposalForm
   const placeholderList = [];
   let keysList = Object.keys(props);
-  keysList.find((string) => {
-    if (string.includes("placeholder")) {
-      placeholderList.push(string);
-    }
-  });
+
+  // if (string.includes("placeholder")) ;
+  keysList.find((string) => placeholderList.push(string));
+
   //////for multiple inputs on the form add placeholder, placeholder2, placeholder3 ...etc
 
   // console.log("fields", fields);

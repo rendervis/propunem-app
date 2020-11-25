@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import _ from "lodash";
-import { v4 as uuidv4, parse as uuidParse } from "uuid";
+
+import { v4 as uuidv4 } from "uuid";
 ///////ACTIONS
 import {
   fetchOfferCards,

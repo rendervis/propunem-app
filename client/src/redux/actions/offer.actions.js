@@ -88,7 +88,7 @@ export const saveCard = ({ proposalId, savedCard }) => (dispatch) => {
     });
 };
 export const updateCard = ({ proposalId, updatedCard }) => (dispatch) => {
-  const { idx, key, textCard, offerPlan } = updatedCard;
+  const { textCard, offerPlan } = updatedCard;
   dispatch({ type: OFFER.FETCH });
 
   return fetch("/api/offer/update", {

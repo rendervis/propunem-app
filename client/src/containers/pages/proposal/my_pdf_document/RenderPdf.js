@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Router, withRouter } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, withRouter } from "react-router-dom";
 
-import { Provider, connect } from "react-redux";
+import { connect } from "react-redux";
 
-import { PDFViewer, PDFDownloadLink, Font } from "@react-pdf/renderer";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 
 import MyDocument from "./MyDocument";
 
 class RenderPdf extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   //TODO dispatch actions to update data from store
 
@@ -29,9 +29,9 @@ class RenderPdf extends React.Component {
             right: "0",
             padding: "0 16vw",
             display: "flex",
-            alignSelf: "center",
+            // alignSelf: "center",
             justifyContent: "center",
-            alignSelf: "center",
+
             alignItems: "center",
             textAlign: "center",
             width: "100vw",
@@ -75,7 +75,7 @@ export const DownloadPdf = () => (
 );
 
 const mapStateToProps = (state) => {
-  console.log("state");
+  // console.log("state");
   return {
     /**
      * data from Redux store

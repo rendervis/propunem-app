@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 // import history from "../../../history";
 
 ///////components
@@ -94,13 +94,13 @@ const Login = ({ history }) => {
   );
 };
 
-const Line = styled.div`
-  width: 330px;
-  height: 1px;
-  left: 0;
+// const Line = styled.div`
+//   width: 330px;
+//   height: 1px;
+//   left: 0;
 
-  background: #c4c4c4;
-`;
+//   background: #c4c4c4;
+// `;
 
 const LoginStyled = styled.li``;
 

@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ReactPDF, {
-  Document,
-  Page,
-  Text,
-  View,
-  Font,
-} from "@react-pdf/renderer";
+import React, { useState } from "react";
+import { Document, Page, Text, View } from "@react-pdf/renderer";
 import styles from "./styles";
 
 //TODO include MyDocument in redux STORE and receive data via STORE and not props

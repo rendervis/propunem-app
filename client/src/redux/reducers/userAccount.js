@@ -1,4 +1,3 @@
-import _ from "lodash";
 import fetchStates from "./fetchStates";
 import { USER } from "../actions/types";
 

@@ -1,5 +1,4 @@
 import { ACCOUNT } from "./types";
-import { BACKEND } from "../../configuration";
 
 export const fetchFromAccount = ({
   alert,
@@ -162,7 +161,7 @@ export const fetchGoogleUser = ({ history }) => (dispatch) => {
   })
     .then((response) => response.json())
     .then((json) => {
-      console.log("json:", { ...json });
+      // console.log("json:", { ...json });
       if (json.type === "error" || json.authenticated === false) {
         dispatch({ type: ACCOUNT.FETCH_ERROR, message: json.message });
         // history.push("/");

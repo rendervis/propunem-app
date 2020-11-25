@@ -17,7 +17,7 @@ const ServicesSection = (props) => {
   const dispatch = useDispatch();
   /** state */
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState({});
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { homepageAccounts } = useSelector((state) => state.searchBar);
@@ -96,7 +96,7 @@ const ServicesSection = (props) => {
     }
   };
 
-  console.log("loading", loading);
+  // console.log("loading", loading);
   // console.log("query", query);
   return (
     <ServicesSectionStyled>

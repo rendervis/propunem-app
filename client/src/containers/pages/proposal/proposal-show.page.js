@@ -28,7 +28,7 @@ import { fetchOfferCards } from "../../../redux/actions/offer.actions";
 import { deleteProposal } from "../../../redux/actions/proposal";
 
 const ProposalShow = (props) => {
-  console.log("props ", props);
+  // console.log("props ", props);
   const dispatch = useDispatch();
   const { proposalId, proposalName } = props.match.params;
   const [previewSelected, setPreviewSelected] = useState("standard");

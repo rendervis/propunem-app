@@ -12,7 +12,7 @@ export const fetchHomepageAccounts = () => (dispatch) => {
       return response.json();
     })
     .then((json) => {
-      // console.log("[fetchHomepageAccounts]json", json);
+      console.log("[fetchHomepageAccounts]json", json);
       if (json.type === "error") {
         dispatch({
           type: HOMEPAGE_ACCOUNTS.FETCH_ERROR,

@@ -13,7 +13,9 @@ import {
   fetchHomepageAccounts,
   fetchSearchResults,
 } from "../redux/actions/searchBar";
-const ServicesSection = (props) => {
+export default (props) => {
+  let [startingPoint, setStartingPoint] = useState(0);
+  let [endPoint, setEndPoint] = useState(3);
   const dispatch = useDispatch();
   /** state */
   const [query, setQuery] = useState("");
@@ -70,7 +72,7 @@ const ServicesSection = (props) => {
         );
       });
     } else {
-      return arrayOfAccounts.map((account) => {
+      return arrayOfAccounts.slice(startingPoint, endPoint).map((account) => {
         return (
           <ServiceInfo>
             <ServiceOwner>
@@ -97,7 +99,7 @@ const ServicesSection = (props) => {
   };
 
   // console.log("loading", loading);
-  // console.log("query", query);
+  console.log("homepageAccounts", homepageAccounts);
   return (
     <ServicesSectionStyled>
       <SearchBar>
@@ -114,16 +116,25 @@ const ServicesSection = (props) => {
       <div style={{ height: "155px" }} />
 
       <ServiceRoll>
-        <MyArrowBackIosIconLeft />
+        <span
+          onClick={() => (
+            setEndPoint(endPoint - 3), setStartingPoint(startingPoint - 3)
+          )}
+        >
+          <MyArrowBackIosIconLeft />
+        </span>
         {renderAccounts()}
-        <div
+        <span
+          onClick={() => (
+            setEndPoint(endPoint + 3), setStartingPoint(startingPoint + 3)
+          )}
           style={{
             display: "flex",
             alignContent: "flex-end",
           }}
         >
           <MyArrowForwardIosIconRight />
-        </div>
+        </span>
       </ServiceRoll>
     </ServicesSectionStyled>
   );
@@ -256,4 +267,4 @@ const ServiceContact = styled.h1`
   margin-left: 0.625rem;
 `;
 
-export default ServicesSection;
+// export default ServicesSection;

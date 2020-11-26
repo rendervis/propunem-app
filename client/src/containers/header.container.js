@@ -15,7 +15,6 @@ const Header = () => {
   const hidden = useSelector((state) => state.headerDropdown.hidden);
   const account = useSelector((state) => state.account);
   const { userInformation } = useSelector((state) => state.userInformation);
-  console.log("userInformation");
 
   const onClickHandler = () => {
     dispatch(toggleHidden());

@@ -30,6 +30,7 @@ export default (props) => {
     telephone,
     webAddress,
   } = userInformation;
+
   const [selectedOption, setSelectedOption] = useState(
     props.selected || "premium"
   );
@@ -286,6 +287,14 @@ export default (props) => {
     }
   };
 
+  const renderLogo = () => {
+    return (
+      <Text style={styles.cornerPageLogo} fixed>
+        {companyName ? `${companyName}` : "LOGO"}
+      </Text>
+    );
+  };
+
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page} wrap={false}>
@@ -344,9 +353,7 @@ export default (props) => {
         >
           TAG LINE
         </Text>
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
       <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
         <Text style={styles.decorationLine} />
@@ -361,9 +368,7 @@ export default (props) => {
           Despre Noi
         </Text>
 
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
 
       <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
@@ -394,9 +399,7 @@ export default (props) => {
         >
           {renderAboutUsText()}
         </View>
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
       <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
         <Text style={styles.decorationLine} />
@@ -411,9 +414,7 @@ export default (props) => {
           Capabilitati si servicii
         </Text>
 
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
       <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
         <Text
@@ -443,9 +444,7 @@ export default (props) => {
           <View>{renderServices()}</View>
         </View>
 
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
       <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
         <Text
@@ -461,9 +460,7 @@ export default (props) => {
         <View style={{ marginTop: 24 }} />
         {renderOurApproach()}
 
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
       <Page size="A4" orientation="landscape" style={styles.cover} wrap={false}>
         <Text style={{ fontSize: 21 }}>Oferta</Text>
@@ -475,9 +472,7 @@ export default (props) => {
           <Text style={{ width: 554, height: 3, backgroundColor: "#E2E2E2" }} />
         </View>
 
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
       <Page
         size="A4"
@@ -500,9 +495,7 @@ export default (props) => {
         >
           Multumesc.
         </Text>
-        <Text style={styles.cornerPageLogo} fixed>
-          LOGO
-        </Text>
+        {renderLogo()}
       </Page>
     </Document>
   );

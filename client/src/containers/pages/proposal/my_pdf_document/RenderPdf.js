@@ -81,7 +81,7 @@ const mapStateToProps = (state) => {
      * data from Redux store
      */
 
-    userInformation: state.userInformation,
+    userInformation: state.userInformation.userInformation,
     aboutUsText: state.aboutUsText.aboutUsText,
     brandingDeclaration: state.branding.brandingDeclarationDB,
     proposalList: state.proposal.proposalList,

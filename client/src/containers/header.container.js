@@ -14,6 +14,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const hidden = useSelector((state) => state.headerDropdown.hidden);
   const account = useSelector((state) => state.account);
+  const { userInformation } = useSelector((state) => state.userInformation);
+  console.log("userInformation");
 
   const onClickHandler = () => {
     dispatch(toggleHidden());
@@ -48,7 +50,12 @@ const Header = () => {
               </Link>
             ) : (
               <MenuCircle onClick={() => onClickHandler()}>
-                <MenuIcon />
+                {Object.keys(userInformation).length > 0 ? (
+                  userInformation.firstName.slice(0, 1) +
+                  userInformation.surname.slice(0, 1)
+                ) : (
+                  <MenuIcon />
+                )}
               </MenuCircle>
             )}
           </HeaderMenuContainer>

@@ -25,10 +25,12 @@ import { fetchBrandingDeclaration } from "../../../redux/actions/brandingDeclara
 import { fetchAboutUsText } from "../../../redux/actions/about-us.actions";
 import { fetchOurApproachText } from "../../../redux/actions/our-approach.actions";
 import { fetchOfferCards } from "../../../redux/actions/offer.actions";
+import { deleteProposal } from "../../../redux/actions/proposal";
 
 const ProposalShow = (props) => {
+  console.log("props ", props);
   const dispatch = useDispatch();
-  const { proposalId } = props.match.params;
+  const { proposalId, proposalName } = props.match.params;
   const [previewSelected, setPreviewSelected] = useState("standard");
   /**
    * data from Redux store
@@ -67,7 +69,7 @@ const ProposalShow = (props) => {
 
   ///////
   let matchPath = props.match.path.replace(/\s/g, "");
-  const { proposalName } = props.proposal;
+  // const { proposalName } = props.proposal;
   //** send EMAIL */
   const sendEmailHandler = async ({ fields, selected }) => {
     // console.log("selected", selected);
@@ -108,7 +110,7 @@ const ProposalShow = (props) => {
           setLoading(false);
           alert("Email trimis, super!");
         } else if (json.type === "error") {
-          console.log(json);
+          // console.log(json);
           alert("Oops, nu ai completat tot!");
         }
       });
@@ -122,7 +124,7 @@ const ProposalShow = (props) => {
         <LeftSide>
           <MenuContainer>
             <MenuTitleContainer>
-              <TitleText>{proposalName}</TitleText>
+              <TitleText>{proposalName.replace("-", " ")}</TitleText>
             </MenuTitleContainer>
             <StyledUL>
               <ButtonRound>DESPRE NOI</ButtonRound>
@@ -133,7 +135,14 @@ const ProposalShow = (props) => {
               <ButtonRound>PREVIEW</ButtonRound>
               <ButtonRound>TRIMITE</ButtonRound>
 
-              <div style={{ marginTop: "24px" }}>
+              <div
+                style={{ marginTop: "24px" }}
+                onClick={() =>
+                  dispatch(
+                    deleteProposal({ proposalId, proposalName }, props.history)
+                  )
+                }
+              >
                 <ButtonRound>STERGE</ButtonRound>
               </div>
 

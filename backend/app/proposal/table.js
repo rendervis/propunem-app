@@ -47,6 +47,20 @@ class ProposalTable {
       );
     });
   }
+  static deleteProposal({ proposalId }) {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        `DELETE from proposal
+        WHERE proposal_id=$1
+         `,
+        [proposalId],
+        (error, response) => {
+          if (error) return reject(error);
+          resolve();
+        }
+      );
+    });
+  }
 }
 
 ///////debug

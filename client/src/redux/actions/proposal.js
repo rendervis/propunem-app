@@ -72,3 +72,29 @@ export const proposalEdit = ({ proposalName, proposalId }) => {
     proposalId,
   };
 };
+
+export const deleteProposal = ({ proposalId, proposalName }, history) => (
+  dispatch
+) => {
+  return fetch("/api/proposal/delete", {
+    method: "DELETE",
+    body: JSON.stringify({ proposalId }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch({
+        type: PROPOSAL.DELETE,
+        message: json.message,
+        proposalName,
+        proposalId,
+      });
+      history.push("/profil/profil");
+    })
+    .catch((error) => {
+      dispatch({
+        type: PROPOSAL.FETCH_ERROR,
+        message: error.message,
+      });
+    });
+};

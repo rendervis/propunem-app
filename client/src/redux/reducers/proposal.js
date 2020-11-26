@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { PROPOSAL } from "../actions/types";
 import fetchStates from "./fetchStates";
 
@@ -39,6 +40,9 @@ export default (state = { ...DEFAULT_PROPOSAL }, action) => {
         proposalName: action.proposalName,
         proposalId: action.proposalId,
       };
+    case PROPOSAL.DELETE:
+      console.log("case PROPOSAL.DELETE:", action);
+      return _.omit(state, [action.proposalId, action.proposalName]);
 
     default:
       return state;

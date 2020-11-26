@@ -33,4 +33,13 @@ router.post("/proposal/list", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+router.delete("/proposal/delete", (req, res, next) => {
+  const { proposalId } = req.body;
+  ProposalTable.deleteProposal({ proposalId })
+    .then(() => {
+      res.json({ message: "Proposal deleted." });
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = router;

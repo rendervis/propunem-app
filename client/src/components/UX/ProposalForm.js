@@ -12,7 +12,7 @@ import styled from "styled-components";
 import { styled as styledMaterial } from "@material-ui/core/styles";
 
 const ProposalForm = ({ history, ...props }) => {
-  const [selected, setSelected] = React.useState("standard");
+  const [selected, setSelected] = useState("standard");
   // console.log("props", props);
   let [fields, setFields] = useState({});
 

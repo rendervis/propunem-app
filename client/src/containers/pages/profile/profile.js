@@ -91,7 +91,25 @@ export default ({ history, ...props }) => {
           </ArrowOptions>
         </SecondaryMenu>
       </TopContainer>
-      <ProposalList style={{ marginLeft: "5.44rem" }} />
+      <li
+        style={{
+          height: "500px",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+          alignContent: "flex-start",
+          zIndex: "-1",
+          overflowX: "hidden",
+
+          overflow: "auto",
+          marginTop: "4px",
+          paddingBottom: "75px",
+          marginBottom: "50px",
+          // backgroundColor: "red",
+        }}
+      >
+        <ProposalList style={{ marginLeft: "5.44rem" }} />
+      </li>
     </React.Fragment>
   );
 };

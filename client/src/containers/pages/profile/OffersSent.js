@@ -87,9 +87,36 @@ const OffersSent = (props) => {
           </MenuGrid>
         </SecondaryMenu>
       </TopContainer>
-      {renderOffersSent()}
+      <div
+        style={{
+          height: "1px",
+          width: "45vw",
+          zIndex: "1",
+          backgroundColor: "#f2f2f2",
+          filter: " drop-shadow(1px 1px 2px #4444dd) blur(1px)",
+        }}
+      />
+
+      <li
+        style={{
+          height: "500px",
+          zIndex: "-1",
+          overflowX: "hidden",
+
+          overflow: "auto",
+          marginTop: "4px",
+          paddingBottom: "75px",
+          marginBottom: "50px",
+
+          // backgroundColor: "red",
+        }}
+      >
+        {renderOffersSent()}
+      </li>
     </React.Fragment>
   );
 };
 
 export default OffersSent;
+
+// window.scrollBy(0, 100)

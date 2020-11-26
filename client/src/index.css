@@ -10,6 +10,7 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  z-index: 0;
 }
 
 * {
@@ -29,7 +30,8 @@ a {
 
 ::-webkit-scrollbar {
   width: 2px;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 ::-webkit-scrollbar-track {

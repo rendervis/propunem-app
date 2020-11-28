@@ -29,8 +29,10 @@ const AccountMenu = () => {
 };
 
 const AccountMenuStyled = styled.div`
-  width: 275px;
-  margin-top: 140px;
+  /* width: 275px; */
+  /* margin-top: 140px; */
+  width: 14vw;
+  margin-top: 13vh;
   /* height: auto; */
   /* border: solid 1px #707070; */
   display: flex;

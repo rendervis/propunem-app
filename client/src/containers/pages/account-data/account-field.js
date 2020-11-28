@@ -31,7 +31,7 @@ class AccountField extends React.Component {
   };
 
   render() {
-    console.log("[class AccountField: props]", this.props);
+    // console.log("[class AccountField: props]", this.props);
     return (
       <Field
         label={this.props.label}
@@ -44,7 +44,7 @@ class AccountField extends React.Component {
   }
 }
 const InputStyled = styled.input`
-  height: 32px;
+  height: 3.4vh;
   width: 100%;
   padding: 4px 16px;
 
@@ -57,7 +57,7 @@ const InputStyled = styled.input`
   display: inline-block;
 
   margin-bottom: 9px;
-  font-size: 15px;
+  font-size: 1.6vh;
   line-height: 1.6em;
   color: #333;
 `;

@@ -6,7 +6,7 @@ class GoogleAuth extends React.Component {
     return (
       <li style={{ marginBottom: "9px" }}>
         <CustomButton>
-          <a href="/auth/google">Sign In With Google</a>
+          <a href="/auth/google">Intra cu Google</a>
         </CustomButton>
       </li>
     );

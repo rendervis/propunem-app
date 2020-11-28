@@ -81,11 +81,14 @@ let PersonalInformation = (props) => {
         style={{
           display: "flex",
           flexDirection: "column",
-          paddingTop: "20px",
+          paddingTop: "3%",
           justifyContent: "flex-start",
           textAlign: "left",
 
-          width: "864px",
+          width: "45vw",
+          // width: "864px",
+          height: "73vh",
+          // height: "791px",
         }}
       >
         <form onSubmit={onSubmitHandler}>
@@ -96,20 +99,20 @@ let PersonalInformation = (props) => {
             }}
           >
             <AccountField
-              label="Prenume"
+              label="* Prenume"
               name="firstName"
-              marginRight="128px"
+              marginRight="15%"
             />
-            <AccountField name="surname" label="Nume" />
+            <AccountField name="surname" label="* Nume" />
           </div>
-          <div style={{ height: "64px" }}></div>
+          <div style={{ height: "7%" }}></div>
           <div
             style={{
               display: "flex",
               flexDirection: "row",
             }}
           >
-            <AccountField name="address" label="Adresa" marginRight="128px" />
+            <AccountField name="address" label="Adresa" marginRight="15%" />
             <AccountField name="addressExtra" />
           </div>
           <div
@@ -118,23 +121,23 @@ let PersonalInformation = (props) => {
               flexDirection: "row",
             }}
           >
-            <AccountField name="city" label="Oras" marginRight="128px" />
+            <AccountField name="city" label="Oras" marginRight="15%" />
             <AccountField name="county" label="Judet" />
           </div>
-          <div style={{ height: "64px" }}></div>
+          <div style={{ height: "7%" }}></div>
           <div
             style={{
               display: "flex",
               flexDirection: "row",
-              marginBottom: "32px",
+              marginBottom: "3.5%",
             }}
           >
             <AccountField
               name="companyName"
-              label="Companie"
-              marginRight="128px"
+              label="* Companie"
+              marginRight="15%"
             />
-            <AccountField name="jobTitle" label="Titlu Job" />
+            <AccountField name="jobTitle" label="* Titlu Job" />
           </div>
           <BigButtonOutline
             isDisabled={!props.valid}

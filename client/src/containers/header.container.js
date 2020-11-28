@@ -73,7 +73,8 @@ const Header = () => {
 };
 const FlexHeader = styled.header`
   width: 100vw;
-  height: 70px;
+  /* height: 70px; */
+  height: 7vh;
   display: flex;
 `;
 // grid-template-columns: 222px 1052px 646px;

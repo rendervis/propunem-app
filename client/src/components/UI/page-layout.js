@@ -5,17 +5,21 @@ export const PageLayout = styled.div`
   height: 100vh;
   background-color: #f2f2f2;
   display: grid;
-  grid-template-columns: 222px 1052px 646px;
+  grid-template-columns: 12fr 56fr 32fr;
 `;
+// grid-template-columns: 222px 1052px 646px;
 export const BodyColumn1 = styled.div`
   grid-column-start: 1;
-  padding: 79px 0;
+  /* display: flex; */
+  padding: 7vh 0;
 `;
 export const BodyColumn2 = styled.div`
   grid-column-start: 2;
-  padding: 79px 0;
+  /* display: flex; */
+  padding: 7vh 0;
 `;
 export const BodyColumn3 = styled.div`
   grid-column-start: 3;
-  padding: 79px 0;
+  /* display: flex; */
+  padding: 7vh 0;
 `;

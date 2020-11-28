@@ -11,7 +11,9 @@ const PageTitle = (props) => {
 
 const TitleContainer = styled.div`
   width: 45vw;
-  height: 140px;
+  /* width: 864px; */
+  /* height: 140px; */
+  height: 13vh;
   display: flex;
   flex-direction: column;
   border-bottom: solid 1px #707070;

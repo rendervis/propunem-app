@@ -9,7 +9,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./App";
-// import * as serviceWorker from "./serviceWorker";
+import * as serviceWorker from "./serviceWorker";
 
 import "./index.css";
 
@@ -26,4 +26,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// serviceWorker.unregister();
+serviceWorker.unregister();

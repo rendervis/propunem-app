@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
 
+import styled from "styled-components";
+import { device } from "../configuration/device-sizes";
 ///////icons///////////
 import { styled as styledMaterial } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
@@ -112,8 +113,8 @@ export default (props) => {
         />
         <MySearchIcon onClick={handleClickSearch} />
       </SearchBar>
-
-      <div style={{ height: "155px" }} />
+      {/*  height: "155px"  */}
+      <div style={{ height: "14vh" }} />
 
       <ServiceRoll>
         <span
@@ -141,10 +142,11 @@ export default (props) => {
 };
 
 const ServicesSectionStyled = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 53vh;
 
-  padding: 0 283px 0 232px;
+  /* padding: 0 283px 0 232px; */
+  padding: 0 15vw 0 12vw;
 `;
 const SearchBar = styled.div`
   background-color: white;
@@ -160,9 +162,14 @@ const SearchBar = styled.div`
   box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.1);
 
   height: 3.125rem;
-  width: 22.5rem;
+  /* width: 360px; */
+  width: 19vw;
   margin-top: 2.5rem;
-  margin-left: 204px;
+  /* margin-left: 204px; */
+  margin-left: 10.3vw;
+  @media ${device.mobileL} {
+    width: 65vw;
+  }
 `;
 const SearchInput = styled.input`
   border: 0;
@@ -197,13 +204,19 @@ const ServiceRoll = styled.div`
   padding: 0;
   /* position: absolute; */
   /* left: 13.75rem; */
-  /* margin-top: 8.375rem; */
   /* right: 16.375rem; */
   // flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  @media ${device.mobileL} {
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    overflow: auto;
+    height: 31vh;
+  }
+
   /* background-color: red; */
 `;
 const MyArrowBackIosIconLeft = styledMaterial(ArrowBackIosIcon)({
@@ -214,6 +227,9 @@ const MyArrowBackIosIconLeft = styledMaterial(ArrowBackIosIcon)({
   // marginLeft: "0",
   cursor: "pointer",
   position: "relative",
+  "@media (max-width: 425px)": {
+    display: "none",
+  },
 });
 const MyArrowForwardIosIconRight = styledMaterial(ArrowForwardIosIcon)({
   fontWeight: "bolder",
@@ -223,6 +239,9 @@ const MyArrowForwardIosIconRight = styledMaterial(ArrowForwardIosIcon)({
   marginRight: "0",
   marginLeft: "auto",
   cursor: "pointer",
+  "@media (max-width: 425px)": {
+    display: "none",
+  },
 });
 const MySearchIcon = styledMaterial(SearchIcon)({
   fontSize: "29px",
@@ -234,10 +253,15 @@ const ServiceInfo = styled.div`
   height: 6.5rem;
   /* margin: 0 204px; */
   margin-right: auto;
-  margin-left: 124px;
+  margin-left: 6vw;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  @media ${device.mobileL} {
+    width: 80vw;
+    margin-top: 1.5rem;
+    height: 4.7rem;
+  }
 `;
 const ServiceOwner = styled.h1`
   font-family: "Arimo";
@@ -252,12 +276,18 @@ const ServiceText = styled.p`
   font-weight: normal;
   color: #000000;
   margin: 1rem 0;
+  @media ${device.mobileL} {
+    margin: 0.2rem 0;
+  }
 `;
 const ServiceFooter = styled.div`
   flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media ${device.mobileL} {
+    flex: 0.35;
+  }
 `;
 const ServiceContact = styled.h1`
   font-family: "Arimo";

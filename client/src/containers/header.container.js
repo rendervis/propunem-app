@@ -9,6 +9,7 @@ import { toggleHidden } from "../components/header-dropdown/redux/dropdown.actio
 import OverlayBackground from "../components/UX/overlay-background";
 import HeaderDropdown from "../components/header-dropdown/header-dropdown";
 import MenuIcon from "@material-ui/icons/Menu";
+import { device } from "../configuration/device-sizes";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -75,23 +76,35 @@ const FlexHeader = styled.header`
   width: 100vw;
   /* height: 70px; */
   height: 7vh;
+  border-bottom: 2px solid rgba(242, 242, 242, 1);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
 `;
 // grid-template-columns: 222px 1052px 646px;
 
 const HeaderGrid = styled.div`
   /* max-width: 800px; */
-  border-bottom: 2px solid rgba(242, 242, 242, 1);
+
   width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: 12fr 56fr 32fr;
   align-items: center;
+  justify-content: center;
+  grid-template-columns: 12fr 56fr 32fr;
+  @media ${device.mobileL} {
+    grid-template-columns: auto;
+  }
 `;
 const BodyColumn1 = styled.div`
   ${(props) =>
     props.col1 &&
     css`
       grid-column-start: 1;
+      @media ${device.mobileL} {
+        grid-column-start: 1;
+      }
     `}
 `;
 const BodyColumn2 = styled.div`
@@ -99,6 +112,9 @@ const BodyColumn2 = styled.div`
     props.col2 &&
     css`
       grid-column-start: 2;
+      @media ${device.mobileL} {
+        grid-column-start: 1;
+      }
     `}
 `;
 const BodyColumn3 = styled.div`
@@ -106,6 +122,9 @@ const BodyColumn3 = styled.div`
     props.col3 &&
     css`
       grid-column-start: 3;
+      @media ${device.mobileL} {
+        grid-column-start: 1;
+      }
     `}
 `;
 
@@ -123,6 +142,9 @@ const LogoText = styled.div`
   text-align: left;
   color: #000000;
   cursor: pointer;
+  @media ${device.mobileL} {
+    font-size: 12px;
+  }
 `;
 const HeaderMenuContainer = styled.div`
   /* margin: 0 262px 0 auto; */
@@ -130,6 +152,7 @@ const HeaderMenuContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  text-align: center;
   justify-content: left;
 `;
 
@@ -145,6 +168,9 @@ const HeaderText = styled.div`
   letter-spacing: normal;
   text-align: center;
   color: #000000;
+  @media ${device.mobileL} {
+    font-size: 10px;
+  }
 `;
 
 const RegistrationButton = styled.div`

@@ -8,12 +8,14 @@ import Header from "../../header.container";
 
 const HomePage = () => {
   return (
-    <HomePageStyled>
+    <React.Fragment>
       <Header />
-      <HeroSection />
+      <HomePageStyled>
+        <HeroSection />
 
-      <ServicesSection />
-    </HomePageStyled>
+        <ServicesSection />
+      </HomePageStyled>
+    </React.Fragment>
   );
 };
 

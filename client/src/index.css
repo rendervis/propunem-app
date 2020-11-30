@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 html,
 body {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Arimo", "Helvetica Neue",
     "Lora", sans-serif;
@@ -37,7 +37,7 @@ a {
 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb {

@@ -103,8 +103,8 @@ const DropdownStyle = styled.div`
   flex-direction: column;
   padding: 20px;
   background-color: white;
-  top: 75px;
-  right: 262px;
+  top: 7vh;
+  right: 12vw;
   border: 1px solid #d8d8d8;
   border-radius: 0 0 4px 4px;
   box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.1);

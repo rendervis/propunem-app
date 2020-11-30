@@ -234,6 +234,18 @@ export default (props) => {
                       </Text>
                     </View>
                   </View>
+                  <View
+                    style={{ marginTop: 12, width: 554, textAlign: "right" }}
+                  >
+                    <Text style={{ fontSize: 12 }}>pret standard</Text>
+                    <Text
+                      style={{
+                        width: 554,
+                        height: 3,
+                        backgroundColor: "#E2E2E2",
+                      }}
+                    />
+                  </View>
                 </React.Fragment>
               );
             });
@@ -279,6 +291,18 @@ export default (props) => {
                         {card.textCard.text}
                       </Text>
                     </View>
+                  </View>
+                  <View
+                    style={{ marginTop: 12, width: 554, textAlign: "right" }}
+                  >
+                    <Text style={{ fontSize: 12 }}>recomandat || premium</Text>
+                    <Text
+                      style={{
+                        width: 554,
+                        height: 3,
+                        backgroundColor: "#E2E2E2",
+                      }}
+                    />
                   </View>
                 </React.Fragment>
               );
@@ -466,11 +490,6 @@ export default (props) => {
         <Text style={{ fontSize: 21 }}>Oferta</Text>
         <View style={{ marginTop: 24 }} />
         {renderOffer()}
-
-        <View style={{ marginTop: 12, width: 554, textAlign: "right" }}>
-          <Text style={{ fontSize: 12 }}>50.000 </Text>
-          <Text style={{ width: 554, height: 3, backgroundColor: "#E2E2E2" }} />
-        </View>
 
         {renderLogo()}
       </Page>

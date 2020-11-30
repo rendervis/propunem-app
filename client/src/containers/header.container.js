@@ -181,13 +181,18 @@ const RegistrationButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 14px;
 
   padding: 0 10px;
+  @media ${device.mobileL} {
+    height: 1.8rem;
+    font-size: 9px;
+  }
 `;
 
 const RegistrationButtonText = styled.span`
   font-family: "Arimo";
-  font-size: 14px;
+  font-size: inherit;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;

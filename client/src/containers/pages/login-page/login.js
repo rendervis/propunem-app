@@ -46,62 +46,57 @@ const Login = ({ history }) => {
 
   return (
     <LoginStyled>
-      <div>
-        <GoogleAuth />
-        <form onSubmit={onSubmitHandler}>
-          <FormInput
-            placeholder="Adresa e-mail"
-            name="email"
-            type="email"
-            value={data.email}
-            onChange={handleChange}
-            required
-          />
-          <FormInput
-            placeholder="Parola"
-            name="password"
-            type="password"
-            value={data.password}
-            onChange={handleChange}
-            required
-          />
-          <CustomButton type="submit">Intra in cont</CustomButton>
-        </form>
-        <div
+      <GoogleAuth />
+      <form onSubmit={onSubmitHandler}>
+        <FormInput
+          placeholder="Adresa e-mail"
+          name="email"
+          type="email"
+          value={data.email}
+          onChange={handleChange}
+          required
+        />
+        <FormInput
+          placeholder="Parola"
+          name="password"
+          type="password"
+          value={data.password}
+          onChange={handleChange}
+          required
+        />
+        <CustomButton type="submit">Intra in cont</CustomButton>
+      </form>
+      <div
+        style={{
+          position: "relative",
+          height: "17%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          // justifyContent: "",
+          paddingTop: "20px",
+        }}
+      >
+        <p
           style={{
-            position: "relative",
-            height: "17%",
+            textDecoration: "underline",
+            cursor: "pointer",
             display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            // justifyContent: "",
-            paddingTop: "20px",
+            color: "#002f34",
           }}
         >
-          <p
-            style={{
-              textDecoration: "underline",
-              cursor: "pointer",
-              display: "flex",
-              color: "#002f34",
-            }}
-          >
-            Ai uitat parola?
-          </p>
-        </div>
+          Ai uitat parola?
+        </p>
       </div>
     </LoginStyled>
   );
 };
 
-// const Line = styled.div`
-//   width: 330px;
-//   height: 1px;
-//   left: 0;
-
-//   background: #c4c4c4;
-// `;
-
-const LoginStyled = styled.li``;
+const LoginStyled = styled.li`
+  /* align-content: center; */
+  /* text-align: center; */
+  /* justify-items:center' */
+  justify-content: center;
+`;
 
 export default withRouter(Login);

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { device } from "../../configuration/device-sizes";
 
 const CustomButton = ({ children, ...props }) => (
   <ButtonStyled {...props}>{children}</ButtonStyled>
@@ -22,13 +23,18 @@ const ButtonStyled = styled.button`
   letter-spacing: 0.5px;
   line-height: 50px;
   min-width: 120px;
-  /* margin: 0 5px; */
   padding: 0 35px 0 35px;
   text-transform: uppercase;
   background-color: white;
   color: black;
 
   cursor: pointer;
+  @media ${device.mobileL} {
+    width: 85%;
+    font-size: 12px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   &:hover {
     background-color: #ec5252;

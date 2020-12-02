@@ -30,7 +30,7 @@ const HeroText = styled.p`
   font-size: 1.25rem;
   position: absolute;
   /* margin-top: 228px; */
-  margin-top: 21vh;
+  margin-top: 24vh;
   /* margin-left: 435px; */
   margin-left: 23vw;
 `;

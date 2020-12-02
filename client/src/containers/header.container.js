@@ -81,6 +81,15 @@ const FlexHeader = styled.header`
   align-items: center;
   justify-content: center;
   /* background-color: red; */
+  @media ${device.laptop} {
+    /* padding: 0 25px; */
+  }
+  @media ${device.tablet} {
+    height: 7vh;
+  }
+  @media ${device.mobileL} {
+    height: 8vh;
+  }
 `;
 // grid-template-columns: 222px 1052px 646px;
 
@@ -93,6 +102,12 @@ const HeaderGrid = styled.div`
   align-items: center;
   justify-content: center;
   grid-template-columns: 12fr 56fr 32fr;
+  @media ${device.laptop} {
+    grid-template-columns: 10fr 45fr 45fr;
+  }
+  @media ${device.tablet} {
+    grid-template-columns: 5fr 40fr 55fr;
+  }
   @media ${device.mobileL} {
     grid-template-columns: auto;
   }
@@ -187,6 +202,7 @@ const RegistrationButton = styled.div`
   @media ${device.mobileL} {
     height: 1.8rem;
     font-size: 9px;
+    margin: auto 0;
   }
 `;
 

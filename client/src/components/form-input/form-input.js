@@ -1,6 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
+import { device } from "../../configuration/device-sizes";
 
 const FormInput = ({ onChange, label, ...props }) => {
   return (
@@ -20,16 +21,23 @@ const FormInput = ({ onChange, label, ...props }) => {
 
 const Group = styled.div`
   margin-right: ${(props) => props.marginRight || "0"};
-  width: 304px;
-  float: left;
+  width: 330px;
+  /* float: left; */
   display: block;
   font-size: 15px;
   line-height: 1.6em;
   color: #161616;
+
+  @media ${device.mobileL} {
+    width: 85%;
+    font-size: 12px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 const InputStyled = styled.input`
   height: 50px;
-  width: 330px;
+  width: 100%;
   padding: 4px 16px;
 
   background-color: #fff;

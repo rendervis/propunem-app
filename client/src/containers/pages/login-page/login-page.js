@@ -7,7 +7,7 @@ import Header from "../../header.container";
 import Login from "./login";
 import Signup from "./signup";
 
-// import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import { device } from "../../../configuration/device-sizes";
 
 class LoginPage extends React.Component {
   render() {
@@ -16,8 +16,8 @@ class LoginPage extends React.Component {
         <Header />
         <div
           style={{
-            width: "100%",
-            height: "100%",
+            width: "100vw",
+            height: "100vh",
             left: "0",
             top: "0",
 
@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
               </LiStyled>
               <LiStyled>
                 <NavLinkStyled right to="/account/signup">
-                  <p>Creeaza un cont</p>
+                  Creeaza un cont
                 </NavLinkStyled>
               </LiStyled>
             </LoginBoxHeader>
@@ -46,8 +46,6 @@ class LoginPage extends React.Component {
                 <Route path="/account/login" component={Login} />
                 <Route path="/account/signup" component={Signup} />
               </Switch>
-
-              <RegisterStyled></RegisterStyled>
             </LoginBoxContentStyled>
           </LoginBoxStyled>
         </div>
@@ -58,28 +56,34 @@ class LoginPage extends React.Component {
 const LoginBoxStyled = styled.div`
   width: 380px;
   height: 504px;
+  /* width: 20vw; */
+  /* height: 47vh; */
   margin: 8% auto;
 
   background: #fff;
   color: #71848d;
   padding: 0 25px;
   border-radius: 18px;
+  @media ${device.mobileL} {
+    width: 100%;
+    height: 100%;
+    padding: 25px 25px;
+  }
 `;
 const LoginBoxContentStyled = styled.ul`
   padding-top: 80px;
 `;
 
 const LoginBoxHeader = styled.div`
-  left: 0%;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
   box-shadow: inset 0 -1px 0 0 #7f9799;
   color: #71848d;
-  /* color: #000000; */
 
-  /* font-family: Comfortaa; */
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
@@ -91,15 +95,11 @@ const LiStyled = styled.li`
   display: inline-block;
   font-size: 14px;
   line-height: 1.29;
+  @media ${device.mobileL} {
+    font-size: 12px;
+  }
 `;
 
-// const Line = styled.div`
-//   width: 330px;
-//   height: 1px;
-//   left: 0;
-
-//   background: #c4c4c4;
-// `;
 const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   list-style: none;
@@ -108,7 +108,7 @@ const NavLinkStyled = styled(NavLink)`
   padding: 20px;
   color: #002f34;
   position: relative;
-  font-size: 14px;
+  font-size: inherit;
   line-height: 1.29;
   transition: width 0.5s ease-in-out;
   &:before {
@@ -149,18 +149,7 @@ const NavLinkStyled = styled(NavLink)`
       `}
   }
 `;
-// const ActiveLine = styled.div`
-//   height: 3px;
-//   width: 100%;
-//   background: #002f34;
-//   content: "";
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
 
-//   transition: width 0.5s ease-in-out;
-//   color: ${(props) => props.theme.orange};
-// `;
 const RegisterStyled = styled.li``;
 
 export default LoginPage;

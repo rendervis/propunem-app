@@ -57,6 +57,7 @@ class RenderPdf extends React.Component {
               proposalList={this.props.proposalList}
               ourApproach={this.props.ourApproach}
               offerCards={this.props.offerCards}
+              optionCard={this.props.optionCard}
             />
           </PDFViewer>
         </div>
@@ -87,6 +88,7 @@ const mapStateToProps = (state) => {
     proposalList: state.proposal.proposalList,
     ourApproach: state.ourApproachText.ourApproachText,
     offerCards: state.offerCards.offerCards,
+    optionCard: state.optionCard.optionCard,
   };
 };
 

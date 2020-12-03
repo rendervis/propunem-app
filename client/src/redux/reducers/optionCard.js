@@ -55,19 +55,23 @@ export default (state = INITIAL_STATE, action) => {
         message: action.message,
       };
     case OPTION_CARD.FETCH_SUCCESS:
+      // console.log("action.optionCard", action.optionCard);
       let db = { ..._.mapKeys(action.optionCard, "textId") };
       let dbPriceTag =
         action.optionCard === undefined ? "" : _.result(db[1], "priceTag");
-
+      let currentTitle = action.option
+        ? action.option.title
+        : action.optionCard[0].title;
       let name = action.proposalOptionName;
       // console.log("db", db);
-      // console.log("name", name, action.proposalOptionName);
       // console.log("dbPriceTag", dbPriceTag);
       return {
         ...state,
         optionCard: {
-          ...action.optionCard,
+          ...state.optionCard,
           [name]: {
+            title: action.optionCard[0].title,
+            priceTag: action.optionCard[0].priceTag,
             content: {
               ..._.mapKeys(action.optionCard, "textId"),
             },
@@ -78,7 +82,7 @@ export default (state = INITIAL_STATE, action) => {
           ...state.options,
           [name]: {
             ...state.options[name],
-            title: action.option.title,
+            title: currentTitle,
             priceTag: dbPriceTag || action.option.priceTag,
 
             content: {

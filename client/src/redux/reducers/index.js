@@ -28,6 +28,7 @@ const persistConfig = {
     "ourApproachText",
     "offerCards",
     "offersSent",
+    "optionCard",
   ],
 };
 

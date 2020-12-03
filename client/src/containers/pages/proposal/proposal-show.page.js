@@ -25,6 +25,7 @@ import { fetchBrandingDeclaration } from "../../../redux/actions/brandingDeclara
 import { fetchAboutUsText } from "../../../redux/actions/about-us.actions";
 import { fetchOurApproachText } from "../../../redux/actions/our-approach.actions";
 import { fetchOfferCards } from "../../../redux/actions/offer.actions";
+import { fetchOptionCard } from "../../../redux/actions/optionCard";
 import { deleteProposal } from "../../../redux/actions/proposal";
 
 const ProposalShow = (props) => {
@@ -43,20 +44,42 @@ const ProposalShow = (props) => {
     (state) => state.ourApproachText.ourApproachText
   );
   const offerCards = useSelector((state) => state.offerCards.offerCards);
-  let brandingDeclaration = useSelector(
+  const optionCard = useSelector((state) => state.optionCard.optionCard);
+  const brandingDeclaration = useSelector(
     (state) => state.branding.brandingDeclarationDB
   );
-
+  console.log();
   const accountId = useSelector((state) => state.account.accountId);
   /** Local state */
   const [loading, setLoading] = useState(false);
   ///////clear State
-
+  // console.log("optionCard", optionCard);
   useEffect(() => {
     dispatch(fetchBrandingDeclaration({ accountId }));
     dispatch(fetchAboutUsText({ proposalId }));
     dispatch(fetchOurApproachText({ proposalId }));
     dispatch(fetchOfferCards({ proposalId }));
+    dispatch(
+      fetchOptionCard({
+        proposalOptionName: "standard",
+        proposalId,
+        option: {},
+      })
+    );
+    dispatch(
+      fetchOptionCard({
+        proposalOptionName: "recomandat",
+        proposalId,
+        option: {},
+      })
+    );
+    dispatch(
+      fetchOptionCard({
+        proposalOptionName: "premium",
+        proposalId,
+        option: {},
+      })
+    );
   }, []);
 
   // useEffect(() => {
@@ -89,6 +112,7 @@ const ProposalShow = (props) => {
         proposalList={proposalList}
         ourApproach={ourApproach}
         offerCards={offerCards}
+        optionCard={optionCard}
       />
     ).toBlob(); // the blob
     let data = new FormData();

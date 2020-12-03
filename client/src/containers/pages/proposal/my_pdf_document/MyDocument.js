@@ -17,8 +17,8 @@ export default (props) => {
   const [ourApproach, setOurApproach] = useState(
     Object.values(props.ourApproach)
   );
-
   const [offerCards, setOfferCards] = useState(Object.values(props.offerCards));
+  const [optionCard, setOptionCard] = useState(props.optionCard);
   let {
     address,
     city,
@@ -34,7 +34,6 @@ export default (props) => {
   const [selectedOption, setSelectedOption] = useState(
     props.selected || "premium"
   );
-
   /**** return DATE ****/
   const date = () => {
     // const monthNames = [
@@ -158,6 +157,27 @@ export default (props) => {
   };
 
   /**** Offer ****/
+  console.log("[MyDocument]optionCard", optionCard);
+  console.log("selectedOption", selectedOption);
+  let lastIndex = offerCards.length - 1;
+  const renderPriceTag = () => {
+    return (
+      <React.Fragment>
+        <Text style={{ fontSize: 12 }}>
+          {selectedOption === "recomandat"
+            ? optionCard.recomandat.priceTag
+            : optionCard.premium.priceTag}
+        </Text>
+        <Text
+          style={{
+            width: 554,
+            height: 3,
+            backgroundColor: "#E2E2E2",
+          }}
+        />
+      </React.Fragment>
+    );
+  };
   const renderOffer = () => {
     // let selected = "premium";
     if (offerCards.length === 0) {
@@ -188,78 +208,139 @@ export default (props) => {
         </View>
       );
     } else {
-      // const filteredArray = offerCards.filter(
-      //   (card) =>
-      //     card.offerPlan[selected] === true ||
-      //     card.offerPlan.recomandat === true ||
-      //     card.offerPlan.standard === true
-      // );
-
       switch (selectedOption) {
         case "standard":
-          return offerCards
-            .filter((card) => card.offerPlan[selectedOption] === true)
-            .map((card, index) => {
-              let keys = Object.keys(card.offerPlan);
-              console.log("card", card);
+          let standardArray = offerCards.filter(
+            (card) => card.offerPlan.standard === true
+          );
+          lastIndex = standardArray.length - 1;
+          return standardArray.map((card, index) => {
+            let keys = Object.keys(card.offerPlan);
+            console.log("[case standard :]card", card, index, lastIndex);
 
-              return (
-                <React.Fragment key={card.key}>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      marginTop: 16,
-                    }}
+            return (
+              <React.Fragment key={card.key}>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: 16,
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}
                   >
-                    <Text
-                      style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}
-                    >
-                      {card.textCard.textId}
+                    {card.textCard.textId}
+                  </Text>
+                  <View style={{ marginLeft: 15 }}>
+                    <Text style={{ fontSize: 9 }}>{card.textCard.title}</Text>
+                    <Text style={{ fontSize: 9 }}>
+                      {card.textCard.secondaryTitle}
                     </Text>
-                    <View style={{ marginLeft: 15 }}>
-                      <Text style={{ fontSize: 9 }}>{card.textCard.title}</Text>
-                      <Text style={{ fontSize: 9 }}>
-                        {card.textCard.secondaryTitle}
+                    <Text
+                      style={{
+                        width: 412,
+                        marginTop: 4,
+                        fontSize: 8,
+                        color: "#707070",
+                      }}
+                    >
+                      {card.textCard.text}
+                    </Text>
+                  </View>
+                </View>
+                <View style={{ marginTop: 12, width: 554, textAlign: "right" }}>
+                  {index === lastIndex ? (
+                    <React.Fragment>
+                      <Text style={{ fontSize: 12 }}>
+                        {optionCard.standard.priceTag}
                       </Text>
                       <Text
                         style={{
-                          width: 412,
-                          marginTop: 4,
-                          fontSize: 8,
-                          color: "#707070",
+                          width: 554,
+                          height: 3,
+                          backgroundColor: "#E2E2E2",
                         }}
-                      >
-                        {card.textCard.text}
-                      </Text>
-                    </View>
-                  </View>
-                  <View
-                    style={{ marginTop: 12, width: 554, textAlign: "right" }}
+                      />
+                    </React.Fragment>
+                  ) : null}
+                </View>
+              </React.Fragment>
+            );
+          });
+        case "recomandat":
+          let recommendedArray = offerCards.filter(
+            (card) =>
+              card.offerPlan.recomandat === true ||
+              card.offerPlan.standard === true
+          );
+          lastIndex = recommendedArray.length - 1;
+          return recommendedArray.map((card, index) => {
+            let keys = Object.keys(card.offerPlan);
+
+            console.log("[case recomandat :]card", card, index, lastIndex);
+
+            return (
+              <React.Fragment key={card.key}>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: 16,
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}
                   >
-                    <Text style={{ fontSize: 12 }}>pret standard</Text>
+                    {card.textCard.textId}
+                  </Text>
+                  <View style={{ marginLeft: 15 }}>
+                    <Text style={{ fontSize: 9 }}>{card.textCard.title}</Text>
+                    <Text style={{ fontSize: 9 }}>
+                      {card.textCard.secondaryTitle}
+                    </Text>
                     <Text
                       style={{
-                        width: 554,
-                        height: 3,
-                        backgroundColor: "#E2E2E2",
+                        width: 412,
+                        marginTop: 4,
+                        fontSize: 8,
+                        color: "#707070",
                       }}
-                    />
+                    >
+                      {card.textCard.text}
+                    </Text>
                   </View>
-                </React.Fragment>
-              );
-            });
+                </View>
+                <View style={{ marginTop: 12, width: 554, textAlign: "right" }}>
+                  {index === lastIndex ? (
+                    <React.Fragment>
+                      <Text style={{ fontSize: 12 }}>
+                        {optionCard.recomandat.priceTag}
+                      </Text>
+                      <Text
+                        style={{
+                          width: 554,
+                          height: 3,
+                          backgroundColor: "#E2E2E2",
+                        }}
+                      />
+                    </React.Fragment>
+                  ) : null}
+                </View>
+              </React.Fragment>
+            );
+          });
         default:
           return offerCards
             .filter(
               (card) =>
-                card.offerPlan[selectedOption] === true ||
+                card.offerPlan.premium === true ||
                 card.offerPlan.recomandat === true ||
                 card.offerPlan.standard === true
             )
             .map((card, index) => {
               let keys = Object.keys(card.offerPlan);
-              console.log("card", card);
+              console.log("index", typeof index);
 
               return (
                 <React.Fragment key={card.key}>
@@ -295,14 +376,20 @@ export default (props) => {
                   <View
                     style={{ marginTop: 12, width: 554, textAlign: "right" }}
                   >
-                    <Text style={{ fontSize: 12 }}>recomandat || premium</Text>
-                    <Text
-                      style={{
-                        width: 554,
-                        height: 3,
-                        backgroundColor: "#E2E2E2",
-                      }}
-                    />
+                    {index === lastIndex ? (
+                      <React.Fragment>
+                        <Text style={{ fontSize: 12 }}>
+                          {optionCard.premium.priceTag}
+                        </Text>
+                        <Text
+                          style={{
+                            width: 554,
+                            height: 3,
+                            backgroundColor: "#E2E2E2",
+                          }}
+                        />
+                      </React.Fragment>
+                    ) : null}
                   </View>
                 </React.Fragment>
               );

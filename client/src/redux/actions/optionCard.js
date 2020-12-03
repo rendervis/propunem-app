@@ -4,7 +4,7 @@ export const fetchOptionCard = ({ proposalId, proposalOptionName, option }) => (
   dispatch
 ) => {
   dispatch({ type: OPTION_CARD.FETCH });
-
+  // console.log("proposalOptionName", proposalOptionName);
   return fetch("/api/option-card", {
     method: "POST",
     body: JSON.stringify({ title: proposalOptionName, proposalId }),
@@ -12,10 +12,11 @@ export const fetchOptionCard = ({ proposalId, proposalOptionName, option }) => (
     credentials: "include",
   })
     .then((response) => {
-      console.log("response", response);
+      // console.log("response", response);
       return response.json();
     })
     .then((json) => {
+      // console.log("json", json);
       if (json.type === "error") {
         dispatch({
           type: OPTION_CARD.FETCH_ERROR,

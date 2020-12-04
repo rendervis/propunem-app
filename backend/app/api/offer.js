@@ -4,7 +4,7 @@ const OfferTable = require("../offer/table");
 const router = new Router();
 
 router.post("/offer", (req, res, next) => {
-  console.log("/offer -->>body", req.body);
+  // console.log("/offer -->>body", req.body);
   const { proposalId } = req.body;
 
   OfferTable.getOfferCards({ proposalId })
@@ -19,7 +19,7 @@ router.post("/offer", (req, res, next) => {
 });
 
 router.post("/offer/save", (req, res, next) => {
-  console.log("/offer/save -->>body", req.body);
+  // console.log("/offer/save -->>body", req.body);
   const {
     proposalId,
     idx,
@@ -47,7 +47,7 @@ router.post("/offer/save", (req, res, next) => {
     .catch((error) => next(error));
 });
 router.put("/offer/update", (req, res, next) => {
-  console.log("/offer/update -->>body", req.body);
+  // console.log("/offer/update -->>body", req.body);
   const {
     title,
     secondaryTitle,

@@ -4,7 +4,7 @@ const OptionCardTable = require("../optioncard/table");
 const router = new Router();
 
 router.post("/option-card", (req, res, next) => {
-  console.log("/option-card -->>body", req.body);
+  // console.log("/option-card -->>body", req.body);
   const { title, proposalId } = req.body;
 
   OptionCardTable.getOptionCard({ title, proposalId })
@@ -21,7 +21,7 @@ router.post("/option-card", (req, res, next) => {
 });
 
 router.post("/option-card/save", (req, res, next) => {
-  console.log("/option-card/save -->>body", req.body);
+  // console.log("/option-card/save -->>body", req.body);
   const { title, priceTag, text, textId, proposalId, key } = req.body;
 
   OptionCardTable.storeOptionCard({
@@ -39,7 +39,7 @@ router.post("/option-card/save", (req, res, next) => {
 });
 
 router.put("/option-card/update", (req, res, next) => {
-  console.log("/option-card/update -->>body", req.body);
+  // console.log("/option-card/update -->>body", req.body);
   const { title, priceTag, text, textId, proposalId } = req.body;
 
   OptionCardTable.updateOptionCard({

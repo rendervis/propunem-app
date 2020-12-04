@@ -60,12 +60,18 @@ export const ModalPresentation = (props) => {
             inputHeight="27px"
             borderRadius="3px"
             onClick={() =>
-              webAddress.length > 0 ? {} : alert("nu ai adresa web")
+              webAddress === null || webAddress.length === 0
+                ? alert("nu ai adresa web")
+                : {}
             }
           >
             <a
               target="_blank"
-              href={webAddress.length > 0 ? `${webAddress}` : null}
+              href={
+                webAddress === null || webAddress.length === 0
+                  ? null
+                  : `${webAddress}`
+              }
             >
               web
             </a>

@@ -4,7 +4,7 @@ const BrandingDeclarationTable = require("../branding-declaration/table");
 const router = new Router();
 
 router.post("/branding-declaration", (req, res, next) => {
-  console.log("req.body", req.body);
+  // console.log("req.body", req.body);
   const { accountId } = req.body;
   BrandingDeclarationTable.getBrandingDeclaration({ accountId })
     .then(({ brandingDeclarationDB }) => {
@@ -21,7 +21,7 @@ router.post("/branding-declaration", (req, res, next) => {
 });
 
 router.post("/branding-declaration/save", (req, res, next) => {
-  console.log("req.body/save", req.body);
+  // console.log("req.body/save", req.body);
   const { accountId, text_id, text } = req.body;
   BrandingDeclarationTable.storeBrandingDeclaration({
     accountId,

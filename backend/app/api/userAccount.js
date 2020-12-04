@@ -4,7 +4,7 @@ const UserAccountTable = require("../useraccount/table");
 const router = new Router();
 
 router.post("/user", (req, res, next) => {
-  console.log("/user -->>body", req.body);
+  // console.log("/user -->>body", req.body);
   const { accountId } = req.body;
 
   UserAccountTable.getUserAccount({ accountId })
@@ -19,7 +19,7 @@ router.post("/user", (req, res, next) => {
 });
 
 router.post("/user/save", (req, res, next) => {
-  console.log("/user/save -->>body", req.body);
+  // console.log("/user/save -->>body", req.body);
   const {
     accountId,
     firstName,
@@ -53,7 +53,7 @@ router.post("/user/save", (req, res, next) => {
 });
 
 router.patch("/user/update", (req, res, next) => {
-  console.log("/user/update -->>body", req.body);
+  // console.log("/user/update -->>body", req.body);
   const {
     accountId,
     firstName,

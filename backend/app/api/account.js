@@ -49,7 +49,7 @@ router.post("/account/login", (req, res, next) => {
   let accountId;
   AccountTable.getAccount({ email })
     .then(({ account }) => {
-      console.log("account", account);
+      // console.log("account", account);
       if (account && account.passwordHash === hash(password)) {
         const { sessionId } = account;
         accountId = account.account_id;
@@ -83,7 +83,7 @@ router.get("/account/logout", (req, res, next) => {
 
 router.get("/account/authenticated", (req, res, next) => {
   const { sessionString } = req.cookies;
-  console.log("router.get(/authenticated-->sessionString", sessionString);
+  // console.log("router.get(/authenticated-->sessionString", sessionString);
   if (sessionString === undefined) {
     return res.status(400).json({
       status: "error",
@@ -100,7 +100,7 @@ router.get("/account/authenticated", (req, res, next) => {
 
 router.patch("/account/password-update", (req, res, next) => {
   let email;
-  console.log("req.cookies.sessionString", req.cookies.sessionString);
+  // console.log("req.cookies.sessionString", req.cookies.sessionString);
   let { password } = req.body;
   if (req.body.email) {
     email = req.body.email;
@@ -124,7 +124,7 @@ router.patch("/account/email-update", (req, res, next) => {
   const { email: oldEmail } = Session.parse(req.cookies.sessionString);
   // console.log("req.cookies.sessionString", req.cookies.sessionString);
   const { email } = req.body;
-  console.log("oldEmail, email", oldEmail, email);
+  // console.log("oldEmail, email", oldEmail, email);
 
   AccountTable.updateEmail({
     email,
@@ -136,7 +136,7 @@ router.patch("/account/email-update", (req, res, next) => {
     })
     .then(({ message }) => {
       ///////respond to client
-      console.log({ message });
+      // console.log({ message });
       res.json({ message: "Successful email update" });
     })
     .catch((error) => next(error));

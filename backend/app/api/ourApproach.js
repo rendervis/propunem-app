@@ -23,7 +23,7 @@ router.post("/ourapproach/save", (req, res, next) => {
 
   OurApproachTable.storeOurApproach({ proposalId, text_id, approach_text })
     .then(({ message }) => {
-      console.log("/ourapproach/save", message);
+      // console.log("/ourapproach/save", message);
       res.json({ message });
     })
     .catch((error) => next(error));

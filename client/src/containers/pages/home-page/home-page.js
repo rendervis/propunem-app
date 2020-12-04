@@ -1,4 +1,6 @@
 import React from "react";
+import { Link, Route, withRouter } from "react-router-dom";
+
 import styled from "styled-components";
 
 ///// COMPONENTS /////
@@ -24,4 +26,4 @@ const HomePageStyled = styled.div`
   width: 100vw;
 `;
 
-export default HomePage;
+export default withRouter(HomePage);

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { NavLink, Route, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
 import { device } from "../configuration/device-sizes";
+///////components
+import ModalPresentation from "../components/UX/ModalPresentation";
 ///////icons///////////
 import { styled as styledMaterial } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
@@ -14,7 +17,10 @@ import {
   fetchHomepageAccounts,
   fetchSearchResults,
 } from "../redux/actions/searchBar";
-export default (props) => {
+
+const ServicesSection = (props) => {
+  console.log({ props });
+  let { pathname } = props.location;
   let [startingPoint, setStartingPoint] = useState(0);
   let [endPoint, setEndPoint] = useState(3);
   const dispatch = useDispatch();
@@ -74,11 +80,19 @@ export default (props) => {
       });
     } else {
       return arrayOfAccounts.slice(startingPoint, endPoint).map((account) => {
+        console.log({ pathname });
+        console.log("/" + account.companyName);
         return (
           <ServiceInfo>
-            <ServiceOwner>
-              {!account.companyName ? `Nume Companie` : account.companyName}
-            </ServiceOwner>
+            <NavLink
+              exact
+              to={`/${account.companyName}`}
+              activeClassName="selected"
+            >
+              <ServiceOwner>
+                {!account.companyName ? `Nume Companie` : account.companyName}
+              </ServiceOwner>
+            </NavLink>
             <ServiceText>
               {account.brandingText === null
                 ? `Declaratia ta de branding este prezentata aici.`
@@ -93,6 +107,16 @@ export default (props) => {
                   : account.firstName + " " + account.surname}
               </ServiceContact>
             </ServiceFooter>
+
+            {pathname === "/" + account.companyName ? (
+              <Route
+                path={`/:companyName`}
+                render={(props) => <ModalPresentation {...account} />}
+                //  component={ProposalForm}
+              />
+            ) : (
+              ""
+            )}
           </ServiceInfo>
         );
       });
@@ -297,4 +321,4 @@ const ServiceContact = styled.h1`
   margin-left: 0.625rem;
 `;
 
-// export default ServicesSection;
+export default withRouter(ServicesSection);

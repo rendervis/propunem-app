@@ -47,11 +47,10 @@ function App({ history }) {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/account/:tab" component={LoginPage} />
         <Route exact path="/despre-noi" component={About} />
         <Route exact path="/pret" component={Price} />
         <Route exact path="/contact" component={Contact} />
+        <Route exact path="/account/:tab" component={LoginPage} />
 
         <AuthRoute path="/profil/:titlu" component={ProfilePage} />
         <AuthRoute path="/cont/:titlu" component={AccountDataPage} />
@@ -59,6 +58,7 @@ function App({ history }) {
           path="/propunere/:proposalName/:proposalId"
           component={ProposalShow}
         />
+        <Route path="/" component={HomePage} />
       </Switch>
     </div>
   );

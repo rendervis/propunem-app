@@ -4,11 +4,17 @@ class SearchBarQuery {
   static getHomepageAccounts() {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT distinct  useraccount.account_id as "accountId", company_name as "companyName", firstname as "firstName", surname, branding_text as "brandingText"
+        `SELECT distinct  useraccount.account_id as "accountId", company_name as "companyName", firstname as "firstName", surname, job_title as "jobTitle", branding_text as "brandingText" ,  (
+          SELECT ARRAY_AGG(proposal_name) from proposal where proposal.account_id=useraccount.account_id ) as "proposalList"
         FROM
-            useraccount  
-            left outer join branding_declaration  
-                on  useraccount.account_id = branding_declaration.account_id
+        useraccount  
+        left outer join branding_declaration  
+            on  useraccount.account_id = branding_declaration.account_id
+        inner join proposal 
+            on useraccount.account_id=proposal.account_id
+        
+             
+        GROUP BY useraccount.account_id, company_name, firstname, surname, job_title, branding_text,"proposalList"         
         ORDER BY surname;
         `,
         (error, response) => {
@@ -53,8 +59,8 @@ class SearchBarQuery {
 }
 
 ///////debug
-// SearchBarQuery.getDefaultAccounts()
-//   .then(({ defaultAccounts }) =>
+// SearchBarQuery.getHomepageAccounts()
+//   .then(({ homepageAccounts }) =>
 //     console.log("homepageAccounts", homepageAccounts)
 //   )
 //   .catch((error) => console.log("error", error));

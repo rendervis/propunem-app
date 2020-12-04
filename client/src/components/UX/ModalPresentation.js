@@ -59,9 +59,6 @@ export const ModalPresentation = (props) => {
             inputWidth="54px"
             inputHeight="27px"
             borderRadius="3px"
-            onClick={() =>
-              webAddress.length > 0 ? {} : alert("nu ai adresa web")
-            }
           >
             <a
               target="_blank"

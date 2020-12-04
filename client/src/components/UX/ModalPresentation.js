@@ -60,7 +60,7 @@ export const ModalPresentation = (props) => {
             inputHeight="27px"
             borderRadius="3px"
           >
-            <a target="_blank" href="http://fotolife.ro/">
+            <a target="_blank" href={`${webAddress}`}>
               web
             </a>
           </BigButtonOutline>

@@ -8,9 +8,10 @@ class UserAccountTable {
     address,
     city,
     county,
-    telephone,
     companyName,
     jobTitle,
+    telephone,
+    webAddress,
     joinDate,
   }) {
     return new Promise((resolve, reject) => {
@@ -22,11 +23,12 @@ class UserAccountTable {
                 address,
                 city,
                 county,
-                telephone,
                 company_name,
                 job_title,
+                telephone,
+                web_address,
                 joindate)
-             VALUES($1, $2, $3, $4, $5, $6,$7,$8,$9,$10)`,
+             VALUES($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11)`,
         [
           accountId,
           firstName,
@@ -34,9 +36,10 @@ class UserAccountTable {
           address,
           city,
           county,
-          telephone,
           companyName,
           jobTitle,
+          telephone,
+          webAddress,
           joinDate,
         ],
         (error, response) => {
@@ -47,33 +50,35 @@ class UserAccountTable {
     });
   }
   static updateUserAccount({
+    accountId,
     firstName,
     surname,
     address,
     city,
     county,
-    telephone,
     companyName,
     jobTitle,
-    accountId,
+    telephone,
+    webAddress,
   }) {
     return new Promise((resolve, reject) => {
       pool.query(
         `UPDATE useraccount 
-            SET firstname = $1, surname = $2, address = $3, city = $4, county = $5, telephone = $6, company_name = $6, job_title = $7   
+            SET firstname = $2, surname = $3, address = $4, city = $5, county = $6,   company_name = $7, job_title = $8,telephone = $9, web_address=$10  
             WHERE 
-            account_id = $8  
+            account_id = $1 
             `,
         [
+          accountId,
           firstName,
           surname,
           address,
           city,
           county,
-          telephone,
           companyName,
           jobTitle,
-          accountId,
+          telephone,
+          webAddress,
         ],
         (error, response) => {
           if (error) return reject(error);
@@ -92,9 +97,10 @@ class UserAccountTable {
             address,
             city,
             county,
-            telephone,
             company_name as "companyName",
-            job_title as "jobTitle"
+            job_title as "jobTitle",
+            telephone,
+            web_address as "webAddress"
             FROM useraccount
             WHERE account_id=$1`,
         [accountId],
@@ -114,8 +120,8 @@ class UserAccountTable {
 }
 
 ///////debug
-// UserAccountTable.getUserAccount({ accountId: 22 })
-//   .then(({ userInformation }) => console.log({ userInformation }))
-//   .catch((error) => console.log("error", error));
+UserAccountTable.getUserAccount({ accountId: 54 })
+  .then(({ userInformation }) => console.log({ userInformation }))
+  .catch((error) => console.log("error", error));
 
 module.exports = UserAccountTable;

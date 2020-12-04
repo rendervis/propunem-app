@@ -27,9 +27,10 @@ router.post("/user/save", (req, res, next) => {
     address,
     city,
     county,
-    telephone,
     companyName,
     jobTitle,
+    telephone,
+    webAddress,
   } = req.body;
 
   UserAccountTable.storeUserAccount({
@@ -39,9 +40,10 @@ router.post("/user/save", (req, res, next) => {
     address,
     city,
     county,
-    telephone,
     companyName,
     jobTitle,
+    telephone,
+    webAddress,
     joinDate: new Date(),
   })
     .then(({ message }) => {
@@ -50,30 +52,32 @@ router.post("/user/save", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.put("/user/update", (req, res, next) => {
-  console.log("/offer/update -->>body", req.body);
+router.patch("/user/update", (req, res, next) => {
+  console.log("/user/update -->>body", req.body);
   const {
+    accountId,
     firstName,
     surname,
     address,
     city,
     county,
-    telephone,
     companyName,
     jobTitle,
-    accountId,
+    telephone,
+    webAddress,
   } = req.body;
 
   UserAccountTable.updateUserAccount({
+    accountId,
     firstName,
     surname,
     address,
     city,
     county,
-    telephone,
     companyName,
     jobTitle,
-    accountId,
+    telephone,
+    webAddress,
   })
     .then(({ message }) => {
       res.json({ message });

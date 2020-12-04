@@ -13,6 +13,8 @@ import AccountField from "./account-field";
 import {
   saveUserAccountInfo,
   dataToForm,
+  fetchUserAccountInfo,
+  updateUserAccount,
 } from "../../../redux/actions/userAccount";
 
 import { BigButtonOutline } from "../../../components/UI/big-button-outline.component";
@@ -27,6 +29,8 @@ let PersonalInformation = (props) => {
     county: "",
     companyName: "",
     jobTitle: "",
+    telephone: "",
+    webAddress: "",
   });
 
   const dispatch = useDispatch();
@@ -43,6 +47,9 @@ let PersonalInformation = (props) => {
     props.load({ userLocal });
     console.log("[props.load -->>]", userLocal);
   }, [userDb, userLocal]);
+  useEffect(() => {
+    dispatch(fetchUserAccountInfo({ accountId }));
+  }, [dispatch, accountId]);
 
   //////not used
   // const onInputChangeHandler = (event) => {
@@ -61,9 +68,17 @@ let PersonalInformation = (props) => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     // console.log("[formValues]", props.formValues);
-    if (props.valid) {
+    if (props.valid && Object.keys(userDb).length === 0) {
       dispatch(
         saveUserAccountInfo({
+          accountId,
+          userInformation: { ...props.formValues },
+        })
+      );
+      alert("multumesc");
+    } else if (props.valid && Object.keys(userDb).length > 0) {
+      dispatch(
+        updateUserAccount({
           accountId,
           userInformation: { ...props.formValues },
         })
@@ -138,6 +153,16 @@ let PersonalInformation = (props) => {
               marginRight="15%"
             />
             <AccountField name="jobTitle" label="* Titlu Job" />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginBottom: "3.5%",
+            }}
+          >
+            <AccountField name="telephone" label="Telefon" marginRight="15%" />
+            <AccountField name="webAddress" label="Adresa web" />
           </div>
           <BigButtonOutline
             isDisabled={!props.valid}

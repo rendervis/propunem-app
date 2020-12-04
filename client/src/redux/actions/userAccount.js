@@ -15,7 +15,7 @@ export const fetchUserAccountInfo = ({ accountId }) => (dispatch) => {
       return response.json();
     })
     .then((json) => {
-      // console.log("json", json);
+      console.log("json", json);
       if (json.type === "error") {
         dispatch({ type: USER.FETCH_ERROR, message: json.message });
       } else {
@@ -40,9 +40,10 @@ export const saveUserAccountInfo = ({ userInformation, accountId }) => (
     address,
     city,
     county,
-    telephone,
     companyName,
     jobTitle,
+    telephone,
+    webAddress,
   } = userInformation;
   // console.log("export const saveUserInfo", userInformation);
   dispatch({ type: USER.FETCH });
@@ -80,32 +81,17 @@ export const saveUserAccountInfo = ({ userInformation, accountId }) => (
     });
 };
 
-export const updateUserAccount = ({
-  firstName,
-  surname,
-  address,
-  city,
-  county,
-  telephone,
-  companyName,
-  jobTitle,
-  accountId,
-}) => (dispatch) => {
+export const updateUserAccount = ({ userInformation, accountId }) => (
+  dispatch
+) => {
   // const { idx, key, textCard, offerPlan } = updatedCard;
   dispatch({ type: USER.FETCH });
 
-  return fetch("/api/offer/update", {
-    method: "PUT",
+  return fetch("/api/user/update", {
+    method: "PATCH",
     body: JSON.stringify({
-      firstName,
-      surname,
-      address,
-      city,
-      county,
-      telephone,
-      companyName,
-      jobTitle,
       accountId,
+      ...userInformation,
     }),
     headers: { "Content-Type": "application/json" },
   })

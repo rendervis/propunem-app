@@ -4,7 +4,7 @@ class SearchBarQuery {
   static getHomepageAccounts() {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT distinct  useraccount.account_id as "accountId", company_name as "companyName", firstname as "firstName", surname, job_title as "jobTitle", branding_text as "brandingText" ,  (
+        `SELECT distinct  useraccount.account_id as "accountId", company_name as "companyName", firstname as "firstName", surname, job_title as "jobTitle", web_address as "webAddress",branding_text as "brandingText" ,  (
           SELECT ARRAY_AGG(proposal_name) from proposal where proposal.account_id=useraccount.account_id ) as "proposalList"
         FROM
         useraccount  
@@ -14,7 +14,7 @@ class SearchBarQuery {
             on useraccount.account_id=proposal.account_id
         
              
-        GROUP BY useraccount.account_id, company_name, firstname, surname, job_title, branding_text,"proposalList"         
+        GROUP BY useraccount.account_id, company_name, firstname, surname, job_title,web_address, branding_text,"proposalList"         
         ORDER BY surname;
         `,
         (error, response) => {

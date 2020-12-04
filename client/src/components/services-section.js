@@ -81,7 +81,7 @@ const ServicesSection = (props) => {
     } else {
       return arrayOfAccounts.slice(startingPoint, endPoint).map((account) => {
         console.log({ pathname });
-        console.log("/" + account.companyName);
+        console.log("/" + account);
         return (
           <React.Fragment key={account.accountId}>
             <ServiceInfo>

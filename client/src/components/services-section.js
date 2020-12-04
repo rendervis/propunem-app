@@ -80,8 +80,8 @@ const ServicesSection = (props) => {
       });
     } else {
       return arrayOfAccounts.slice(startingPoint, endPoint).map((account) => {
-        console.log({ pathname });
-        console.log("/" + account);
+        // console.log({ pathname });
+        // console.log("/" + account);
         return (
           <React.Fragment key={account.accountId}>
             <ServiceInfo>
@@ -111,6 +111,7 @@ const ServicesSection = (props) => {
 
               {pathname === "/" + account.companyName ? (
                 <Route
+                  exact
                   path={`/:companyName`}
                   render={(props) => <ModalPresentation {...account} />}
                   //  component={ProposalForm}

@@ -83,41 +83,43 @@ const ServicesSection = (props) => {
         console.log({ pathname });
         console.log("/" + account.companyName);
         return (
-          <ServiceInfo>
-            <NavLink
-              exact
-              to={`/${account.companyName}`}
-              activeClassName="selected"
-            >
-              <ServiceOwner>
-                {!account.companyName ? `Nume Companie` : account.companyName}
-              </ServiceOwner>
-            </NavLink>
-            <ServiceText>
-              {account.brandingText === null
-                ? `Declaratia ta de branding este prezentata aici.`
-                : account.brandingText}
-            </ServiceText>
-            <ServiceFooter>
-              <PersonIcon />
+          <React.Fragment key={account.accountId}>
+            <ServiceInfo>
+              <NavLink
+                exact
+                to={`/${account.companyName}`}
+                activeClassName="selected"
+              >
+                <ServiceOwner>
+                  {!account.companyName ? `Nume Companie` : account.companyName}
+                </ServiceOwner>
+              </NavLink>
+              <ServiceText>
+                {account.brandingText === null
+                  ? `Declaratia ta de branding este prezentata aici.`
+                  : account.brandingText}
+              </ServiceText>
+              <ServiceFooter>
+                <PersonIcon />
 
-              <ServiceContact>
-                {!account.firstName && !account.surname
-                  ? `Prenume Nume`
-                  : account.firstName + " " + account.surname}
-              </ServiceContact>
-            </ServiceFooter>
+                <ServiceContact>
+                  {!account.firstName && !account.surname
+                    ? `Prenume Nume`
+                    : account.firstName + " " + account.surname}
+                </ServiceContact>
+              </ServiceFooter>
 
-            {pathname === "/" + account.companyName ? (
-              <Route
-                path={`/:companyName`}
-                render={(props) => <ModalPresentation {...account} />}
-                //  component={ProposalForm}
-              />
-            ) : (
-              ""
-            )}
-          </ServiceInfo>
+              {pathname === "/" + account.companyName ? (
+                <Route
+                  path={`/:companyName`}
+                  render={(props) => <ModalPresentation {...account} />}
+                  //  component={ProposalForm}
+                />
+              ) : (
+                ""
+              )}
+            </ServiceInfo>
+          </React.Fragment>
         );
       });
     }

@@ -10,7 +10,7 @@ export const BigButtonOutline = (props) => {
 };
 
 const ButtonStyled = styled.button`
-  width: 276px;
+  width: ${(props) => props.inputWidth || "276px"};
   /* height: 48px; */
   height: ${(props) => props.inputHeight || "48px"};
 
@@ -20,10 +20,10 @@ const ButtonStyled = styled.button`
   justify-content: center;
   align-items: center;
   border-color: #707070;
-  border-radius: 6px;
   border-style: solid;
-
   border-width: 1px;
+  border-radius: ${(props) => props.borderRadius || "6px"};
+
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
   :hover {

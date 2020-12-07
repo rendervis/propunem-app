@@ -51,9 +51,9 @@ const ServicesSection = (props) => {
     dispatch(fetchHomepageAccounts());
   }, []);
   /** render methods */
+  let arrayOfAccounts = Object.values(homepageAccounts);
+  let arrayOfQueryResult = Object.values(queryResult);
   const renderAccounts = () => {
-    let arrayOfAccounts = Object.values(homepageAccounts);
-    let arrayOfQueryResult = Object.values(queryResult);
     if (Object.keys(queryResult).length !== 0) {
       return arrayOfQueryResult.map((account) => {
         return (
@@ -79,55 +79,61 @@ const ServicesSection = (props) => {
         );
       });
     } else {
-      return arrayOfAccounts.slice(startingPoint, endPoint).map((account) => {
-        // console.log({ pathname });
-        // console.log("/" + account);
-        return (
-          <React.Fragment key={account.accountId}>
-            <ServiceInfo>
-              <NavLink
-                exact
-                to={`/${account.companyName}`}
-                activeClassName="selected"
-              >
-                <ServiceOwner>
-                  {!account.companyName ? `Nume Companie` : account.companyName}
-                </ServiceOwner>
-              </NavLink>
-              <ServiceText>
-                {account.brandingText === null
-                  ? `Declaratia ta de branding este prezentata aici.`
-                  : account.brandingText}
-              </ServiceText>
-              <ServiceFooter>
-                <PersonIcon />
+      return arrayOfAccounts
+        .slice(startingPoint, endPoint)
+        .map((account, index) => {
+          // console.log({ pathname });
+          // console.log("[return arrayOfAccounts]", index);
+          // console.log("[return endPoint]", endPoint);
 
-                <ServiceContact>
-                  {!account.firstName && !account.surname
-                    ? `Prenume Nume`
-                    : account.firstName + " " + account.surname}
-                </ServiceContact>
-              </ServiceFooter>
-
-              {pathname === "/" + account.companyName ? (
-                <Route
+          return (
+            <React.Fragment key={account.accountId}>
+              <ServiceInfo>
+                <NavLink
                   exact
-                  path={`/:companyName`}
-                  render={(props) => <ModalPresentation {...account} />}
-                  //  component={ProposalForm}
-                />
-              ) : (
-                ""
-              )}
-            </ServiceInfo>
-          </React.Fragment>
-        );
-      });
+                  to={`/${account.companyName}`}
+                  activeClassName="selected"
+                >
+                  <ServiceOwner>
+                    {!account.companyName
+                      ? `Nume Companie`
+                      : account.companyName}
+                  </ServiceOwner>
+                </NavLink>
+                <ServiceText>
+                  {account.brandingText === null
+                    ? `Declaratia ta de branding este prezentata aici.`
+                    : account.brandingText}
+                </ServiceText>
+                <ServiceFooter>
+                  <PersonIcon />
+
+                  <ServiceContact>
+                    {!account.firstName && !account.surname
+                      ? `Prenume Nume`
+                      : account.firstName + " " + account.surname}
+                  </ServiceContact>
+                </ServiceFooter>
+
+                {pathname === "/" + account.companyName ? (
+                  <Route
+                    exact
+                    path={`/:companyName`}
+                    render={(props) => <ModalPresentation {...account} />}
+                    //  component={ProposalForm}
+                  />
+                ) : (
+                  ""
+                )}
+              </ServiceInfo>
+            </React.Fragment>
+          );
+        });
     }
   };
 
   // console.log("loading", loading);
-  console.log("homepageAccounts", homepageAccounts);
+
   return (
     <ServicesSectionStyled>
       <SearchBar>
@@ -145,17 +151,22 @@ const ServicesSection = (props) => {
 
       <ServiceRoll>
         <span
-          onClick={() => (
-            setEndPoint(endPoint - 3), setStartingPoint(startingPoint - 3)
-          )}
+          onClick={() =>
+            startingPoint === 0
+              ? alert("nu mai sunt conturi!")
+              : (setEndPoint(endPoint - 3), setStartingPoint(startingPoint - 3))
+          }
         >
           <MyArrowBackIosIconLeft />
         </span>
         {renderAccounts()}
         <span
-          onClick={() => (
-            setEndPoint(endPoint + 3), setStartingPoint(startingPoint + 3)
-          )}
+          onClick={() =>
+            endPoint - arrayOfAccounts.length >= 2 ||
+            endPoint - arrayOfQueryResult.length >= 2
+              ? alert("nu mai sunt conturi!")
+              : (setEndPoint(endPoint + 3), setStartingPoint(startingPoint + 3))
+          }
           style={{
             display: "flex",
             alignContent: "flex-end",

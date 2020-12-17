@@ -10,19 +10,23 @@ import EuroIcon from "@material-ui/icons/Euro";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
 import {
-  optionCardClearState,
   createOptionCard,
-  fetchOptionCard,
+  saveOptionCardText,
   saveOptionCard,
+  updateOptionCard,
   showDefaultOption,
   deleteOptionCardText,
 } from "../../../redux/actions/optionCard";
 
 const OptionContainer = (props) => {
   const dispatch = useDispatch();
-  const { proposalOptionName } = props;
-  const [newTitle, setNewTitle] = useState(proposalOptionName);
-  const [newPriceTag, setNewPriceTag] = useState("");
+  console.log({ props });
+  const { proposalOptionName, title, priceTag, content } = props;
+
+  const proposalId = useSelector((state) => state.proposal.proposalId);
+  const [newPriceTag, setNewPriceTag] = useState(priceTag);
+  console.log({ priceTag });
+  console.log({ newPriceTag });
   const [newTextLine, setNewTextLine] = useState({
     textId: `${1}`,
     text: "",
@@ -31,67 +35,49 @@ const OptionContainer = (props) => {
     key: null,
   });
   const [createOptionData, setCreateOptionData] = useState({
-    title: proposalOptionName,
+    title,
     priceTag: newPriceTag,
-    content: newTextLine,
+    content: {
+      ...newTextLine,
+      clicked: newTextLine.clicked,
+    },
   });
-  // const proposalOption = useSelector(
-  //   (state) => state.proposalOptions.options[title]
-  // );
-  const proposalId = useSelector((state) => state.proposal.proposalId);
-  const option = useSelector(
-    (state) => state.optionCard.options[proposalOptionName]
-  );
-
+  const option = useSelector((state) => state.optionCard.options[title]);
   const contentArray = Object.values(option.content);
-  ///////clear state from previous proposal/content
-  useEffect(() => {
-    if (contentArray.length >= 2) dispatch(optionCardClearState());
-  }, []);
-  // console.log("[OptionContainer -->>option]", option);
 
+  /**  if no content from DataBase create empty object */
   useEffect(() => {
-    dispatch(
-      createOptionCard({
-        option: {
-          ...createOptionData,
-          content: {
-            ...createOptionData.content,
-            key: uuidv4(),
+    if (Object.keys(content).length === 0) {
+      dispatch(
+        createOptionCard({
+          option: {
+            ...createOptionData,
+            content: {
+              ...createOptionData.content,
+              key: uuidv4(),
+            },
           },
-        },
-        proposalOptionName,
-      })
-    );
-  }, [newTitle]);
-  useEffect(() => {
-    dispatch(
-      fetchOptionCard({
-        proposalOptionName,
-        proposalId,
-        option,
-      })
-    );
-  }, [dispatch, newTitle]);
-
-  // useEffect(() => {
-  //   dispatch(createOption(createOptionData, title));
-  // }, [createOptionData, newTextLine]);
+          proposalOptionName,
+        })
+      );
+    }
+  }, [content]);
 
   const onChangeHandler = (textLine) => {
     setNewTextLine(textLine);
   };
 
-  const onClickHandler = (index) => {
+  /** handle text line click */
+  const onClickHandler = (clicked, textLine) => {
+    // inside click
+    console.log("click inside", textLine.text);
+    // console.log("click textLine", textLine);
     setCreateOptionData({
       title: proposalOptionName,
-      priceTag: newPriceTag,
+      priceTag: priceTag,
       content: {
-        textId: contentArray[index].textId,
-        text: contentArray[index].text,
-        saved: false,
-        clicked: true,
-        key: contentArray[index].key,
+        ...textLine,
+        clicked,
       },
     });
   };
@@ -115,12 +101,40 @@ const OptionContainer = (props) => {
       })
     );
   };
+
   const saveHandler = (index, key) => {
+    if (
+      (priceTag === null || priceTag.length === 0) &&
+      newPriceTag.length === 0
+    )
+      return alert("nu ai completat pretul!");
+    if (!newTextLine.text || newTextLine.text.replace(/ /g, "").length === 0)
+      return alert("nu ai completat textul!");
+    /** first save of the optionCard */
+    if (Object.keys(content).length === 0) {
+      return dispatch(
+        saveOptionCard({
+          savedOption: {
+            title: proposalOptionName,
+            priceTag: newPriceTag,
+            content: {
+              text: newTextLine.text,
+              textId: (1 + index).toString(),
+              saved: true,
+              clicked: false,
+              key,
+            },
+          },
+          proposalOptionName,
+          proposalId,
+        })
+      );
+    }
+    /** only save text */
     dispatch(
-      saveOptionCard({
+      saveOptionCardText({
         savedOption: {
           title: proposalOptionName,
-          priceTag: newPriceTag,
           content: {
             text: newTextLine.text,
             textId: (1 + index).toString(),
@@ -134,11 +148,43 @@ const OptionContainer = (props) => {
       })
     );
   };
+  const updateHandler = (textId, key) => {
+    if (
+      (priceTag === null || priceTag.length === 0) &&
+      newPriceTag.length === 0
+    )
+      return alert("nu ai completat pretul!");
+    if (!newTextLine.text || newTextLine.text.replace(/ /g, "").length === 0)
+      return alert("nu ai completat textul!");
+    dispatch(
+      updateOptionCard({
+        updatedCard: {
+          title: proposalOptionName,
+          priceTag: !newPriceTag ? priceTag : newPriceTag,
+          content: {
+            text: newTextLine.text,
+            textId,
+            saved: true,
+            clicked: false,
+            key,
+          },
+        },
+        proposalOptionName,
+        proposalId,
+      })
+    );
+  };
   const onDeleteHandler = (textId) => {
-    dispatch(deleteOptionCardText({ textId, proposalOptionName, proposalId }));
+    dispatch(
+      deleteOptionCardText({ title, textId, proposalOptionName, proposalId })
+    );
   };
 
-  const actions = (index, textId, key) => {
+  const actions = (index, text, textId, key) => {
+    console.log(
+      "createOptionData.content.text.length",
+      createOptionData.content.text.length
+    );
     return (
       <div
         style={{
@@ -158,25 +204,42 @@ const OptionContainer = (props) => {
           </div>
         )}
 
-        {contentArray[index].saved && newTextLine.clicked ? (
-          ""
-        ) : (
+        {/* show save || update only under the clicked text */}
+        {createOptionData.content.clicked &&
+        createOptionData.content.key === key ? (
           <p
-            style={{ cursor: "pointer", fontSize: "14px", padding: " 0 8px" }}
-            onClick={() => saveHandler(index, key)}
+            style={{
+              cursor: "pointer",
+              fontSize: "14px",
+              padding: " 0 8px",
+              display: "flex",
+              flexDirection: "row",
+            }}
           >
-            SAVE
+            {/* check for text */}
+            {text.replace(/ /g, "").length > 0 ? (
+              <React.Fragment>
+                <span
+                  onClick={() => updateHandler(textId, key)}
+                  style={{
+                    fontWeight: "bolder",
+                  }}
+                >
+                  UPDATE
+                </span>
+                <DeleteStyled
+                  display={Object.keys(contentArray).length === 1 ? "none" : ""}
+                  onClick={() => onDeleteHandler(textId)}
+                >
+                  DELETE
+                </DeleteStyled>
+              </React.Fragment>
+            ) : (
+              <span onClick={() => saveHandler(index, key)}> SAVE</span>
+            )}
           </p>
-        )}
-        {!contentArray[index].saved || contentArray.length === 1 ? (
-          ""
         ) : (
-          <p
-            style={{ cursor: "pointer", fontSize: "14px", padding: " 0 8px" }}
-            onClick={() => onDeleteHandler(textId)}
-          >
-            DELETE
-          </p>
+          ""
         )}
       </div>
     );
@@ -186,17 +249,16 @@ const OptionContainer = (props) => {
       return null;
     } else {
       return contentArray.map((item, index) => {
-        // console.log("[const renderTextLineStandard = () =>]", item);
         return (
           <div key={item.key.toString()}>
             <EditableTextLine
-              clicked={item.clicked}
-              textId={index}
+              lineKey={item.key}
+              textId={item.textId}
               text={item.text}
               onChange={(textLine) => onChangeHandler(textLine)}
-              onClick={() => onClickHandler(index)}
+              onClick={(clicked, textLine) => onClickHandler(clicked, textLine)}
             />
-            {actions(index, item.textId, item.key)}
+            {actions(index, item.text, item.textId, item.key)}
           </div>
         );
       });
@@ -205,7 +267,7 @@ const OptionContainer = (props) => {
 
   return (
     <OptionContainerStyled>
-      <OptionTitle>{props.proposalOptionName}</OptionTitle>
+      <OptionTitle>{title}</OptionTitle>
       <div
         style={{
           margin: "34px 0 0 0",
@@ -221,9 +283,15 @@ const OptionContainer = (props) => {
               placeholder="1199"
               onChange={(e) => setNewPriceTag(e.target.value)}
               onClick={() =>
-                setCreateOptionData({ ...createOptionData, priceTag: "" })
+                setCreateOptionData({
+                  ...createOptionData,
+                  content: {
+                    ...createOptionData.content,
+                    clicked: !createOptionData.content.clicked,
+                  },
+                })
               }
-              defaultValue={option.priceTag}
+              defaultValue={priceTag}
               rows="1"
               wrap="off"
               minLength="2"
@@ -326,6 +394,11 @@ const TextAreaStyled = styled.textarea`
   letter-spacing: inherit;
   text-align: inherit;
   color: inherit;
+`;
+
+const DeleteStyled = styled.span`
+  display: ${(props) => (props.display ? props.display : "true")};
+  padding: 0 8px;
 `;
 
 export default OptionContainer;

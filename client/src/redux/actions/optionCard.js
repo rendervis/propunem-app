@@ -16,7 +16,7 @@ export const fetchOptionCard = ({ proposalId, proposalOptionName, option }) => (
       return response.json();
     })
     .then((json) => {
-      // console.log("json", json);
+      console.log("json", json);
       if (json.type === "error") {
         dispatch({
           type: OPTION_CARD.FETCH_ERROR,
@@ -92,17 +92,66 @@ export const saveOptionCard = ({
       });
     });
 };
+export const saveOptionCardText = ({
+  proposalId,
+  savedOption,
+  proposalOptionName,
+}) => (dispatch) => {
+  const { title } = savedOption;
+  const { text, textId, key } = savedOption.content;
+  console.log("saveOptionCardText", savedOption, proposalId);
+
+  dispatch({ type: OPTION_CARD.FETCH });
+  return fetch("/api/option-card/save-text", {
+    method: "POST",
+    body: JSON.stringify({
+      title,
+      text,
+      textId,
+      key,
+      proposalId,
+    }),
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((json) => {
+      if (json.type === "error") {
+        dispatch({
+          type: OPTION_CARD.FETCH_ERROR,
+          message: json.message,
+        });
+      } else {
+        dispatch({
+          type: OPTION_CARD.SAVE_CARD_TEXT,
+          message: json.message,
+          savedOption,
+          proposalOptionName,
+        });
+      }
+    })
+    .catch((error) => {
+      dispatch({
+        type: OPTION_CARD.FETCH_ERROR,
+        message: error.message,
+      });
+    });
+};
 
 export const updateOptionCard = ({
   proposalId,
   updatedCard,
   proposalOptionName,
 }) => (dispatch) => {
-  const { title, priceTag, text, textId } = updatedCard;
+  console.log("updateOptionCard", updatedCard);
+  const { title, priceTag } = updatedCard;
+  const { text, textId } = updatedCard.content;
   dispatch({ type: OPTION_CARD.FETCH });
 
   return fetch("/api/option-card/update", {
-    method: "PUT",
+    method: "PATCH",
     body: JSON.stringify({
       title,
       priceTag,

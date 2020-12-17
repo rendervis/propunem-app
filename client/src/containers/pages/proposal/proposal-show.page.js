@@ -25,7 +25,10 @@ import { fetchBrandingDeclaration } from "../../../redux/actions/brandingDeclara
 import { fetchAboutUsText } from "../../../redux/actions/about-us.actions";
 import { fetchOurApproachText } from "../../../redux/actions/our-approach.actions";
 import { fetchOfferCards } from "../../../redux/actions/offer.actions";
-import { fetchOptionCard } from "../../../redux/actions/optionCard";
+import {
+  optionCardClearState,
+  fetchOptionCard,
+} from "../../../redux/actions/optionCard";
 import { deleteProposal } from "../../../redux/actions/proposal";
 
 const ProposalShow = (props) => {
@@ -48,12 +51,15 @@ const ProposalShow = (props) => {
   const brandingDeclaration = useSelector(
     (state) => state.branding.brandingDeclarationDB
   );
-  console.log();
+
   const accountId = useSelector((state) => state.account.accountId);
   /** Local state */
   const [loading, setLoading] = useState(false);
   ///////clear State
-  // console.log("optionCard", optionCard);
+  useEffect(() => {
+    dispatch(optionCardClearState());
+  }, []);
+
   useEffect(() => {
     dispatch(fetchBrandingDeclaration({ accountId }));
     dispatch(fetchAboutUsText({ proposalId }));
@@ -81,14 +87,6 @@ const ProposalShow = (props) => {
       })
     );
   }, []);
-
-  // useEffect(() => {
-  //   console.log("brandingDeclarationDB", brandingDeclarationDB);
-  //   if (brandingDeclarationDB[1]) {
-  //     setBrandingDeclaration(brandingDeclarationDB[1].text);
-  //   }
-  // });
-  // console.log("ProposalShow ->>", brandingDeclaration);
 
   ///////
   let matchPath = props.match.path.replace(/\s/g, "");

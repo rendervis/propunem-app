@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
 import { styled as styledMaterial } from "@material-ui/core/styles";
@@ -6,16 +6,31 @@ import { styled as styledMaterial } from "@material-ui/core/styles";
 import CheckIcon from "@material-ui/icons/Check";
 
 const EditableTextLine = (props) => {
-  // const [newValue, setNewValue] = useState("");
+  const node = useRef(null);
+  console.log({ props });
   const [textLine, setTextLine] = useState({
-    id: `${0}`,
-    text: "",
+    id: props.textId,
+    key: props.lineKey,
+    text: props.text,
     clicked: false,
     saved: false,
   });
+  const [clicked, setClicked] = useState(false);
+
+  /** if clicked outside change clicked state to false */
+  useEffect(() => {
+    const handler = (event) => {
+      if (!node.current.contains(event.target)) {
+        setClicked(false);
+      }
+    };
+    window.addEventListener("click", handler);
+    return () => window.removeEventListener("click", handler);
+  }, []);
   useEffect(() => {
     props.onChange(textLine);
-  }, [textLine, props]);
+    props.onClick(clicked, textLine);
+  }, [textLine, clicked]);
 
   const onInputChangeContent = (event) => {
     setTextLine({
@@ -24,9 +39,12 @@ const EditableTextLine = (props) => {
       clicked: true,
     });
   };
-
+  const onInputClicked = () => {
+    setClicked(true);
+  };
+  console.log({ clicked });
   return (
-    <div style={{ cursor: "pointer" }}>
+    <div style={{ cursor: "pointer" }} ref={node}>
       <li
         // onClick={(e) => e.stopPropagation()}
         style={{
@@ -51,6 +69,7 @@ const EditableTextLine = (props) => {
             minLength="5"
             maxLength="26"
             onChange={onInputChangeContent}
+            onClick={() => onInputClicked()}
             defaultValue={props.text}
           />
         </span>

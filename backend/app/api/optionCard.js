@@ -22,7 +22,7 @@ router.post("/option-card", (req, res, next) => {
 
 router.post("/option-card/save", (req, res, next) => {
   // console.log("/option-card/save -->>body", req.body);
-  const { title, priceTag, text, textId, proposalId, key } = req.body;
+  const { title, priceTag, text, textId, key, proposalId } = req.body;
 
   OptionCardTable.storeOptionCard({
     title,
@@ -37,9 +37,25 @@ router.post("/option-card/save", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
+router.post("/option-card/save-text", (req, res, next) => {
+  // console.log("/option-card/save -->>body", req.body);
+  const { title, text, textId, key, proposalId } = req.body;
 
-router.put("/option-card/update", (req, res, next) => {
-  // console.log("/option-card/update -->>body", req.body);
+  OptionCardTable.storeOptionCardText({
+    title,
+    text,
+    textId,
+    key,
+    proposalId,
+  })
+    .then(({ message }) => {
+      res.json({ message });
+    })
+    .catch((error) => next(error));
+});
+
+router.patch("/option-card/update", (req, res, next) => {
+  console.log("/option-card/update -->>body", req.body);
   const { title, priceTag, text, textId, proposalId } = req.body;
 
   OptionCardTable.updateOptionCard({
@@ -56,6 +72,7 @@ router.put("/option-card/update", (req, res, next) => {
 });
 
 router.delete("/option-card/delete-card-text", (req, res, next) => {
+  console.log("/option-card/delete-card-text", req.body);
   const { title, textId, proposalId } = req.body;
   OptionCardTable.deleteOptionCardText({ title, textId, proposalId })
     .then(() => {

@@ -17,6 +17,7 @@ const pool = new Pool({
         rejectUnauthorized: false,
       }
     : false,
+  multipleStatements: true,
 });
 
 // const pool = new Pool(databaseConfiguration);

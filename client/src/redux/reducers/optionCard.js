@@ -40,7 +40,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  // console.log("[optionCard -->>reducer:]", action);
+  console.log("[optionCard -->>reducer:]", action);
 
   switch (action.type) {
     case OPTION_CARD.FETCH:
@@ -67,6 +67,7 @@ export default (state = INITIAL_STATE, action) => {
       // console.log("dbPriceTag", dbPriceTag);
       return {
         ...state,
+        status: fetchStates.success,
         optionCard: {
           ...state.optionCard,
           [name]: {
@@ -113,14 +114,37 @@ export default (state = INITIAL_STATE, action) => {
           },
         },
       };
+    case OPTION_CARD.SAVE_CARD_TEXT:
+      // console.log("[case CREATE_OPTION:]", action);
+      return {
+        ...state,
+        options: {
+          ...state.options,
+
+          [action.proposalOptionName]: {
+            ...state.options[action.proposalOptionName],
+            content: {
+              ...state.options[action.proposalOptionName].content,
+              [action.savedOption.content.textId]: action.savedOption.content,
+            },
+          },
+        },
+      };
     case OPTION_CARD.UPDATE_CARD:
       let nameUpdate = action.proposalOptionName;
 
       return {
         ...state,
-        [nameUpdate]: {
-          ...state[nameUpdate],
-          [action.updatedCard.textId]: action.updatedCard,
+        options: {
+          ...state.options,
+          [action.proposalOptionName]: {
+            ...state.options[action.proposalOptionName],
+            priceTag: action.updatedCard.priceTag,
+            content: {
+              ...state.options[action.proposalOptionName].content,
+              [action.updatedCard.content.textId]: action.updatedCard.content,
+            },
+          },
         },
       };
     case OPTION_CARD.SHOW_DEFAULT:
@@ -160,6 +184,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case OPTION_CARD.CREATE_OPTION_CARD:
+      console.log("[case OPTION_CARD.CREATE_OPTION_CARD:]", action);
       let nameCreate = action.proposalOptionName;
       return {
         ...state,

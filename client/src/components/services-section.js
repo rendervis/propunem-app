@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Route, withRouter } from "react-router-dom";
+import { Switch, NavLink, Route, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
 import { device } from "../configuration/device-sizes";
 ///////components
 import ModalPresentation from "../components/UX/ModalPresentation";
+import ModalPresentationOptions from "../components/UX/ModalPresentationOptions";
 ///////icons///////////
 import { styled as styledMaterial } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
@@ -114,17 +115,22 @@ const ServicesSection = (props) => {
                       : account.firstName + " " + account.surname}
                   </ServiceContact>
                 </ServiceFooter>
-
-                {pathname === "/" + account.companyName ? (
+                <Switch>
                   <Route
                     exact
                     path={`/:companyName`}
                     render={(props) => <ModalPresentation {...account} />}
                     //  component={ProposalForm}
                   />
-                ) : (
-                  ""
-                )}
+                  <Route
+                    exact
+                    path={`/:companyName/:proposalName`}
+                    render={(props) => (
+                      <ModalPresentationOptions {...account} />
+                    )}
+                    //  component={ProposalForm}
+                  />
+                </Switch>
               </ServiceInfo>
             </React.Fragment>
           );

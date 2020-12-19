@@ -20,8 +20,8 @@ import {
 } from "../redux/actions/searchBar";
 
 const ServicesSection = (props) => {
-  console.log({ props });
-  let { pathname } = props.location;
+  // console.log({ props });
+  // let { pathname } = props.location;
   let [startingPoint, setStartingPoint] = useState(0);
   let [endPoint, setEndPoint] = useState(3);
   const dispatch = useDispatch();
@@ -83,10 +83,6 @@ const ServicesSection = (props) => {
       return arrayOfAccounts
         .slice(startingPoint, endPoint)
         .map((account, index) => {
-          // console.log({ pathname });
-          // console.log("[return arrayOfAccounts]", index);
-          // console.log("[return endPoint]", endPoint);
-
           return (
             <React.Fragment key={account.accountId}>
               <ServiceInfo>
@@ -124,7 +120,7 @@ const ServicesSection = (props) => {
                   />
                   <Route
                     exact
-                    path={`/:companyName/:proposalName`}
+                    path={`/:companyName/:proposalName/:proposalId`}
                     render={(props) => (
                       <ModalPresentationOptions {...account} />
                     )}

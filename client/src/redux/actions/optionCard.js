@@ -9,7 +9,7 @@ export const fetchOptionCard = ({ proposalId, proposalOptionName, option }) => (
     method: "POST",
     body: JSON.stringify({ title: proposalOptionName, proposalId }),
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
+    // credentials: "include",
   })
     .then((response) => {
       // console.log("response", response);

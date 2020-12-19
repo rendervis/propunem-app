@@ -7,7 +7,7 @@ import EuroIcon from "@material-ui/icons/Euro";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 
 const ModalOption = (props) => {
-  const { proposalOptionName } = props;
+  const { title, priceTag, content } = props;
 
   console.log("[optionCard]", props);
   // const contentArray = Object.values(optionCard.content);
@@ -28,7 +28,7 @@ const ModalOption = (props) => {
 
   return (
     <OptionContainerStyled>
-      <OptionTitle>{props.proposalOptionName}</OptionTitle>
+      <OptionTitle>{title}</OptionTitle>
       <div
         style={{
           margin: "34px 0 0 0",
@@ -38,7 +38,7 @@ const ModalOption = (props) => {
       >
         <div style={{ display: "flex", width: "100%" }}>
           <MyEuroIcon />
-          <OptionPriceTag> 13</OptionPriceTag>
+          <OptionPriceTag>{priceTag}</OptionPriceTag>
         </div>
       </div>
       <div
@@ -53,21 +53,9 @@ const ModalOption = (props) => {
           overflowX: "hidden",
         }}
       >
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
-        <ul style={{ padding: "0 0 0 8px" }}>text</ul>
+        {Object.values(content).map(({ text }) => {
+          return <ul style={{ padding: "0 0 0 8px" }}>{text}</ul>;
+        })}
       </div>
     </OptionContainerStyled>
   );

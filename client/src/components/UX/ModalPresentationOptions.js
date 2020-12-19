@@ -1,13 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withRouter, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 ///////UX
 import OverlayBackground from "./overlay-background";
 import ModalOption from "./ModalOption";
+///////actions
+import {
+  optionCardClearState,
+  fetchOptionCard,
+} from "../../redux/actions/optionCard";
 
 const ModalPresentationOptions = (props) => {
+  console.log({ props });
+  const dispatch = useDispatch();
   const optionCard = useSelector((state) => state.optionCard.optionCard);
+  const proposalId = props.match.params.proposalId;
+  console.log({ optionCard });
+  ///////clear State
+  useEffect(() => {
+    dispatch(optionCardClearState());
+  }, []);
+
+  useEffect(() => {
+    dispatch(
+      fetchOptionCard({
+        proposalOptionName: "standard",
+        proposalId,
+        option: {},
+      })
+    );
+    dispatch(
+      fetchOptionCard({
+        proposalOptionName: "recomandat",
+        proposalId,
+        option: {},
+      })
+    );
+    dispatch(
+      fetchOptionCard({
+        proposalOptionName: "premium",
+        proposalId,
+        option: {},
+      })
+    );
+  }, []);
   const renderProposalOptions = () => {
     //TODO get options from state
     //TODO present priceTag

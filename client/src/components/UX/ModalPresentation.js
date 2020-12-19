@@ -6,11 +6,7 @@ import styled from "styled-components";
 import OverlayBackground from "./overlay-background";
 ///////UI
 import { BigButtonOutline } from "../UI/big-button-outline.component";
-///////actions
-import {
-  optionCardClearState,
-  fetchOptionCard,
-} from "../../redux/actions/optionCard";
+
 const ModalPresentation = (props) => {
   const dispatch = useDispatch();
   const {
@@ -24,7 +20,7 @@ const ModalPresentation = (props) => {
   } = props;
 
   //TODO onClick fetch options for that proposal
-  const proposalId = useSelector((state) => state.proposal.proposalId);
+
   // useEffect(() => {
   //   dispatch(
   //     fetchOptionCard({
@@ -33,26 +29,30 @@ const ModalPresentation = (props) => {
   //     })
   //   );
   // }, []);
+  ///////clear State
+  // useEffect(() => {
+  //   dispatch(optionCardClearState());
+  // }, []);
+  // const fetchOptionCardHandler = ({ name }) => {
+  //   dispatch(
+  //     fetchOptionCard({
+  //       proposalOptionName: name,
+  //       proposalId,
+  //     })
+  //   );
+  // };
   const renderList = () => {
-    return proposalList.map((name) => {
+    return proposalList.map((myString) => {
       let url = props.match.url;
-      console.log("url", url);
+      let name = myString.split("|")[0];
+      let proposalId = myString.split("|")[1];
+      console.log("name", typeof name);
       return (
-        <React.Fragment
-          key={name}
-          onClick={() =>
-            dispatch(
-              fetchOptionCard({
-                proposalOptionName: name,
-                proposalId,
-              })
-            )
-          }
-        >
-          <NavLink exact to={`${url}/${name}`}>
+        <div key={name} onClick={() => {}}>
+          <NavLink exact to={`${url}/${name}/${proposalId}`}>
             <p style={{ marginTop: "1.2%" }}>{name.trim()} </p>
           </NavLink>
-        </React.Fragment>
+        </div>
       );
     });
   };

@@ -5,7 +5,7 @@ class SearchBarQuery {
     return new Promise((resolve, reject) => {
       pool.query(
         `SELECT distinct  useraccount.account_id as "accountId", company_name as "companyName", firstname as "firstName", surname, job_title as "jobTitle", web_address as "webAddress",branding_text as "brandingText" ,  (
-          SELECT ARRAY_AGG(proposal_name) from proposal where proposal.account_id=useraccount.account_id ) as "proposalList"
+          SELECT ARRAY_AGG( proposal_name || '|'|| proposal_id) from proposal where proposal.account_id=useraccount.account_id ) as "proposalList"
         FROM
         useraccount  
         left outer join branding_declaration  

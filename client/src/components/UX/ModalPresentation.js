@@ -9,6 +9,12 @@ import { BigButtonOutline } from "../UI/big-button-outline.component";
 
 const ModalPresentation = (props) => {
   const dispatch = useDispatch();
+
+  const { homepageAccounts } = useSelector((state) => state.searchBar);
+
+  let selectedOne = Object.values(homepageAccounts).filter(
+    (company) => company.companyName === props.match.params.companyName
+  );
   const {
     companyName,
     firstName,
@@ -17,36 +23,14 @@ const ModalPresentation = (props) => {
     webAddress,
     brandingText,
     proposalList,
-  } = props;
+  } = selectedOne[0];
 
-  //TODO onClick fetch options for that proposal
-
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchOptionCard({
-  //       proposalOptionName,
-  //       proposalId,
-  //     })
-  //   );
-  // }, []);
-  ///////clear State
-  // useEffect(() => {
-  //   dispatch(optionCardClearState());
-  // }, []);
-  // const fetchOptionCardHandler = ({ name }) => {
-  //   dispatch(
-  //     fetchOptionCard({
-  //       proposalOptionName: name,
-  //       proposalId,
-  //     })
-  //   );
-  // };
   const renderList = () => {
     return proposalList.map((myString) => {
       let url = props.match.url;
       let name = myString.split("|")[0];
       let proposalId = myString.split("|")[1];
-      console.log("name", typeof name);
+      console.log("name", name);
       return (
         <div key={name} onClick={() => {}}>
           <NavLink exact to={`${url}/${name}/${proposalId}`}>

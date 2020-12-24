@@ -1,15 +1,18 @@
 import React from "react";
+import { withRouter, Switch, Route, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
 import { styled as styledMaterial } from "@material-ui/core/styles";
 import EuroIcon from "@material-ui/icons/Euro";
 import AddBoxIcon from "@material-ui/icons/AddBox";
+///////components
 
 const ModalOption = (props) => {
-  const { title, priceTag, content } = props;
+  // console.log("[props]", props);
+  const { title, priceTag, content } = props.optionCard;
+  let url = props.match.url;
 
-  console.log("[optionCard]", props);
   // const contentArray = Object.values(optionCard.content);
   // const renderTextLineStandard = () => {
   //   if (!contentArray[0]) {
@@ -37,8 +40,10 @@ const ModalOption = (props) => {
         }}
       >
         <div style={{ display: "flex", width: "100%" }}>
-          <MyEuroIcon />
-          <OptionPriceTag>{priceTag}</OptionPriceTag>
+          <NavLink to={`${url}/${title}`}>
+            <MyEuroIcon />
+            <OptionPriceTag>{priceTag}</OptionPriceTag>
+          </NavLink>
         </div>
       </div>
       <div
@@ -53,8 +58,12 @@ const ModalOption = (props) => {
           overflowX: "hidden",
         }}
       >
-        {Object.values(content).map(({ text }) => {
-          return <ul style={{ padding: "0 0 0 8px" }}>{text}</ul>;
+        {Object.values(content).map(({ text }, index) => {
+          return (
+            <React.Fragment key={index}>
+              <ul style={{ padding: "0 0 0 8px" }}>{text}</ul>
+            </React.Fragment>
+          );
         })}
       </div>
     </OptionContainerStyled>
@@ -129,4 +138,4 @@ const TextAreaStyled = styled.textarea`
   color: inherit;
 `;
 
-export default ModalOption;
+export default withRouter(ModalOption);

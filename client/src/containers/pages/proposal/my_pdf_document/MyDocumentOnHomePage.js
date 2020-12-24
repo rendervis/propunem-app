@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 import styles from "./styles";
 
-//TODO include MyDocument in redux STORE and receive data via STORE and not props
-
 // Create Document Component
 export default (props) => {
-  console.log({ props });
+  //   console.log({ props });
   const [userInformation, setUserInformation] = useState(props.userInformation);
   const [aboutUsText, setAboutUsText] = useState(
     Object.values(props.aboutUsText)
   );
-  const [brandingDeclaration, setBrandingDeclaration] = useState(
-    props.brandingDeclaration
-  );
+
   const [proposalList, setProposalList] = useState(props.proposalList);
   const [ourApproach, setOurApproach] = useState(
     Object.values(props.ourApproach)
@@ -94,7 +90,7 @@ export default (props) => {
   };
   /**** Branding Declaration */
   const renderBrandingDeclaration = () => {
-    if (Object.keys(brandingDeclaration).length === 0) {
+    if (Object.keys(props.brandingDeclaration).length === 0) {
       return (
         <Text style={{ width: 474, fontSize: 13 }}>
           Oh, how I wish I could believe or understand that!There's only one
@@ -106,7 +102,7 @@ export default (props) => {
     } else {
       return (
         <Text style={{ width: 474, fontSize: 13 }}>
-          {brandingDeclaration[1].text}
+          {props.brandingDeclaration.text}
         </Text>
       );
     }
@@ -158,17 +154,11 @@ export default (props) => {
   };
 
   /**** Offer ****/
-  console.log("[MyDocument]optionCard", optionCard);
-  console.log("selectedOption", selectedOption);
   let lastIndex = offerCards.length - 1;
   const renderPriceTag = () => {
     return (
       <React.Fragment>
-        <Text style={{ fontSize: 12 }}>
-          {selectedOption === "recomandat"
-            ? optionCard.recomandat.priceTag
-            : optionCard.premium.priceTag}
-        </Text>
+        <Text style={{ fontSize: 12 }}>{props.priceTag}</Text>
         <Text
           style={{
             width: 554,
@@ -217,7 +207,7 @@ export default (props) => {
           lastIndex = standardArray.length - 1;
           return standardArray.map((card, index) => {
             let keys = Object.keys(card.offerPlan);
-            console.log("[case standard :]card", card, index, lastIndex);
+            // console.log("[case standard :]card", card, index, lastIndex);
 
             return (
               <React.Fragment key={card.key}>
@@ -253,9 +243,7 @@ export default (props) => {
                 <View style={{ marginTop: 12, width: 554, textAlign: "right" }}>
                   {index === lastIndex ? (
                     <React.Fragment>
-                      <Text style={{ fontSize: 12 }}>
-                        {optionCard.standard.priceTag}
-                      </Text>
+                      <Text style={{ fontSize: 12 }}>{props.priceTag}</Text>
                       <Text
                         style={{
                           width: 554,
@@ -279,7 +267,7 @@ export default (props) => {
           return recommendedArray.map((card, index) => {
             let keys = Object.keys(card.offerPlan);
 
-            console.log("[case recomandat :]card", card, index, lastIndex);
+            // console.log("[case recomandat :]card", card, index, lastIndex);
 
             return (
               <React.Fragment key={card.key}>
@@ -315,9 +303,7 @@ export default (props) => {
                 <View style={{ marginTop: 12, width: 554, textAlign: "right" }}>
                   {index === lastIndex ? (
                     <React.Fragment>
-                      <Text style={{ fontSize: 12 }}>
-                        {optionCard.recomandat.priceTag}
-                      </Text>
+                      <Text style={{ fontSize: 12 }}>{props.priceTag}</Text>
                       <Text
                         style={{
                           width: 554,
@@ -341,7 +327,7 @@ export default (props) => {
             )
             .map((card, index) => {
               let keys = Object.keys(card.offerPlan);
-              console.log("index", typeof index);
+              //   console.log("index", typeof index);
 
               return (
                 <React.Fragment key={card.key}>
@@ -379,9 +365,7 @@ export default (props) => {
                   >
                     {index === lastIndex ? (
                       <React.Fragment>
-                        <Text style={{ fontSize: 12 }}>
-                          {optionCard.premium.priceTag}
-                        </Text>
+                        <Text style={{ fontSize: 12 }}>{props.priceTag}</Text>
                         <Text
                           style={{
                             width: 554,

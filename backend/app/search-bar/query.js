@@ -4,18 +4,43 @@ class SearchBarQuery {
   static getHomepageAccounts() {
     return new Promise((resolve, reject) => {
       pool.query(
-        `SELECT distinct  useraccount.account_id as "accountId", company_name as "companyName", firstname as "firstName", surname, job_title as "jobTitle", web_address as "webAddress",branding_text as "brandingText" ,  (
-          SELECT ARRAY_AGG( proposal_name || '|'|| proposal_id) from proposal where proposal.account_id=useraccount.account_id ) as "proposalList"
-        FROM
-        useraccount  
-        left outer join branding_declaration  
-            on  useraccount.account_id = branding_declaration.account_id
-        inner join proposal 
-            on useraccount.account_id=proposal.account_id
+        `SELECT useraccount.account_id as "accountId", 
+        (
+     json_build_object(
+       'companyName', company_name,
+       'firstName', firstname,
+       'surname',surname,
+       'address',address,
+       'city',city,
+       'county',county,
+       'telephone', telephone,
+       'jobTitle', job_title,
+       'webAdress', web_address)  
+          
+     ) as "userInformation",
+     (
+       json_build_object(
+       'text_id',text_id,
+       'text',branding_text) 
+     )  as "brandingDeclarationDB" ,
         
-             
-        GROUP BY useraccount.account_id, company_name, firstname, surname, job_title,web_address, branding_text,"proposalList"         
-        ORDER BY surname;
+       (
+         SELECT ARRAY_AGG(json_build_object(
+       'proposal_name',proposal_name,
+       'proposal_id',proposal_id))            
+         ) as "proposalList"
+       FROM
+       useraccount  
+       left outer join branding_declaration  
+           on  useraccount.account_id = branding_declaration.account_id
+       inner join proposal 
+           on useraccount.account_id=proposal.account_id
+                    
+       GROUP BY useraccount.account_id, branding_text,useraccount.company_name,
+        useraccount.firstname,useraccount.surname,useraccount.address,
+        useraccount.city,useraccount.county,useraccount.telephone,useraccount.job_title,useraccount.web_address,
+        branding_declaration.text_id
+       ORDER BY "accountId";   
         `,
         (error, response) => {
           if (error) return reject(error);

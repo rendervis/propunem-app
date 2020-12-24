@@ -6,15 +6,20 @@ import styled from "styled-components";
 import OverlayBackground from "./overlay-background";
 ///////UI
 import { BigButtonOutline } from "../UI/big-button-outline.component";
+///////actions
+import { fetchRenderPdfOnHomePage } from "../../redux/actions/searchBar";
 
 const ModalPresentation = (props) => {
   const dispatch = useDispatch();
-
+  /**get accounts from store */
   const { homepageAccounts } = useSelector((state) => state.searchBar);
-
+  /**find selected one */
+  const isName = (userInformation) =>
+    userInformation.companyName === props.match.params.companyName;
   let selectedOne = Object.values(homepageAccounts).filter(
-    (company) => company.companyName === props.match.params.companyName
+    (val) => val.userInformation && isName(val.userInformation)
   );
+  /**de structure */
   const {
     companyName,
     firstName,
@@ -22,24 +27,31 @@ const ModalPresentation = (props) => {
     jobTitle,
     webAddress,
     brandingText,
-    proposalList,
-  } = selectedOne[0];
+  } = selectedOne[0].userInformation;
+  const { proposalList } = selectedOne[0];
+  const brandingDeclaration = selectedOne[0].brandingDeclarationDB;
 
   const renderList = () => {
-    return proposalList.map((myString) => {
+    return proposalList.map((prop) => {
       let url = props.match.url;
-      let name = myString.split("|")[0];
-      let proposalId = myString.split("|")[1];
-      console.log("name", name);
+      let name = prop.proposal_name.trim();
+      let proposalId = prop.proposal_id;
+
       return (
         <div key={name} onClick={() => {}}>
           <NavLink exact to={`${url}/${name}/${proposalId}`}>
-            <p style={{ marginTop: "1.2%" }}>{name.trim()} </p>
+            <p
+              onClick={() => dispatch(fetchRenderPdfOnHomePage({ proposalId }))}
+              style={{ marginTop: "1.2%" }}
+            >
+              {name.trim()}{" "}
+            </p>
           </NavLink>
         </div>
       );
     });
   };
+
   return (
     <OverlayBackground
       key={props.location.key}
@@ -52,11 +64,14 @@ const ModalPresentation = (props) => {
             {companyName || "Nume Companie"}
           </CompanyNameStyled>
           <ModalTitle>Serviciile noastre</ModalTitle>
-          <TextStyled> {brandingText || "Text branding"}</TextStyled>
+          <TextStyled>
+            {" "}
+            {brandingDeclaration.text || "Text branding"}
+          </TextStyled>
           <div style={{ marginTop: "19.5%" }}>
             <DecorationLine />
             <ProposalListStyled>
-              {proposalList.length > 0 ? renderList() : <p>Lista servicii</p>}
+              {proposalList ? renderList() : <p>Lista servicii</p>}
             </ProposalListStyled>
           </div>
         </div>
@@ -72,7 +87,9 @@ const ModalPresentation = (props) => {
             inputHeight="27px"
             borderRadius="3px"
             onClick={() =>
-              webAddress === null || webAddress.length === 0
+              webAddress === null ||
+              webAddress === undefined ||
+              webAddress.length === 0
                 ? alert("nu ai adresa web")
                 : {}
             }
@@ -80,7 +97,9 @@ const ModalPresentation = (props) => {
             <a
               target="_blank"
               href={
-                webAddress === null || webAddress.length === 0
+                webAddress === null ||
+                webAddress === undefined ||
+                webAddress.length === 0
                   ? null
                   : `${webAddress}`
               }

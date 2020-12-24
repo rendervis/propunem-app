@@ -23,6 +23,7 @@ const optionCardRouter = require("./api/optionCard");
 const authGoogleRouter = require("./api/authGoogle");
 const nodemailerRouter = require("./api/nodemailer");
 const searchBarRouter = require("./api/searchBar");
+const renderPdfOnHomePage = require("./api/renderPdfOnHomePage");
 
 const isProduction = process.env.NODE_ENV === "production";
 //Init
@@ -43,6 +44,7 @@ app.use("/api", offerSentRouter);
 app.use("/api", optionCardRouter);
 app.use("/api", nodemailerRouter);
 app.use("/api", searchBarRouter);
+app.use("/api", renderPdfOnHomePage);
 
 //-memory unleak---------
 app.set("trust proxy", 1);

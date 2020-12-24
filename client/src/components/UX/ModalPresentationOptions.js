@@ -13,11 +13,12 @@ import {
 } from "../../redux/actions/optionCard";
 
 const ModalPresentationOptions = (props) => {
-  console.log({ props });
+  // console.log({ props });
   const dispatch = useDispatch();
   const optionCard = useSelector((state) => state.optionCard.optionCard);
   const proposalId = props.match.params.proposalId;
-  console.log({ optionCard });
+
+  // console.log({ optionCard });
   ///////clear State
   useEffect(() => {
     dispatch(optionCardClearState());
@@ -52,12 +53,18 @@ const ModalPresentationOptions = (props) => {
     //TODO map text.
     return (
       <div style={{ display: "flex" }}>
-        <ModalOption proposalOptionName={"standard"} {...optionCard.standard} />
+        <ModalOption
+          proposalOptionName={"standard"}
+          optionCard={optionCard.standard}
+        />
         <ModalOption
           proposalOptionName={"recomandat"}
-          {...optionCard.recomandat}
+          optionCard={optionCard.recomandat}
         />
-        <ModalOption proposalOptionName={"premium"} {...optionCard.premium} />
+        <ModalOption
+          proposalOptionName={"premium"}
+          optionCard={optionCard.premium}
+        />
       </div>
     );
   };

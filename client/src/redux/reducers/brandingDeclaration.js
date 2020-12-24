@@ -31,9 +31,8 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         status: fetchStates.success,
         message: action.message,
-        brandingDeclarationDB: {
-          ..._.mapKeys(result, "text_id"),
-        },
+        brandingDeclarationDB: action.brandingDeclarationDB,
+
         brandingDeclaration: {
           ...state.brandingDeclaration,
           ..._.mapKeys(result, "text_id"),

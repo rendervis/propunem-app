@@ -16,7 +16,7 @@ export const fetchOptionCard = ({ proposalId, proposalOptionName, option }) => (
       return response.json();
     })
     .then((json) => {
-      console.log("json", json);
+      // console.log("json", json);
       if (json.type === "error") {
         dispatch({
           type: OPTION_CARD.FETCH_ERROR,

@@ -15,7 +15,7 @@ class RenderPdf extends React.Component {
   //TODO dispatch actions to update data from store
 
   render() {
-    // console.log("[RenderPdf -->>this.props.showPd]", this.props);
+    console.log("[RenderPdf -->>this.props.showPd]", this.props);
     // console.log("[RenderPdf -->>state]", this.state);
     /**Return */
     return (
@@ -81,7 +81,6 @@ const mapStateToProps = (state) => {
     /**
      * data from Redux store
      */
-
     userInformation: state.userInformation.userInformation,
     aboutUsText: state.aboutUsText.aboutUsText,
     brandingDeclaration: state.branding.brandingDeclarationDB,

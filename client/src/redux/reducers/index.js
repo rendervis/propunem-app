@@ -29,6 +29,7 @@ const persistConfig = {
     "offerCards",
     "offersSent",
     "optionCard",
+    "searchBar",
   ],
 };
 

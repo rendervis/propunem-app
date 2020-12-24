@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Switch, NavLink, Link, Route, withRouter } from "react-router-dom";
+import React from "react";
+import { Switch, NavLink, Route } from "react-router-dom";
 ///////components
 import ModalPresentation from "../components/UX/ModalPresentation";
 import ModalPresentationOptions from "../components/UX/ModalPresentationOptions";
+import RenderPdfOnHomePage from "../containers/pages/proposal/my_pdf_document/RenderPdfOnHomePage";
 ///////UI
 import styled from "styled-components";
 import { device } from "../configuration/device-sizes";
 ///////icons///////////
 import { styled as styledMaterial } from "@material-ui/core/styles";
 import PersonIcon from "@material-ui/icons/Person";
+
 const HomePageAccounts = ({ arrayOfAccounts, startingPoint, endPoint }) => {
   console.log("HomePageAccounts");
   return arrayOfAccounts
@@ -17,27 +19,32 @@ const HomePageAccounts = ({ arrayOfAccounts, startingPoint, endPoint }) => {
       return (
         <React.Fragment key={account.accountId}>
           <ServiceInfo>
-            <Link
+            <NavLink
               exact
-              to={`/${account.companyName}`}
+              to={`/${account.userInformation.companyName}`}
               activeClassName="selected"
             >
               <ServiceOwner>
-                {!account.companyName ? `Nume Companie` : account.companyName}
+                {!account.userInformation.companyName
+                  ? `Nume Companie`
+                  : account.userInformation.companyName}
               </ServiceOwner>
-            </Link>
+            </NavLink>
             <ServiceText>
-              {account.brandingText === null
+              {account.brandingDeclarationDB.text === null
                 ? `Declaratia ta de branding este prezentata aici.`
-                : account.brandingText}
+                : account.brandingDeclarationDB.text}
             </ServiceText>
             <ServiceFooter>
               <PersonIcon />
 
               <ServiceContact>
-                {!account.firstName && !account.surname
+                {!account.userInformation.firstName &&
+                !account.userInformation.surname
                   ? `Prenume Nume`
-                  : account.firstName + " " + account.surname}
+                  : account.userInformation.firstName +
+                    " " +
+                    account.userInformation.surname}
               </ServiceContact>
             </ServiceFooter>
           </ServiceInfo>
@@ -52,6 +59,18 @@ const HomePageAccounts = ({ arrayOfAccounts, startingPoint, endPoint }) => {
               exact
               path={`/:companyName/:proposalName/:proposalId`}
               render={() => <ModalPresentationOptions />}
+              //  component={ProposalForm}
+            />
+            <Route
+              exact
+              path={`/:companyName/:proposalName/:proposalId/:proposalTitle`}
+              render={(props) => {
+                return (
+                  <RenderPdfOnHomePage
+                    companyName={props.match.params.companyName}
+                  />
+                );
+              }}
               //  component={ProposalForm}
             />
           </Switch>

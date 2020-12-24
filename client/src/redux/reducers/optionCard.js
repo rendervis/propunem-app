@@ -40,7 +40,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log("[optionCard -->>reducer:]", action);
+  // console.log("[optionCard -->>reducer:]", action);
 
   switch (action.type) {
     case OPTION_CARD.FETCH:
@@ -184,7 +184,7 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
     case OPTION_CARD.CREATE_OPTION_CARD:
-      console.log("[case OPTION_CARD.CREATE_OPTION_CARD:]", action);
+      // console.log("[case OPTION_CARD.CREATE_OPTION_CARD:]", action);
       let nameCreate = action.proposalOptionName;
       return {
         ...state,

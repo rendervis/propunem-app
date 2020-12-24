@@ -54,7 +54,10 @@ const ServicesSection = (props) => {
     dispatch(fetchHomepageAccounts());
   }, []);
   /** render methods */
-  const arrayOfAccounts = Object.values(homepageAccounts);
+  const arrayOfAccounts = Object.values(homepageAccounts).filter(
+    (account) => account.accountId
+  );
+
   let arrayOfQueryResult = Object.values(queryResult);
 
   // console.log("loading", loading);

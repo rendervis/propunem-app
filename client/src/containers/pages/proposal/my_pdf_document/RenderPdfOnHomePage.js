@@ -8,6 +8,7 @@ class RenderPdfOnHomePage extends React.Component {
   render() {
     const { companyName } = this.props;
     const { proposalTitle } = this.props.match.params;
+
     const isName = (userInformation) =>
       userInformation.companyName === companyName;
     const account = Object.values(this.props.accounts).filter(

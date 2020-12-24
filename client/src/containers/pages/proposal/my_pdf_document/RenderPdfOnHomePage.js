@@ -6,7 +6,6 @@ import MyDocumentOnHomePage from "./MyDocumentOnHomePage";
 import _ from "lodash";
 class RenderPdfOnHomePage extends React.Component {
   render() {
-    // console.log("[RenderPdfOnHomepage -->>this.props.showPdf]", this.props);
     const { companyName } = this.props;
     const { proposalTitle } = this.props.match.params;
     const isName = (userInformation) =>

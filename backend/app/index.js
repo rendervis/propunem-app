@@ -11,6 +11,8 @@ require("./services/passport");
 const { APP_SECRET } = require("../../environment_config/keys");
 
 ///////routes
+const searchBarRouter = require("./api/searchBar");
+const renderPdfOnHomePageRouter = require("./api/renderPdfOnHomePage");
 const accountRouter = require("./api/account");
 const userAccountRouter = require("./api/userAccount");
 const brandingDeclarationRouter = require("./api/brandingDeclaration");
@@ -22,8 +24,6 @@ const offerSentRouter = require("./api/offerSent");
 const optionCardRouter = require("./api/optionCard");
 const authGoogleRouter = require("./api/authGoogle");
 const nodemailerRouter = require("./api/nodemailer");
-const searchBarRouter = require("./api/searchBar");
-const renderPdfOnHomePageRouter = require("./api/renderPdfOnHomePage");
 
 const isProduction = process.env.NODE_ENV === "production";
 //Init

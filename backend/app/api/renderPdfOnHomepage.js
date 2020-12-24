@@ -4,7 +4,6 @@ const HomePagePdf = require("../render-pdf-on-homepage/query");
 const router = new Router();
 router.get("/homepage-pdf/:proposalId", (req, res, next) => {
   // console.log("/homepage-pdf", req.params);
-
   const proposalId = req.params.proposalId;
 
   HomePagePdf.getHomePagePdf({ proposalId })

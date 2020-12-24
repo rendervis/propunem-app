@@ -15,7 +15,7 @@ class SearchBarQuery {
        'county',county,
        'telephone', telephone,
        'jobTitle', job_title,
-       'webAdress', web_address)  
+       'webAddress', web_address)  
           
      ) as "userInformation",
      (

@@ -5,12 +5,7 @@ import styles from "./styles";
 // Create Document Component
 export default (props) => {
   //   console.log({ props });
-  const [userInformation, setUserInformation] = useState(props.userInformation);
 
-  const [proposalList, setProposalList] = useState(props.proposalList);
-
-  const [offerCards, setOfferCards] = useState();
-  const [optionCard, setOptionCard] = useState(props.optionCard);
   let {
     address,
     city,
@@ -21,7 +16,7 @@ export default (props) => {
     surname,
     telephone,
     webAddress,
-  } = userInformation;
+  } = props.userInformation;
 
   const [selectedOption, setSelectedOption] = useState(
     props.selected || "premium"
@@ -108,14 +103,14 @@ export default (props) => {
   };
   /**** proposalList */
   const renderServices = () => {
-    if (!proposalList) {
+    if (!props.proposalList || props.proposalList === null) {
       return (
         <Text style={{ fontSize: 6, fontWeight: 700, marginTop: 9 }}>
           nu sunt servicii
         </Text>
       );
     }
-    return proposalList.map((name) => {
+    return props.proposalList.map((name) => {
       return (
         <Text
           key={name.proposal_name}

@@ -39,12 +39,12 @@ const ModalPresentation = (props) => {
 
       return (
         <div key={name} onClick={() => {}}>
-          <NavLink exact to={`${url}/${name}/${proposalId}`}>
+          <NavLink exact to={`${url}/${name.replace(" ", "-")}/${proposalId}`}>
             <p
               onClick={() => dispatch(fetchRenderPdfOnHomePage({ proposalId }))}
               style={{ marginTop: "1.2%" }}
             >
-              {name.trim()}{" "}
+              {name}{" "}
             </p>
           </NavLink>
         </div>

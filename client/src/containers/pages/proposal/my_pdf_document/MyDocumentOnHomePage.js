@@ -6,15 +6,10 @@ import styles from "./styles";
 export default (props) => {
   //   console.log({ props });
   const [userInformation, setUserInformation] = useState(props.userInformation);
-  const [aboutUsText, setAboutUsText] = useState(
-    Object.values(props.aboutUsText)
-  );
 
   const [proposalList, setProposalList] = useState(props.proposalList);
-  const [ourApproach, setOurApproach] = useState(
-    Object.values(props.ourApproach)
-  );
-  const [offerCards, setOfferCards] = useState(Object.values(props.offerCards));
+
+  const [offerCards, setOfferCards] = useState();
   const [optionCard, setOptionCard] = useState(props.optionCard);
   let {
     address,
@@ -68,7 +63,11 @@ export default (props) => {
   };
   /**** AboutUs ****/
   const renderAboutUsText = () => {
-    if (aboutUsText.length === 0) {
+    if (
+      props.aboutUsText === null ||
+      props.aboutUsText === undefined ||
+      props.aboutUsText.length === 0
+    ) {
       return (
         <Text style={styles.text}>
           Oh, how I wish I could believe or understand that!There's only one
@@ -78,7 +77,7 @@ export default (props) => {
         </Text>
       );
     } else {
-      return aboutUsText.map((about, index) => {
+      return Object.values(props.aboutUsText).map((about, index) => {
         // console.log("about.about_text", about.about_text);
         return (
           <React.Fragment key={about.text_id}>
@@ -129,7 +128,11 @@ export default (props) => {
   };
   /**** ourApproach */
   const renderOurApproach = () => {
-    if (ourApproach.length === 0) {
+    if (
+      props.ourApproach === null ||
+      props.ourApproach === undefined ||
+      props.ourApproach.length === 0
+    ) {
       return (
         <View>
           <Text style={{ width: 474, fontSize: 13 }}>
@@ -141,7 +144,7 @@ export default (props) => {
         </View>
       );
     } else {
-      return ourApproach.map((card, index) => {
+      return Object.values(props.ourApproach).map((card, index) => {
         return (
           <React.Fragment key={card.key}>
             <Text style={{ width: 474, fontSize: 13 }}>
@@ -154,7 +157,7 @@ export default (props) => {
   };
 
   /**** Offer ****/
-  let lastIndex = offerCards.length - 1;
+  let lastIndex;
   const renderPriceTag = () => {
     return (
       <React.Fragment>
@@ -170,8 +173,11 @@ export default (props) => {
     );
   };
   const renderOffer = () => {
-    // let selected = "premium";
-    if (offerCards.length === 0) {
+    if (
+      props.offerCards === null ||
+      props.offerCards === undefined ||
+      props.offerCards.length === 0
+    ) {
       return (
         <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
           <Text style={{ fontSize: 8, color: "#A6AAA9", fontWeight: 600 }}>
@@ -201,7 +207,7 @@ export default (props) => {
     } else {
       switch (selectedOption) {
         case "standard":
-          let standardArray = offerCards.filter(
+          let standardArray = Object.values(props.offerCards).filter(
             (card) => card.offerPlan.standard === true
           );
           lastIndex = standardArray.length - 1;
@@ -258,7 +264,7 @@ export default (props) => {
             );
           });
         case "recomandat":
-          let recommendedArray = offerCards.filter(
+          let recommendedArray = Object.values(props.offerCards).filter(
             (card) =>
               card.offerPlan.recomandat === true ||
               card.offerPlan.standard === true
@@ -318,7 +324,7 @@ export default (props) => {
             );
           });
         default:
-          return offerCards
+          return Object.values(props.offerCards)
             .filter(
               (card) =>
                 card.offerPlan.premium === true ||

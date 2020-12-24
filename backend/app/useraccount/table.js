@@ -120,8 +120,8 @@ class UserAccountTable {
 }
 
 ///////debug
-UserAccountTable.getUserAccount({ accountId: 54 })
-  .then(({ userInformation }) => console.log({ userInformation }))
-  .catch((error) => console.log("error", error));
+// UserAccountTable.getUserAccount({ accountId: 54 })
+//   .then(({ userInformation }) => console.log({ userInformation }))
+//   .catch((error) => console.log("error", error));
 
 module.exports = UserAccountTable;

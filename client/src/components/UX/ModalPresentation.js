@@ -38,16 +38,22 @@ const ModalPresentation = (props) => {
       let proposalId = prop.proposal_id;
 
       return (
-        <div key={name} onClick={() => {}}>
-          <NavLink exact to={`${url}/${name.replace(" ", "-")}/${proposalId}`}>
-            <p
+        <React.Fragment key={name} onClick={() => {}}>
+          <NavLink
+            exact
+            to={`${url}/${name.replace(/\s+/g, "-")}/${proposalId}`}
+          >
+            <li
               onClick={() => dispatch(fetchRenderPdfOnHomePage({ proposalId }))}
-              style={{ marginTop: "1.2%" }}
+              style={{
+                marginTop: "1.2%",
+                display: "inline",
+              }}
             >
               {name}{" "}
-            </p>
+            </li>
           </NavLink>
-        </div>
+        </React.Fragment>
       );
     });
   };
@@ -68,7 +74,14 @@ const ModalPresentation = (props) => {
             {" "}
             {brandingDeclaration.text || "Text branding"}
           </TextStyled>
-          <div style={{ marginTop: "19.5%" }}>
+          <div
+            style={{
+              marginTop: "19.5%",
+              display: "flex",
+              flexDirection: "column",
+              flexWrap: "wrap",
+            }}
+          >
             <DecorationLine />
             <ProposalListStyled>
               {proposalList ? renderList() : <p>Lista servicii</p>}
@@ -153,8 +166,10 @@ const DecorationLine = styled.div`
   height: 6px;
   background-color: #e2e2e2;
 `;
-const ProposalListStyled = styled.li`
+const ProposalListStyled = styled.ul`
   margin-top: 5.2%;
+
+  height: 180px;
   font-size: 13px;
   font-weight: 700;
   display: flex;
